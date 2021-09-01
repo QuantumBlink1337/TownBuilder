@@ -12,7 +12,20 @@ public class Player {
         name = sc.nextLine();
         score = 0;
     }
+
+    // getter methods
+    public int getScore() {
+        return score;
+    }
+    public String getName() {
+        return name;
+    }
+
+
+
+
     public void addScore(int s) {
         score = score + s;
     }
+
 }
