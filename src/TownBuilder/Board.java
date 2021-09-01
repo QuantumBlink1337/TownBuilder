@@ -46,12 +46,7 @@ public class Board {
         System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-
-                if (gameResourceBoard[row][col].getResource() == null) {
-                    gameBoard[row][col] = "[EMPTY!]";
-                }
-                else {
-                    System.out.println("Switch case invoked!");
+                try  {
                     switch (gameResourceBoard[row][col].getResource()) {
 
                         case GLASS:
@@ -71,11 +66,19 @@ public class Board {
                             break;
                     }
                 }
+                catch (Exception e) {
+                    gameBoard[row][col] = "[EMPTY!]";
+                }
             }
         }
         for (int row = 0; row < gameBoard.length; row++) {
             for (int col = 0; col < gameBoard[row].length; col++) {
-                System.out.println(gameBoard[row][col]);
+                if (col == 3) {
+                    System.out.println(gameBoard[row][col]);
+                }
+                else {
+                    System.out.print(gameBoard[row][col]);
+                }
             }
         }
     }
