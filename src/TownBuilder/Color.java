@@ -6,11 +6,5 @@ public enum Color {
     YELLOW,
     GREEN,
     GRAY,
-    BLACK,
-    CYAN,
-    LIGHTGRAY,
-    ORANGE,
-    GOLD,
-    BROWN
-    
+    BLACK
 }

@@ -1,9 +1,12 @@
 package TownBuilder;
 
 public class TownResource extends TownObjects{
-    private Color resourceColor;
-    public TownResource(Color c) {
-        resourceColor = c;
+    private Resources resource;
+    public TownResource(Resources r) {
+        resource = r;
+    }
+    public Resources getResource() {
+        return resource;
     }
 
 
