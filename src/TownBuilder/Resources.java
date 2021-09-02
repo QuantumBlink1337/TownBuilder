@@ -6,9 +6,9 @@ public enum Resources {
     WOOD,
     WHEAT,
     STONE;
-    public Resources randomResource() {
+    public static Resources randomResource() {
         Resources resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
-        int random = (int) (Math.random() * 5) + 1;
+        int random = (int) (Math.random() * 5);
         return resourceArray[random];
     }
 }

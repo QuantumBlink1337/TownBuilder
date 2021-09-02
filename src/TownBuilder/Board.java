@@ -33,11 +33,11 @@ public class Board {
         while (!gameCompletion) {
             renderBoard();
             playerTurn();
-            gameCompletion = true;
+
         }
     }
     public void playerTurn() {
-        Resources turnResource = randomResource();
+        Resources turnResource = Resources.randomResource();
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
     }
@@ -53,6 +53,10 @@ public class Board {
             }
         }
         String[] coordinateHelper = userCoordinate.split("", 2);
+
+        for (String character : coordinateHelper) {
+            System.out.println(character);
+        }
        switch (coordinateHelper[0]) {
             case "a":
                 col = 0;
