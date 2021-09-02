@@ -10,8 +10,10 @@ public enum ResourceEnum {
 
 
     public static ResourceEnum randomResource() {
-        ResourceEnum resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
-        int random = (int) (Math.random() * 5);
+        //ResourceEnum resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
+        ResourceEnum resourceArray[] = {WOOD, WHEAT};
+
+        int random = (int) (Math.random() * 2);
         return resourceArray[random];
     }
 }

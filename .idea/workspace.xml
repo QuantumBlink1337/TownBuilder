@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="refactored names of enums to make it clearer which is an enum">
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="rewrote gameResourceBoard and enums">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/BuildingType.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Resources.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" afterDir="false" />
@@ -31,6 +27,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1xYLa5jyPYcjw6GIxFiNzcmqdQi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -105,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630610354500</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="rewrote gameResourceBoard and enums">
+      <created>1630613908441</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1630613908441</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,7 +132,8 @@
     <MESSAGE value="WARNING! DOES NOT COMPILE!&#10;Working on renderBoard function to render the board. Split arrays into a resource and building, where a string array is created to display" />
     <MESSAGE value="cleaned up debug print statements (no longer needed) and added code to prevent using a coordinate that already has a building/resource" />
     <MESSAGE value="refactored names of enums to make it clearer which is an enum" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored names of enums to make it clearer which is an enum" />
+    <MESSAGE value="rewrote gameResourceBoard and enums" />
+    <option name="LAST_COMMIT_MESSAGE" value="rewrote gameResourceBoard and enums" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -137,7 +144,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java</url>
-          <line>22</line>
+          <line>35</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

@@ -2,6 +2,7 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.RedBuilding;
 
 import java.util.Scanner;
 
@@ -14,6 +15,8 @@ public class Board {
     private int[][] numberCoords = new int[1][4];
     private boolean gameCompletion;
     private Scanner sc = new Scanner(System.in);
+
+    private boolean redBuildingDetection;
 
     public Board() {
         player = new Player();
@@ -41,8 +44,17 @@ public class Board {
         while (!gameCompletion) {
             renderBoard();
             playerTurn();
+            detection();
 
         }
+    }
+    public void detection() {
+        for (int row = 0; row < gameResourceBoard.length; row++) {
+            for (int col = 0; col < gameResourceBoard[row].length; col++) {
+                redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
+            }
+        }
+
     }
     public void playerTurn() {
         ResourceEnum turnResource = ResourceEnum.randomResource();
@@ -105,7 +117,7 @@ public class Board {
                     //System.out.println("Case 3");
                 }
             }
-            System.out.println("Row: " + row + "Col: " + col);
+            //System.out.println("Row: " + row + "Col: " + col);
             if (gameResourceBoard[row][col].getResource() == ResourceEnum.NULL) {
                 gameResourceBoard[row][col].setResource(random);
                 validSpot = true;
