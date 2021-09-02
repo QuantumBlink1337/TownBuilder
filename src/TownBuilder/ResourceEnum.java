@@ -5,7 +5,10 @@ public enum ResourceEnum {
     BRICK,
     WOOD,
     WHEAT,
-    STONE;
+    STONE,
+    NULL;
+
+
     public static ResourceEnum randomResource() {
         ResourceEnum resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
         int random = (int) (Math.random() * 5);

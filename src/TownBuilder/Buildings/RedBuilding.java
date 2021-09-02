@@ -1,5 +1,8 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.ResourceEnum;
+import TownBuilder.TownResource;
+
 public class RedBuilding extends Building {
     private BuildingEnum buildingEnum;
     public RedBuilding(BuildingEnum b) {
@@ -12,4 +15,15 @@ public class RedBuilding extends Building {
         }
         return 0;
     }
+//    public boolean redDetection(int row, int col, TownResource[][] resourceArray) {
+//        boolean detection = false;
+//        try {
+//            if (resourceArray[row][col].getResource() == ResourceEnum.WHEAT) {
+//                if ()
+//            }
+//        }
+//        catch(Exception e) {
+//        }
+//
+//     }
 }

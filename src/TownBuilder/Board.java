@@ -18,14 +18,21 @@ public class Board {
     public Board() {
         player = new Player();
         gameCompletion = false;
-        buildCoords();
+        buildArrays();
     }
-    public void buildCoords() {
+    public void buildArrays() {
         //System.out.print("Building coords...");
         for (int row = 0; row < numberCoords.length; row++) {
             for (int col = 0; col < numberCoords[row].length; col++) {
                 numberCoords[row][col] = col;
                 //System.out.println(numberCoords[row][col]);
+            }
+        }
+        //System.out.println("Building resource array");
+        for (int row = 0; row < gameResourceBoard.length; row++) {
+            for (int col = 0; col < gameResourceBoard[row].length; col++) {
+                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NULL);
+                //System.out.println(gameResourceBoard[row][col]);
             }
         }
 
@@ -99,8 +106,8 @@ public class Board {
                 }
             }
             System.out.println("Row: " + row + "Col: " + col);
-            if (gameBoard[row][col].equals("[EMPTY!]")) {
-                gameResourceBoard[row][col] = new TownResource(random);
+            if (gameResourceBoard[row][col].getResource() == ResourceEnum.NULL) {
+                gameResourceBoard[row][col].setResource(random);
                 validSpot = true;
             }
             else {
@@ -117,17 +124,13 @@ public class Board {
         //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                try  {
-                    switch (gameResourceBoard[row][col].getResource()) {
-                        case GLASS -> gameBoard[row][col] = "[Glass]";
-                        case STONE -> gameBoard[row][col] = "[Stone]";
-                        case BRICK -> gameBoard[row][col] = "[Brick]";
-                        case WHEAT -> gameBoard[row][col] = "[Wheat]";
-                        case WOOD -> gameBoard[row][col] = "[Wood]";
-                    }
-                }
-                catch (Exception e) {
-                    gameBoard[row][col] = "[EMPTY!]";
+                switch (gameResourceBoard[row][col].getResource()) {
+                    case GLASS -> gameBoard[row][col] = "[Glass]";
+                    case STONE -> gameBoard[row][col] = "[Stone]";
+                    case BRICK -> gameBoard[row][col] = "[Brick]";
+                    case WHEAT -> gameBoard[row][col] = "[Wheat]";
+                    case WOOD -> gameBoard[row][col] = "[Wood]";
+                    case NULL -> gameBoard[row][col] = "[EMPTY]";
                 }
             }
         }

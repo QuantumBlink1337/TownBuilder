@@ -8,6 +8,12 @@ public class TownResource extends TownObjects{
     public ResourceEnum getResource() {
         return resource;
     }
+    public void setResource(ResourceEnum r) {
+        resource = r;
+    }
+    public String toString() {
+        return resource.name();
+    }
 
 
 

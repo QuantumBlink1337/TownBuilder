@@ -5,6 +5,7 @@ public enum BuildingEnum {
     TEMPLE,
     HOUSE,
     AUDITORIUM,
-    INN
+    INN,
+    NULL
 
 }
