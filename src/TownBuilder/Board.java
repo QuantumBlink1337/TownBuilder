@@ -1,6 +1,9 @@
 package TownBuilder;
 
 
+import java.util.Locale;
+import java.util.Scanner;
+
 public class Board {
     private final Player player;
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
@@ -8,9 +11,12 @@ public class Board {
     private String[][] gameBoard = new String[4][4];
     private final char[] letterCoords = {' ', 'a', 'b', 'c', 'd'};
     private int[][] numberCoords = new int[1][4];
+    private boolean gameCompletion;
+    private Scanner sc = new Scanner(System.in);
 
     public Board() {
         player = new Player();
+        gameCompletion = false;
         buildCoords();
     }
     public void buildCoords() {
@@ -22,6 +28,52 @@ public class Board {
             }
         }
 
+    }
+    public void game() {
+        while (!gameCompletion) {
+            renderBoard();
+            playerTurn();
+            gameCompletion = true;
+        }
+    }
+    public void playerTurn() {
+        Resources turnResource = randomResource();
+        System.out.println("Your resource for this turn is "+turnResource);
+        resourcePlacer(turnResource);
+    }
+    public void resourcePlacer(Resources random) {
+        String userCoordinate = "   ";
+        int col = 0;
+        int row = 0;
+        while (userCoordinate.length() > 2) {
+            System.out.println("Where would you like to place your resource?");
+            userCoordinate = sc.nextLine().toLowerCase();
+            if (userCoordinate.length() > 2) {
+                System.out.println("Oops! That's not a coordinate.");
+            }
+        }
+        String[] coordinateHelper = userCoordinate.split("", 2);
+       switch (coordinateHelper[0]) {
+            case "a":
+                col = 0;
+            case "b":
+                col = 1;
+           case "c":
+               col = 2;
+           case "d":
+               col = 3;
+       }
+       switch (coordinateHelper[1]) {
+           case "0":
+               row = 0;
+           case "1":
+               row = 1;
+           case "2":
+               row = 2;
+           case "3":
+               row = 3;
+       }
+       gameResourceBoard[row][col] = new TownResource(random);
     }
     public void renderBoard() {
         System.out.println("Rendering game board");
