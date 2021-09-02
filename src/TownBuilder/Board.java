@@ -57,27 +57,45 @@ public class Board {
         for (String character : coordinateHelper) {
             System.out.println(character);
         }
-       switch (coordinateHelper[0]) {
-            case "a":
+        switch (coordinateHelper[0]) {
+            case "a" -> {
                 col = 0;
-            case "b":
+                System.out.println("Case A");
+            }
+            case "b" -> {
                 col = 1;
-           case "c":
-               col = 2;
-           case "d":
-               col = 3;
-       }
-       switch (coordinateHelper[1]) {
-           case "0":
-               row = 0;
-           case "1":
-               row = 1;
-           case "2":
-               row = 2;
-           case "3":
-               row = 3;
-       }
+                System.out.println("Case B");
+            }
+            case "c" -> {
+                col = 2;
+                System.out.println("Case C");
+            }
+            case "d" -> {
+                col = 3;
+                System.out.println("Case D");
+            }
+        }
+        switch (coordinateHelper[1]) {
+            case "0" -> {
+                row = 0;
+                System.out.println("Case 0");
+            }
+            case "1" -> {
+                row = 1;
+                System.out.println("Case 1");
+            }
+            case "2" -> {
+                row = 2;
+                System.out.println("Case 2");
+            }
+            case "3" -> {
+                row = 3;
+                System.out.println("Case 3");
+            }
+        }
+        System.out.println("Row: " + row+ "Col: " +col);
        gameResourceBoard[row][col] = new TownResource(random);
+       userCoordinate = "   ";
     }
     public void renderBoard() {
         System.out.println("Rendering game board");
