@@ -1,6 +1,6 @@
 package TownBuilder.Buildings;
 
-public enum BuildingType {
+public enum BuildingEnum {
     FARM,
     TEMPLE,
     HOUSE,

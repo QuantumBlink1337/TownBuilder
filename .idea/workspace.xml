@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="refactored names of enums to make it clearer which is an enum">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/BuildingType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Color.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Player.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Resources.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownObjects.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Resources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1xYLa5jyPYcjw6GIxFiNzcmqdQi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Driver" />
+      <module name="TownBuilder" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Driver" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="" />
+      <created>1630527135196</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1630527135196</updated>
+    </task>
+    <task id="LOCAL-00001" summary="gitignore stuff">
+      <created>1630527310727</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1630527310727</updated>
+    </task>
+    <task id="LOCAL-00002" summary="function in Board to build the coordinate grid that is displayed to the user&#10;WIP function to render the Board to the player">
+      <created>1630530347601</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1630530347601</updated>
+    </task>
+    <task id="LOCAL-00003" summary="WARNING! DOES NOT COMPILE!&#10;Working on renderBoard function to render the board. Split arrays into a resource and building, where a string array is created to display">
+      <created>1630531882619</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1630531882619</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cleaned up debug print statements (no longer needed) and added code to prevent using a coordinate that already has a building/resource">
+      <created>1630604030261</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1630604030261</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="gitignore stuff" />
+    <MESSAGE value="function in Board to build the coordinate grid that is displayed to the user&#10;WIP function to render the Board to the player" />
+    <MESSAGE value="WARNING! DOES NOT COMPILE!&#10;Working on renderBoard function to render the board. Split arrays into a resource and building, where a string array is created to display" />
+    <MESSAGE value="cleaned up debug print statements (no longer needed) and added code to prevent using a coordinate that already has a building/resource" />
+    <MESSAGE value="refactored names of enums to make it clearer which is an enum" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored names of enums to make it clearer which is an enum" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

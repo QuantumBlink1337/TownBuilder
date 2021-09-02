@@ -38,11 +38,11 @@ public class Board {
         }
     }
     public void playerTurn() {
-        Resources turnResource = Resources.randomResource();
+        ResourceEnum turnResource = ResourceEnum.randomResource();
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
     }
-    public void resourcePlacer(Resources random) {
+    public void resourcePlacer(ResourceEnum random) {
         String userCoordinate = "   ";
         int col = 0;
         int row = 0;

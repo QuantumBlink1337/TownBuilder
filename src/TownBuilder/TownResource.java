@@ -1,11 +1,11 @@
 package TownBuilder;
 
 public class TownResource extends TownObjects{
-    private Resources resource;
-    public TownResource(Resources r) {
+    private ResourceEnum resource;
+    public TownResource(ResourceEnum r) {
         resource = r;
     }
-    public Resources getResource() {
+    public ResourceEnum getResource() {
         return resource;
     }
 

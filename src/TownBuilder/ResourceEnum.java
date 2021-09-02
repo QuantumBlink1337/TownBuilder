@@ -1,13 +1,13 @@
 package TownBuilder;
 
-public enum Resources {
+public enum ResourceEnum {
     GLASS,
     BRICK,
     WOOD,
     WHEAT,
     STONE;
-    public static Resources randomResource() {
-        Resources resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
+    public static ResourceEnum randomResource() {
+        ResourceEnum resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
         int random = (int) (Math.random() * 5);
         return resourceArray[random];
     }
