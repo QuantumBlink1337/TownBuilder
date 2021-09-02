@@ -16,14 +16,35 @@ public class RedBuilding extends Building {
         return 0;
     }
     public static boolean redDetection(int row, int col, TownResource[][] resourceArray) {
-
-        if (resourceArray[row][col].getResource() == ResourceEnum.WHEAT && resourceArray[row][col].getScannedStatus()) {
+        System.out.println("Row: " + row + " Col: " + col);
+        if (resourceArray[row][col].getResource() == ResourceEnum.WHEAT && !resourceArray[row][col].getScannedStatus()) {
             System.out.println("Wheat found. Beginning scan sequence.");
-            if (resourceArray[row + 1][col].getResource() == ResourceEnum.WHEAT) {
+            System.out.println("Modded Row: " + (row)+ " Col: " + col);
+            if (resourceArray[row][col+1].getResource() == ResourceEnum.WHEAT) {
+                System.out.println("Row: " + row + " Modded Col: " + (col+1));
                 System.out.println("Wheat found. 2/4 found");
-                if (resourceArray[row][col + 1].getResource() == ResourceEnum.WOOD) {
+                if (resourceArray[row+1][col].getResource() == ResourceEnum.WOOD) {
                     System.out.println("Wood found. 3/4 found");
-                    if (resourceArray[row + 1][col + 1].getResource() == ResourceEnum.WOOD) {
+                    System.out.println("Modded Row: " + (row) + " Modded Col: " + (col+1));
+                    if (resourceArray[row+1][col+1].getResource() == ResourceEnum.WOOD) {
+                        System.out.println("Modded Row: " + (row+1) + " Modded Col: " + (col+1));
+                        resourceArray[row][col].setScannedStatus();
+                        resourceArray[row+1][col].setScannedStatus();
+                        resourceArray[row][col+1].setScannedStatus();
+                        resourceArray[row+1][col+1].setScannedStatus();
+                        System.out.println("FARM FOUND!");
+                        return true;
+                    }
+                }
+            }
+            if (resourceArray[row][col+1].getResource() == ResourceEnum.WHEAT) {
+                System.out.println("Row: " + row + " Modded Col: " + (col+1));
+                System.out.println("Wheat found. 2/4 found");
+                if (resourceArray[row+1][col].getResource() == ResourceEnum.WOOD) {
+                    System.out.println("Wood found. 3/4 found");
+                    System.out.println("Modded Row: " + (row) + " Modded Col: " + (col+1));
+                    if (resourceArray[row+1][col+1].getResource() == ResourceEnum.WOOD) {
+                        System.out.println("Modded Row: " + (row+1) + " Modded Col: " + (col+1));
                         resourceArray[row][col].setScannedStatus();
                         resourceArray[row+1][col].setScannedStatus();
                         resourceArray[row][col+1].setScannedStatus();
@@ -34,6 +55,8 @@ public class RedBuilding extends Building {
                 }
             }
         }
+
+
         return false;
      }
 }

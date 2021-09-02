@@ -7,6 +7,8 @@ public class Building extends TownObjects {
 
     public BuildingEnum getType() {
         return buildingEnum;
+
     }
 
 }
+

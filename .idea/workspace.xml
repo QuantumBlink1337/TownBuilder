@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="rewrote gameResourceBoard and enums">
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="began work on Detection for a Farm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/Building.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630613908441</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="began work on Detection for a Farm">
+      <created>1630619737612</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1630619737612</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,7 +139,8 @@
     <MESSAGE value="cleaned up debug print statements (no longer needed) and added code to prevent using a coordinate that already has a building/resource" />
     <MESSAGE value="refactored names of enums to make it clearer which is an enum" />
     <MESSAGE value="rewrote gameResourceBoard and enums" />
-    <option name="LAST_COMMIT_MESSAGE" value="rewrote gameResourceBoard and enums" />
+    <MESSAGE value="began work on Detection for a Farm" />
+    <option name="LAST_COMMIT_MESSAGE" value="began work on Detection for a Farm" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -142,11 +149,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

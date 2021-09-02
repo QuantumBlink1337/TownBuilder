@@ -11,6 +11,7 @@ public class Board {
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
+    private String[][] coordinateBoard = new String[4][4];
     private final char[] letterCoords = {' ', 'a', 'b', 'c', 'd'};
     private int[][] numberCoords = new int[1][4];
     private boolean gameCompletion;
@@ -38,6 +39,13 @@ public class Board {
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
+        for (int row = 0; row < coordinateBoard.length; row++) {
+            for (int col = 0; col < coordinateBoard[row].length; col++) {
+                coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
+
+            }
+        }
+
 
     }
     public void game() {
@@ -57,6 +65,12 @@ public class Board {
 
     }
     public void playerTurn() {
+        String playerChoice = "";
+        System.out.println("What would you like to do this turn?");
+        playerChoice = sc.nextLine().toLowerCase().strip();
+        if (playerChoice.equals("clear")) {
+            buildArrays();
+        }
         ResourceEnum turnResource = ResourceEnum.randomResource();
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
@@ -170,6 +184,18 @@ public class Board {
                     else {
                         System.out.print(gameBoard[row][col]);
                     }
+                }
+
+            }
+        }
+        System.out.println("This grid helps with figuring out where things should go");
+        for (int row = 0; row < coordinateBoard.length; row++) {
+            for (int col = 0; col < coordinateBoard[row].length; col++) {
+                if (col == 3) {
+                    System.out.println(coordinateBoard[row][col]);
+                }
+                else {
+                    System.out.print(coordinateBoard[row][col]);
                 }
 
             }
