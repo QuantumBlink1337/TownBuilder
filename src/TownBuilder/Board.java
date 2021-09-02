@@ -12,9 +12,6 @@ public class Board {
     public Board() {
         player = new Player();
         buildCoords();
-
-
-
     }
     public void buildCoords() {
         System.out.print("Building coords...");
@@ -32,22 +29,11 @@ public class Board {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 try  {
                     switch (gameResourceBoard[row][col].getResource()) {
-
-                        case GLASS:
-                            gameBoard[row][col] = "[Glass]";
-                            break;
-                        case STONE:
-                            gameBoard[row][col] = "[Stone]";
-                            break;
-                        case BRICK:
-                            gameBoard[row][col] = "[Brick]";
-                            break;
-                        case WHEAT:
-                            gameBoard[row][col] = "[Wheat]";
-                            break;
-                        case WOOD:
-                            gameBoard[row][col] = "[Wood]";
-                            break;
+                        case GLASS -> gameBoard[row][col] = "[Glass]";
+                        case STONE -> gameBoard[row][col] = "[Stone]";
+                        case BRICK -> gameBoard[row][col] = "[Brick]";
+                        case WHEAT -> gameBoard[row][col] = "[Wheat]";
+                        case WOOD -> gameBoard[row][col] = "[Wood]";
                     }
                 }
                 catch (Exception e) {
