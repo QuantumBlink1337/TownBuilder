@@ -2,11 +2,11 @@ package TownBuilder;
 
 
 public class Board {
-    private Player player;
+    private final Player player;
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
-    private char[][] letterCoords = new char[4][1];
+    private final char[] letterCoords = {' ', 'a', 'b', 'c', 'd'};
     private int[][] numberCoords = new int[1][4];
 
     public Board() {
@@ -18,22 +18,6 @@ public class Board {
     }
     public void buildCoords() {
         System.out.print("Building coords...");
-        char tempChar = 'a';
-        for (int row = 0; row < letterCoords.length; row++) {
-            if (row == 1) {
-                tempChar = 'b';
-            }
-            else if (row == 2) {
-                tempChar = 'c';
-            }
-            else if (row == 3) {
-                tempChar = 'd';
-            }
-            for (int col = 0; col < letterCoords[row].length; col++) {
-                letterCoords[row][col] = tempChar;
-                System.out.println(letterCoords[row][col]);
-            }
-        }
         for (int row = 0; row < numberCoords.length; row++) {
             for (int col = 0; col < numberCoords[row].length; col++) {
                 numberCoords[row][col] = col;
@@ -71,14 +55,32 @@ public class Board {
                 }
             }
         }
+
+        for (int i = 0; i < letterCoords.length; i++) {
+            if (i == 4) {
+                System.out.println(letterCoords[i]);
+
+            }
+            else {
+                System.out.print(letterCoords[i]);
+                System.out.print("     ");
+            }
+
+        }
         for (int row = 0; row < gameBoard.length; row++) {
-            for (int col = 0; col < gameBoard[row].length; col++) {
-                if (col == 3) {
-                    System.out.println(gameBoard[row][col]);
+            for (int col = -1; col < gameBoard[row].length; col++) {
+                if (col == -1) {
+                    System.out.print(numberCoords[0][row]);
                 }
                 else {
-                    System.out.print(gameBoard[row][col]);
+                    if (col == 3) {
+                        System.out.println(gameBoard[row][col]);
+                    }
+                    else {
+                        System.out.print(gameBoard[row][col]);
+                    }
                 }
+
             }
         }
     }
