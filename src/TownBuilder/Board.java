@@ -1,7 +1,8 @@
 package TownBuilder;
 
 
-import java.util.Locale;
+import TownBuilder.Buildings.Building;
+
 import java.util.Scanner;
 
 public class Board {
