@@ -7,7 +7,7 @@ import TownBuilder.Buildings.RedBuilding;
 import java.util.Scanner;
 
 public class Board {
-    private final Player player;
+    //private final Player player;
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
@@ -20,7 +20,7 @@ public class Board {
     private boolean redBuildingDetection;
 
     public Board() {
-        player = new Player();
+        //player = new Player();
         gameCompletion = false;
         buildArrays();
     }
@@ -42,17 +42,16 @@ public class Board {
         for (int row = 0; row < coordinateBoard.length; row++) {
             for (int col = 0; col < coordinateBoard[row].length; col++) {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
-
             }
         }
-
-
     }
     public void game() {
         while (!gameCompletion) {
             renderBoard();
             playerTurn();
+            System.out.println("Loop broke");
             detection();
+
 
         }
     }
@@ -66,14 +65,27 @@ public class Board {
     }
     public void playerTurn() {
         String playerChoice = "";
-        System.out.println("What would you like to do this turn?");
-        playerChoice = sc.nextLine().toLowerCase().strip();
-        if (playerChoice.equals("clear")) {
-            buildArrays();
+        boolean validInput = false;
+        do {
+            System.out.println("What would you like to do this turn?");
+            playerChoice = sc.nextLine().toLowerCase().strip();
+            System.out.print(playerChoice);
+            if (playerChoice.equals("clear")) {
+                buildArrays();
+                validInput = true;
+            } else if (playerChoice.equals("place")) {
+                ResourceEnum turnResource = ResourceEnum.randomResource();
+                System.out.println("Your resource for this turn is " + turnResource);
+                validInput = true;
+                resourcePlacer(turnResource);
+
+            } else if (playerChoice.equals("construct")) {
+            } else {
+                System.out.println("Not a valid action");
+                validInput = true;
+            }
         }
-        ResourceEnum turnResource = ResourceEnum.randomResource();
-        System.out.println("Your resource for this turn is "+turnResource);
-        resourcePlacer(turnResource);
+        while (!validInput);
     }
     public void resourcePlacer(ResourceEnum random) {
         String userCoordinate = "   ";
