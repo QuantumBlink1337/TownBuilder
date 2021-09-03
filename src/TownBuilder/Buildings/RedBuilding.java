@@ -45,15 +45,15 @@ public class RedBuilding extends Building {
         System.out.println("Row: " + row + " Col: " + col);
             try {
                 for (int i = 0; i < rArray.length; i++) {
-                    if (rArray[row][col].getResource() == farmArray[row][col]) {
+                    if (rArray[row][col].getResource() == farmArray[0][0]) {
                         System.out.println("1/4 match");
                         for (int a = 0; a < rArray.length; a++) {
-                            if (rArray[row+1][col].getResource() == farmArray[row+1][col]) {
+                            if (rArray[row+1][col].getResource() == farmArray[1][0]) {
                                 System.out.println("2/4 match");
                                 for (int b = 0; b < rArray.length; b++) {
-                                    if (rArray[row][col+1].getResource() == farmArray[row][col+1]) {
+                                    if (rArray[row][col+1].getResource() == farmArray[0][1]) {
                                         System.out.println("3/4 match");
-                                        if (rArray[row+1][col+1].getResource() == farmArray[row+1][col+1]) {
+                                        if (rArray[row+1][col+1].getResource() == farmArray[1][1]) {
                                             System.out.println("FARM FOUND!");
                                             rArray[row][col].setScannedStatus();
                                             rArray[row+1][col].setScannedStatus();
