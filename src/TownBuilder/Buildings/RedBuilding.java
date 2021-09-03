@@ -26,41 +26,48 @@ public class RedBuilding extends Building {
         System.out.println("Row: " + row + " Col: " + col);
             try {
                 for (int i = 0; i < rArray.length; i++) {
-                    if (rArray[row][col].getResource() == farmArray[row][col]) {
-                        System.out.println("1/4 match");
+                    if (rArray[row][col].getResource() == farmArray[0][0]) {
+                        //System.out.println("1/4 match at " + row + " and " + col);
                         for (int a = 0; a < rArray.length; a++) {
-                            if (rArray[row+1][col].getResource() == farmArray[row+1][col]) {
-                                System.out.println("2/4 match");
+                            if (rArray[row + 1][col].getResource() == farmArray[0][1]) {
+                                //System.out.println("2/4 match at " + row + " and " + col);
                                 for (int b = 0; b < rArray.length; b++) {
-                                    if (rArray[row][col+1].getResource() == farmArray[row][col+1]) {
-                                        System.out.println("3/4 match");
-                                        if (rArray[row+1][col+1].getResource() == farmArray[row+1][col+1]) {
-                                            System.out.println("FARM FOUND!");
-                                            return true;
-                                        }
-                                        else {
-                                            farmArray = buildingFlipper(farmArray);
+                                    if (rArray[row][col + 1].getResource() == farmArray[1][0]) {
+                                       // System.out.println("3/4 match at " + row + " and " + col);
+                                        for (int c = 0; c < rArray.length; c++) {
+                                            if (rArray[row + 1][col + 1].getResource() == farmArray[1][1]) {
+                                                //System.out.println("FARM FOUND!");
+                                                return true;
+                                            }
+                                            else {
+                                                //System.out.println("No 4/4 match found.");
+                                                farmArray = buildingFlipper(farmArray);
+                                            }
                                         }
                                     }
                                     else {
+                                        //System.out.println("No 3/4 match found.");
                                         farmArray = buildingFlipper(farmArray);
                                     }
                                 }
                             }
                             else {
+                                //System.out.println("No 2/4 match found.");
                                 farmArray = buildingFlipper(farmArray);
                             }
                         }
                     }
                     else {
+                        //System.out.println("No 1/4 match found.");
                         farmArray = buildingFlipper(farmArray);
                     }
                     if (i == 3) {
-                        System.out.println("Completed index search");
+                        //System.out.println("Completed index search");
                     }
                 }
             }
             catch (Exception e) {
+                //System.out.println("Caught an exception.. maybe an out of bounds index?");
             }
 
 
