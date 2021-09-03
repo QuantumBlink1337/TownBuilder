@@ -1,6 +1,6 @@
 package TownBuilder;
 
-public class TownResource extends TownObjects{
+public class TownResource {
     private ResourceEnum resource;
     private boolean scanned;
     public TownResource(ResourceEnum r) {
@@ -30,6 +30,7 @@ public class TownResource extends TownObjects{
 
 
 
+    // credit to Alex Martelli of StackExchange
 
     public String toString() {
         return resource.name();
