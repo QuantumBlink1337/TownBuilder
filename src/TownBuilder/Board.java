@@ -57,9 +57,12 @@ public class Board {
         }
     }
     public void detection() {
+        redBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NULL && !redBuildingDetection) {
+                    redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
+                }
             }
         }
 
