@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b13fdaa-9283-4afe-86b9-38072eb07c73" name="Changes" comment="Package for building types" />
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="Detection is functional&#10;1 of 8 permutations of a Farm is available">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +17,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
         <option value="Enum" />
       </list>
@@ -22,15 +25,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
-  <component name="ProjectId" id="1xWVdcvMPde3oVp0ZpSNJEi8wPc" />
+  <component name="ProjectId" id="1xYLa5jyPYcjw6GIxFiNzcmqdQi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,8 +37,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="restartRequiresConfirmation" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
     <configuration name="Driver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -56,86 +54,75 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SliceToolwindowSettings">
+    <option name="preview" value="true" />
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1b13fdaa-9283-4afe-86b9-38072eb07c73" name="Changes" comment="" />
-      <created>1630470922817</created>
+      <changelist id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="" />
+      <created>1630527135196</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1630470922817</updated>
+      <updated>1630527135196</updated>
     </task>
-    <task id="LOCAL-00001" summary="added getter methods">
-      <created>1630511903334</created>
+    <task id="LOCAL-00001" summary="gitignore stuff">
+      <created>1630527310727</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1630511903334</updated>
+      <updated>1630527310727</updated>
     </task>
-    <task id="LOCAL-00002" summary="additional classes">
-      <created>1630512349239</created>
+    <task id="LOCAL-00002" summary="function in Board to build the coordinate grid that is displayed to the user&#10;WIP function to render the Board to the player">
+      <created>1630530347601</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1630512349239</updated>
+      <updated>1630530347601</updated>
     </task>
-    <task id="LOCAL-00003" summary="added enums for color">
-      <created>1630514988232</created>
+    <task id="LOCAL-00003" summary="WARNING! DOES NOT COMPILE!&#10;Working on renderBoard function to render the board. Split arrays into a resource and building, where a string array is created to display">
+      <created>1630531882619</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1630514988232</updated>
+      <updated>1630531882619</updated>
     </task>
-    <task id="LOCAL-00004" summary="added enums for color">
-      <created>1630536080608</created>
+    <task id="LOCAL-00004" summary="cleaned up debug print statements (no longer needed) and added code to prevent using a coordinate that already has a building/resource">
+      <created>1630604030261</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1630536080608</updated>
+      <updated>1630604030261</updated>
     </task>
-    <task id="LOCAL-00005" summary="Fixed boardRender with a try/catch, and implemented a 4x4 display of the 2d game board">
-      <created>1630536475510</created>
+    <task id="LOCAL-00005" summary="refactored names of enums to make it clearer which is an enum">
+      <created>1630610354500</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1630536475510</updated>
+      <updated>1630610354500</updated>
     </task>
-    <task id="LOCAL-00006" summary="Rendering of the board is functional for resources and displays a coordinate grid">
-      <created>1630541401312</created>
+    <task id="LOCAL-00006" summary="rewrote gameResourceBoard and enums">
+      <created>1630613908441</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1630541401312</updated>
+      <updated>1630613908441</updated>
     </task>
-    <task id="LOCAL-00007" summary="cleaned up switch cases">
-      <created>1630541778171</created>
+    <task id="LOCAL-00007" summary="began work on Detection for a Farm">
+      <created>1630619737612</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1630541778171</updated>
+      <updated>1630619737612</updated>
     </task>
-    <task id="LOCAL-00008" summary="DOES NOT COMPILE&#10;added resourcePlacer, playerTurn, and updated render methods">
-      <created>1630555447669</created>
+    <task id="LOCAL-00008" summary="Detection is functional&#10;1 of 8 permutations of a Farm is available">
+      <created>1630625295311</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1630555447670</updated>
+      <updated>1630625295311</updated>
     </task>
-    <task id="LOCAL-00009" summary="Resource Placer is functional">
-      <created>1630588391342</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1630588391342</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Package for building types">
-      <created>1630603261529</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1630603261529</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,15 +138,24 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added getter methods" />
-    <MESSAGE value="additional classes" />
-    <MESSAGE value="added enums for color" />
-    <MESSAGE value="Fixed boardRender with a try/catch, and implemented a 4x4 display of the 2d game board" />
-    <MESSAGE value="Rendering of the board is functional for resources and displays a coordinate grid" />
-    <MESSAGE value="cleaned up switch cases" />
-    <MESSAGE value="DOES NOT COMPILE&#10;added resourcePlacer, playerTurn, and updated render methods" />
-    <MESSAGE value="Resource Placer is functional" />
-    <MESSAGE value="Package for building types" />
-    <option name="LAST_COMMIT_MESSAGE" value="Package for building types" />
+    <MESSAGE value="gitignore stuff" />
+    <MESSAGE value="function in Board to build the coordinate grid that is displayed to the user&#10;WIP function to render the Board to the player" />
+    <MESSAGE value="WARNING! DOES NOT COMPILE!&#10;Working on renderBoard function to render the board. Split arrays into a resource and building, where a string array is created to display" />
+    <MESSAGE value="cleaned up debug print statements (no longer needed) and added code to prevent using a coordinate that already has a building/resource" />
+    <MESSAGE value="refactored names of enums to make it clearer which is an enum" />
+    <MESSAGE value="rewrote gameResourceBoard and enums" />
+    <MESSAGE value="began work on Detection for a Farm" />
+    <MESSAGE value="Detection is functional&#10;1 of 8 permutations of a Farm is available" />
+    <option name="LAST_COMMIT_MESSAGE" value="Detection is functional&#10;1 of 8 permutations of a Farm is available" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

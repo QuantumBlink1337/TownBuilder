@@ -3,10 +3,12 @@ package TownBuilder.Buildings;
 import TownBuilder.TownObjects;
 
 public class Building extends TownObjects {
-    private BuildingType buildingType;
+    private BuildingEnum buildingEnum;
 
-    public BuildingType getType() {
-        return buildingType;
+    public BuildingEnum getType() {
+        return buildingEnum;
+
     }
 
 }
+

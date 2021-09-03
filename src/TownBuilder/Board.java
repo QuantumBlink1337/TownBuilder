@@ -2,117 +2,173 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.RedBuilding;
 
 import java.util.Scanner;
 
 public class Board {
-    private final Player player;
+    //private final Player player;
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
+    private String[][] coordinateBoard = new String[4][4];
     private final char[] letterCoords = {' ', 'a', 'b', 'c', 'd'};
     private int[][] numberCoords = new int[1][4];
     private boolean gameCompletion;
     private Scanner sc = new Scanner(System.in);
 
+    private boolean redBuildingDetection;
+
     public Board() {
-        player = new Player();
+        //player = new Player();
         gameCompletion = false;
-        buildCoords();
+        buildArrays();
     }
-    public void buildCoords() {
-        System.out.print("Building coords...");
+    public void buildArrays() {
+        //System.out.print("Building coords...");
         for (int row = 0; row < numberCoords.length; row++) {
             for (int col = 0; col < numberCoords[row].length; col++) {
                 numberCoords[row][col] = col;
-                System.out.println(numberCoords[row][col]);
+                //System.out.println(numberCoords[row][col]);
             }
         }
-
+        //System.out.println("Building resource array");
+        for (int row = 0; row < gameResourceBoard.length; row++) {
+            for (int col = 0; col < gameResourceBoard[row].length; col++) {
+                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NULL);
+                //System.out.println(gameResourceBoard[row][col]);
+            }
+        }
+        for (int row = 0; row < coordinateBoard.length; row++) {
+            for (int col = 0; col < coordinateBoard[row].length; col++) {
+                coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
+            }
+        }
     }
     public void game() {
         while (!gameCompletion) {
             renderBoard();
             playerTurn();
+            System.out.println("Loop broke");
+            detection();
+
 
         }
     }
-    public void playerTurn() {
-        Resources turnResource = Resources.randomResource();
-        System.out.println("Your resource for this turn is "+turnResource);
-        resourcePlacer(turnResource);
+    public void detection() {
+        for (int row = 0; row < gameResourceBoard.length; row++) {
+            for (int col = 0; col < gameResourceBoard[row].length; col++) {
+                redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
+            }
+        }
+
     }
-    public void resourcePlacer(Resources random) {
+    public void playerTurn() {
+        String playerChoice = "";
+        boolean validInput = false;
+        do {
+            System.out.println("What would you like to do this turn?");
+            playerChoice = sc.nextLine().toLowerCase().strip();
+            System.out.print(playerChoice);
+            if (playerChoice.equals("clear")) {
+                buildArrays();
+                validInput = true;
+            } else if (playerChoice.equals("place")) {
+                ResourceEnum turnResource = ResourceEnum.randomResource();
+                System.out.println("Your resource for this turn is " + turnResource);
+                validInput = true;
+                resourcePlacer(turnResource);
+
+            } else if (playerChoice.equals("construct")) {
+            } else {
+                System.out.println("Not a valid action");
+                validInput = true;
+            }
+        }
+        while (!validInput);
+    }
+    public void resourcePlacer(ResourceEnum random) {
         String userCoordinate = "   ";
         int col = 0;
         int row = 0;
-        while (userCoordinate.length() > 2) {
-            System.out.println("Where would you like to place your resource?");
-            userCoordinate = sc.nextLine().toLowerCase();
-            if (userCoordinate.length() > 2) {
-                System.out.println("Oops! That's not a coordinate.");
-            }
-        }
-        String[] coordinateHelper = userCoordinate.split("", 2);
+        boolean validSpot = false;
+        do {
+            validSpot = false;
+            while (userCoordinate.length() > 2) {
+                System.out.println("Where would you like to place your resource?");
+                userCoordinate = sc.nextLine().toLowerCase();
+                if (userCoordinate.length() > 2) {
+                    System.out.println("Oops! That's not a coordinate.");
+                }
 
-        for (String character : coordinateHelper) {
-            System.out.println(character);
+            }
+            String[] coordinateHelper = userCoordinate.split("", 2);
+
+//            for (String character : coordinateHelper) {
+//                System.out.println(character);
+//            }
+            switch (coordinateHelper[0]) {
+                case "a" -> {
+                    col = 0;
+                    //System.out.println("Case A");
+                }
+                case "b" -> {
+                    col = 1;
+                    //System.out.println("Case B");
+                }
+                case "c" -> {
+                    col = 2;
+                    //System.out.println("Case C");
+                }
+                case "d" -> {
+                    col = 3;
+                    //System.out.println("Case D");
+                }
+            }
+            switch (coordinateHelper[1]) {
+                case "0" -> {
+                    row = 0;
+                    //System.out.println("Case 0");
+                }
+                case "1" -> {
+                    row = 1;
+                    //.out.println("Case 1");
+                }
+                case "2" -> {
+                    row = 2;
+                    //System.out.println("Case 2");
+                }
+                case "3" -> {
+                    row = 3;
+                    //System.out.println("Case 3");
+                }
+            }
+            //System.out.println("Row: " + row + "Col: " + col);
+            if (gameResourceBoard[row][col].getResource() == ResourceEnum.NULL) {
+                gameResourceBoard[row][col].setResource(random);
+                validSpot = true;
+            }
+            else {
+                System.out.println("You can't place a resource on a tile that already has one!");
+            }
+            userCoordinate = "   ";
+
+
         }
-        switch (coordinateHelper[0]) {
-            case "a" -> {
-                col = 0;
-                System.out.println("Case A");
-            }
-            case "b" -> {
-                col = 1;
-                System.out.println("Case B");
-            }
-            case "c" -> {
-                col = 2;
-                System.out.println("Case C");
-            }
-            case "d" -> {
-                col = 3;
-                System.out.println("Case D");
-            }
-        }
-        switch (coordinateHelper[1]) {
-            case "0" -> {
-                row = 0;
-                System.out.println("Case 0");
-            }
-            case "1" -> {
-                row = 1;
-                System.out.println("Case 1");
-            }
-            case "2" -> {
-                row = 2;
-                System.out.println("Case 2");
-            }
-            case "3" -> {
-                row = 3;
-                System.out.println("Case 3");
-            }
-        }
-        System.out.println("Row: " + row+ "Col: " +col);
-       gameResourceBoard[row][col] = new TownResource(random);
-       userCoordinate = "   ";
+        while (!validSpot);
+
     }
     public void renderBoard() {
-        System.out.println("Rendering game board");
+        //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                try  {
-                    switch (gameResourceBoard[row][col].getResource()) {
-                        case GLASS -> gameBoard[row][col] = "[Glass]";
-                        case STONE -> gameBoard[row][col] = "[Stone]";
-                        case BRICK -> gameBoard[row][col] = "[Brick]";
-                        case WHEAT -> gameBoard[row][col] = "[Wheat]";
-                        case WOOD -> gameBoard[row][col] = "[Wood]";
-                    }
-                }
-                catch (Exception e) {
-                    gameBoard[row][col] = "[EMPTY!]";
+                switch (gameResourceBoard[row][col].getResource()) {
+                    case GLASS -> gameBoard[row][col] = "[Glass]";
+                    case STONE -> gameBoard[row][col] = "[Stone]";
+                    case BRICK -> gameBoard[row][col] = "[Brick]";
+                    case WHEAT -> gameBoard[row][col] = "[Wheat]";
+                    case WOOD -> gameBoard[row][col] = "[Wood]";
+                    case NULL -> gameBoard[row][col] = "[EMPTY]";
                 }
             }
         }
@@ -140,6 +196,18 @@ public class Board {
                     else {
                         System.out.print(gameBoard[row][col]);
                     }
+                }
+
+            }
+        }
+        System.out.println("This grid helps with figuring out where things should go");
+        for (int row = 0; row < coordinateBoard.length; row++) {
+            for (int col = 0; col < coordinateBoard[row].length; col++) {
+                if (col == 3) {
+                    System.out.println(coordinateBoard[row][col]);
+                }
+                else {
+                    System.out.print(coordinateBoard[row][col]);
                 }
 
             }
