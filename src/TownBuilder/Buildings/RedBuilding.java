@@ -15,6 +15,25 @@ public class RedBuilding extends Building {
         }
         return 0;
     }
+//    public static boolean redDetection() {
+//        int rotationTry = 0;
+//        boolean buildingFormed = false;
+//        do {
+//            buildingFormed = findBuilding();
+//            if (buildingFormed) {
+//                return true;
+//                break;
+//            }
+//            // we didn't form a building so try rotate
+//            farmArray = buildingFlipper(farmArray);
+//            rotationTry++;
+//        } while (!buildingFormed && rotationTry < 3);
+//        if(!buildingFormed) {
+//            // fail
+//        }
+//    }
+
+
     public static boolean redDetection(int row, int col, TownResource[][] rArray) {
         ResourceEnum[][] farmArray = new ResourceEnum[2][2];
         farmArray[0][0] = ResourceEnum.WHEAT;
@@ -36,6 +55,10 @@ public class RedBuilding extends Building {
                                         System.out.println("3/4 match");
                                         if (rArray[row+1][col+1].getResource() == farmArray[row+1][col+1]) {
                                             System.out.println("FARM FOUND!");
+                                            rArray[row][col].setScannedStatus();
+                                            rArray[row+1][col].setScannedStatus();
+                                            rArray[row][col+1].setScannedStatus();
+                                            rArray[row+1][col+1].setScannedStatus();
                                             return true;
                                         }
                                         else {
