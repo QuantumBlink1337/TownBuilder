@@ -13,7 +13,7 @@ public class Board {
     private String[][] gameBoard = new String[4][4];
     private String[][] coordinateBoard = new String[4][4];
     private final char[] letterCoords = {' ', 'a', 'b', 'c', 'd'};
-    private int[][] numberCoords = new int[1][4];
+    private final char[] numberCoords = {'1', '2', '3','4'};
     private boolean gameCompletion;
     private Scanner sc = new Scanner(System.in);
 
@@ -25,13 +25,6 @@ public class Board {
         buildArrays();
     }
     public void buildArrays() {
-        //System.out.print("Building coords...");
-        for (int row = 0; row < numberCoords.length; row++) {
-            for (int col = 0; col < numberCoords[row].length; col++) {
-                numberCoords[row][col] = col;
-                //System.out.println(numberCoords[row][col]);
-            }
-        }
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
@@ -67,6 +60,7 @@ public class Board {
             }
         }
         if (redBuildingDetection) {
+            System.out.println("A valid farm construction was found!");
 
 
         }
@@ -122,19 +116,19 @@ public class Board {
                 }
             }
             switch (coordinateHelper[1]) {
-                case "0" -> {
+                case "1" -> {
                     row = 0;
                     //System.out.println("Case 0");
                 }
-                case "1" -> {
+                case "2" -> {
                     row = 1;
                     //.out.println("Case 1");
                 }
-                case "2" -> {
+                case "3" -> {
                     row = 2;
                     //System.out.println("Case 2");
                 }
-                case "3" -> {
+                case "4" -> {
                     row = 3;
                     //System.out.println("Case 3");
                 }
@@ -183,7 +177,7 @@ public class Board {
         for (int row = 0; row < gameBoard.length; row++) {
             for (int col = -1; col < gameBoard[row].length; col++) {
                 if (col == -1) {
-                    System.out.print(numberCoords[0][row]);
+                    System.out.print(numberCoords[row]);
                 }
                 else {
                     if (col == 3) {
