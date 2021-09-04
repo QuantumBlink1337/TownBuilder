@@ -26,7 +26,9 @@ public enum ResourceEnum {
 //            }
 //            return flippedArray;
 //        }
-        public static ResourceEnum[][] arrayFlipper(ResourceEnum[][] mat) {
+    // credit to Alex Martelli of StackExchange
+
+    public static ResourceEnum[][] arrayFlipper(ResourceEnum[][] mat) {
             final int M = mat.length;
             final int N = mat[0].length;
             ResourceEnum[][] ret = new ResourceEnum[N][M];

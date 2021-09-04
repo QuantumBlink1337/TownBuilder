@@ -57,6 +57,7 @@ public class Board {
         }
     }
     public void detection() {
+        String userInput = "";
         redBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
@@ -65,15 +66,19 @@ public class Board {
                 }
             }
         }
+        if (redBuildingDetection) {
+
+
+        }
 
     }
     public void playerTurn() {
-        String playerChoice = "";
-        System.out.println("What would you like to do this turn?");
-        playerChoice = sc.nextLine().toLowerCase().strip();
-        if (playerChoice.equals("clear")) {
-            buildArrays();
-        }
+//        String playerChoice = "";
+//        System.out.println("What would you like to do this turn?");
+//        playerChoice = sc.nextLine().toLowerCase().strip();
+//        if (playerChoice.equals("clear")) {
+//            buildArrays();
+//        }
         ResourceEnum turnResource = ResourceEnum.randomResource();
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);

@@ -8,4 +8,5 @@ public enum BuildingEnum {
     INN,
     NULL
 
+
 }
