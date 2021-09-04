@@ -2,9 +2,11 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
+import java.util.Scanner;
 
 public class RedBuilding extends Building {
     private BuildingEnum buildingEnum;
+    private Scanner sc = new Scanner(System.in);
     public RedBuilding(BuildingEnum b) {
         buildingEnum = b;
     }
@@ -33,7 +35,20 @@ public class RedBuilding extends Building {
 //        }
 //    }
 
+    public static void redPlacement(TownResource[][] rArray, Building[][] bArray) {
+        String userInput = "";
+        System.out.println("Where would you like to place your Farm?");
 
+
+
+        for (int r = 0; r < rArray.length; r++){
+            for (int c = 0; c < rArray[r].length; c++) {
+                if (rArray[r][c].getScannedBuilding() == BuildingEnum.FARM) {
+
+                }
+            }
+        }
+    }
     public static boolean redDetection(int row, int col, TownResource[][] rArray) {
         ResourceEnum[][] farmArray = new ResourceEnum[2][2];
         farmArray[0][0] = ResourceEnum.WHEAT;
