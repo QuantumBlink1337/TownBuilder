@@ -35,7 +35,6 @@ public class Board {
         for (int row = 0; row < coordinateBoard.length; row++) {
             for (int col = 0; col < coordinateBoard[row].length; col++) {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
-
             }
         }
 
