@@ -1,6 +1,7 @@
 package TownBuilder;
 
 
+import TownBuilder.Buildings.BlueBuilding;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.RedBuilding;
@@ -19,6 +20,7 @@ public class Board {
     private Scanner sc = new Scanner(System.in);
 
     private boolean redBuildingDetection;
+    private boolean blueBuildingDetection;
 
     public Board() {
         player = new Player();
@@ -58,18 +60,22 @@ public class Board {
     public void detection() {
         String userInput = "";
         redBuildingDetection = false;
+        blueBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 if (gameResourceBoard[row][col].getResource() != ResourceEnum.NULL && !redBuildingDetection) {
-                    redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
+                    //redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
+                    blueBuildingDetection = BlueBuilding.blueDetection(row, col, gameResourceBoard);
                 }
             }
         }
         if (redBuildingDetection) {
             System.out.println("A valid farm construction was found!");
             RedBuilding.redPlacement(gameResourceBoard, gameBuildingBoard);
-
-
+        }
+        if (blueBuildingDetection) {
+            System.out.println("A valid cottage construction was found!");
+            BlueBuilding.bluePlacement(gameResourceBoard, gameBuildingBoard);
         }
 
     }
