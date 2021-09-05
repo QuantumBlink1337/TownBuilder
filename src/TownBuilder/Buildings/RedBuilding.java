@@ -144,9 +144,9 @@ public class RedBuilding extends Building {
                     else {
                         farmArray = buildingFlipper(farmArray);
                     }
-                    if (i == 3) {
-                        //System.out.println("Completed index search");
-                    }
+//                    if (i == 3) {
+//                        //System.out.println("Completed index search");
+//                    }
                 }
             }
             catch (Exception e) {

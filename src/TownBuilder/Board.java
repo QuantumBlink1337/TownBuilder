@@ -28,7 +28,7 @@ public class Board {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NULL);
+                gameResourceBoard[row][col] = new TownResource(ResourceEnum.EMPTY);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -53,13 +53,14 @@ public class Board {
         redBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NULL && !redBuildingDetection) {
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.EMPTY && !redBuildingDetection) {
                     redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
                 }
             }
         }
         if (redBuildingDetection) {
             System.out.println("A valid farm construction was found!");
+            RedBuilding.redPlacement(gameResourceBoard, gameBuildingBoard);
 
 
         }
@@ -133,7 +134,7 @@ public class Board {
                 }
             }
             //System.out.println("Row: " + row + "Col: " + col);
-            if (gameResourceBoard[row][col].getResource() == ResourceEnum.NULL) {
+            if (gameResourceBoard[row][col].getResource() == ResourceEnum.EMPTY) {
                 gameResourceBoard[row][col].setResource(random);
                 validSpot = true;
             }
@@ -151,14 +152,13 @@ public class Board {
         //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                switch (gameResourceBoard[row][col].getResource()) {
-                    case GLASS -> gameBoard[row][col] = "[Glass]";
-                    case STONE -> gameBoard[row][col] = "[Stone]";
-                    case BRICK -> gameBoard[row][col] = "[Brick]";
-                    case WHEAT -> gameBoard[row][col] = "[Wheat]";
-                    case WOOD -> gameBoard[row][col] = "[Wood]";
-                    case NULL -> gameBoard[row][col] = "[EMPTY]";
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.EMPTY) {
+                    gameBoard[row][col] = gameResourceBoard[row][col].toString();
                 }
+                else {
+                    gameBoard[row][col] = "[Empty!]";
+                }
+
             }
         }
 
