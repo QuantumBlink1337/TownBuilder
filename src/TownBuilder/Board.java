@@ -2,6 +2,7 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.RedBuilding;
 
 import java.util.Scanner;
@@ -28,7 +29,13 @@ public class Board {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                gameResourceBoard[row][col] = new TownResource(ResourceEnum.EMPTY);
+                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NULL);
+                //System.out.println(gameResourceBoard[row][col]);
+            }
+        }
+        for (int row = 0; row < gameBuildingBoard.length; row++) {
+            for (int col = 0; col < gameBuildingBoard[row].length; col++) {
+                gameBuildingBoard[row][col] = new Building(BuildingEnum.NULL, BuildingColor.NULL);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -53,7 +60,7 @@ public class Board {
         redBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.EMPTY && !redBuildingDetection) {
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NULL && !redBuildingDetection) {
                     redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
                 }
             }
@@ -134,7 +141,7 @@ public class Board {
                 }
             }
             //System.out.println("Row: " + row + "Col: " + col);
-            if (gameResourceBoard[row][col].getResource() == ResourceEnum.EMPTY) {
+            if (gameResourceBoard[row][col].getResource() == ResourceEnum.NULL) {
                 gameResourceBoard[row][col].setResource(random);
                 validSpot = true;
             }
@@ -152,8 +159,11 @@ public class Board {
         //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.EMPTY) {
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NULL) {
                     gameBoard[row][col] = gameResourceBoard[row][col].toString();
+                }
+                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NULL) {
+                    gameBoard[row][col] = gameBuildingBoard[row][col].toString();
                 }
                 else {
                     gameBoard[row][col] = "[Empty!]";

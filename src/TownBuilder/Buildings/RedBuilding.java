@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BuildingColor;
 import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
 import java.util.Scanner;
@@ -8,9 +9,11 @@ public class RedBuilding extends Building {
     private BuildingEnum buildingEnum;
     private static Scanner sc = new Scanner(System.in);
 
-    public RedBuilding(BuildingEnum b) {
-        buildingEnum = b;
+    public RedBuilding(BuildingEnum b, BuildingColor c) {
+        super(b, c);
     }
+
+
     public int scorer() {
         BuildingEnum scoredType = this.buildingEnum;
         if (scoredType == BuildingEnum.FARM) {
@@ -35,7 +38,9 @@ public class RedBuilding extends Building {
 //            // fail
 //        }
 //    }
-
+    public BuildingEnum getBuildingEnum() {
+        return buildingEnum;
+    }
     public static void redPlacement(TownResource[][] rArray, Building[][] bArray) {
         String userInput = "";
         int row = 0;
@@ -95,10 +100,12 @@ public class RedBuilding extends Building {
         for (int r = 0; r < rArray.length; r++){
             for (int c = 0; c < rArray[r].length; c++) {
                 if (rArray[r][c].getScannedBuilding() == BuildingEnum.FARM) {
-
+                    rArray[r][c].setResource(ResourceEnum.NULL);
+                    rArray[r][c].setScannedBuilding(BuildingEnum.NULL);
                 }
             }
         }
+        bArray[row][col] = new RedBuilding(BuildingEnum.FARM, BuildingColor.RED);
     }
     public static boolean redDetection(int row, int col, TownResource[][] rArray) {
         ResourceEnum[][] farmArray = new ResourceEnum[2][2];

@@ -6,7 +6,7 @@ public enum ResourceEnum {
     WOOD,
     WHEAT,
     STONE,
-    EMPTY;
+    NULL;
 
 
     public static ResourceEnum randomResource() {
@@ -16,16 +16,7 @@ public enum ResourceEnum {
         int random = (int) (Math.random() * 2);
         return resourceArray[random];
     }
-//        public static ResourceEnum[][] arrayFlipper(ResourceEnum[][] a) {
-//            ResourceEnum[][] flippedArray = new ResourceEnum[a[0].length][a.length];
-//            for(int i=0; i<a[0].length; i++){
-//                for(int j=a.length-1; j>=0; j--){
-//                    flippedArray[i][j] = a[j][i];
-//
-//                }
-//            }
-//            return flippedArray;
-//        }
+
     // credit to Alex Martelli of StackExchange
 
     public static ResourceEnum[][] arrayFlipper(ResourceEnum[][] mat) {
