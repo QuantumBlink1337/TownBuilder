@@ -81,9 +81,13 @@ public class BlueBuilding extends Building{
     public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
         ResourceEnum[][] cottageArray = new ResourceEnum[4][4];
         cottageArray[0][0] = ResourceEnum.WHEAT;
-        cottageArray[0][1] = ResourceEnum.NULL;
+        cottageArray[0][1] = ResourceEnum.WHEAT;
         cottageArray[1][0] = ResourceEnum.GLASS;
         cottageArray[1][1] = ResourceEnum.BRICK;
+        System.out.println(cottageArray[0][0]);
+        System.out.println(cottageArray[0][1]);
+        System.out.println(cottageArray[1][0]);
+        System.out.println(cottageArray[1][1]);
 
         try {
             for (int i = 0; i < rArray.length; i++) {
@@ -92,6 +96,7 @@ public class BlueBuilding extends Building{
                     cottageArray[0][1] = ResourceEnum.NULL;
                     cottageArray[1][0] = ResourceEnum.GLASS;
                     cottageArray[1][1] = ResourceEnum.WHEAT;
+
                     System.out.println("Inverse invoked");
                 }
                 if (rArray[row][col].getResource() == cottageArray[0][0]) {

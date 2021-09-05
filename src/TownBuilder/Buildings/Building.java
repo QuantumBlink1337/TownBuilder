@@ -23,17 +23,20 @@ public class Building {
     }
 
     public static ResourceEnum[][] buildingFlipper(ResourceEnum[][] a) {
+        System.out.println("No match found. Flipping array...");
         ResourceEnum[][] resourceArray = a;
-        //System.out.println("No match found. Flipping array...");
-        resourceArray = ResourceEnum.arrayFlipper(resourceArray);
-        //System.out.println("Flipped array:");
-        System.out.println("["+resourceArray[0][0]+"]["+resourceArray[0][1]+"]");
-        System.out.println("["+resourceArray[1][0]+"]["+resourceArray[1][1]+"]");
-        return resourceArray;
+        final int M = resourceArray.length;
+        final int N = resourceArray[0].length;
+        ResourceEnum[][] ret = new ResourceEnum[N][M];
+        for (int r = 0; r < M; r++) {
+            for (int c = 0; c < N; c++) {
+                ret[c][M - 1 - r] = resourceArray[r][c];
+            }
+        }
+        System.out.println("Flipped array:");
+        System.out.println("["+ret[0][0]+"]["+ret[0][1]+"]");
+        System.out.println("["+ret[1][0]+"]["+ret[1][1]+"]");
+        return ret;
     }
-
-
-
-
 }
 
