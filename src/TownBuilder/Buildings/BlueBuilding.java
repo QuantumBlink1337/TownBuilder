@@ -115,17 +115,17 @@ public class BlueBuilding extends Building{
                                         return true;
                                     }
                                     else {
-                                        cottageArray = buildingFlipper(cottageArray);
+                                        cottageArray = buildingRotation(cottageArray);
                                     }
                             }
                         }
                         else {
-                            cottageArray = buildingFlipper(cottageArray);
+                            cottageArray = buildingRotation(cottageArray);
                         }
                     }
                 }
                 else {
-                    cottageArray = buildingFlipper(cottageArray);
+                    cottageArray = buildingRotation(cottageArray);
                 }
 //                    if (i == 3) {
 //                        //System.out.println("Completed index search");

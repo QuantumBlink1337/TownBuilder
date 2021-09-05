@@ -22,7 +22,7 @@ public class Building {
         return "[" + buildingEnum +"]";
     }
 
-    public static ResourceEnum[][] buildingFlipper(ResourceEnum[][] a) {
+    public static ResourceEnum[][] buildingRotation(ResourceEnum[][] a) {
         System.out.println("No match found. Flipping array...");
         ResourceEnum[][] resourceArray = a;
         final int M = resourceArray.length;

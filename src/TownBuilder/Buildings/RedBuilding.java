@@ -135,21 +135,21 @@ public class RedBuilding extends Building {
                                             return true;
                                         }
                                         else {
-                                            farmArray = buildingFlipper(farmArray);
+                                            farmArray = buildingRotation(farmArray);
                                         }
                                     }
                                     else {
-                                        farmArray = buildingFlipper(farmArray);
+                                        farmArray = buildingRotation(farmArray);
                                     }
                                 }
                             }
                             else {
-                                farmArray = buildingFlipper(farmArray);
+                                farmArray = buildingRotation(farmArray);
                             }
                         }
                     }
                     else {
-                        farmArray = buildingFlipper(farmArray);
+                        farmArray = buildingRotation(farmArray);
                     }
 //                    if (i == 3) {
 //                        //System.out.println("Completed index search");
