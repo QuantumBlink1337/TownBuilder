@@ -100,8 +100,8 @@ public class RedBuilding extends Building {
         for (int r = 0; r < rArray.length; r++){
             for (int c = 0; c < rArray[r].length; c++) {
                 if (rArray[r][c].getScannedBuilding() == BuildingEnum.FARM) {
-                    rArray[r][c].setResource(ResourceEnum.NULL);
-                    rArray[r][c].setScannedBuilding(BuildingEnum.NULL);
+                    rArray[r][c].setResource(ResourceEnum.NONE);
+                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
                 }
             }
         }

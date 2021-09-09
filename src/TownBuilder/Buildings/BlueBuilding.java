@@ -3,6 +3,7 @@ package TownBuilder.Buildings;
 import TownBuilder.BuildingColor;
 import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
+import TownBuilder.Utility;
 
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class BlueBuilding extends Building{
         int col = 0;
         boolean validInput = false;
         do {
-            System.out.println("Where would you like to place your Farm?");
+            System.out.println("Where would you like to place your Cottage?");
             userInput = sc.nextLine().toLowerCase();
             String[] coordinateHelper = userInput.split("", 2);
 
@@ -71,69 +72,75 @@ public class BlueBuilding extends Building{
         for (int r = 0; r < rArray.length; r++){
             for (int c = 0; c < rArray[r].length; c++) {
                 if (rArray[r][c].getScannedBuilding() == BuildingEnum.COTTAGE) {
-                    rArray[r][c].setResource(ResourceEnum.NULL);
-                    rArray[r][c].setScannedBuilding(BuildingEnum.NULL);
+                    rArray[r][c].setResource(ResourceEnum.NONE);
+                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
                 }
             }
         }
         bArray[row][col] = new RedBuilding(BuildingEnum.COTTAGE, BuildingColor.BLUE);
     }
     public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
-        ResourceEnum[][] cottageArray = new ResourceEnum[4][4];
-        cottageArray[0][0] = ResourceEnum.WHEAT;
-        cottageArray[0][1] = ResourceEnum.WHEAT;
-        cottageArray[1][0] = ResourceEnum.GLASS;
-        cottageArray[1][1] = ResourceEnum.BRICK;
-        System.out.println(cottageArray[0][0]);
-        System.out.println(cottageArray[0][1]);
-        System.out.println(cottageArray[1][0]);
-        System.out.println(cottageArray[1][1]);
+        ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
+        boolean glassVerification = false;
+        cottageArray[0][0] = ResourceEnum.GLASS;
+        cottageArray[0][1] = ResourceEnum.BRICK;
+        cottageArray[1][0] = ResourceEnum.WHEAT;
+        cottageArray[1][1] = ResourceEnum.NONE;
+        System.out.println("Farm array built");
+        Utility.arrayPrinter(cottageArray);
 
         try {
-            for (int i = 0; i < rArray.length; i++) {
+            for (int i = 0; i < rArray.length+3; i++) {
                 if (i == 4) {
-                    cottageArray[0][0] = ResourceEnum.BRICK;
-                    cottageArray[0][1] = ResourceEnum.NULL;
-                    cottageArray[1][0] = ResourceEnum.GLASS;
-                    cottageArray[1][1] = ResourceEnum.WHEAT;
+                    cottageArray[0][0] = ResourceEnum.GLASS;
+                    cottageArray[0][1] = ResourceEnum.WHEAT;
+                    cottageArray[1][0] = ResourceEnum.BRICK;
+                    cottageArray[1][1] = ResourceEnum.NONE;
 
                     System.out.println("Inverse invoked");
+                    Utility.arrayPrinter(cottageArray);
                 }
                 if (rArray[row][col].getResource() == cottageArray[0][0]) {
-                    //System.out.println("1/4 match");
-                    for (int a = 0; a < rArray.length; a++) {
+                    System.out.println("1/3 match");
                         if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
-                            //System.out.println("2/4 match");
-                            for (int b = 0; b < rArray.length; b++) {
-                                    //System.out.println("3/4 match");
-                                    if (rArray[row+1][col+1].getResource() == cottageArray[1][1]) {
-                                        //system.out.println("FARM FOUND!");
-                                        rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                                        rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                                        rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                                        rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                                        return true;
-                                    }
-                                    else {
-                                        cottageArray = buildingRotation(cottageArray);
-                                    }
+                            if (rArray[row+1][col].getResource() == ResourceEnum.NONE) {
+                                if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
+                                    glassVerification = true;
+                                    System.out.println("Passed NONE Verification");
+                                    rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
+                                }
                             }
+                            else {
+                                glassVerification = true;
+                                System.out.println("NONE Check unnecessary");
+                            }
+                                    System.out.println("2/3 match");
+                                if ((rArray[row][col+1].getResource() == cottageArray[0][1]) && glassVerification) {
+                                    System.out.println("3/3 match");
+                                    rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
+                                    rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
+                                    rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
+
+                                    return true;
+                                }
+                                else {
+                                    cottageArray = Building.buildingRotation(cottageArray);
+                                }
+
                         }
                         else {
-                            cottageArray = buildingRotation(cottageArray);
+                            cottageArray = Building.buildingRotation(cottageArray);
                         }
-                    }
+
                 }
                 else {
-                    cottageArray = buildingRotation(cottageArray);
+                    cottageArray = Building.buildingRotation(cottageArray);
                 }
-//                    if (i == 3) {
-//                        //System.out.println("Completed index search");
-//                    }
             }
         }
         catch (Exception e) {
         }
+        System.out.println("Moving on to next index");
         return false;
     }
 

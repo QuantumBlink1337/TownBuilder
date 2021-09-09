@@ -31,13 +31,13 @@ public class Board {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NULL);
+                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NONE);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col] = new Building(BuildingEnum.NULL, BuildingColor.NULL);
+                gameBuildingBoard[row][col] = new Building(BuildingEnum.NONE, BuildingColor.NULL);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -53,7 +53,12 @@ public class Board {
         while (!gameCompletion) {
             renderBoard();
             playerTurn();
+//            gameResourceBoard[0][3].setResource(ResourceEnum.GLASS);
+//            gameResourceBoard[0][2].setResource(ResourceEnum.WHEAT);
+//            gameResourceBoard[1][3].setResource(ResourceEnum.BRICK);
             detection();
+            //renderBoard();
+       //     gameCompletion = true;
 
         }
     }
@@ -63,9 +68,11 @@ public class Board {
         blueBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NULL && !redBuildingDetection) {
-                    redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
-                    //blueBuildingDetection = BlueBuilding.blueDetection(row, col, gameResourceBoard);
+
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && !redBuildingDetection && !blueBuildingDetection) {
+                    System.out.println("Scanning row: " + row + " and column: " + col);
+                   // redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
+                    blueBuildingDetection = BlueBuilding.blueDetection(row, col, gameResourceBoard);
                 }
             }
         }
@@ -77,6 +84,7 @@ public class Board {
             System.out.println("A valid cottage construction was found!");
             BlueBuilding.bluePlacement(gameResourceBoard, gameBuildingBoard);
         }
+
 
     }
     public void playerTurn() {
@@ -147,7 +155,7 @@ public class Board {
                 }
             }
             //System.out.println("Row: " + row + "Col: " + col);
-            if (gameResourceBoard[row][col].getResource() == ResourceEnum.NULL) {
+            if (gameResourceBoard[row][col].getResource() == ResourceEnum.NONE) {
                 gameResourceBoard[row][col].setResource(random);
                 validSpot = true;
             }
@@ -165,10 +173,11 @@ public class Board {
         //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NULL) {
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE) {
                     gameBoard[row][col] = gameResourceBoard[row][col].toString();
+                    gameResourceBoard[row][col].setScannedBuilding(BuildingEnum.NONE);
                 }
-                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NULL) {
+                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
                     gameBoard[row][col] = gameBuildingBoard[row][col].toString();
                 }
                 else {

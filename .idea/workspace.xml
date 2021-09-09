@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="can place Farm now, class rearrangement">
-      <change afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" afterDir="false" />
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="renamed BuildingFlipper to Rotation">
+      <change afterPath="$PROJECT_DIR$/src/TownBuilder/Utility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Driver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,9 +45,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
-  </component>
   <component name="ProjectId" id="1xYLa5jyPYcjw6GIxFiNzcmqdQi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -51,6 +56,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
@@ -166,7 +172,21 @@
       <option name="project" value="LOCAL" />
       <updated>1630805452822</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="merged ArrayFlipper/BuildingFlipper">
+      <created>1630863553385</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1630863553385</updated>
+    </task>
+    <task id="LOCAL-00014" summary="renamed BuildingFlipper to Rotation">
+      <created>1630865162756</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1630865162756</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -194,7 +214,9 @@
     <MESSAGE value="userInput active for building place" />
     <MESSAGE value="optimized board rendering" />
     <MESSAGE value="can place Farm now, class rearrangement" />
-    <option name="LAST_COMMIT_MESSAGE" value="can place Farm now, class rearrangement" />
+    <MESSAGE value="merged ArrayFlipper/BuildingFlipper" />
+    <MESSAGE value="renamed BuildingFlipper to Rotation" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed BuildingFlipper to Rotation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

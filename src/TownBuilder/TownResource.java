@@ -7,7 +7,7 @@ public class TownResource {
     private BuildingEnum scannedBuilding;
     public TownResource(ResourceEnum r) {
         resource = r;
-        scannedBuilding = BuildingEnum.NULL;
+        scannedBuilding = BuildingEnum.NONE;
     }
 
 
@@ -27,7 +27,7 @@ public class TownResource {
         resource = r;
     }
     public void clearScannedBuilding() {
-        scannedBuilding = BuildingEnum.NULL;
+        scannedBuilding = BuildingEnum.NONE;
     }
     public void setScannedBuilding(BuildingEnum b) {
         scannedBuilding = b;
@@ -37,7 +37,7 @@ public class TownResource {
 
 
     public String toString() {
-        return "[" + resource.name() + "]";
+        return "[" + resource + "]";
     }
 
 
