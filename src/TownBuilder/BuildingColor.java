@@ -1,10 +1,12 @@
 package TownBuilder;
 
-public enum Color {
+public enum BuildingColor {
     RED,
     BLUE,
     YELLOW,
     GREEN,
     GRAY,
-    BLACK
+    BLACK,
+    NULL
+
 }

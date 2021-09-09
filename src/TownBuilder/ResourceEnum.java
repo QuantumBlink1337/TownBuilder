@@ -6,14 +6,21 @@ public enum ResourceEnum {
     WOOD,
     WHEAT,
     STONE,
-    NULL;
+    NONE;
 
 
     public static ResourceEnum randomResource() {
         //ResourceEnum resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
-        ResourceEnum resourceArray[] = {WOOD, WHEAT};
+        ResourceEnum resourceArray[] = {BRICK, WHEAT, GLASS, WOOD};
 
-        int random = (int) (Math.random() * 2);
+        int random = (int) (Math.random() * 4);
         return resourceArray[random];
     }
-}
+
+    // credit to Alex Martelli of StackExchange
+
+
+
+    }
+
+

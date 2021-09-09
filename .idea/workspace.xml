@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="Detection is functional&#10;1 of 8 permutations of a Farm is available">
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="renamed BuildingFlipper to Rotation">
+      <change afterPath="$PROJECT_DIR$/src/TownBuilder/Utility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Driver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BuildingEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,16 +24,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RobDetection" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1xYLa5jyPYcjw6GIxFiNzcmqdQi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -35,9 +52,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager">
@@ -50,6 +69,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Driver" />
+        <item itemvalue="Application.Driver" />
+        <item itemvalue="Application.Driver" />
         <item itemvalue="Application.Driver" />
       </list>
     </recent_temporary>
@@ -115,14 +137,56 @@
       <option name="project" value="LOCAL" />
       <updated>1630619737612</updated>
     </task>
-    <task id="LOCAL-00008" summary="Detection is functional&#10;1 of 8 permutations of a Farm is available">
-      <created>1630625295311</created>
+    <task id="LOCAL-00008" summary="cleaned up gridlines">
+      <created>1630799761938</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1630625295311</updated>
+      <updated>1630799761938</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="started work on placement method">
+      <created>1630799788798</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1630799788798</updated>
+    </task>
+    <task id="LOCAL-00010" summary="userInput active for building place">
+      <created>1630800436346</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1630800436346</updated>
+    </task>
+    <task id="LOCAL-00011" summary="optimized board rendering">
+      <created>1630803581928</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1630803581928</updated>
+    </task>
+    <task id="LOCAL-00012" summary="can place Farm now, class rearrangement">
+      <created>1630805452822</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1630805452822</updated>
+    </task>
+    <task id="LOCAL-00013" summary="merged ArrayFlipper/BuildingFlipper">
+      <created>1630863553385</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1630863553385</updated>
+    </task>
+    <task id="LOCAL-00014" summary="renamed BuildingFlipper to Rotation">
+      <created>1630865162756</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1630865162756</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -145,8 +209,14 @@
     <MESSAGE value="refactored names of enums to make it clearer which is an enum" />
     <MESSAGE value="rewrote gameResourceBoard and enums" />
     <MESSAGE value="began work on Detection for a Farm" />
-    <MESSAGE value="Detection is functional&#10;1 of 8 permutations of a Farm is available" />
-    <option name="LAST_COMMIT_MESSAGE" value="Detection is functional&#10;1 of 8 permutations of a Farm is available" />
+    <MESSAGE value="cleaned up gridlines" />
+    <MESSAGE value="started work on placement method" />
+    <MESSAGE value="userInput active for building place" />
+    <MESSAGE value="optimized board rendering" />
+    <MESSAGE value="can place Farm now, class rearrangement" />
+    <MESSAGE value="merged ArrayFlipper/BuildingFlipper" />
+    <MESSAGE value="renamed BuildingFlipper to Rotation" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed BuildingFlipper to Rotation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -155,6 +225,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/TownBuilder/Board.java</url>
+          <line>142</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

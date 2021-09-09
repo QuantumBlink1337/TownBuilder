@@ -1,11 +1,13 @@
 package TownBuilder;
 
-public class TownResource extends TownObjects{
+import TownBuilder.Buildings.BuildingEnum;
+
+public class TownResource {
     private ResourceEnum resource;
-    private boolean scanned;
+    private BuildingEnum scannedBuilding;
     public TownResource(ResourceEnum r) {
         resource = r;
-        scanned = false;
+        scannedBuilding = BuildingEnum.NONE;
     }
 
 
@@ -14,8 +16,8 @@ public class TownResource extends TownObjects{
     public ResourceEnum getResource() {
         return resource;
     }
-    public boolean getScannedStatus() {
-        return scanned;
+    public BuildingEnum getScannedBuilding() {
+        return scannedBuilding;
     }
 
 
@@ -24,15 +26,18 @@ public class TownResource extends TownObjects{
     public void setResource(ResourceEnum r) {
         resource = r;
     }
-    public void setScannedStatus() {
-        scanned = true;
+    public void clearScannedBuilding() {
+        scannedBuilding = BuildingEnum.NONE;
+    }
+    public void setScannedBuilding(BuildingEnum b) {
+        scannedBuilding = b;
     }
 
 
 
 
     public String toString() {
-        return resource.name();
+        return "[" + resource + "]";
     }
 
 
