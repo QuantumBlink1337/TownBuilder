@@ -77,7 +77,7 @@ public class BlueBuilding extends Building{
                 }
             }
         }
-        bArray[row][col] = new RedBuilding(BuildingEnum.COTTAGE, BuildingColor.BLUE);
+        bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE, BuildingColor.BLUE);
     }
     public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
         ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
