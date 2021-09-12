@@ -6,7 +6,9 @@ public enum ResourceEnum {
     WOOD,
     WHEAT,
     STONE,
-    NONE;
+    NONE,
+    EXISTS;
+
 
 
     public static ResourceEnum randomResource() {

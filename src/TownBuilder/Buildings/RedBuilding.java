@@ -118,42 +118,18 @@ public class RedBuilding extends Building {
         //.out.println("Row: " + row + " Col: " + col);
             try {
                 for (int i = 0; i < rArray.length; i++) {
-                    if (rArray[row][col].getResource() == farmArray[0][0]) {
-                        //System.out.println("1/4 match");
-                        for (int a = 0; a < rArray.length; a++) {
-                            if (rArray[row+1][col].getResource() == farmArray[1][0]) {
-                                //System.out.println("2/4 match");
-                                for (int b = 0; b < rArray.length; b++) {
-                                    if (rArray[row][col+1].getResource() == farmArray[0][1]) {
-                                        //System.out.println("3/4 match");
-                                        if (rArray[row+1][col+1].getResource() == farmArray[1][1]) {
-                                            //system.out.println("FARM FOUND!");
-                                            rArray[row][col].setScannedBuilding(BuildingEnum.FARM);
-                                            rArray[row+1][col].setScannedBuilding(BuildingEnum.FARM);
-                                            rArray[row][col+1].setScannedBuilding(BuildingEnum.FARM);
-                                            rArray[row+1][col+1].setScannedBuilding(BuildingEnum.FARM);
-                                            return true;
-                                        }
-                                        else {
-                                            farmArray = buildingRotation(farmArray);
-                                        }
-                                    }
-                                    else {
-                                        farmArray = buildingRotation(farmArray);
-                                    }
-                                }
-                            }
-                            else {
-                                farmArray = buildingRotation(farmArray);
-                            }
-                        }
+                    if (rArray[row][col].getResource() == farmArray[0][0] && rArray[row+1][col].getResource() == farmArray[1][0] &&
+                            rArray[row][col+1].getResource() == farmArray[0][1] &&rArray[row+1][col+1].getResource() == farmArray[1][1]) {
+
+                        rArray[row][col].setScannedBuilding(BuildingEnum.FARM);
+                        rArray[row+1][col].setScannedBuilding(BuildingEnum.FARM);
+                        rArray[row][col+1].setScannedBuilding(BuildingEnum.FARM);
+                        rArray[row+1][col+1].setScannedBuilding(BuildingEnum.FARM);
+                        return true;
                     }
                     else {
                         farmArray = buildingRotation(farmArray);
                     }
-//                    if (i == 3) {
-//                        //System.out.println("Completed index search");
-//                    }
                 }
             }
             catch (Exception e) {

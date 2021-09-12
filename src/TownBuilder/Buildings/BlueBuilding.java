@@ -86,55 +86,41 @@ public class BlueBuilding extends Building{
         cottageArray[0][1] = ResourceEnum.BRICK;
         cottageArray[1][0] = ResourceEnum.WHEAT;
         cottageArray[1][1] = ResourceEnum.NONE;
-        System.out.println("Farm array built");
+        System.out.println("Cottage array built");
         Utility.arrayPrinter(cottageArray);
 
         try {
+            boolean columnCheck = false;
             for (int i = 0; i < rArray.length+3; i++) {
                 if (i == 4) {
                     cottageArray[0][0] = ResourceEnum.GLASS;
                     cottageArray[0][1] = ResourceEnum.WHEAT;
                     cottageArray[1][0] = ResourceEnum.BRICK;
-                    cottageArray[1][1] = ResourceEnum.NONE;
+                    cottageArray[1][1] = ResourceEnum.EXISTS;
 
                     System.out.println("Inverse invoked");
                     Utility.arrayPrinter(cottageArray);
                 }
                 if (rArray[row][col].getResource() == cottageArray[0][0]) {
-                    System.out.println("1/3 match");
+                    rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
+                    if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
+                        rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
                         if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
-                            if (rArray[row+1][col].getResource() == ResourceEnum.NONE) {
-                                if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
-                                    glassVerification = true;
-                                    System.out.println("Passed NONE Verification");
-                                    rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                                }
-                            }
-                            else {
-                                glassVerification = true;
-                                System.out.println("NONE Check unnecessary");
-                            }
-                                    System.out.println("2/3 match");
-                                if ((rArray[row][col+1].getResource() == cottageArray[0][1]) && glassVerification) {
-                                    System.out.println("3/3 match");
-                                    rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                                    rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                                    rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
+                            rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
+                            if (rArray[row+1][col+1].getStatus() == cottageArray[1][1]) {
 
-                                    return true;
-                                }
-                                else {
-                                    cottageArray = Building.buildingRotation(cottageArray);
-                                }
-
+                            }
                         }
                         else {
-                            cottageArray = Building.buildingRotation(cottageArray);
-                        }
 
+                        }
+                    }
+                    else {
+
+                    }
                 }
                 else {
-                    cottageArray = Building.buildingRotation(cottageArray);
+
                 }
             }
         }

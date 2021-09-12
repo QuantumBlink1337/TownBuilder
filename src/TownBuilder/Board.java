@@ -162,8 +162,8 @@ public class Board {
             else {
                 System.out.println("You can't place a resource on a tile that already has one!");
             }
-            userCoordinate = "   ";
 
+            userCoordinate = "   ";
 
         }
         while (!validSpot);
