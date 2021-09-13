@@ -73,17 +73,18 @@ public class Board {
                     System.out.println("Scanning row: " + row + " and column: " + col);
                    // redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
                     blueBuildingDetection = BlueBuilding.blueDetection(row, col, gameResourceBoard);
+                    if (redBuildingDetection) {
+                        System.out.println("A valid farm construction was found!");
+                        RedBuilding.redPlacement(gameResourceBoard, gameBuildingBoard);
+                    }
+                    if (blueBuildingDetection) {
+                        System.out.println("A valid cottage construction was found!");
+                        BlueBuilding.bluePlacement(gameResourceBoard, gameBuildingBoard);
+                    }
                 }
             }
         }
-        if (redBuildingDetection) {
-            System.out.println("A valid farm construction was found!");
-            RedBuilding.redPlacement(gameResourceBoard, gameBuildingBoard);
-        }
-        if (blueBuildingDetection) {
-            System.out.println("A valid cottage construction was found!");
-            BlueBuilding.bluePlacement(gameResourceBoard, gameBuildingBoard);
-        }
+
 
 
     }

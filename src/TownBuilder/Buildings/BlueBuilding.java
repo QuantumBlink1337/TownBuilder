@@ -85,7 +85,7 @@ public class BlueBuilding extends Building{
         cottageArray[0][0] = ResourceEnum.GLASS;
         cottageArray[0][1] = ResourceEnum.BRICK;
         cottageArray[1][0] = ResourceEnum.WHEAT;
-        cottageArray[1][1] = ResourceEnum.NONE;
+        cottageArray[1][1] = ResourceEnum.EXISTS;
         System.out.println("Cottage array built");
         Utility.arrayPrinter(cottageArray);
 
@@ -108,19 +108,22 @@ public class BlueBuilding extends Building{
                         if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
                             rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
                             if (rArray[row+1][col+1].getStatus() == cottageArray[1][1]) {
-
+                                return true;
+                            }
+                            else {
+                                cottageArray = buildingRotation(cottageArray);
                             }
                         }
                         else {
-
+                            cottageArray = buildingRotation(cottageArray);
                         }
                     }
                     else {
-
+                        cottageArray = buildingRotation(cottageArray);
                     }
                 }
                 else {
-
+                    cottageArray = buildingRotation(cottageArray);
                 }
             }
         }

@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="typo change">
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="new branch checkout, experimental detection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/RedBuilding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/ResourceEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/TownResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631408321809</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="new branch checkout, experimental detection">
+      <created>1631468669220</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1631468669220</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,7 +227,8 @@
     <MESSAGE value="merged ArrayFlipper/BuildingFlipper" />
     <MESSAGE value="renamed BuildingFlipper to Rotation" />
     <MESSAGE value="typo change" />
-    <option name="LAST_COMMIT_MESSAGE" value="typo change" />
+    <MESSAGE value="new branch checkout, experimental detection" />
+    <option name="LAST_COMMIT_MESSAGE" value="new branch checkout, experimental detection" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -234,7 +239,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/TownBuilder/Board.java</url>
-          <line>142</line>
+          <line>143</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
