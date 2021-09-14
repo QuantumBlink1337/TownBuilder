@@ -6,8 +6,9 @@ public enum ResourceEnum {
     WOOD,
     WHEAT,
     STONE,
-    NONE,
-    EXISTS;
+    OVERRULED,
+    NONE;
+
 
 
 

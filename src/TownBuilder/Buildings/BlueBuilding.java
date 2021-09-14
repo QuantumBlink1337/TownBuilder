@@ -77,6 +77,7 @@ public class BlueBuilding extends Building{
                 }
             }
         }
+        rArray[row][col].setResource(ResourceEnum.OVERRULED);
         bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE, BuildingColor.BLUE);
     }
     public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
@@ -93,10 +94,10 @@ public class BlueBuilding extends Building{
                 cottageArray[1][0] = ResourceEnum.WHEAT;
                 cottageArray[1][1] = ResourceEnum.NONE;
                 System.out.println("Cottage array built");
-                Utility.arrayPrinter(cottageArray);
+                //Utility.arrayPrinter(cottageArray);
                 cottageArray[1][1] = resourceArray[a];
                 int signature = 0;
-                System.out.println("CottageArray corner definition: " + cottageArray[1][1]);
+                //System.out.println("CottageArray corner definition: " + cottageArray[1][1]);
                 for (int i = 0; i < rArray.length+3; i++) {
 
                     System.out.println("Signature: " + signature);
@@ -104,28 +105,28 @@ public class BlueBuilding extends Building{
                         cottageArray[0][0] = ResourceEnum.GLASS;
                         cottageArray[0][1] = ResourceEnum.WHEAT;
                         cottageArray[1][0] = ResourceEnum.BRICK;
-                        System.out.println("Inverse invoked");
-                        Utility.arrayPrinter(cottageArray);
+                        //System.out.println("Inverse invoked");
+                        //Utility.arrayPrinter(cottageArray);
                         signature = 0;
                     }
                     if (rArray[row][col].getResource() == cottageArray[0][0]) {
                         if (signature != 2) {
-                            System.out.println("Row " + row + " and " + col + " set to Cottage with signature " + signature);
+                            //System.out.println("Row " + row + " and " + col + " set to Cottage with signature " + signature);
                             rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
                         }
                         if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
                             if (signature != 3) {
-                                System.out.println("Row " + row + " and " + (col+1) + " set to Cottage with signature " + signature);
+                                //System.out.println("Row " + row + " and " + (col+1) + " set to Cottage with signature " + signature);
                                 rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
                             }
                             if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
                                 if (signature != 1) {
-                                    System.out.println("Row " + (row+1) + " and " + col + " set to Cottage with signature " + signature);
+                                    //System.out.println("Row " + (row+1) + " and " + col + " set to Cottage with signature " + signature);
                                     rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
                                 }
                                 if (rArray[row+1][col+1].getResource() == cottageArray[1][1]) {
                                     if (signature != 0) {
-                                        System.out.println("Row " + (row+1) + " and " + (col+1) + " set to Cottage with signature " + signature);
+                                        //System.out.println("Row " + (row+1) + " and " + (col+1) + " set to Cottage with signature " + signature);
                                         rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
                                     }
                                     return true;
