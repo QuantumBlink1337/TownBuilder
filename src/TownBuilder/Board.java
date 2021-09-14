@@ -69,7 +69,7 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
 
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && !redBuildingDetection && !blueBuildingDetection) {
+                if (!redBuildingDetection && !blueBuildingDetection) {
                     System.out.println("Scanning row: " + row + " and column: " + col);
                    // redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
                     blueBuildingDetection = BlueBuilding.blueDetection(row, col, gameResourceBoard);

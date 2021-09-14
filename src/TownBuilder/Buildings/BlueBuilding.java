@@ -80,35 +80,42 @@ public class BlueBuilding extends Building{
         bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE, BuildingColor.BLUE);
     }
     public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
-        ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
-        boolean glassVerification = false;
-        cottageArray[0][0] = ResourceEnum.GLASS;
-        cottageArray[0][1] = ResourceEnum.BRICK;
-        cottageArray[1][0] = ResourceEnum.WHEAT;
-        cottageArray[1][1] = ResourceEnum.EXISTS;
-        System.out.println("Cottage array built");
-        Utility.arrayPrinter(cottageArray);
+
 
         try {
             boolean columnCheck = false;
-            for (int i = 0; i < rArray.length+3; i++) {
-                if (i == 4) {
-                    cottageArray[0][0] = ResourceEnum.GLASS;
-                    cottageArray[0][1] = ResourceEnum.WHEAT;
-                    cottageArray[1][0] = ResourceEnum.BRICK;
-                    cottageArray[1][1] = ResourceEnum.EXISTS;
-
-                    System.out.println("Inverse invoked");
-                    Utility.arrayPrinter(cottageArray);
-                }
-                if (rArray[row][col].getResource() == cottageArray[0][0]) {
-                    rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                    if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
-                        rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                        if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
-                            rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                            if (rArray[row+1][col+1].getStatus() == cottageArray[1][1]) {
-                                return true;
+            ResourceEnum resourceArray[] = {ResourceEnum.GLASS, ResourceEnum.BRICK, ResourceEnum.WOOD, ResourceEnum.WHEAT, ResourceEnum.STONE, ResourceEnum.NONE};
+            for (int a = 0; a < resourceArray.length; a++) {
+                ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
+                cottageArray[0][0] = ResourceEnum.GLASS;
+                cottageArray[0][1] = ResourceEnum.BRICK;
+                cottageArray[1][0] = ResourceEnum.WHEAT;
+                cottageArray[1][1] = ResourceEnum.NONE;
+                System.out.println("Cottage array built");
+                Utility.arrayPrinter(cottageArray);
+                cottageArray[1][1] = resourceArray[a];
+                System.out.println("CottageArray corner definition: " + cottageArray[1][1]);
+                for (int i = 0; i < rArray.length+3; i++) {
+                    if (i == 4) {
+                        cottageArray[0][0] = ResourceEnum.GLASS;
+                        cottageArray[0][1] = ResourceEnum.WHEAT;
+                        cottageArray[1][0] = ResourceEnum.BRICK;
+                        System.out.println("Inverse invoked");
+                        Utility.arrayPrinter(cottageArray);
+                    }
+                    if (rArray[row][col].getResource() == cottageArray[0][0]) {
+                        rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
+                        if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
+                            rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
+                            if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
+                                rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
+                                if (rArray[row+1][col+1].getResource() == cottageArray[1][1]) {
+                                    rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
+                                    return true;
+                                }
+                                else {
+                                    cottageArray = buildingRotation(cottageArray);
+                                }
                             }
                             else {
                                 cottageArray = buildingRotation(cottageArray);
@@ -122,10 +129,9 @@ public class BlueBuilding extends Building{
                         cottageArray = buildingRotation(cottageArray);
                     }
                 }
-                else {
-                    cottageArray = buildingRotation(cottageArray);
-                }
+
             }
+
         }
         catch (Exception e) {
         }
