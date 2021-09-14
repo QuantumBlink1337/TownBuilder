@@ -8,7 +8,6 @@ public class TownResource {
     private BuildingEnum scannedBuilding;
     public TownResource(ResourceEnum r) {
         resource = r;
-        status = ResourceEnum.EXISTS;
         scannedBuilding = BuildingEnum.NONE;
     }
 
