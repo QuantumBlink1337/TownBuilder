@@ -86,7 +86,7 @@ public class BlueBuilding extends Building{
             boolean columnCheck = false;
             ResourceEnum resourceArray[] = {ResourceEnum.GLASS, ResourceEnum.BRICK, ResourceEnum.WOOD, ResourceEnum.WHEAT, ResourceEnum.STONE, ResourceEnum.NONE};
             for (int a = 0; a < resourceArray.length; a++) {
-
+                rArray[row][col].setScannedBuilding(BuildingEnum.NONE);
                 ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
                 cottageArray[0][0] = ResourceEnum.GLASS;
                 cottageArray[0][1] = ResourceEnum.BRICK;
@@ -98,6 +98,7 @@ public class BlueBuilding extends Building{
                 int signature = 0;
                 System.out.println("CottageArray corner definition: " + cottageArray[1][1]);
                 for (int i = 0; i < rArray.length+3; i++) {
+
                     System.out.println("Signature: " + signature);
                     if (i == 4) {
                         cottageArray[0][0] = ResourceEnum.GLASS;

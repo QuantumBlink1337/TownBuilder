@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="dynamically redefined empty index&#10;of cottageArray">
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="fixed print helper for signature">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" afterDir="false" />
     </list>
@@ -200,7 +200,21 @@
       <option name="project" value="LOCAL" />
       <updated>1631642975147</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="signature setup to detect when an&#10;index was only valid because of &#10;dynamic redefinition">
+      <created>1631644191756</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1631644191756</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fixed print helper for signature">
+      <created>1631644346360</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1631644346360</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,7 +247,9 @@
     <MESSAGE value="typo change" />
     <MESSAGE value="new branch checkout, experimental detection" />
     <MESSAGE value="dynamically redefined empty index&#10;of cottageArray" />
-    <option name="LAST_COMMIT_MESSAGE" value="dynamically redefined empty index&#10;of cottageArray" />
+    <MESSAGE value="signature setup to detect when an&#10;index was only valid because of &#10;dynamic redefinition" />
+    <MESSAGE value="fixed print helper for signature" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed print helper for signature" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
