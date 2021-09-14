@@ -114,17 +114,17 @@ public class BlueBuilding extends Building{
                         }
                         if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
                             if (signature != 3) {
-                                System.out.println("Row " + row + " and " + col + " set to Cottage with signature " + signature);
+                                System.out.println("Row " + row + " and " + (col+1) + " set to Cottage with signature " + signature);
                                 rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
                             }
                             if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
                                 if (signature != 1) {
-                                    System.out.println("Row " + row + " and " + col + " set to Cottage with signature " + signature);
+                                    System.out.println("Row " + (row+1) + " and " + col + " set to Cottage with signature " + signature);
                                     rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
                                 }
                                 if (rArray[row+1][col+1].getResource() == cottageArray[1][1]) {
                                     if (signature != 0) {
-                                        System.out.println("Row " + row + " and " + col + " set to Cottage with signature " + signature);
+                                        System.out.println("Row " + (row+1) + " and " + (col+1) + " set to Cottage with signature " + signature);
                                         rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
                                     }
                                     return true;
