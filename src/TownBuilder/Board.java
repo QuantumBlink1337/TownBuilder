@@ -174,9 +174,8 @@ public class Board {
         //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE) {
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OVERRULED) {
                     gameBoard[row][col] = gameResourceBoard[row][col].toString();
-                    gameResourceBoard[row][col].setScannedBuilding(BuildingEnum.NONE);
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
                     gameBoard[row][col] = gameBuildingBoard[row][col].toString();

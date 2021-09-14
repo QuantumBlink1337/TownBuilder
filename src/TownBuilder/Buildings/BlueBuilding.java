@@ -142,9 +142,6 @@ public class BlueBuilding extends Building{
                     }
                 }
             }
-
-
-
         }
         catch (Exception e) {
         }
