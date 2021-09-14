@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="new branch checkout, experimental detection">
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="dynamically redefined empty index&#10;of cottageArray">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/TownResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/BlueBuilding.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -196,7 +193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631468669220</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="dynamically redefined empty index&#10;of cottageArray">
+      <created>1631642975146</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1631642975147</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,7 +232,8 @@
     <MESSAGE value="renamed BuildingFlipper to Rotation" />
     <MESSAGE value="typo change" />
     <MESSAGE value="new branch checkout, experimental detection" />
-    <option name="LAST_COMMIT_MESSAGE" value="new branch checkout, experimental detection" />
+    <MESSAGE value="dynamically redefined empty index&#10;of cottageArray" />
+    <option name="LAST_COMMIT_MESSAGE" value="dynamically redefined empty index&#10;of cottageArray" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
