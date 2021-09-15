@@ -3,7 +3,6 @@ package TownBuilder;
 
 import TownBuilder.Buildings.*;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class Board {
@@ -115,7 +114,7 @@ public class Board {
                     System.out.println("Oops! That's not a coordinate.");
                 }
             }
-            int[] coords = Utility.inputtoCoords(userCoordinate);
+            int[] coords = Utility.inputToCoords(userCoordinate);
             //System.out.println("Row: " + row + "Col: " + col);
             if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE) {
                 gameResourceBoard[coords[0]][coords[1]].setResource(random);

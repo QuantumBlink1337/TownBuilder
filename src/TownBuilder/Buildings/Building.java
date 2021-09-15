@@ -1,7 +1,6 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.BuildingColor;
 import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
@@ -31,34 +30,13 @@ public class Building {
 
     public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building) {
         String userInput = "";
-        int row = 0;
-        int col = 0;
+        int[] coords = new int[2];
         boolean validInput = false;
         do {
             System.out.println("Where would you like to place your " + building + "?");
             userInput = sc.nextLine().toLowerCase();
-            String[] coordinateHelper = userInput.split("", 2);
-            switch (coordinateHelper[0]) {
-                case "a" -> //System.out.println("Case A");
-                        col = 0;
-                case "b" -> //System.out.println("Case B");
-                        col = 1;
-                case "c" -> //System.out.println("Case C");
-                        col = 2;
-                case "d" -> //System.out.println("Case D");
-                        col = 3;
-            }
-            switch (coordinateHelper[1]) {
-                case "1" -> //System.out.println("Case 0");
-                        row = 0;
-                case "2" -> //.out.println("Case 1");
-                        row = 1;
-                case "3" -> //System.out.println("Case 2");
-                        row = 2;
-                case "4" -> //System.out.println("Case 3");
-                        row = 3;
-            }
-            if (rArray[row][col].getScannedBuilding() == building) {
+            coords = Utility.inputToCoords(userInput);
+            if (rArray[coords[0]][coords[1]].getScannedBuilding() == building) {
                 validInput = true;
             }
         }
@@ -74,9 +52,9 @@ public class Building {
             }
         }
         switch (building) {
-            case FARM -> bArray[row][col] = new RedBuilding(BuildingEnum.FARM);
-            case COTTAGE -> bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE);
-            case WELL -> bArray[row][col] = new GrayBuilding(BuildingEnum.WELL);
+            case FARM -> bArray[coords[0]][coords[1]] = new RedBuilding(BuildingEnum.FARM);
+            case COTTAGE -> bArray[coords[0]][coords[1]] = new BlueBuilding(BuildingEnum.COTTAGE);
+            case WELL -> bArray[coords[0]][coords[1]] = new GrayBuilding(BuildingEnum.WELL);
 
         }
 

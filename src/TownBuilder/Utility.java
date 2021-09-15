@@ -25,7 +25,7 @@ public class Utility {
             }
         }
     }
-    public static int[] inputtoCoords(String i) {
+    public static int[] inputToCoords(String i) {
         String[] input = i.split("", 2);
         int[] coords = new int[2];
         switch (input[0]) {
