@@ -73,18 +73,25 @@ public class Board {
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
                     grayBuildingDetection = Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL);
                     if (redBuildingDetection) {
-                        System.out.println("A valid farm construction was found!");
-                        RedBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.FARM);
+                        System.out.println("A valid farm construction was found! Place it this turn?");
+                        if (Utility.prompt()) {
+                            RedBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.FARM);
+                        }
                     }
                     if (blueBuildingDetection) {
-                        System.out.println("A valid cottage construction was found!");
-                        BlueBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.COTTAGE);
+                        System.out.println("A valid cottage construction was found! Place it this turn?");
+                        if (Utility.prompt()) {
+                            BlueBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.COTTAGE);
+                            }
+                        }
                     }
-                    if (blueBuildingDetection) {
-                        System.out.println("A valid well construction was found!");
-                        GrayBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.WELL);
+                    if (grayBuildingDetection) {
+                        System.out.println("A valid well construction was found! Place it this turn?");
+                        if (Utility.prompt()) {
+                            GrayBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.WELL);
+                        }
+                        grayBuildingDetection = false;
                     }
-                }
             }
         }
 
@@ -137,7 +144,7 @@ public class Board {
                 validSpot = true;
             }
             else {
-                System.out.println("You can't place a resource on a tile that already has one!");
+                System.out.println("You can't place a resource on a tile that already has something on it!");
             }
 
             userCoordinate = "   ";

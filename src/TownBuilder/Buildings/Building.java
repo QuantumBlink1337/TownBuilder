@@ -96,7 +96,7 @@ public class Building {
                 ResourceEnum[][][] buildingTemplate = bT;
                 for (int i = 1; i < checkTime+1; i++) {
                     System.out.println("i: " + i);
-                    if (i % 4 == 0) {
+                    if (i % 5 == 0) {
                         System.out.println("Switching to next pattern available");
                         patternIndex++;
                     }
