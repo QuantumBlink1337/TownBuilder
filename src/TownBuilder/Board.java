@@ -105,8 +105,6 @@ public class Board {
     }
     public void resourcePlacer(ResourceEnum random) {
         String userCoordinate = "   ";
-        int col = 0;
-        int row = 0;
         boolean validSpot = false;
         do {
             validSpot = false;
@@ -117,30 +115,10 @@ public class Board {
                     System.out.println("Oops! That's not a coordinate.");
                 }
             }
-            String[] coordinateHelper = userCoordinate.split("", 2);
-            switch (coordinateHelper[0]) {
-                case "a" -> //System.out.println("Case A");
-                        col = 0;
-                case "b" -> //System.out.println("Case B");
-                        col = 1;
-                case "c" -> //System.out.println("Case C");
-                        col = 2;
-                case "d" -> //System.out.println("Case D");
-                        col = 3;
-            }
-            switch (coordinateHelper[1]) {
-                case "1" -> //System.out.println("Case 0");
-                        row = 0;
-                case "2" -> //.out.println("Case 1");
-                        row = 1;
-                case "3" -> //System.out.println("Case 2");
-                        row = 2;
-                case "4" -> //System.out.println("Case 3");
-                        row = 3;
-            }
+            int[] coords = Utility.inputtoCoords(userCoordinate);
             //System.out.println("Row: " + row + "Col: " + col);
-            if (gameResourceBoard[row][col].getResource() == ResourceEnum.NONE) {
-                gameResourceBoard[row][col].setResource(random);
+            if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE) {
+                gameResourceBoard[coords[0]][coords[1]].setResource(random);
                 validSpot = true;
             }
             else {

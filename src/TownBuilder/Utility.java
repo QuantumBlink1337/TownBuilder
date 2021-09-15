@@ -25,6 +25,31 @@ public class Utility {
             }
         }
     }
+    public static int[] inputtoCoords(String i) {
+        String[] input = i.split("", 2);
+        int[] coords = new int[2];
+        switch (input[0]) {
+            case "a" -> //System.out.println("Case A");
+                    coords[1] = 0;
+            case "b" -> //System.out.println("Case B");
+                    coords[1] = 1;
+            case "c" -> //System.out.println("Case C");
+                    coords[1] = 2;
+            case "d" -> //System.out.println("Case D");
+                    coords[1] = 3;
+        }
+        switch (input[1]) {
+            case "1" -> //System.out.println("Case 0");
+                    coords[0] = 0;
+            case "2" -> //.out.println("Case 1");
+                    coords[0] = 1;
+            case "3" -> //System.out.println("Case 2");
+                    coords[0] = 2;
+            case "4" -> //System.out.println("Case 3");
+                    coords[0] = 3;
+        }
+        return coords;
+    }
     public static boolean prompt() {
         String prompt = "";
         Scanner sc = new Scanner(System.in);
