@@ -3,10 +3,23 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 import TownBuilder.BuildingColor;
 import TownBuilder.TownResource;
+import TownBuilder.Utility;
 
 public class Building {
+    private static ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private BuildingEnum buildingEnum;
     private BuildingColor color;
+
+    public static void setCottageArray() {
+        cottageArray[0][0] = ResourceEnum.GLASS;
+        cottageArray[0][1] = ResourceEnum.WHEAT;
+        cottageArray[1][0] = ResourceEnum.BRICK;
+        cottageArray[1][1] = ResourceEnum.NONE;
+    }
+    public static ResourceEnum[][] getCottageArray() {
+        return cottageArray;
+    }
+
     public Building(BuildingEnum b, BuildingColor c) {
         buildingEnum = b;
         color = c;
@@ -24,34 +37,62 @@ public class Building {
     }
     public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][] bT, BuildingEnum buildingType) {
             try {
-                int rotations = 0;
+                int checkTime = 4;
+                Utility.arrayPrinter(bT);
+                switch (buildingType) {
+                    case COTTAGE:
+                        checkTime = 6;
+                        System.out.println("Cottage is being checked, so checktime is longer");
+
+                }
                 ResourceEnum[][] buildingTemplate = bT;
-                for (int i = 0; i < rArray.length; i++) {
-                    for (int r = 0; r < buildingTemplate.length; r++) {
-                        for (int c = 0; c < buildingTemplate[r].length; r++) {
-                            if (compare(rArray[row][col], buildingTemplate[r][c], buildingType)) {
-                               continue;
-                            }
-                            else {
-                                buildingTemplate = buildingRotation(buildingTemplate);
-                            }
-                        }
+                for (int i = 0; i < checkTime; i++) {
+                    System.out.println("i: " + i);
+                    if (i == 4) {
+                        buildingTemplate = ResourceEnum.swap(buildingTemplate, 0, 1, 1, 0);
+                        System.out.println("Swapped array");
+                        Utility.arrayPrinter(buildingTemplate);
+                    }
+                    if (compare(row, col, rArray, buildingTemplate, buildingType)) {
+                        return true;
+                    }
+                    else {
+                        buildingTemplate = buildingRotation(buildingTemplate);
                     }
                 }
-
             }
             catch (ArrayIndexOutOfBoundsException e){}
 
         return false;
     }
-    public static boolean compare(TownResource toBeChecked, ResourceEnum checker, BuildingEnum building) {
+    public static boolean compare(int row, int col, TownResource[][] rArray, ResourceEnum[][] buildingTemplate, BuildingEnum buildingType) {
+        for (int r = 0; r < buildingTemplate.length; r++) {
+            for (int c = 0; c < buildingTemplate[r].length; c++) {
+                if (match(rArray[row+r][col+c], buildingTemplate[r][c], buildingType)) {
+                    System.out.println("Successful comparison at " + (row+r) + ", " + (col+c));
+                    continue;
+                }
+                else {
+                    System.out.println("Failure of comparison at " + (row+r) + ", " + (col+c));
+                    return false;
+                }
+            }
+        }
+        return true;
+
+    }
+
+    public static boolean match(TownResource toBeChecked, ResourceEnum checker, BuildingEnum building) {
         if (checker == ResourceEnum.NONE) {
+            System.out.println("Checked tile was matched to NONE, therefore it is true");
             return true;
         }
         else if (toBeChecked.getResource() == checker) {
             toBeChecked.setScannedBuilding(building);
+            System.out.println("Checked tile was matched to an arbitrary value " + checker + ", therefore it is true");
             return true;
         }
+        System.out.println("Checked tile has no match");
         return false;
     }
 

@@ -80,36 +80,32 @@ public class BlueBuilding extends Building{
         rArray[row][col].setResource(ResourceEnum.OVERRULED);
         bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE, BuildingColor.BLUE);
     }
-    public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
-        ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
-        cottageArray[0][0] = ResourceEnum.GLASS;
-        cottageArray[0][1] = ResourceEnum.BRICK;
-        cottageArray[1][0] = ResourceEnum.WHEAT;
-        cottageArray[1][1] = ResourceEnum.NONE;
-        System.out.println("Printing mirror array:");
-        for(int a=0;a<2;a++)
-        {
-            for(int b=(2-1);b>=0;b--)
-            {
-                System.out.print(cottageArray[a][b]+"       ");
-            }
-            System.out.println();
-        }
-        try {
-            for (int i = 0; i < (rArray.length + 3); i++) {
-                if (i == 4) {
-
-                    cottageArray[0][0] = ResourceEnum.GLASS;
-                    cottageArray[0][1] = ResourceEnum.WHEAT;
-                    cottageArray[1][0] = ResourceEnum.BRICK;
-                    cottageArray[1][1] = ResourceEnum.NONE;
-                }
-            }
-        }
-        catch (Exception e) {
-        }
-        System.out.println("Moving on to next index");
-        return false;
-    }
+//    public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
+//
+//        System.out.println("Printing mirror array:");
+//        for(int a=0;a<2;a++)
+//        {
+//            for(int b=(2-1);b>=0;b--)
+//            {
+//                System.out.print(cottageArray[a][b]+"       ");
+//            }
+//            System.out.println();
+//        }
+//        try {
+//            for (int i = 0; i < (rArray.length + 3); i++) {
+//                if (i == 4) {
+//
+//                    cottageArray[0][0] = ResourceEnum.GLASS;
+//                    cottageArray[0][1] = ResourceEnum.WHEAT;
+//                    cottageArray[1][0] = ResourceEnum.BRICK;
+//                    cottageArray[1][1] = ResourceEnum.NONE;
+//                }
+//            }
+//        }
+//        catch (Exception e) {
+//        }
+//        System.out.println("Moving on to next index");
+//        return false;
+//    }
 
 }
