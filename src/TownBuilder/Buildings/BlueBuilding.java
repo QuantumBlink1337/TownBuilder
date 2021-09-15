@@ -86,60 +86,23 @@ public class BlueBuilding extends Building{
         cottageArray[0][1] = ResourceEnum.BRICK;
         cottageArray[1][0] = ResourceEnum.WHEAT;
         cottageArray[1][1] = ResourceEnum.NONE;
+        System.out.println("Printing mirror array:");
+        for(int a=0;a<2;a++)
+        {
+            for(int b=(2-1);b>=0;b--)
+            {
+                System.out.print(cottageArray[a][b]+"       ");
+            }
+            System.out.println();
+        }
         try {
             for (int i = 0; i < (rArray.length + 3); i++) {
                 if (i == 4) {
+
                     cottageArray[0][0] = ResourceEnum.GLASS;
                     cottageArray[0][1] = ResourceEnum.WHEAT;
                     cottageArray[1][0] = ResourceEnum.BRICK;
                     cottageArray[1][1] = ResourceEnum.NONE;
-                }
-                if (rArray[row][col].getResource() == cottageArray[0][0]) {
-                    rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                    if (rArray[row][col+1].getResource() == cottageArray[0][1]) {
-                        rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                        if (rArray[row+1][col].getResource() == cottageArray[1][0]) {
-                            rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                            if (ResourceEnum.PatternRandomCheck(rArray[row+1][col+1].getResource())) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                else if (rArray[row][col+1].getResource() == cottageArray[0][0]) {
-                    rArray[row][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                    if (rArray[row+1][col+1].getResource() == cottageArray[0][1]) {
-                        rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                        if (ResourceEnum.PatternRandomCheck(rArray[row+1][col].getResource())) {
-                            if (rArray[row][col].getResource() == cottageArray[1][0]) {
-                                rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                                return true;
-                            }
-                        }
-                    }
-                }
-                else if (rArray[row+1][col+1].getResource() == cottageArray[0][0]) {
-                    rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                    if (rArray[row+1][col].getResource() == cottageArray[0][1]) {
-                        rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                        if (ResourceEnum.PatternRandomCheck(rArray[row][col].getResource())) {
-                            if (rArray[row][col+1].getResource() == cottageArray[1][0]) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                else if (rArray[row+1][col].getResource() == cottageArray[0][0]) {
-                    rArray[row+1][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                    if (rArray[row][col].getResource() == cottageArray[0][1]) {
-                        rArray[row][col].setScannedBuilding(BuildingEnum.COTTAGE);
-                        if (ResourceEnum.PatternRandomCheck(rArray[row+1][col].getResource())) {
-                            if (rArray[row+1][col+1].getResource() == cottageArray[1][0]) {
-                                rArray[row+1][col+1].setScannedBuilding(BuildingEnum.COTTAGE);
-                                return true;
-                            }
-                        }
-                    }
                 }
             }
         }

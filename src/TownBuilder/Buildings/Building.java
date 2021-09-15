@@ -2,6 +2,7 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 import TownBuilder.BuildingColor;
+import TownBuilder.TownResource;
 
 public class Building {
     private BuildingEnum buildingEnum;
@@ -20,6 +21,38 @@ public class Building {
     @Override
     public String toString() {
         return "[" + buildingEnum +"]";
+    }
+    public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][] bT, BuildingEnum buildingType) {
+            try {
+                int rotations = 0;
+                ResourceEnum[][] buildingTemplate = bT;
+                for (int i = 0; i < rArray.length; i++) {
+                    for (int r = 0; r < buildingTemplate.length; r++) {
+                        for (int c = 0; c < buildingTemplate[r].length; r++) {
+                            if (compare(rArray[row][col], buildingTemplate[r][c], buildingType)) {
+                               continue;
+                            }
+                            else {
+                                buildingTemplate = buildingRotation(buildingTemplate);
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (ArrayIndexOutOfBoundsException e){}
+
+        return false;
+    }
+    public static boolean compare(TownResource toBeChecked, ResourceEnum checker, BuildingEnum building) {
+        if (checker == ResourceEnum.NONE) {
+            return true;
+        }
+        else if (toBeChecked.getResource() == checker) {
+            toBeChecked.setScannedBuilding(building);
+            return true;
+        }
+        return false;
     }
 
     public static ResourceEnum[][] buildingRotation(ResourceEnum[][] a) {
