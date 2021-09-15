@@ -5,7 +5,7 @@ import TownBuilder.BuildingColor;
 import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
-public abstract class Building {
+public class Building {
 
     private BuildingEnum buildingEnum;
     private BuildingColor color;
@@ -36,6 +36,7 @@ public abstract class Building {
                 for (ResourceEnum[][] board : bT) {
                     checkTime += 4;
                 }
+                System.out.println("CheckTime: " + checkTime);
 
 
                 ResourceEnum[][][] buildingTemplate = bT;
