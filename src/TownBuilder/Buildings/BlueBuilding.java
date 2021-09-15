@@ -3,15 +3,37 @@ package TownBuilder.Buildings;
 import TownBuilder.BuildingColor;
 import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
-import TownBuilder.Utility;
 
 import java.util.Scanner;
 
+
+
+
 public class BlueBuilding extends Building{
+
+    private static ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
+    private static ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
+    private static ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
     private static Scanner sc = new Scanner(System.in);
     public BlueBuilding(BuildingEnum b, BuildingColor c) {
         super(b, c);
 
+    }
+
+    public static void setCottageArray() {
+
+
+
+    }
+    public static ResourceEnum[][][] getArray() {
+        cottageArray[0][0] = ResourceEnum.GLASS;
+        cottageArray[0][1] = ResourceEnum.WHEAT;
+        cottageArray[1][0] = ResourceEnum.BRICK;
+        cottageArray[1][1] = ResourceEnum.NONE;
+        cottageArrayMirror = ResourceEnum.swap(cottageArray, 0, 1, 1, 0);
+        cottagePatternList[0] = cottageArray;
+        cottagePatternList[1] = cottageArrayMirror;
+        return cottagePatternList;
     }
     public static void bluePlacement(TownResource[][] rArray, Building[][] bArray) {
         String userInput = "";
@@ -27,40 +49,24 @@ public class BlueBuilding extends Building{
 //                System.out.println(character);
 //            }
             switch (coordinateHelper[0]) {
-                case "a" -> {
-                    col = 0;
-                    //System.out.println("Case A");
-                }
-                case "b" -> {
-                    col = 1;
-                    //System.out.println("Case B");
-                }
-                case "c" -> {
-                    col = 2;
-                    //System.out.println("Case C");
-                }
-                case "d" -> {
-                    col = 3;
-                    //System.out.println("Case D");
-                }
+                case "a" -> //System.out.println("Case A");
+                        col = 0;
+                case "b" -> //System.out.println("Case B");
+                        col = 1;
+                case "c" -> //System.out.println("Case C");
+                        col = 2;
+                case "d" -> //System.out.println("Case D");
+                        col = 3;
             }
             switch (coordinateHelper[1]) {
-                case "1" -> {
-                    row = 0;
-                    //System.out.println("Case 0");
-                }
-                case "2" -> {
-                    row = 1;
-                    //.out.println("Case 1");
-                }
-                case "3" -> {
-                    row = 2;
-                    //System.out.println("Case 2");
-                }
-                case "4" -> {
-                    row = 3;
-                    //System.out.println("Case 3");
-                }
+                case "1" -> //System.out.println("Case 0");
+                        row = 0;
+                case "2" -> //.out.println("Case 1");
+                        row = 1;
+                case "3" -> //System.out.println("Case 2");
+                        row = 2;
+                case "4" -> //System.out.println("Case 3");
+                        row = 3;
             }
             if (rArray[row][col].getScannedBuilding() == BuildingEnum.COTTAGE) {
                 validInput = true;

@@ -37,7 +37,7 @@ public class Board {
         }
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col] = new Building(BuildingEnum.NONE, BuildingColor.NULL);
+                gameBuildingBoard[row][col] = new BlueBuilding(BuildingEnum.NONE, BuildingColor.NULL);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -72,7 +72,7 @@ public class Board {
                 if (!redBuildingDetection && !blueBuildingDetection) {
                     System.out.println("Scanning row: " + row + " and column: " + col);
                    // redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
-                    blueBuildingDetection = Building.detection(row, col, gameResourceBoard, Building.getCottageArray(), BuildingEnum.COTTAGE);
+                    blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getArray(), BuildingEnum.COTTAGE);
                     if (redBuildingDetection) {
                         System.out.println("A valid farm construction was found!");
                         RedBuilding.redPlacement(gameResourceBoard, gameBuildingBoard);
@@ -112,48 +112,27 @@ public class Board {
                 if (userCoordinate.length() > 2) {
                     System.out.println("Oops! That's not a coordinate.");
                 }
-
             }
             String[] coordinateHelper = userCoordinate.split("", 2);
-
-//            for (String character : coordinateHelper) {
-//                System.out.println(character);
-//            }
             switch (coordinateHelper[0]) {
-                case "a" -> {
-                    col = 0;
-                    //System.out.println("Case A");
-                }
-                case "b" -> {
-                    col = 1;
-                    //System.out.println("Case B");
-                }
-                case "c" -> {
-                    col = 2;
-                    //System.out.println("Case C");
-                }
-                case "d" -> {
-                    col = 3;
-                    //System.out.println("Case D");
-                }
+                case "a" -> //System.out.println("Case A");
+                        col = 0;
+                case "b" -> //System.out.println("Case B");
+                        col = 1;
+                case "c" -> //System.out.println("Case C");
+                        col = 2;
+                case "d" -> //System.out.println("Case D");
+                        col = 3;
             }
             switch (coordinateHelper[1]) {
-                case "1" -> {
-                    row = 0;
-                    //System.out.println("Case 0");
-                }
-                case "2" -> {
-                    row = 1;
-                    //.out.println("Case 1");
-                }
-                case "3" -> {
-                    row = 2;
-                    //System.out.println("Case 2");
-                }
-                case "4" -> {
-                    row = 3;
-                    //System.out.println("Case 3");
-                }
+                case "1" -> //System.out.println("Case 0");
+                        row = 0;
+                case "2" -> //.out.println("Case 1");
+                        row = 1;
+                case "3" -> //System.out.println("Case 2");
+                        row = 2;
+                case "4" -> //System.out.println("Case 3");
+                        row = 3;
             }
             //System.out.println("Row: " + row + "Col: " + col);
             if (gameResourceBoard[row][col].getResource() == ResourceEnum.NONE) {
