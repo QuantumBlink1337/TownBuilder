@@ -1,11 +1,9 @@
 package TownBuilder;
 
 
-import TownBuilder.Buildings.BlueBuilding;
-import TownBuilder.Buildings.Building;
-import TownBuilder.Buildings.BuildingEnum;
-import TownBuilder.Buildings.RedBuilding;
+import TownBuilder.Buildings.*;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Board {
@@ -19,8 +17,7 @@ public class Board {
     private boolean gameCompletion;
     private Scanner sc = new Scanner(System.in);
 
-    private boolean redBuildingDetection;
-    private boolean blueBuildingDetection;
+
 
     public Board() {
         player = new Player();
@@ -64,15 +61,17 @@ public class Board {
     }
     public void detection() {
         String userInput = "";
-        redBuildingDetection = false;
-        blueBuildingDetection = false;
+        boolean redBuildingDetection = false;
+        boolean blueBuildingDetection = false;
+        boolean grayBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
 
-                if (!redBuildingDetection && !blueBuildingDetection) {
+                if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection) {
                     System.out.println("Scanning row: " + row + " and column: " + col);
                     redBuildingDetection = Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM);
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
+                    grayBuildingDetection = Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL);
                     if (redBuildingDetection) {
                         System.out.println("A valid farm construction was found!");
                         RedBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.FARM);
@@ -80,6 +79,10 @@ public class Board {
                     if (blueBuildingDetection) {
                         System.out.println("A valid cottage construction was found!");
                         BlueBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.COTTAGE);
+                    }
+                    if (blueBuildingDetection) {
+                        System.out.println("A valid well construction was found!");
+                        GrayBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.WELL);
                     }
                 }
             }
