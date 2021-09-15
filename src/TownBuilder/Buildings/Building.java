@@ -36,13 +36,14 @@ public abstract class Building {
                 for (ResourceEnum[][] board : bT) {
                     checkTime += 4;
                 }
-                Utility.arrayPrinter(bT);
+
 
                 ResourceEnum[][][] buildingTemplate = bT;
                 for (int i = 0; i < checkTime; i++) {
                     if (i % 4 == 0) {
                         patternIndex++;
                     }
+                    Utility.arrayPrinter(bT[patternIndex]);
                     if (compare(row, col, rArray, buildingTemplate[patternIndex], buildingType)) {
                         return true;
                     }

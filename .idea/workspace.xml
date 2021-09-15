@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="Building is abstract, detection asks&#10;for patterns now, cleaned up redundant&#10;code">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/Driver.class" afterDir="false" />
+    <list default="true" id="6793951f-9532-4511-9234-3ff22d3a28d7" name="Changes" comment="fixed getPatterns to continue being&#10;static">
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Board.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/Building.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TownBuilder/TownBuilder/Buildings/RedBuilding.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TownBuilder/Buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TownBuilder/Buildings/Building.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631719645495</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="fixed getPatterns to continue being&#10;static">
+      <created>1631720096494</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1631720096494</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,7 +296,8 @@
     <MESSAGE value="new Detection method starting" />
     <MESSAGE value="generic Detection for all buildings" />
     <MESSAGE value="Building is abstract, detection asks&#10;for patterns now, cleaned up redundant&#10;code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Building is abstract, detection asks&#10;for patterns now, cleaned up redundant&#10;code" />
+    <MESSAGE value="fixed getPatterns to continue being&#10;static" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed getPatterns to continue being&#10;static" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
