@@ -42,8 +42,10 @@ public class Building {
 
 
                 ResourceEnum[][][] buildingTemplate = bT;
-                for (int i = 0; i < checkTime; i++) {
+                for (int i = 1; i < checkTime+1; i++) {
+                    System.out.println("i: " + i);
                     if (i % 4 == 0) {
+                        System.out.println("Switching to next pattern available");
                         patternIndex++;
                     }
                     Utility.arrayPrinter(bT[patternIndex]);
@@ -55,7 +57,9 @@ public class Building {
                     }
                 }
             }
-            catch (ArrayIndexOutOfBoundsException e){}
+            catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Out of bounds exception?");
+            }
 
         return false;
     }
