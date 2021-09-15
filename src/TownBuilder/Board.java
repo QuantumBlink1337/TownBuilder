@@ -37,7 +37,7 @@ public class Board {
         }
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col] = new BlueBuilding(BuildingEnum.NONE, BuildingColor.NULL);
+                gameBuildingBoard[row][col] = new Building(BuildingEnum.NONE);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -75,11 +75,11 @@ public class Board {
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
                     if (redBuildingDetection) {
                         System.out.println("A valid farm construction was found!");
-                        RedBuilding.redPlacement(gameResourceBoard, gameBuildingBoard);
+                        RedBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.FARM);
                     }
                     if (blueBuildingDetection) {
                         System.out.println("A valid cottage construction was found!");
-                        BlueBuilding.bluePlacement(gameResourceBoard, gameBuildingBoard);
+                        BlueBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.COTTAGE);
                     }
                 }
             }
@@ -89,12 +89,6 @@ public class Board {
 
     }
     public void playerTurn() {
-//        String playerChoice = "";
-//        System.out.println("What would you like to do this turn?");
-//        playerChoice = sc.nextLine().toLowerCase().strip();
-//        if (playerChoice.equals("clear")) {
-//            buildArrays();
-//        }
         ResourceEnum turnResource = ResourceEnum.randomResource();
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
@@ -193,17 +187,17 @@ public class Board {
 
             }
         }
-        System.out.println("This grid helps with figuring out where things should go");
-        for (int row = 0; row < coordinateBoard.length; row++) {
-            for (int col = 0; col < coordinateBoard[row].length; col++) {
-                if (col == 3) {
-                    System.out.println(coordinateBoard[row][col]);
-                }
-                else {
-                    System.out.print(coordinateBoard[row][col]);
-                }
-
-            }
-        }
+//        System.out.println("This grid helps with figuring out where things should go");
+//        for (int row = 0; row < coordinateBoard.length; row++) {
+//            for (int col = 0; col < coordinateBoard[row].length; col++) {
+//                if (col == 3) {
+//                    System.out.println(coordinateBoard[row][col]);
+//                }
+//                else {
+//                    System.out.print(coordinateBoard[row][col]);
+//                }
+//
+//            }
+//        }
     }
 }

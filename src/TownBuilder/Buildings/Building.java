@@ -5,30 +5,81 @@ import TownBuilder.BuildingColor;
 import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
+import java.util.Scanner;
+
 public class Building {
 
     private BuildingEnum buildingEnum;
-    private BuildingColor color;
+    private static Scanner sc = new Scanner(System.in);
 
 
 
-    public Building(BuildingEnum b, BuildingColor c) {
+    public Building(BuildingEnum b) {
         buildingEnum = b;
-        color = c;
     }
     public BuildingEnum getType() {
         return buildingEnum;
     }
-    public BuildingColor getColor() {
-        return color;
-    }
+//    public BuildingColor getColor() {
+//        return color;
+//    }
 
     @Override
     public String toString() {
         return "[" + buildingEnum +"]";
     }
 
+    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building) {
+        String userInput = "";
+        int row = 0;
+        int col = 0;
+        boolean validInput = false;
+        do {
+            System.out.println("Where would you like to place your " + building + "?");
+            userInput = sc.nextLine().toLowerCase();
+            String[] coordinateHelper = userInput.split("", 2);
+            switch (coordinateHelper[0]) {
+                case "a" -> //System.out.println("Case A");
+                        col = 0;
+                case "b" -> //System.out.println("Case B");
+                        col = 1;
+                case "c" -> //System.out.println("Case C");
+                        col = 2;
+                case "d" -> //System.out.println("Case D");
+                        col = 3;
+            }
+            switch (coordinateHelper[1]) {
+                case "1" -> //System.out.println("Case 0");
+                        row = 0;
+                case "2" -> //.out.println("Case 1");
+                        row = 1;
+                case "3" -> //System.out.println("Case 2");
+                        row = 2;
+                case "4" -> //System.out.println("Case 3");
+                        row = 3;
+            }
+            if (rArray[row][col].getScannedBuilding() == building) {
+                validInput = true;
+            }
+        }
+        while (!validInput);
 
+
+        for (int r = 0; r < rArray.length; r++){
+            for (int c = 0; c < rArray[r].length; c++) {
+                if (rArray[r][c].getScannedBuilding() == building) {
+                    rArray[r][c].setResource(ResourceEnum.NONE);
+                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
+                }
+            }
+        }
+        switch (building) {
+            case FARM -> bArray[row][col] = new RedBuilding(BuildingEnum.FARM);
+            case COTTAGE -> bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE);
+
+        }
+
+    }
     public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][][] bT, BuildingEnum buildingType) {
             try {
                 System.out.println("Received detection call for " + buildingType);

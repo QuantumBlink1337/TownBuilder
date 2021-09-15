@@ -15,8 +15,8 @@ public class BlueBuilding extends Building{
     private static ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
     private static Scanner sc = new Scanner(System.in);
-    public BlueBuilding(BuildingEnum b, BuildingColor c) {
-        super(b, c);
+    public BlueBuilding(BuildingEnum b) {
+        super(b);
 
     }
 
@@ -84,7 +84,7 @@ public class BlueBuilding extends Building{
             }
         }
         rArray[row][col].setResource(ResourceEnum.OVERRULED);
-        bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE, BuildingColor.BLUE);
+        bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE);
     }
 //    public static boolean blueDetection(int row, int col, TownResource[][] rArray) {
 //
