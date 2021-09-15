@@ -31,6 +31,8 @@ public class Building {
 
     public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][][] bT, BuildingEnum buildingType) {
             try {
+                System.out.println("Received detection call for " + buildingType);
+                System.out.println("Length of bT: " + bT.length);
                 int checkTime = 0;
                 int patternIndex = 0;
                 for (ResourceEnum[][] board : bT) {

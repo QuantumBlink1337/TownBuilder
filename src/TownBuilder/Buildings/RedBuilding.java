@@ -9,7 +9,7 @@ public class RedBuilding extends Building {
     private BuildingEnum buildingEnum;
     private static Scanner sc = new Scanner(System.in);
     private static ResourceEnum[][] farmArray = new ResourceEnum[2][2];
-    private static ResourceEnum[][][] farmPatternList = new ResourceEnum[2][2][2];
+    private static ResourceEnum[][][] farmPatternList = new ResourceEnum[1][2][2];
 
     public RedBuilding(BuildingEnum b, BuildingColor c) {
         super(b, c);
