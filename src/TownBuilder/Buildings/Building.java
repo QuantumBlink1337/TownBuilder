@@ -68,7 +68,7 @@ public class Building {
         for (int r = 0; r < rArray.length; r++){
             for (int c = 0; c < rArray[r].length; c++) {
                 if (rArray[r][c].getScannedBuilding() == building) {
-                    rArray[r][c].setResource(ResourceEnum.NONE);
+                    rArray[r][c].setResource(ResourceEnum.OVERRULED);
                     rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
                 }
             }
@@ -76,6 +76,7 @@ public class Building {
         switch (building) {
             case FARM -> bArray[row][col] = new RedBuilding(BuildingEnum.FARM);
             case COTTAGE -> bArray[row][col] = new BlueBuilding(BuildingEnum.COTTAGE);
+            case WELL -> bArray[row][col] = new GrayBuilding(BuildingEnum.WELL);
 
         }
 
