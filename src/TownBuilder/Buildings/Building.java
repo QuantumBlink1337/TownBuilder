@@ -28,9 +28,6 @@ public abstract class Building {
         return "[" + buildingEnum +"]";
     }
 
-    public static ResourceEnum[][][] getPatterns() {
-        return new ResourceEnum[0][][];
-    }
 
     public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][][] bT, BuildingEnum buildingType) {
             try {

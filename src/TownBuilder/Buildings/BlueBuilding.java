@@ -25,7 +25,7 @@ public class BlueBuilding extends Building{
 
 
     }
-    public static ResourceEnum[][][] getArray() {
+    public static ResourceEnum[][][] getPatterns() {
         cottageArray[0][0] = ResourceEnum.GLASS;
         cottageArray[0][1] = ResourceEnum.WHEAT;
         cottageArray[1][0] = ResourceEnum.BRICK;

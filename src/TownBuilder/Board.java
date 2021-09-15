@@ -71,8 +71,8 @@ public class Board {
 
                 if (!redBuildingDetection && !blueBuildingDetection) {
                     System.out.println("Scanning row: " + row + " and column: " + col);
-                   // redBuildingDetection = RedBuilding.redDetection(row, col, gameResourceBoard);
-                    blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getArray(), BuildingEnum.COTTAGE);
+                    redBuildingDetection = Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM);
+                    blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
                     if (redBuildingDetection) {
                         System.out.println("A valid farm construction was found!");
                         RedBuilding.redPlacement(gameResourceBoard, gameBuildingBoard);
