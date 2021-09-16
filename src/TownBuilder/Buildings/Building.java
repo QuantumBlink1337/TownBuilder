@@ -46,7 +46,9 @@ public class Building {
         for (int r = 0; r < rArray.length; r++){
             for (int c = 0; c < rArray[r].length; c++) {
                 if (rArray[r][c].getScannedBuilding() == building) {
+                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
                     rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
+                    rArray[r][c].setResource(ResourceEnum.NONE);
                 }
             }
         }
