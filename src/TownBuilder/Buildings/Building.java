@@ -109,7 +109,7 @@ public class Building {
     public static boolean compare(int row, int col, TownResource[][] rArray, ResourceEnum[][] buildingTemplate, BuildingEnum buildingType) {
         for (int r = 0; r < buildingTemplate.length; r++) {
             for (int c = 0; c < buildingTemplate[r].length; c++) {
-                if (match(rArray[row+r][col+c], buildingTemplate[r][c], buildingType)) {
+                if (match(rArray[row+r][col+c], buildingTemplate[r][c])) {
                     System.out.println("Successful comparison at " + (row+r) + ", " + (col+c));
                 }
                 else {
@@ -123,13 +123,12 @@ public class Building {
 
     }
 
-    public static boolean match(TownResource toBeChecked, ResourceEnum checker, BuildingEnum building) {
+    public static boolean match(TownResource toBeChecked, ResourceEnum checker) {
         if (checker == ResourceEnum.NONE) {
             System.out.println("Checked tile was matched to NONE, therefore it is true");
             return true;
         }
         else if (toBeChecked.getResource() == checker) {
-            //toBeChecked.setScannedBuilding(building);
             validResources.add(toBeChecked);
             System.out.println("Checked tile was matched to an arbitrary value " + checker + ", therefore it is true");
             return true;
