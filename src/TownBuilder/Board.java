@@ -52,13 +52,13 @@ public class Board {
 //            gameResourceBoard[0][3].setResource(ResourceEnum.GLASS);
 //            gameResourceBoard[0][2].setResource(ResourceEnum.WHEAT);
 //            gameResourceBoard[1][3].setResource(ResourceEnum.BRICK);
-            detection();
+            detectValidBuilding();
             //renderBoard();
        //     gameCompletion = true;
 
         }
     }
-    public void detection() {
+    public void detectValidBuilding() {
         String userInput = "";
         boolean redBuildingDetection = false;
         boolean blueBuildingDetection = false;
