@@ -76,18 +76,27 @@ public class Board {
                         if (Utility.prompt()) {
                             RedBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.FARM);
                         }
+                        else {
+                            Building.clearResources(BuildingEnum.FARM);
+                        }
                     }
                     if (blueBuildingDetection) {
                         System.out.println("A valid cottage construction was found! Place it this turn?");
                         if (Utility.prompt()) {
                             BlueBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.COTTAGE);
                             }
+                        else {
+                            Building.clearResources(BuildingEnum.COTTAGE);
+                        }
                         }
                     }
                     if (grayBuildingDetection) {
                         System.out.println("A valid well construction was found! Place it this turn?");
                         if (Utility.prompt()) {
                             GrayBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.WELL);
+                        }
+                        else {
+                            Building.clearResources(BuildingEnum.WELL);
                         }
                         grayBuildingDetection = false;
                     }

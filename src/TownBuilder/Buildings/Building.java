@@ -27,6 +27,13 @@ public class Building {
     public String toString() {
         return "[" + buildingEnum +"]";
     }
+    public static void clearResources(BuildingEnum building) {
+        for (int i = 0; i < validResources.size(); i++) {
+            if (validResources.get(i).getScannedBuilding() == building) {
+                validResources.remove(i);
+            }
+        }
+    }
 
     public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building) {
         String userInput = "";
