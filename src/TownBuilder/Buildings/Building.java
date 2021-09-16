@@ -13,8 +13,6 @@ public class Building {
     private static Scanner sc = new Scanner(System.in);
     private static ArrayList<TownResource> validResources = new ArrayList<TownResource>();
 
-
-
     public Building(BuildingEnum b) {
         buildingEnum = b;
     }
@@ -36,6 +34,14 @@ public class Building {
         boolean validInput = false;
         do {
             System.out.println("Where would you like to place your " + building + "?");
+            System.out.println("Valid positions for the "+building+" are:");
+            for (int r = 0; r < rArray.length; r++) {
+                for (int c = 0; c < rArray[c].length; c++) {
+                    if (rArray[r][c].getScannedBuilding() == building) {
+                        System.out.print(Utility.coordsToOutput(r, c));
+                    }
+                }
+            }
             userInput = sc.nextLine().toLowerCase();
             coords = Utility.inputToCoords(userInput);
             if (rArray[coords[0]][coords[1]].getScannedBuilding() == building) {

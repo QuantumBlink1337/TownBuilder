@@ -50,6 +50,31 @@ public class Utility {
         }
         return coords;
     }
+    public static String coordsToOutput(int r, int c) {
+        String row = "";
+        String col = "";
+        switch (r) {
+            case 0 -> //System.out.println("Case A");
+                    row = "1";
+            case 1 -> //System.out.println("Case B");
+                    row = "2";
+            case 2 -> //System.out.println("Case C");
+                    row = "3";
+            case 3 -> //System.out.println("Case D");
+                    row = "4";
+        }
+        switch (c) {
+            case 0 -> //System.out.println("Case 0");
+                    col = "a";
+            case 1 -> //.out.println("Case 1");
+                    col = "b";
+            case 2 -> //System.out.println("Case 2");
+                    col = "c";
+            case 3 -> //System.out.println("Case 3");
+                    col = "d";
+        }
+        return col+row;
+    }
     public static boolean prompt() {
         String prompt = "";
         Scanner sc = new Scanner(System.in);
