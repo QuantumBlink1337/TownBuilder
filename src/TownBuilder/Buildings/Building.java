@@ -67,7 +67,7 @@ public class Building {
                 }
             }
         }
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OVERRULED);
+        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         switch (building) {
             case FARM -> bArray[coords[0]][coords[1]] = new RedBuilding(BuildingEnum.FARM);
             case COTTAGE -> bArray[coords[0]][coords[1]] = new BlueBuilding(BuildingEnum.COTTAGE);

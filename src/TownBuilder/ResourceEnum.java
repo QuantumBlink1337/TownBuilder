@@ -6,7 +6,7 @@ public enum ResourceEnum {
     WOOD,
     WHEAT,
     STONE,
-    OVERRULED,
+    OBSTRUCTED,
     NONE;
 
     public static ResourceEnum randomResource() {
