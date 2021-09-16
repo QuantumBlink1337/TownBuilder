@@ -46,11 +46,11 @@ public class Building {
         for (int r = 0; r < rArray.length; r++){
             for (int c = 0; c < rArray[r].length; c++) {
                 if (rArray[r][c].getScannedBuilding() == building) {
-                    rArray[r][c].setResource(ResourceEnum.OVERRULED);
                     rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
                 }
             }
         }
+        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OVERRULED);
         switch (building) {
             case FARM -> bArray[coords[0]][coords[1]] = new RedBuilding(BuildingEnum.FARM);
             case COTTAGE -> bArray[coords[0]][coords[1]] = new BlueBuilding(BuildingEnum.COTTAGE);

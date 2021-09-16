@@ -54,11 +54,14 @@ public class Utility {
         String prompt = "";
         Scanner sc = new Scanner(System.in);
         prompt = sc.nextLine().toLowerCase();
-        if (prompt.equals("y") || prompt.equals("yes")) {
-            return true;
+        do {
+            if (prompt.equals("y") || prompt.equals("yes")) {
+                return true;
+            }
+            else if (prompt.equals("n") || prompt.equals("no"))  {
+                return false;
+            }
         }
-        else {
-            return false;
-        }
+        while(true);
     }
 }

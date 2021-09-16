@@ -116,12 +116,14 @@ public class Board {
             }
             int[] coords = Utility.inputToCoords(userCoordinate);
             //System.out.println("Row: " + row + "Col: " + col);
-            if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE) {
+            if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
+            {
                 gameResourceBoard[coords[0]][coords[1]].setResource(random);
                 validSpot = true;
             }
             else {
-                System.out.println("You can't place a resource on a tile that already has something on it!");
+                System.out.println("You can't place a resource on a tile that already has something on it!" + gameResourceBoard[coords[0]][coords[1]]);
+
             }
 
             userCoordinate = "   ";
