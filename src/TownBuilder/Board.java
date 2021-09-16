@@ -49,13 +49,16 @@ public class Board {
         while (!gameCompletion) {
             renderBoard();
             playerTurn();
-//            gameResourceBoard[0][3].setResource(ResourceEnum.GLASS);
-//            gameResourceBoard[0][2].setResource(ResourceEnum.WHEAT);
-//            gameResourceBoard[1][3].setResource(ResourceEnum.BRICK);
             detectValidBuilding();
-            //renderBoard();
-       //     gameCompletion = true;
-
+        }
+    }
+    private void placementPrompt(BuildingEnum building) {
+        System.out.println("A valid "+building.toString().toLowerCase() +" construction was found! Place it this turn?");
+        if (Utility.prompt()) {
+            Building.placement(gameResourceBoard, gameBuildingBoard, building);
+        }
+        else {
+            Building.clearResources(building);
         }
     }
     public void detectValidBuilding() {
@@ -72,34 +75,15 @@ public class Board {
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
                     grayBuildingDetection = Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL);
                     if (redBuildingDetection) {
-                        System.out.println("A valid farm construction was found! Place it this turn?");
-                        if (Utility.prompt()) {
-                            RedBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.FARM);
-                        }
-                        else {
-                            Building.clearResources(BuildingEnum.FARM);
-                        }
+                        placementPrompt(BuildingEnum.FARM);
                     }
                     if (blueBuildingDetection) {
-                        System.out.println("A valid cottage construction was found! Place it this turn?");
-                        if (Utility.prompt()) {
-                            BlueBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.COTTAGE);
-                            }
-                        else {
-                            Building.clearResources(BuildingEnum.COTTAGE);
-                        }
-                        }
+                        placementPrompt(BuildingEnum.COTTAGE);
                     }
                     if (grayBuildingDetection) {
-                        System.out.println("A valid well construction was found! Place it this turn?");
-                        if (Utility.prompt()) {
-                            GrayBuilding.placement(gameResourceBoard, gameBuildingBoard, BuildingEnum.WELL);
-                        }
-                        else {
-                            Building.clearResources(BuildingEnum.WELL);
-                        }
-                        grayBuildingDetection = false;
+                        placementPrompt(BuildingEnum.WELL);
                     }
+                }
             }
         }
 
