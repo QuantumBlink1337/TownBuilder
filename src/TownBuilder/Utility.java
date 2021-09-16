@@ -61,6 +61,10 @@ public class Utility {
             else if (prompt.equals("n") || prompt.equals("no"))  {
                 return false;
             }
+            else {
+                System.out.println("Invalid input. Please use yes or no. (y or n)");
+                prompt = sc.nextLine().toLowerCase();
+            }
         }
         while(true);
     }
