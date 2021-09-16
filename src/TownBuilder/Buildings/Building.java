@@ -38,7 +38,7 @@ public class Building {
             for (int r = 0; r < rArray.length; r++) {
                 for (int c = 0; c < rArray[r].length; c++) {
                     if (rArray[r][c].getScannedBuilding() == building) {
-                        System.out.print(Utility.coordsToOutput(r, c));
+                        System.out.println(Utility.coordsToOutput(r, c));
                     }
                 }
             }
