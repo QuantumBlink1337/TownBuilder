@@ -36,7 +36,7 @@ public class Building {
             System.out.println("Where would you like to place your " + building + "?");
             System.out.println("Valid positions for the "+building+" are:");
             for (int r = 0; r < rArray.length; r++) {
-                for (int c = 0; c < rArray[c].length; c++) {
+                for (int c = 0; c < rArray[r].length; c++) {
                     if (rArray[r][c].getScannedBuilding() == building) {
                         System.out.print(Utility.coordsToOutput(r, c));
                     }
