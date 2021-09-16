@@ -16,14 +16,12 @@ public class Board {
     private boolean gameCompletion;
     private Scanner sc = new Scanner(System.in);
 
-
-
     public Board() {
         player = new Player();
         gameCompletion = false;
         buildArrays();
     }
-    public void buildArrays() {
+    private void buildArrays() {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
@@ -42,8 +40,6 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-
-
     }
     public void game() {
         while (!gameCompletion) {
@@ -61,16 +57,15 @@ public class Board {
             Building.clearResources(building);
         }
     }
-    public void detectValidBuilding() {
+    private void detectValidBuilding() {
         String userInput = "";
         boolean redBuildingDetection = false;
         boolean blueBuildingDetection = false;
         boolean grayBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-
                 if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection) {
-                    System.out.println("Scanning row: " + row + " and column: " + col);
+                    //System.out.println("Scanning row: " + row + " and column: " + col);
                     redBuildingDetection = Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM);
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
                     grayBuildingDetection = Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL);
@@ -86,16 +81,13 @@ public class Board {
                 }
             }
         }
-
-
-
     }
-    public void playerTurn() {
+    private void playerTurn() {
         ResourceEnum turnResource = ResourceEnum.randomResource();
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
     }
-    public void resourcePlacer(ResourceEnum random) {
+    private void resourcePlacer(ResourceEnum random) {
         String userCoordinate = "   ";
         boolean validSpot = false;
         do {
@@ -118,14 +110,13 @@ public class Board {
                 System.out.println("You can't place a resource on a tile that already has something on it!" + gameResourceBoard[coords[0]][coords[1]]);
 
             }
-
             userCoordinate = "   ";
 
         }
         while (!validSpot);
 
     }
-    public void renderBoard() {
+    private void renderBoard() {
         //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
