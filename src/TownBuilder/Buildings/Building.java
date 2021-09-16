@@ -4,12 +4,14 @@ import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Building {
 
     private BuildingEnum buildingEnum;
     private static Scanner sc = new Scanner(System.in);
+    private static ArrayList<TownResource> validResources = new ArrayList<TownResource>();
 
 
 
@@ -82,6 +84,9 @@ public class Building {
                     }
                     Utility.arrayPrinter(bT[patternIndex]);
                     if (compare(row, col, rArray, buildingTemplate[patternIndex], buildingType)) {
+                        for (int j = 0; j < validResources.size(); j++) {
+                            validResources.get(j).setScannedBuilding(buildingType);
+                        }
                         return true;
                     }
                     else {
@@ -103,6 +108,7 @@ public class Building {
                 }
                 else {
                     System.out.println("Failure of comparison at " + (row+r) + ", " + (col+c));
+                    validResources.clear();
                     return false;
                 }
             }
@@ -117,7 +123,8 @@ public class Building {
             return true;
         }
         else if (toBeChecked.getResource() == checker) {
-            toBeChecked.setScannedBuilding(building);
+            //toBeChecked.setScannedBuilding(building);
+            validResources.add(toBeChecked);
             System.out.println("Checked tile was matched to an arbitrary value " + checker + ", therefore it is true");
             return true;
         }
