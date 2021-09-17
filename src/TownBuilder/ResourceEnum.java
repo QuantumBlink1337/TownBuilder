@@ -4,8 +4,6 @@ package TownBuilder;
 import java.util.Scanner;
 
 public enum ResourceEnum {
-
-
     GLASS,
     BRICK,
     WOOD,

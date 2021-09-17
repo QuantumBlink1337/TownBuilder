@@ -9,6 +9,7 @@ public enum BuildingEnum {
     THEATER,
     INN,
     WELL,
+    WHOUSE,
     NONE;
 
 }
