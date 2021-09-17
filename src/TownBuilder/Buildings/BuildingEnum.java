@@ -6,7 +6,7 @@ public enum BuildingEnum {
     FARM,
     TEMPLE,
     COTTAGE,
-    AUDITORIUM,
+    THEATER,
     INN,
     WELL,
     NONE;
