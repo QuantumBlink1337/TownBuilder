@@ -58,21 +58,21 @@ public class Building {
         while (!validInput);
 
 
-//        for (int r = 0; r < rArray.length; r++){
-//            for (int c = 0; c < rArray[r].length; c++) {
-//                if (rArray[r][c].getScannedBuilding() == building) {
-//                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
-//                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
-//                    rArray[r][c].setResource(ResourceEnum.NONE);
-//                }
-//            }
-//        }
-        System.out.println(validResources.size());
-        for (int i = 0; i < validResources.size(); i++) {
-            System.out.println("Is this statement firing?");
-            System.out.println(validResources.get(i).getResource());
-            validResources.get(i).setResource(ResourceEnum.NONE);
+        for (int r = 0; r < rArray.length; r++){
+            for (int c = 0; c < rArray[r].length; c++) {
+                if (rArray[r][c].getScannedBuilding() == building) {
+                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
+                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
+                    rArray[r][c].setResource(ResourceEnum.NONE);
+                }
+            }
         }
+//        System.out.println(validResources.size());
+//        for (int i = 0; i < validResources.size(); i++) {
+//            System.out.println("Is this statement firing?");
+//            System.out.println(validResources.get(i).getResource());
+//            validResources.get(i).setResource(ResourceEnum.NONE);
+//        }
         clearResources(building);
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         switch (building) {
