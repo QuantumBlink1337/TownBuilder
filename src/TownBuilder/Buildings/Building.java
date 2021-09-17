@@ -75,6 +75,7 @@ public class Building {
             case THEATER -> bArray[coords[0]][coords[1]] = new YellowBuilding(BuildingEnum.THEATER);
             case WHOUSE -> bArray[coords[0]][coords[1]] = new BlackBuilding(BuildingEnum.WHOUSE);
             case TAVERN -> bArray[coords[0]][coords[1]] = new GreenBuilding(BuildingEnum.TAVERN);
+            case TEMPLE -> bArray[coords[0]][coords[1]] = new OrangeBuilding(BuildingEnum.TEMPLE);
 
         }
 

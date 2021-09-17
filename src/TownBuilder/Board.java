@@ -64,10 +64,11 @@ public class Board {
         boolean yellowBuildingDetection = false;
         boolean blackBuildingDetection = false;
         boolean greenBuildingDetection = false;
+        boolean orangeBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection && !yellowBuildingDetection && !blackBuildingDetection &&
-                !greenBuildingDetection) {
+                !greenBuildingDetection && !orangeBuildingDetection) {
                     //System.out.println("Scanning row: " + row + " and column: " + col);
                     redBuildingDetection = Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM);
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
@@ -75,6 +76,7 @@ public class Board {
                     yellowBuildingDetection = Building.detection(row, col, gameResourceBoard, YellowBuilding.getPatterns(), BuildingEnum.THEATER);
                     blackBuildingDetection = Building.detection(row, col, gameResourceBoard, BlackBuilding.getPatterns(), BuildingEnum.WHOUSE);
                     greenBuildingDetection = Building.detection(row, col, gameResourceBoard, GreenBuilding.getPatterns(), BuildingEnum.TAVERN);
+                    orangeBuildingDetection = Building.detection(row, col, gameResourceBoard, OrangeBuilding.getPatterns(), BuildingEnum.TEMPLE);
                     if (redBuildingDetection) {
                         placementPrompt(BuildingEnum.FARM);
                     }
@@ -92,6 +94,9 @@ public class Board {
                     }
                     if (greenBuildingDetection) {
                         placementPrompt(BuildingEnum.TAVERN);
+                    }
+                    if (orangeBuildingDetection) {
+                        placementPrompt(BuildingEnum.TEMPLE);
                     }
                 }
             }
