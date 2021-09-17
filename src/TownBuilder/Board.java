@@ -88,7 +88,7 @@ public class Board {
         }
     }
     private void playerTurn() {
-        ResourceEnum turnResource = ResourceEnum.randomResource();
+        ResourceEnum turnResource = ResourceEnum.debugResourcePicker(); // debug mode active
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
     }
