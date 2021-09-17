@@ -11,7 +11,7 @@ public class Building {
 
     private BuildingEnum buildingEnum;
     private static Scanner sc = new Scanner(System.in);
-    private static ArrayList<TownResource> validResources = new ArrayList<TownResource>();
+    private static ArrayList<TownResource> validResources = new ArrayList<>();
 
     public Building(BuildingEnum b) {
         buildingEnum = b;
@@ -19,9 +19,9 @@ public class Building {
     public BuildingEnum getType() {
         return buildingEnum;
     }
-//    public BuildingColor getColor() {
-//        return color;
-//    }
+    public static ArrayList<TownResource> getValidResources() {
+        return validResources;
+    }
 
     @Override
     public String toString() {
@@ -37,7 +37,7 @@ public class Building {
 
     public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building) {
         String userInput = "";
-        int[] coords = new int[2];
+        int[] coords;
         boolean validInput = false;
         do {
             System.out.println("Where would you like to place your " + building + "?");
@@ -58,15 +58,22 @@ public class Building {
         while (!validInput);
 
 
-        for (int r = 0; r < rArray.length; r++){
-            for (int c = 0; c < rArray[r].length; c++) {
-                if (rArray[r][c].getScannedBuilding() == building) {
-                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
-                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
-                    rArray[r][c].setResource(ResourceEnum.NONE);
-                }
-            }
+//        for (int r = 0; r < rArray.length; r++){
+//            for (int c = 0; c < rArray[r].length; c++) {
+//                if (rArray[r][c].getScannedBuilding() == building) {
+//                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
+//                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
+//                    rArray[r][c].setResource(ResourceEnum.NONE);
+//                }
+//            }
+//        }
+        System.out.println(validResources.size());
+        for (int i = 0; i < validResources.size(); i++) {
+            System.out.println("Is this statement firing?");
+            System.out.println(validResources.get(i).getResource());
+            validResources.get(i).setResource(ResourceEnum.NONE);
         }
+        clearResources(building);
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         switch (building) {
             case FARM -> bArray[coords[0]][coords[1]] = new RedBuilding(BuildingEnum.FARM);
@@ -102,6 +109,7 @@ public class Building {
                         for (int j = 0; j < validResources.size(); j++) {
                             validResources.get(j).setScannedBuilding(buildingType);
                         }
+                        System.out.println("Size at compare" + validResources.size());
                         return true;
                     }
                     else {

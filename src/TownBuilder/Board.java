@@ -84,6 +84,7 @@ public class Board {
                         placementPrompt(BuildingEnum.COTTAGE);
                     }
                     if (grayBuildingDetection) {
+                        System.out.println(Building.getValidResources().size());
                         placementPrompt(BuildingEnum.WELL);
                     }
                     if (yellowBuildingDetection) {
