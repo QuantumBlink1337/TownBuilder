@@ -58,21 +58,23 @@ public class Board {
         }
     }
     private void detectValidBuilding() {
-        String userInput = "";
         boolean redBuildingDetection = false;
         boolean blueBuildingDetection = false;
         boolean grayBuildingDetection = false;
         boolean yellowBuildingDetection = false;
         boolean blackBuildingDetection = false;
+        boolean greenBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection && !yellowBuildingDetection && blackBuildingDetection) {
+                if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection && !yellowBuildingDetection && !blackBuildingDetection &&
+                !greenBuildingDetection) {
                     //System.out.println("Scanning row: " + row + " and column: " + col);
                     redBuildingDetection = Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM);
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
                     grayBuildingDetection = Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL);
                     yellowBuildingDetection = Building.detection(row, col, gameResourceBoard, YellowBuilding.getPatterns(), BuildingEnum.THEATER);
                     blackBuildingDetection = Building.detection(row, col, gameResourceBoard, BlackBuilding.getPatterns(), BuildingEnum.WHOUSE);
+                    greenBuildingDetection = Building.detection(row, col, gameResourceBoard, GreenBuilding.getPatterns(), BuildingEnum.TAVERN);
                     if (redBuildingDetection) {
                         placementPrompt(BuildingEnum.FARM);
                     }
@@ -87,6 +89,9 @@ public class Board {
                     }
                     if (blackBuildingDetection) {
                         placementPrompt(BuildingEnum.WHOUSE);
+                    }
+                    if (greenBuildingDetection) {
+                        placementPrompt(BuildingEnum.TAVERN);
                     }
                 }
             }
@@ -117,8 +122,7 @@ public class Board {
                 validSpot = true;
             }
             else {
-                System.out.println("You can't place a resource on a tile that already has something on it!" + gameResourceBoard[coords[0]][coords[1]]);
-
+                System.out.println("You can't place a resource on a tile that already has something on it!");
             }
             userCoordinate = "   ";
 
