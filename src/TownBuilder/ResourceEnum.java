@@ -22,9 +22,9 @@ public enum ResourceEnum {
     // this method should NEVER be used for actual gameplay.
 
     public static ResourceEnum debugResourcePicker() {
-        Scanner sc = new Scanner("System.in");
+        Scanner sc = new Scanner(System.in);
         String resourceChoice = "";
-        System.out.println("What resource do you want");
+        System.out.println("What resource do you want?");
         resourceChoice = sc.nextLine().toLowerCase();
         switch (resourceChoice) {
             case "wheat":
