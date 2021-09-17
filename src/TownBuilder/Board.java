@@ -63,14 +63,16 @@ public class Board {
         boolean blueBuildingDetection = false;
         boolean grayBuildingDetection = false;
         boolean yellowBuildingDetection = false;
+        boolean blackBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection && !yellowBuildingDetection) {
+                if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection && !yellowBuildingDetection && blackBuildingDetection) {
                     //System.out.println("Scanning row: " + row + " and column: " + col);
                     redBuildingDetection = Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM);
                     blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
                     grayBuildingDetection = Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL);
                     yellowBuildingDetection = Building.detection(row, col, gameResourceBoard, YellowBuilding.getPatterns(), BuildingEnum.THEATER);
+                    blackBuildingDetection = Building.detection(row, col, gameResourceBoard, BlackBuilding.getPatterns(), BuildingEnum.WHOUSE);
                     if (redBuildingDetection) {
                         placementPrompt(BuildingEnum.FARM);
                     }
@@ -82,6 +84,9 @@ public class Board {
                     }
                     if (yellowBuildingDetection) {
                         placementPrompt(BuildingEnum.THEATER);
+                    }
+                    if (blackBuildingDetection) {
+                        placementPrompt(BuildingEnum.WHOUSE);
                     }
                 }
             }
