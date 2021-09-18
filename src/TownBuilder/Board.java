@@ -46,6 +46,23 @@ public class Board {
             renderBoard();
             playerTurn();
             detectValidBuilding();
+            gameCompletion = gameOver();
+        }
+    }
+    private boolean gameOver() {
+        int i = 0;
+        for (String[] tileRow : gameBoard) {
+            for (String tile : tileRow) {
+                if (!(tile.equals("[Empty!]"))) {
+                    i++;
+                }
+            }
+        }
+        if (i >= 16)  {
+            return true;
+        }
+        else {
+            return false;
         }
     }
     private void placementPrompt(BuildingEnum building) {
