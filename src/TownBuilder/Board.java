@@ -44,9 +44,13 @@ public class Board {
     public void game() {
         while (!gameCompletion) {
             renderBoard();
+            gameCompletion = gameOver();
+            if (gameCompletion) {
+                break;
+            }
             playerTurn();
             detectValidBuilding();
-            gameCompletion = gameOver();
+
         }
     }
     private boolean gameOver() {
@@ -56,9 +60,12 @@ public class Board {
                 if (!(tile.equals("[Empty!]"))) {
                     i++;
                 }
+                else {
+                }
             }
         }
         if (i >= 16)  {
+            System.out.println("Game over!");
             return true;
         }
         else {
