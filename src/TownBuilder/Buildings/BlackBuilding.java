@@ -12,8 +12,11 @@ public class BlackBuilding extends Building{
     private static ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
 
     public BlackBuilding(BuildingEnum b) {
-        super(b);
+        buildingEnum = b;
         condition = false;
+    }
+    public BuildingEnum getType() {
+        return buildingEnum;
     }
     public static ResourceEnum[][][] getPatterns() {
         warehouseArray[0][0] = ResourceEnum.WHEAT;
@@ -25,7 +28,7 @@ public class BlackBuilding extends Building{
         warehousePatternList[0] = warehouseArray;
         return warehousePatternList;
     }
-    public int scorer() {
+    public int scorer(Building[][] bArray) {
         BuildingEnum scoredType = this.buildingEnum;
         if (scoredType == BuildingEnum.FARM) {
             //return 1;

@@ -31,7 +31,7 @@ public class Board {
         }
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col] = new Building(BuildingEnum.NONE);
+                gameBuildingBoard[row][col] = new BlackBuilding(BuildingEnum.NONE);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -149,7 +149,9 @@ public class Board {
                     gameBoard[row][col] = gameResourceBoard[row][col].toString();
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-                    gameBoard[row][col] = gameBuildingBoard[row][col].toString();
+//                    System.out.println("Printing Building list");
+//                    System.out.println(gameBuildingBoard[row][col].getType());
+                    gameBoard[row][col] = "["+ gameBuildingBoard[row][col].getType().toString() + "]";
                 }
                 else {
                     gameBoard[row][col] = "[Empty!]";

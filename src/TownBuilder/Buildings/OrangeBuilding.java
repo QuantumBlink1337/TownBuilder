@@ -11,8 +11,11 @@ public class OrangeBuilding extends Building{
     private static ResourceEnum[][][] templePatternList = new ResourceEnum[1][2][2];
 
     public OrangeBuilding(BuildingEnum b) {
-        super(b);
+        buildingEnum = b;
         condition = false;
+    }
+    public BuildingEnum getType() {
+        return buildingEnum;
     }
     public static ResourceEnum[][][] getPatterns() {
         templeArray[0][0] = ResourceEnum.NONE;
@@ -24,7 +27,7 @@ public class OrangeBuilding extends Building{
         templePatternList[0] = templeArray;
         return templePatternList;
     }
-    public int scorer() {
+    public int scorer(Building[][] bArray) {
         BuildingEnum scoredType = this.buildingEnum;
         if (scoredType == BuildingEnum.FARM) {
             //return 1;

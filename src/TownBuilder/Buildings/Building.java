@@ -7,20 +7,20 @@ import TownBuilder.Utility;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Building {
+public abstract class Building {
 
     private BuildingEnum buildingEnum;
     private boolean condition;
     private static Scanner sc = new Scanner(System.in);
     private static ArrayList<TownResource> validResources = new ArrayList<>();
 
-    public Building(BuildingEnum b) {
-        buildingEnum = b;
-        condition = false;
-    }
-    public BuildingEnum getType() {
-        return buildingEnum;
-    }
+//    public Building(BuildingEnum b) {
+//        buildingEnum = b;
+//        condition = false;
+//    }
+    public abstract BuildingEnum getType();
+
+    public abstract int scorer(Building[][] bArray);
     public static ArrayList<TownResource> getValidResources() {
         return validResources;
     }

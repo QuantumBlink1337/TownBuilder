@@ -17,8 +17,9 @@ public enum ResourceEnum {
         int random = (int) (Math.random() * 5);
         return resourceArray[random];
     }
-    // this method should NEVER be used for actual gameplay.
 
+
+    // this method should NEVER be used for actual gameplay
     public static ResourceEnum debugResourcePicker() {
         Scanner sc = new Scanner(System.in);
         String resourceChoice = "";
