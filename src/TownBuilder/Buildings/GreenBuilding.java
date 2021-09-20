@@ -6,12 +6,13 @@ import java.util.Scanner;
 
 public class GreenBuilding extends Building{
     private BuildingEnum buildingEnum;
-    private static Scanner sc = new Scanner(System.in);
+    private boolean condition;
     private static ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static ResourceEnum[][][] tavernPatternList = new ResourceEnum[1][2][2];
 
     public GreenBuilding(BuildingEnum b) {
         super(b);
+        condition = false;
     }
     public static ResourceEnum[][][] getPatterns() {
         tavernArray[0][0] = ResourceEnum.BRICK;

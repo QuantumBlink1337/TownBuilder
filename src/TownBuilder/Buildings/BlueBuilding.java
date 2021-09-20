@@ -1,9 +1,6 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.BuildingColor;
 import TownBuilder.ResourceEnum;
-import TownBuilder.TownResource;
-import TownBuilder.Utility;
 
 import java.util.Scanner;
 
@@ -11,13 +8,14 @@ import java.util.Scanner;
 
 
 public class BlueBuilding extends Building{
-
+    private boolean condition;
     private static ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
     private static Scanner sc = new Scanner(System.in);
     public BlueBuilding(BuildingEnum b) {
         super(b);
+        condition = false;
 
     }
     public static ResourceEnum[][][] getPatterns() {

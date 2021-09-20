@@ -7,12 +7,13 @@ import java.util.Scanner;
 public class YellowBuilding extends Building
 {
     private BuildingEnum buildingEnum;
-    private static Scanner sc = new Scanner(System.in);
+    private boolean condition;
     private static ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
     public YellowBuilding(BuildingEnum b) {
         super(b);
+        condition = false;
     }
     public static ResourceEnum[][][] getPatterns() {
         theaterArray[0][0] = ResourceEnum.NONE;

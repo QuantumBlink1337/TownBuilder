@@ -10,11 +10,13 @@ import java.util.Scanner;
 public class Building {
 
     private BuildingEnum buildingEnum;
+    private boolean condition;
     private static Scanner sc = new Scanner(System.in);
     private static ArrayList<TownResource> validResources = new ArrayList<>();
 
     public Building(BuildingEnum b) {
         buildingEnum = b;
+        condition = false;
     }
     public BuildingEnum getType() {
         return buildingEnum;

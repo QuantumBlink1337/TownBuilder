@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class GrayBuilding extends Building {
     private BuildingEnum buildingEnum;
+    private boolean condition;
     private static Scanner sc = new Scanner(System.in);
     private static ResourceEnum[][] wellArray = new ResourceEnum[2][1];
     private static ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
@@ -13,6 +14,7 @@ public class GrayBuilding extends Building {
 
     public GrayBuilding(BuildingEnum b) {
         super(b);
+        condition = false;
     }
 
     public static ResourceEnum[][][] getPatterns() {

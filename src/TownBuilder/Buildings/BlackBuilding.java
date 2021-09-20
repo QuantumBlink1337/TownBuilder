@@ -6,12 +6,14 @@ import java.util.Scanner;
 
 public class BlackBuilding extends Building{
     private BuildingEnum buildingEnum;
+    private boolean condition;
     private static Scanner sc = new Scanner(System.in);
     private static ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
 
     public BlackBuilding(BuildingEnum b) {
         super(b);
+        condition = false;
     }
     public static ResourceEnum[][][] getPatterns() {
         warehouseArray[0][0] = ResourceEnum.WHEAT;
