@@ -44,9 +44,12 @@ public class Building {
             System.out.println("Valid positions for the "+building+" are:");
             for (int r = 0; r < rArray.length; r++) {
                 for (int c = 0; c < rArray[r].length; c++) {
-                    if (rArray[r][c].getScannedBuilding() == building) {
-                        System.out.println(Utility.coordsToOutput(r, c));
+                    for (int i = 0; i < validResources.size(); i++) {
+                        if (rArray[r][c] == validResources.get(i)) {
+                            System.out.println(Utility.coordsToOutput(r, c));
+                        }
                     }
+
                 }
             }
             userInput = sc.nextLine().toLowerCase();
@@ -58,21 +61,21 @@ public class Building {
         while (!validInput);
 
 
-        for (int r = 0; r < rArray.length; r++){
-            for (int c = 0; c < rArray[r].length; c++) {
-                if (rArray[r][c].getScannedBuilding() == building) {
-                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
-                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
-                    rArray[r][c].setResource(ResourceEnum.NONE);
-                }
-            }
-        }
-//        System.out.println(validResources.size());
-//        for (int i = 0; i < validResources.size(); i++) {
+//        for (int r = 0; r < rArray.length; r++){
+//            for (int c = 0; c < rArray[r].length; c++) {
+//                if (rArray[r][c].getScannedBuilding() == building) {
+//                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
+//                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
+//                    rArray[r][c].setResource(ResourceEnum.NONE);
+//                }
+//            }
+//        }
+//        System.out.println("Size at placement: "+ validResources.size());
+        for (int i = 0; i < validResources.size(); i++) {
 //            System.out.println("Is this statement firing?");
 //            System.out.println(validResources.get(i).getResource());
-//            validResources.get(i).setResource(ResourceEnum.NONE);
-//        }
+            validResources.get(i).setResource(ResourceEnum.NONE);
+        }
         clearResources(building);
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         switch (building) {
@@ -109,7 +112,7 @@ public class Building {
                         for (int j = 0; j < validResources.size(); j++) {
                             validResources.get(j).setScannedBuilding(buildingType);
                         }
-                        System.out.println("Size at compare" + validResources.size());
+                        //System.out.println("Size at compare" + validResources.size());
                         return true;
                     }
                     else {

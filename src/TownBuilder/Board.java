@@ -72,8 +72,8 @@ public class Board {
             return false;
         }
     }
-    private void placementPrompt(BuildingEnum building) {
-        System.out.println("A valid "+building.toString().toLowerCase() +" construction was found! Place it this turn?");
+    private void placementPrompt(BuildingEnum building, int row, int col) {
+        System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at " + Utility.coordsToOutput(row, col) + "! Place it this turn?");
         if (Utility.prompt()) {
             Building.placement(gameResourceBoard, gameBuildingBoard, building);
         }
@@ -82,47 +82,28 @@ public class Board {
         }
     }
     private void detectValidBuilding() {
-        boolean redBuildingDetection = false;
-        boolean blueBuildingDetection = false;
-        boolean grayBuildingDetection = false;
-        boolean yellowBuildingDetection = false;
-        boolean blackBuildingDetection = false;
-        boolean greenBuildingDetection = false;
-        boolean orangeBuildingDetection = false;
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                if (!redBuildingDetection && !blueBuildingDetection && !grayBuildingDetection && !yellowBuildingDetection && !blackBuildingDetection &&
-                !greenBuildingDetection && !orangeBuildingDetection) {
-                    //System.out.println("Scanning row: " + row + " and column: " + col);
-                    redBuildingDetection = Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM);
-                    blueBuildingDetection = Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE);
-                    grayBuildingDetection = Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL);
-                    yellowBuildingDetection = Building.detection(row, col, gameResourceBoard, YellowBuilding.getPatterns(), BuildingEnum.THEATER);
-                    blackBuildingDetection = Building.detection(row, col, gameResourceBoard, BlackBuilding.getPatterns(), BuildingEnum.WHOUSE);
-                    greenBuildingDetection = Building.detection(row, col, gameResourceBoard, GreenBuilding.getPatterns(), BuildingEnum.TAVERN);
-                    orangeBuildingDetection = Building.detection(row, col, gameResourceBoard, OrangeBuilding.getPatterns(), BuildingEnum.TEMPLE);
-                    if (redBuildingDetection) {
-                        placementPrompt(BuildingEnum.FARM);
+                    if (Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM)) {
+                        placementPrompt(BuildingEnum.FARM, row, col);
                     }
-                    if (blueBuildingDetection) {
-                        placementPrompt(BuildingEnum.COTTAGE);
+                    if (Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE)) {
+                        placementPrompt(BuildingEnum.COTTAGE, row, col);
                     }
-                    if (grayBuildingDetection) {
-                        System.out.println(Building.getValidResources().size());
-                        placementPrompt(BuildingEnum.WELL);
+                    if (Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL)) {
+                        placementPrompt(BuildingEnum.WELL, row, col);
                     }
-                    if (yellowBuildingDetection) {
-                        placementPrompt(BuildingEnum.THEATER);
+                    if (Building.detection(row, col, gameResourceBoard, YellowBuilding.getPatterns(), BuildingEnum.THEATER)) {
+                        placementPrompt(BuildingEnum.THEATER, row, col);
                     }
-                    if (blackBuildingDetection) {
-                        placementPrompt(BuildingEnum.WHOUSE);
+                    if (Building.detection(row, col, gameResourceBoard, BlackBuilding.getPatterns(), BuildingEnum.WHOUSE)) {
+                        placementPrompt(BuildingEnum.WHOUSE, row, col);
                     }
-                    if (greenBuildingDetection) {
-                        placementPrompt(BuildingEnum.TAVERN);
+                    if (Building.detection(row, col, gameResourceBoard, GreenBuilding.getPatterns(), BuildingEnum.TAVERN)) {
+                        placementPrompt(BuildingEnum.TAVERN, row, col);
                     }
-                    if (orangeBuildingDetection) {
-                        placementPrompt(BuildingEnum.TEMPLE);
-                    }
+                    if (Building.detection(row, col, gameResourceBoard, OrangeBuilding.getPatterns(), BuildingEnum.TEMPLE)) {
+                        placementPrompt(BuildingEnum.TEMPLE, row, col);
                 }
             }
         }
