@@ -45,9 +45,18 @@ public class BlueBuilding extends Building{
         BuildingEnum scoredType = this.buildingEnum;
         int score = 0;
         if (scoredType == BuildingEnum.COTTAGE) {
-                    if (this.getType() == BuildingEnum.COTTAGE && this.getCondition()) {
-                        score = 3;
+                for (int r = 0; r < bArray.length; r++) {
+                    for (int c = 0; c < bArray[r].length; c++) {
+                        if (bArray[r][c].getType() == BuildingEnum.FARM) {
+                            RedBuilding farm = (RedBuilding) bArray[r][c];
+                            if (farm.getFed() != 0) {
+                                farm.decrementFed();
+                                score += 3;
+                            }
+                        }
                     }
+                }
+
         }
         return score;
     }

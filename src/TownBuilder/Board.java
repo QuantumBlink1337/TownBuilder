@@ -35,12 +35,14 @@ public class Board {
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
+
         for (int row = 0; row < coordinateBoard.length; row++) {
             for (int col = 0; col < coordinateBoard[row].length; col++) {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
     }
+
     public void game() {
         while (!gameCompletion) {
             renderBoard();
@@ -59,6 +61,13 @@ public class Board {
         for (int r = 0; r < gameBuildingBoard.length; r++) {
             for (int c = 0; c < gameBuildingBoard[r].length; c++) {
                 if (gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
+                    /*
+                        This methodology of scoring won't work 100%. Consider a cottage placed on the board
+                        before the Farm building. The algorithm will score as cottage as 0 even though
+                        a Farm is *technically* on the board. The farm works as intended, but it's too late.
+                    */
+
+                    System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
                     totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard);
                 }
             }
