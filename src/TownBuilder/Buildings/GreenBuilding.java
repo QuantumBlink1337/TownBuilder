@@ -2,13 +2,12 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 
-import java.util.Scanner;
-
 public class GreenBuilding extends Building{
     private BuildingEnum buildingEnum;
     private boolean condition;
     private static ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static ResourceEnum[][][] tavernPatternList = new ResourceEnum[1][2][2];
+    static int scoreIncrement = 2;
 
     public GreenBuilding(BuildingEnum b) {
         buildingEnum = b;
@@ -30,12 +29,17 @@ public class GreenBuilding extends Building{
         tavernPatternList[0] = tavernArray;
         return tavernPatternList;
     }
-    public int scorer(Building[][] bArray) {
-        BuildingEnum scoredType = this.buildingEnum;
-        if (scoredType == BuildingEnum.FARM) {
-            //return 1;
+    public int scorer(Building[][] bArray, int row, int col) {
+        if (condition) {
+            return 0;
         }
-        return 0;
+        int score =0;
+
+        System.out.println("Adding scoreIncrement " + scoreIncrement + " to score " + score);
+        score += scoreIncrement;
+        scoreIncrement++;
+
+        return score;
     }
     public BuildingEnum getBuildingEnum() {
         return buildingEnum;
