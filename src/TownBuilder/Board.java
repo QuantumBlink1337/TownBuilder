@@ -41,10 +41,12 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-        gameBuildingBoard[0][0] = new GreenBuilding(BuildingEnum.TAVERN);
-        gameBuildingBoard[0][1] = new GreenBuilding(BuildingEnum.TAVERN);
-        gameBuildingBoard[0][2] = new GreenBuilding(BuildingEnum.TAVERN);
-        gameBuildingBoard[0][3] = new GreenBuilding(BuildingEnum.TAVERN);
+//        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
+//        gameBuildingBoard[0][1] = new GrayBuilding(BuildingEnum.WELL);
+//        gameBuildingBoard[1][0] = new GrayBuilding(BuildingEnum.WELL);
+//        gameBuildingBoard[1][2] = new GrayBuilding(BuildingEnum.WELL);
+//        gameBuildingBoard[2][1] = new GrayBuilding(BuildingEnum.WELL);
+
     }
 
     public void game() {

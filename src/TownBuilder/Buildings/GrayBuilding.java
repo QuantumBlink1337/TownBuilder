@@ -36,18 +36,30 @@ public class GrayBuilding extends Building {
     }
     public int scorer(Building[][] bArray, int row, int col) {
         int score = 0;
-        if (bArray[row][col-1].getType() == BuildingEnum.COTTAGE) {
-            score++;
+        try {
+            if (bArray[row][col-1].getType() == BuildingEnum.COTTAGE) {
+                score++;
+            }
         }
-        if (bArray[row-1][col].getType() == BuildingEnum.COTTAGE) {
-            score++;
+        catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {
+            if (bArray[row-1][col].getType() == BuildingEnum.COTTAGE) {
+                score++;
+            }
         }
-        if (bArray[row][col+1].getType() == BuildingEnum.COTTAGE) {
-            score++;
+        catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {
+            if (bArray[row][col+1].getType() == BuildingEnum.COTTAGE) {
+                score++;
+            }
         }
-        if (bArray[row+1][col].getType() == BuildingEnum.COTTAGE) {
-            score++;
+        catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {
+            if (bArray[row+1][col].getType() == BuildingEnum.COTTAGE) {
+                score++;
+            }
         }
+        catch (ArrayIndexOutOfBoundsException ignored) {}
         return score;
     }
 }
