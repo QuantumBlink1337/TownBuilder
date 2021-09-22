@@ -2,8 +2,6 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 
-import java.util.Scanner;
-
 public class OrangeBuilding extends Building{
     private BuildingEnum buildingEnum;
     private boolean condition;
@@ -33,7 +31,7 @@ public class OrangeBuilding extends Building{
         templePatternList[0] = templeArray;
         return templePatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray, int row, int col) {
         BuildingEnum scoredType = this.buildingEnum;
         if (scoredType == BuildingEnum.FARM) {
             //return 1;

@@ -34,7 +34,20 @@ public class GrayBuilding extends Building {
         wellPatternList[1] = wellArrayMirror;
         return wellPatternList;
     }
-    public int scorer(Building[][] bArray) {
-        return 1;
+    public int scorer(Building[][] bArray, int row, int col) {
+        int score = 0;
+        if (bArray[row][col-1].getType() == BuildingEnum.COTTAGE) {
+            score++;
+        }
+        if (bArray[row-1][col].getType() == BuildingEnum.COTTAGE) {
+            score++;
+        }
+        if (bArray[row][col+1].getType() == BuildingEnum.COTTAGE) {
+            score++;
+        }
+        if (bArray[row+1][col].getType() == BuildingEnum.COTTAGE) {
+            score++;
+        }
+        return score;
     }
 }

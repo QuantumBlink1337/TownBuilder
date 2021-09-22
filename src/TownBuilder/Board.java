@@ -41,6 +41,10 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
+        gameBuildingBoard[0][0] = new GreenBuilding(BuildingEnum.TAVERN);
+        gameBuildingBoard[0][1] = new GreenBuilding(BuildingEnum.TAVERN);
+        gameBuildingBoard[0][2] = new GreenBuilding(BuildingEnum.TAVERN);
+        gameBuildingBoard[0][3] = new GreenBuilding(BuildingEnum.TAVERN);
     }
 
     public void game() {
@@ -51,7 +55,7 @@ public class Board {
                 break;
             }
             playerTurn();
-            detectValidBuilding();
+
         }
         System.out.println("Final score: " + scoring());
 
@@ -68,7 +72,7 @@ public class Board {
                     */
 
                     System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
-                    totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard);
+                    totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
                 }
             }
         }

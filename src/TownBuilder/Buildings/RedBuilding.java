@@ -1,9 +1,6 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.TownResource;
-
-import java.util.Scanner;
 
 public class RedBuilding extends Building {
     private BuildingEnum buildingEnum;
@@ -41,7 +38,7 @@ public class RedBuilding extends Building {
         farmPatternList[0] = farmArray;
         return farmPatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray, int row, int col) {
 //        BuildingEnum scoredType = this.buildingEnum;
 //        if (scoredType == BuildingEnum.FARM) {
 //            System.out.println("Farm scoring invoked.");

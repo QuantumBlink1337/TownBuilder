@@ -22,7 +22,7 @@ public abstract class Building {
     public abstract void setCondition(boolean b);
     public abstract boolean getCondition();
 
-    public abstract int scorer(Building[][] bArray);
+    public abstract int scorer(Building[][] bArray, int row, int col);
     public static ArrayList<TownResource> getValidResources() {
         return validResources;
     }

@@ -41,7 +41,7 @@ public class BlueBuilding extends Building{
         cottagePatternList[1] = cottageArrayMirror;
         return cottagePatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray, int row, int col) {
         BuildingEnum scoredType = this.buildingEnum;
         int score = 0;
         if (scoredType == BuildingEnum.COTTAGE) {

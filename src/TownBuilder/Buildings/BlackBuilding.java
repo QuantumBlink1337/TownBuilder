@@ -34,7 +34,7 @@ public class BlackBuilding extends Building{
         warehousePatternList[0] = warehouseArray;
         return warehousePatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray, int row, int col) {
         BuildingEnum scoredType = this.buildingEnum;
         if (scoredType == BuildingEnum.FARM) {
             //return 1;
