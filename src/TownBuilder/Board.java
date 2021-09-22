@@ -25,7 +25,7 @@ public class Board {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NONE);
+                gameResourceBoard[row][col] = new TownResource(ResourceEnum.BRICK);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -41,11 +41,11 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-//        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
-//        gameBuildingBoard[0][1] = new GrayBuilding(BuildingEnum.WELL);
-//        gameBuildingBoard[1][0] = new GrayBuilding(BuildingEnum.WELL);
-//        gameBuildingBoard[1][2] = new GrayBuilding(BuildingEnum.WELL);
-//        gameBuildingBoard[2][1] = new GrayBuilding(BuildingEnum.WELL);
+        gameBuildingBoard[1][0] = new BlueBuilding(BuildingEnum.COTTAGE);
+        gameBuildingBoard[1][1] = new YellowBuilding(BuildingEnum.THEATER);
+        //gameBuildingBoard[1][2] = new YellowBuilding(BuildingEnum.THEATER);
+        gameBuildingBoard[1][3] = new BlueBuilding(BuildingEnum.COTTAGE);
+
 
     }
 
