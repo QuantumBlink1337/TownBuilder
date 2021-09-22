@@ -17,6 +17,12 @@ public class GreenBuilding extends Building{
     public BuildingEnum getType() {
         return buildingEnum;
     }
+    public void setCondition(boolean b) {
+        condition = b;
+    }
+    public boolean getCondition() {
+        return condition;
+    }
     public static ResourceEnum[][][] getPatterns() {
         tavernArray[0][0] = ResourceEnum.BRICK;
         tavernArray[0][1] = ResourceEnum.BRICK;

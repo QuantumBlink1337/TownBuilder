@@ -22,6 +22,12 @@ public class BlueBuilding extends Building{
     public BuildingEnum getType() {
         return buildingEnum;
     }
+    public void setCondition(boolean b) {
+        condition = b;
+    }
+    public boolean getCondition() {
+        return condition;
+    }
     public static ResourceEnum[][][] getPatterns() {
         cottageArray[0][0] = ResourceEnum.GLASS;
         cottageArray[0][1] = ResourceEnum.WHEAT;
@@ -36,6 +42,13 @@ public class BlueBuilding extends Building{
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray) {
-        return 1;
+        BuildingEnum scoredType = this.buildingEnum;
+        int score = 0;
+        if (scoredType == BuildingEnum.COTTAGE) {
+                    if (this.getType() == BuildingEnum.COTTAGE && this.getCondition()) {
+                        score = 3;
+                    }
+        }
+        return score;
     }
 }

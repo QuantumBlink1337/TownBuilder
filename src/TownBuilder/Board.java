@@ -50,8 +50,20 @@ public class Board {
             }
             playerTurn();
             detectValidBuilding();
-
         }
+        System.out.println("Final score: " + scoring());
+
+    }
+    private int scoring() {
+        int totalScore = 0;
+        for (int r = 0; r < gameBuildingBoard.length; r++) {
+            for (int c = 0; c < gameBuildingBoard[c].length; c++) {
+                if (gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
+                    totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard);
+                }
+            }
+        }
+        return totalScore;
     }
     private boolean gameOver() {
         int i = 0;

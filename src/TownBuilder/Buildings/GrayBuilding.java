@@ -19,6 +19,12 @@ public class GrayBuilding extends Building {
     public BuildingEnum getType() {
         return buildingEnum;
     }
+    public void setCondition(boolean b) {
+        condition = b;
+    }
+    public boolean getCondition() {
+        return condition;
+    }
     public static ResourceEnum[][][] getPatterns() {
         wellArray[0][0] = ResourceEnum.WOOD;
         wellArray[1][0] = ResourceEnum.STONE;

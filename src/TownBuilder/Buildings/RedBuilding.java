@@ -19,6 +19,12 @@ public class RedBuilding extends Building {
     public BuildingEnum getType() {
         return buildingEnum;
     }
+    public void setCondition(boolean b) {
+        condition = b;
+    }
+    public boolean getCondition() {
+        return condition;
+    }
     public static ResourceEnum[][][] getPatterns() {
         farmArray[0][0] = ResourceEnum.WHEAT;
         farmArray[0][1] = ResourceEnum.WHEAT;
@@ -31,15 +37,14 @@ public class RedBuilding extends Building {
         BuildingEnum scoredType = this.buildingEnum;
         if (scoredType == BuildingEnum.FARM) {
             int i = 0;
-            while (i < 4) {
-                for (int r = 0; r < bArray.length; r++) {
-                    for (int c = 0; c < bArray[r].length; c++) {
-                        if (bArray[r][c].getClass() == BlueBuilding) {
-
+                for (int r = 0; r < bArray.length && i < 4 ; r++) {
+                    for (int c = 0; c < bArray[r].length && i < 4; c++) {
+                        if (bArray[r][c].getType() == BuildingEnum.COTTAGE && !bArray[r][c].getCondition()) {
+                            bArray[r][c].setCondition(true);
+                            i++;
                         }
                     }
                 }
-            }
         }
         return 0;
     }

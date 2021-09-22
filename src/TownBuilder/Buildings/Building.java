@@ -19,6 +19,8 @@ public abstract class Building {
 //        condition = false;
 //    }
     public abstract BuildingEnum getType();
+    public abstract void setCondition(boolean b);
+    public abstract boolean getCondition();
 
     public abstract int scorer(Building[][] bArray);
     public static ArrayList<TownResource> getValidResources() {

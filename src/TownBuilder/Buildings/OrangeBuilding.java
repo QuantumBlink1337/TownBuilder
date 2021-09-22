@@ -17,6 +17,12 @@ public class OrangeBuilding extends Building{
     public BuildingEnum getType() {
         return buildingEnum;
     }
+    public void setCondition(boolean b) {
+        condition = b;
+    }
+    public boolean getCondition() {
+        return condition;
+    }
     public static ResourceEnum[][][] getPatterns() {
         templeArray[0][0] = ResourceEnum.NONE;
         templeArray[0][1] = ResourceEnum.NONE;

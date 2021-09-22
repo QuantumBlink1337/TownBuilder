@@ -18,6 +18,12 @@ public class BlackBuilding extends Building{
     public BuildingEnum getType() {
         return buildingEnum;
     }
+    public void setCondition(boolean b) {
+        condition = b;
+    }
+    public boolean getCondition() {
+        return condition;
+    }
     public static ResourceEnum[][][] getPatterns() {
         warehouseArray[0][0] = ResourceEnum.WHEAT;
         warehouseArray[0][1] = ResourceEnum.WOOD;
