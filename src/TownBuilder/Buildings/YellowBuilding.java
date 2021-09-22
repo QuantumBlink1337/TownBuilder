@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 public class YellowBuilding extends Building
 {
@@ -33,9 +34,23 @@ public class YellowBuilding extends Building
         return theaterPatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {
-        BuildingEnum scoredType = this.buildingEnum;
-        if (scoredType == BuildingEnum.FARM) {
-            //return 1;
+        for (int r = 0; r < bArray[col].length; r++) {
+            for (int c = 0; c < bArray[row].length; c++) {
+                System.out.println("Scanning for uniqueness: " + Utility.coordsToOutput(r, c));
+//                if (bArray[r][c].getType() == BuildingEnum.THEATER && !(bArray[r][c].equals(this)))  {
+//
+//                }
+//                if (bArray[r][c].getType() == BuildingEnum.COTTAGE) {
+//
+//                }
+//                if (bArray[r][c].getType() == BuildingEnum.WELL) {
+//
+//                }
+//                if (bArray[r][c].getType() == BuildingEnum.FARM) {
+//
+//                }
+//                if (bArray[r][c].getType() == )
+            }
         }
         return 0;
     }
