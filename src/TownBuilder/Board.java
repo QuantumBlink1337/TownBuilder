@@ -2,6 +2,7 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.*;
+import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -43,7 +44,7 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-//        gameBuildingBoard[1][0] = new BlueBuilding(BuildingEnum.COTTAGE);
+        gameBuildingBoard[1][0] = new BlackBuilding(BuildingEnum.WHOUSE);
 //        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
@@ -145,44 +146,102 @@ public class Board {
     }
     private void playerTurn() {
         ResourceEnum turnResource;
-        if (resourceTurn == 2) {
-            turnResource = ResourceEnum.resourcePicker();
-            resourceTurn = 0;
-        }
-        else {
-            turnResource = ResourceEnum.randomResource();
-            resourceTurn++;
-        }
+//        if (resourceTurn == 2) {
+//            turnResource = ResourceEnum.resourcePicker();
+//            resourceTurn = 0;
+//        }
+//        else {
+//            turnResource = ResourceEnum.randomResource();
+//            resourceTurn++;
+//        }
+        turnResource = ResourceEnum.resourcePicker();
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
         resourcePlacer(turnResource);
     }
+    private ResourceEnum warehouseOption(ResourceEnum t, BlackBuilding warehouse) {
+        ResourceEnum turnResource = t;
+        System.out.println(warehouse.getFullness());
+        if (warehouse.getFullness() != 3) {
+            System.out.println("Warehouse is not full, so placing it there");
+            turnResource = warehouse.placeResource(turnResource, ResourceEnum.NONE);
+        }
+        else {
+            String resourceChoice = "";
+            ResourceEnum swap = ResourceEnum.NONE;
+            do {
+                System.out.println("The warehouse is full. What resource do you want to swap out?");
+                resourceChoice = sc.nextLine().toLowerCase();
+                switch (resourceChoice) {
+                    case "wheat":
+                        swap = ResourceEnum.WHEAT;
+                        break;
+                    case "glass":
+                        swap = ResourceEnum.GLASS;
+                        break;
+                    case "brick":
+                        swap = ResourceEnum.BRICK;
+                        break;
+                    case "stone":
+                        swap = ResourceEnum.STONE;
+                        break;
+                    case "wood":
+                        swap = ResourceEnum.WOOD;
+                        break;
+                    default:
+                        resourceChoice = "";
+                        break;
+                }
+            }
+            while (resourceChoice == "");
+            turnResource = warehouse.placeResource(turnResource, swap);
+        }
+        return turnResource;
+    }
+
     private void resourcePlacer(ResourceEnum random) {
         String userCoordinate = "   ";
         boolean validSpot = false;
+        BlackBuilding warehouse;
+        boolean warehouseExists = false;
+        String warehouseText = "";
+        warehouse = (BlackBuilding) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
+        if (warehouse.getBuildingEnum() == BuildingEnum.WHOUSE) {
+            warehouseExists = true;
+        }
         do {
             validSpot = false;
+
+            if (warehouseExists) {
+                warehouseText = "You can also place or swap it on your warehouse with 'whouse'";
+            }
             while (userCoordinate.length() > 2) {
-                System.out.println("Where would you like to place your "+ random+ " resource? Alternatively, to view building patterns type \'help\'");
+                System.out.println("Where would you like to place your "+ random+ " resource?"+warehouseText+" Alternatively, to view building patterns type \'help\'");
                 userCoordinate = sc.nextLine().toLowerCase();
                 if (userCoordinate.equals("help")) {
                     System.out.println("You typed help, good for you");
                 }
+                else if (userCoordinate.equals("whouse") && warehouseExists) {
+                    random = warehouseOption(random, warehouse);
+                    if (random == ResourceEnum.NONE) {
+                        break;
+                    }
+                }
                 else if (userCoordinate.length() > 2) {
-                    System.out.println("Oops! That's not a coordinate.");
+                    System.out.println("Oops! That's not a coordinate or a command.");
                 }
             }
-            int[] coords = Utility.inputToCoords(userCoordinate);
-            //System.out.println("Row: " + row + "Col: " + col);
-            if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
-            {
-                gameResourceBoard[coords[0]][coords[1]].setResource(random);
-                validSpot = true;
-            }
-            else {
-                System.out.println("You can't place a resource on a tile that already has something on it!");
-            }
-            userCoordinate = "   ";
 
+                int[] coords = Utility.inputToCoords(userCoordinate);
+                //System.out.println("Row: " + row + "Col: " + col);
+                if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
+                {
+                    gameResourceBoard[coords[0]][coords[1]].setResource(random);
+                    validSpot = true;
+                }
+                else {
+                    System.out.println("You can't place a resource on a tile that already has something on it!");
+                }
+                userCoordinate = "   ";
         }
         while (!validSpot);
 

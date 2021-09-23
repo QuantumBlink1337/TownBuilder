@@ -1,5 +1,9 @@
 package TownBuilder;
 
+import TownBuilder.Buildings.BlackBuilding;
+import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.BuildingEnum;
+
 import java.util.Scanner;
 
 public class Utility {
@@ -27,6 +31,16 @@ public class Utility {
     }
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+    }
+    public static Building boardParser(BuildingEnum buildingEnum, Building[][] bArray) {
+        for (int r = 0; r < bArray.length; r++) {
+            for (int c = 0; c < bArray[r].length; c++) {
+                if (buildingEnum == bArray[r][c].getType()) {
+                    return bArray[r][c];
+                }
+            }
+        }
+        return new BlackBuilding(BuildingEnum.COTTAGE);
     }
     public static int[] inputToCoords(String i) {
         String[] input = i.split("", 2);
