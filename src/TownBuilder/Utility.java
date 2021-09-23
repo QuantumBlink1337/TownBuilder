@@ -25,6 +25,9 @@ public class Utility {
             }
         }
     }
+    public static String lowerCaseLetters(String word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+    }
     public static int[] inputToCoords(String i) {
         String[] input = i.split("", 2);
         int[] coords = new int[2];

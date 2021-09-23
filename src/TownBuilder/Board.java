@@ -153,7 +153,7 @@ public class Board {
             turnResource = ResourceEnum.randomResource();
             resourceTurn++;
         }
-        System.out.println("Your resource for this turn is "+turnResource);
+        System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
         resourcePlacer(turnResource);
     }
     private void resourcePlacer(ResourceEnum random) {
@@ -162,7 +162,7 @@ public class Board {
         do {
             validSpot = false;
             while (userCoordinate.length() > 2) {
-                System.out.println("Where would you like to place your resource? Alternatively, to view building patterns type \'help\'");
+                System.out.println("Where would you like to place your "+ random+ " resource? Alternatively, to view building patterns type \'help\'");
                 userCoordinate = sc.nextLine().toLowerCase();
                 if (userCoordinate.equals("help")) {
                     System.out.println("You typed help, good for you");
