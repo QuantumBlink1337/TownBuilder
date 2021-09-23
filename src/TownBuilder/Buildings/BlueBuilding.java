@@ -51,12 +51,14 @@ public class BlueBuilding extends Building{
                             RedBuilding farm = (RedBuilding) bArray[r][c];
                             if (farm.getFed() != 0) {
                                 farm.decrementFed();
-                                score += 3;
+                                condition = true;
                             }
                         }
                     }
                 }
-
+            if (this.condition) {
+                score += 3;
+            }
         }
         return score;
     }

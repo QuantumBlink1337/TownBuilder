@@ -32,11 +32,15 @@ public class OrangeBuilding extends Building{
         return templePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {
-        BuildingEnum scoredType = this.buildingEnum;
-        if (scoredType == BuildingEnum.FARM) {
-            //return 1;
+        int score = 0;
+        for (int r = 0; r < bArray.length; r++) {
+            for (int c = 0; c < bArray[r].length; c++) {
+                if (bArray[r][c].getType() == BuildingEnum.COTTAGE && bArray[r][c].getCondition()) {
+                    score += 1;
+                }
+            }
         }
-        return 0;
+        return score;
     }
     public BuildingEnum getBuildingEnum() {
         return buildingEnum;

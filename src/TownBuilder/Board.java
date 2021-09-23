@@ -3,6 +3,7 @@ package TownBuilder;
 
 import TownBuilder.Buildings.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Board {
@@ -42,9 +43,12 @@ public class Board {
             }
         }
         gameBuildingBoard[1][0] = new BlueBuilding(BuildingEnum.COTTAGE);
-        gameBuildingBoard[1][1] = new YellowBuilding(BuildingEnum.THEATER);
-        //gameBuildingBoard[1][2] = new YellowBuilding(BuildingEnum.THEATER);
-        gameBuildingBoard[1][3] = new BlueBuilding(BuildingEnum.COTTAGE);
+        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
+        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
+        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
+        gameBuildingBoard[2][2] = new BlueBuilding(BuildingEnum.COTTAGE);
+        gameBuildingBoard[3][2] = new OrangeBuilding(BuildingEnum.TEMPLE);
+        gameBuildingBoard[1][3] = new RedBuilding(BuildingEnum.FARM);
 
 
     }
@@ -64,19 +68,22 @@ public class Board {
     }
     private int scoring() {
         int totalScore = 0;
+        ArrayList<Building> temples = new ArrayList<>();
         for (int r = 0; r < gameBuildingBoard.length; r++) {
             for (int c = 0; c < gameBuildingBoard[r].length; c++) {
                 if (gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
-                    /*
-                        This methodology of scoring won't work 100%. Consider a cottage placed on the board
-                        before the Farm building. The algorithm will score as cottage as 0 even though
-                        a Farm is *technically* on the board. The farm works as intended, but it's too late.
-                    */
-
                     System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
-                    totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
+                    if (gameBuildingBoard[r][c].getType() == BuildingEnum.TEMPLE) {
+                        temples.add(gameBuildingBoard[r][c]);
+                    }
+                    else {
+                        totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
+                    }
                 }
             }
+        }
+        for (int i = 0; i < temples.size(); i++) {
+            totalScore += temples.get(i).scorer(gameBuildingBoard, 0, 0);
         }
         return totalScore;
     }
