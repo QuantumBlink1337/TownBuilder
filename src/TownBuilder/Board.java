@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Board {
     private final Player player;
+    private int resourceTurn = 0;
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
@@ -143,8 +144,15 @@ public class Board {
         }
     }
     private void playerTurn() {
-        ResourceEnum turnResource = ResourceEnum.debugResourcePicker(); // debug mode active
-        //ResourceEnum turnResource = ResourceEnum.randomResource(); // debug mode active
+        ResourceEnum turnResource;
+        if (resourceTurn == 2) {
+            turnResource = ResourceEnum.resourcePicker();
+            resourceTurn = 0;
+        }
+        else {
+            turnResource = ResourceEnum.randomResource();
+            resourceTurn++;
+        }
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
     }

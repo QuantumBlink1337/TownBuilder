@@ -20,7 +20,7 @@ public enum ResourceEnum {
 
 
     // this method should NEVER be used for actual gameplay
-    public static ResourceEnum debugResourcePicker() {
+    public static ResourceEnum resourcePicker() {
         Scanner sc = new Scanner(System.in);
         String resourceChoice = "";
         System.out.println("What resource do you want?");
