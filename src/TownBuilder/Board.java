@@ -26,7 +26,7 @@ public class Board {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                gameResourceBoard[row][col] = new TownResource(ResourceEnum.BRICK);
+                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NONE);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -42,13 +42,13 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-        gameBuildingBoard[1][0] = new BlueBuilding(BuildingEnum.COTTAGE);
-        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
-        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
-        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
-        gameBuildingBoard[2][2] = new BlueBuilding(BuildingEnum.COTTAGE);
-        gameBuildingBoard[3][2] = new OrangeBuilding(BuildingEnum.TEMPLE);
-        gameBuildingBoard[1][3] = new RedBuilding(BuildingEnum.FARM);
+//        gameBuildingBoard[1][0] = new BlueBuilding(BuildingEnum.COTTAGE);
+//        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
+//        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
+//        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
+//        gameBuildingBoard[2][2] = new BlueBuilding(BuildingEnum.COTTAGE);
+//        gameBuildingBoard[3][2] = new OrangeBuilding(BuildingEnum.TEMPLE);
+//        gameBuildingBoard[1][3] = new RedBuilding(BuildingEnum.FARM);
 
 
     }
@@ -61,7 +61,7 @@ public class Board {
                 break;
             }
             playerTurn();
-
+            detectValidBuilding();
         }
         System.out.println("Final score: " + scoring());
 
@@ -144,6 +144,7 @@ public class Board {
     }
     private void playerTurn() {
         ResourceEnum turnResource = ResourceEnum.debugResourcePicker(); // debug mode active
+        //ResourceEnum turnResource = ResourceEnum.randomResource(); // debug mode active
         System.out.println("Your resource for this turn is "+turnResource);
         resourcePlacer(turnResource);
     }
