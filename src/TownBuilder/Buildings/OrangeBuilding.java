@@ -6,7 +6,8 @@ public class OrangeBuilding extends Building{
     private BuildingEnum buildingEnum;
     private boolean condition;
     private static ResourceEnum[][] templeArray = new ResourceEnum[2][3];
-    private static ResourceEnum[][][] templePatternList = new ResourceEnum[1][2][2];
+    private static ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
+    private static ResourceEnum[][][] templePatternList = new ResourceEnum[2][2][2];
 
     public OrangeBuilding(BuildingEnum b) {
         buildingEnum = b;
@@ -28,7 +29,14 @@ public class OrangeBuilding extends Building{
         templeArray[1][0] = ResourceEnum.STONE;
         templeArray[1][1] = ResourceEnum.GLASS;
         templeArray[1][2] = ResourceEnum.STONE;
+        templeArrayMirror[0][0] = ResourceEnum.GLASS;
+        templeArrayMirror[0][1] = ResourceEnum.NONE;
+        templeArrayMirror[0][2] = ResourceEnum.NONE;
+        templeArrayMirror[1][0] = ResourceEnum.STONE;
+        templeArrayMirror[1][1] = ResourceEnum.GLASS;
+        templeArrayMirror[1][2] = ResourceEnum.STONE;
         templePatternList[0] = templeArray;
+        templePatternList[1] = templeArrayMirror;
         return templePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {
