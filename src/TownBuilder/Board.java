@@ -162,9 +162,12 @@ public class Board {
         do {
             validSpot = false;
             while (userCoordinate.length() > 2) {
-                System.out.println("Where would you like to place your resource?");
+                System.out.println("Where would you like to place your resource? Alternatively, to view building patterns type \'help\'");
                 userCoordinate = sc.nextLine().toLowerCase();
-                if (userCoordinate.length() > 2) {
+                if (userCoordinate.equals("help")) {
+                    System.out.println("You typed help, good for you");
+                }
+                else if (userCoordinate.length() > 2) {
                     System.out.println("Oops! That's not a coordinate.");
                 }
             }
