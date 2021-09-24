@@ -69,7 +69,7 @@ public class Warehouse extends Building{
         }
         return -1;
     }
-    public static ResourceEnum[][][] getPatterns() {
+    public ResourceEnum[][][] getPatterns() {
         warehouseArray[0][0] = ResourceEnum.WHEAT;
         warehouseArray[0][1] = ResourceEnum.WOOD;
         warehouseArray[0][2] = ResourceEnum.WHEAT;

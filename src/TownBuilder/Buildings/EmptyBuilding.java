@@ -1,5 +1,7 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.ResourceEnum;
+
 public class EmptyBuilding extends Building{
     public EmptyBuilding() {}
     @Override
@@ -15,6 +17,11 @@ public class EmptyBuilding extends Building{
     @Override
     public boolean getCondition() {
         return false;
+    }
+
+    @Override
+    public ResourceEnum[][][] getPatterns() {
+        return new ResourceEnum[0][][];
     }
 
     @Override

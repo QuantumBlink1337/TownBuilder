@@ -1,11 +1,11 @@
 import TownBuilder.Board;
-import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.*;
 
 public class Driver {
     boolean debug = true;
     public static void main (String[] args) {
 
-        BuildingEnum[] buildings = new BuildingEnum[]{BuildingEnum.COTTAGE, BuildingEnum.FARM, BuildingEnum.WELL, BuildingEnum.THEATER, BuildingEnum.WHOUSE, BuildingEnum.TAVERN, BuildingEnum.CHAPEL};
+        Building[] buildings = new Building[]{new Cottage(),new Farm(), new Well(), new Theater(), new Warehouse(), new Tavern(), new Chapel()};
         Board board = new Board(buildings);
         board.game();
     }

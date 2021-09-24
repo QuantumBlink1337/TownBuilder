@@ -22,6 +22,7 @@ public abstract class Building {
     public abstract BuildingEnum getType();
     public abstract void setCondition(boolean b);
     public abstract boolean getCondition();
+    public abstract ResourceEnum[][][] getPatterns();
 
     public abstract int scorer(Building[][] bArray, int row, int col);
     public static ArrayList<TownResource> getValidResources() {
@@ -41,7 +42,7 @@ public abstract class Building {
     }
 
 
-    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building, BuildingEnum[] buildings) {
+    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building, Building[] buildings) {
         String userInput = "";
         int[] coords;
         boolean validInput = false;

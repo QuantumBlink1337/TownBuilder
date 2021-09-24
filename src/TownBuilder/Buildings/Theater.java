@@ -9,15 +9,20 @@ import java.util.List;
 public class Theater extends Building
 {
     private boolean condition;
-    private List<BuildingEnum> resources;
+    private List<Building> buildingsOnBoard;
 
     private static ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
-    public Theater(List<BuildingEnum> b) {
-        resources = b;
+    public Theater(List<Building> b) {
+        buildingsOnBoard = b;
         condition = false;
     }
+
+    public Theater() {
+
+    }
+
     public BuildingEnum getType() {
         return BuildingEnum.THEATER;
     }
@@ -27,7 +32,7 @@ public class Theater extends Building
     public boolean getCondition() {
         return condition;
     }
-    public static ResourceEnum[][][] getPatterns() {
+    public ResourceEnum[][][] getPatterns() {
         theaterArray[0][0] = ResourceEnum.NONE;
         theaterArray[0][1] = ResourceEnum.STONE;
         theaterArray[0][2] = ResourceEnum.NONE;
@@ -50,11 +55,11 @@ public class Theater extends Building
     }
     private int buildingMatch(Building toBeChecked, Building scoreTarget) {
         int score = 0;
-        for (int i = 0;  i < resources.size(); i++) {
-            if (toBeChecked.getType() == resources.get(i)) {
+        for (int i = 0;  i < buildingsOnBoard.size(); i++) {
+            if (toBeChecked.getType() == buildingsOnBoard.get(i).getType()) {
                 if (toBeChecked.equals(scoreTarget)) {}
                 else {
-                    resources.remove(i);
+                    buildingsOnBoard.remove(i);
                     score++;
                 }
             }

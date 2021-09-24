@@ -23,7 +23,7 @@ public class Well extends Building {
     public boolean getCondition() {
         return condition;
     }
-    public static ResourceEnum[][][] getPatterns() {
+    public ResourceEnum[][][] getPatterns() {
         wellArray[0][0] = ResourceEnum.WOOD;
         wellArray[1][0] = ResourceEnum.STONE;
         wellArrayMirror[0][0] = ResourceEnum.STONE;

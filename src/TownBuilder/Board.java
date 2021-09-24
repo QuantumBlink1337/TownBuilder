@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Board {
     //private final Player player;
     private int resourceTurn = 0;
-    private BuildingEnum[] buildingsForGame;
+    private Building[] buildingsForGame;
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
@@ -19,7 +19,7 @@ public class Board {
     private boolean gameCompletion;
     private Scanner sc = new Scanner(System.in);
 
-    public Board(BuildingEnum[] b) {
+    public Board(Building[] b) {
         //player = new Player();
         buildingsForGame = b;
         gameCompletion = false;
@@ -121,26 +121,26 @@ public class Board {
     private void detectValidBuilding() {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                    if (Building.detection(row, col, gameResourceBoard, Farm.getPatterns(), buildingsForGame[0])) {
-                        placementPrompt(buildingsForGame[0], row, col);
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[0].getType())) {
+                        placementPrompt(buildingsForGame[0].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, Cottage.getPatterns(), buildingsForGame[1])) {
-                        placementPrompt(buildingsForGame[1], row, col);
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[1].getType())) {
+                        placementPrompt(buildingsForGame[1].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, Well.getPatterns(), buildingsForGame[2])) {
-                        placementPrompt(buildingsForGame[2], row, col);
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[2].getType())) {
+                        placementPrompt(buildingsForGame[2].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, Theater.getPatterns(), buildingsForGame[3])) {
-                        placementPrompt(buildingsForGame[3], row, col);
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[3].getType())) {
+                        placementPrompt(buildingsForGame[3].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, Warehouse.getPatterns(), buildingsForGame[4])) {
-                        placementPrompt(buildingsForGame[4], row, col);
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[4].getType())) {
+                        placementPrompt(buildingsForGame[4].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, Tavern.getPatterns(), buildingsForGame[5])) {
-                        placementPrompt(buildingsForGame[5], row, col);
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[5].getType())) {
+                        placementPrompt(buildingsForGame[5].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, Chapel.getPatterns(), buildingsForGame[6])) {
-                        placementPrompt(buildingsForGame[6], row, col);
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[6].getType())) {
+                        placementPrompt(buildingsForGame[6].getType(), row, col);
                 }
             }
         }
