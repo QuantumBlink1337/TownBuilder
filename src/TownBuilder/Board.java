@@ -43,7 +43,7 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-       // gameBuildingBoard[1][0] = new BlackBuilding(BuildingEnum.WHOUSE);
+        //gameBuildingBoard[1][0] = new BlackBuilding(BuildingEnum.WHOUSE);
 //        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
@@ -157,12 +157,14 @@ public class Board {
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
         resourcePlacer(turnResource);
     }
-    private ResourceEnum warehouseOption(ResourceEnum t, BlackBuilding warehouse) {
+    private ResourceEnum warehouseOption(ResourceEnum t, BlackBuilding warehouse, boolean mode) {
         ResourceEnum turnResource = t;
         System.out.println(warehouse.getFullness());
-        if (warehouse.getFullness() != 3) {
-            System.out.println("Warehouse is not full, so placing it there");
-            turnResource = warehouse.placeResource(turnResource, ResourceEnum.NONE);
+        if (mode) {
+            if (warehouse.getFullness() != 3) {
+                System.out.println("Warehouse is not full, so placing it there");
+                 return warehouse.placeResource(turnResource, ResourceEnum.NONE);
+            }
         }
         else {
             String resourceChoice = "";
@@ -234,11 +236,20 @@ public class Board {
                 if (userCoordinate.equals("help")) {
                     System.out.println("You typed help, good for you");
                 }
-                else if (userCoordinate.equals("whouse") && warehouseExists) {
-                    random = warehouseOption(random, warehouse);
-                    if (random == ResourceEnum.NONE) {
-                        break;
+                else if (userCoordinate.equals("whouse place") && warehouseExists) {
+                    if (warehouse.getFullness() != 3) {
+                        random = warehouseOption(random, warehouse, true);
+                        if (random == ResourceEnum.NONE) {
+                            break;
+                        }
                     }
+                    else {
+                        System.out.println("The warehouse is full. You need to swap something instead.");
+                    }
+
+                }
+                else if (userCoordinate.equals("whouse swap") && warehouseExists) {
+                    random = warehouseOption(random, warehouse, false);
                 }
                 else if (userCoordinate.length() > 2) {
                     System.out.println("Oops! That's not a coordinate or a command.");
