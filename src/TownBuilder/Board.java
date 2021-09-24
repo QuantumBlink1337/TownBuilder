@@ -27,6 +27,9 @@ public class Board {
         gameCompletion = false;
         buildArrays();
     }
+    public Manual getManual() {
+        return manual;
+    }
     private void buildArrays() {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
@@ -85,6 +88,8 @@ public class Board {
                         totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
                     }
                 }
+                if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED);
+                    totalScore--;
             }
         }
         for (int i = 0; i < temples.size(); i++) {
@@ -218,12 +223,15 @@ public class Board {
     private void resourcePlacer(ResourceEnum random) throws InterruptedException {
         String userCoordinate = "";
         boolean validSpot = false;
-        Warehouse warehouse;
+        Warehouse warehouse = null;
         boolean warehouseExists = false;
         String warehouseText = "";
-        warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
-        if (warehouse.getType() == BuildingEnum.WHOUSE) {
+        try {
+            warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
             warehouseExists = true;
+        }
+        catch(ClassCastException e) {
+            
         }
         do {
             validSpot = false;

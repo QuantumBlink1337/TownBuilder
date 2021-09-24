@@ -9,7 +9,6 @@ public class Manual {
         private Scanner sc = new Scanner(System.in);
     public Manual(Building[] b) {
         gameBuildings = b;
-        System.out.println("New manual created.");
     }
     public static void tutorial() throws InterruptedException {
         System.out.println("Welcome to TownBuilder! You are the mayor of a town founded deep in the woods. It's up to you to build the town to success!");

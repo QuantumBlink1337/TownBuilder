@@ -48,7 +48,7 @@ public class Theater extends Building
         return condition;
     }
     public String wordDefinition() {
-        return "Tavern";
+        return "Theater";
     }
     public ResourceEnum[][][] getPatterns() {
 

@@ -9,6 +9,7 @@ public class Driver {
         Building[] buildings = new Building[]{new Cottage(),new Farm(), new Well(), new Theater(), new Warehouse(), new Tavern(), new Chapel()};
         Board board = new Board(buildings);
         Manual.tutorial();
+        board.getManual().displayBuildings();
         board.game();
     }
 
