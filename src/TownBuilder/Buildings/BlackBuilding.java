@@ -42,22 +42,22 @@ public class BlackBuilding extends Building{
         return list;
     }
     public ResourceEnum placeResource(ResourceEnum swappedResource, ResourceEnum requestedResource) {
-        if (fullness < 3) {
-            System.out.println("Call made to place a resource inside of the Warehouse");
+        if (fullness < 3 && requestedResource == ResourceEnum.NONE) {
+            //System.out.println("Call made to place a resource inside of the Warehouse");
             storedResources[fullness] = swappedResource;
             fullness++;
-            printStoredResources();
-            System.out.println("Fullness after operation: " + fullness);
+            //printStoredResources();
+            //System.out.println("Fullness after operation: " + fullness);
             return ResourceEnum.NONE;
         }
         else {
-            System.out.println("Warehouse is full, so swapping it out");
+            //System.out.println("Warehouse is full, so swapping it out");
             int index = arraySearcher(requestedResource, storedResources);
             ResourceEnum deletedResource;
             if (index != -1) {
                 deletedResource = storedResources[index];
                 storedResources[index] = swappedResource;
-                printStoredResources();
+                //printStoredResources();
                 return deletedResource;
             }
         }
