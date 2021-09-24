@@ -8,17 +8,16 @@ import java.util.Scanner;
 
 public class Board {
     //private final Player player;
-    private int resourceTurn = 0;
-    private Building[] buildingsForGame;
+    private final Building[] buildingsForGame;
     private final Manual manual;
-    private TownResource[][] gameResourceBoard = new TownResource[4][4];
-    private Building[][] gameBuildingBoard = new Building[4][4];
-    private String[][] gameBoard = new String[4][4];
-    private String[][] coordinateBoard = new String[4][4];
+    private final TownResource[][] gameResourceBoard = new TownResource[4][4];
+    private final Building[][] gameBuildingBoard = new Building[4][4];
+    private final String[][] gameBoard = new String[4][4];
+    private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
     private boolean gameCompletion;
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     public Board(Building[] b) {
         //player = new Player();
@@ -50,14 +49,6 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-        //gameBuildingBoard[1][0] = new Warehouse();
-//        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
-//        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
-//        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
-//        gameBuildingBoard[2][2] = new BlueBuilding(BuildingEnum.COTTAGE);
-//        gameBuildingBoard[3][2] = new OrangeBuilding(BuildingEnum.TEMPLE);
-//        gameBuildingBoard[1][3] = new RedBuilding(BuildingEnum.FARM);
-
 
     }
 
@@ -88,12 +79,13 @@ public class Board {
                         totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
                     }
                 }
-                if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED);
+                if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
                     totalScore--;
+                }
             }
         }
-        for (int i = 0; i < temples.size(); i++) {
-            totalScore += temples.get(i).scorer(gameBuildingBoard, 0, 0);
+        for (Building temple : temples) {
+            totalScore += temple.scorer(gameBuildingBoard, 0, 0);
         }
         return totalScore;
     }
@@ -103,8 +95,6 @@ public class Board {
             for (String tile : tileRow) {
                 if (!(tile.equals("[EMPTY!]"))) {
                     i++;
-                }
-                else {
                 }
             }
         }
@@ -176,7 +166,7 @@ public class Board {
             }
         }
         else {
-            String resourceChoice = "";
+            String resourceChoice;
             ResourceEnum swap = ResourceEnum.NONE;
             do {
                 do {
@@ -184,27 +174,15 @@ public class Board {
                     System.out.println("What resource do you want to swap out?");
                     resourceChoice = sc.nextLine().toLowerCase();
                     switch (resourceChoice) {
-                        case "wheat":
-                            swap = ResourceEnum.WHEAT;
-                            break;
-                        case "glass":
-                            swap = ResourceEnum.GLASS;
-                            break;
-                        case "brick":
-                            swap = ResourceEnum.BRICK;
-                            break;
-                        case "stone":
-                            swap = ResourceEnum.STONE;
-                            break;
-                        case "wood":
-                            swap = ResourceEnum.WOOD;
-                            break;
-                        default:
-                            resourceChoice = "";
-                            break;
+                        case "wheat" -> swap = ResourceEnum.WHEAT;
+                        case "glass" -> swap = ResourceEnum.GLASS;
+                        case "brick" -> swap = ResourceEnum.BRICK;
+                        case "stone" -> swap = ResourceEnum.STONE;
+                        case "wood" -> swap = ResourceEnum.WOOD;
+                        default -> resourceChoice = "";
                     }
                 }
-                while (resourceChoice == "");
+                while (resourceChoice.equals(""));
                 if (turnResource != ResourceEnum.OBSTRUCTED) {
                     turnResource = warehouse.placeResource(turnResource, swap);
                 }
@@ -213,16 +191,13 @@ public class Board {
                 }
             }
             while (turnResource == ResourceEnum.OBSTRUCTED);
-
-
-
         }
         return turnResource;
     }
 
     private void resourcePlacer(ResourceEnum random) throws InterruptedException {
         String userCoordinate = "";
-        boolean validSpot = false;
+        boolean validSpot;
         Warehouse warehouse = null;
         boolean warehouseExists = false;
         String warehouseText = "";
@@ -230,9 +205,7 @@ public class Board {
             warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
             warehouseExists = true;
         }
-        catch(ClassCastException e) {
-            
-        }
+        catch(ClassCastException e) {}
         do {
             validSpot = false;
 
@@ -240,7 +213,7 @@ public class Board {
                 warehouseText = "You can also place or swap it on your warehouse with 'place' or 'swap'.";
             }
             while (userCoordinate.length() != 2) {
-                System.out.println("Where would you like to place your "+ random+ " resource? "+warehouseText+" Alternatively, to view the game manual type \'help\'");
+                System.out.println("Where would you like to place your "+ random+ " resource? "+warehouseText+" Alternatively, to view the game manual type 'help'");
                 if (warehouseExists) {
                     ResourceEnum[] list = warehouse.getStoredResources();
                     System.out.println("Here's what's inside the warehouse: "+ list[0] + "," + list[1] + "," + list[2]);
