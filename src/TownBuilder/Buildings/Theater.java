@@ -32,6 +32,9 @@ public class Theater extends Building
     public boolean getCondition() {
         return condition;
     }
+    public String wordDefinition() {
+        return "Tavern";
+    }
     public ResourceEnum[][][] getPatterns() {
         theaterArray[0][0] = ResourceEnum.NONE;
         theaterArray[0][1] = ResourceEnum.STONE;

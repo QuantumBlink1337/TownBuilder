@@ -23,6 +23,9 @@ public class Well extends Building {
     public boolean getCondition() {
         return condition;
     }
+    public String wordDefinition() {
+        return "Well";
+    }
     public ResourceEnum[][][] getPatterns() {
         wellArray[0][0] = ResourceEnum.WOOD;
         wellArray[1][0] = ResourceEnum.STONE;

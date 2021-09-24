@@ -20,6 +20,9 @@ public class Chapel extends Building{
     public boolean getCondition() {
         return condition;
     }
+    public String wordDefinition() {
+        return "Chapel";
+    }
     public ResourceEnum[][][] getPatterns() {
         templeArray[0][0] = ResourceEnum.NONE;
         templeArray[0][1] = ResourceEnum.NONE;

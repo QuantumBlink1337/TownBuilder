@@ -21,6 +21,9 @@ public class Tavern extends Building{
     public boolean getCondition() {
         return condition;
     }
+    public String wordDefinition() {
+        return "Tavern";
+    }
     public ResourceEnum[][][] getPatterns() {
         tavernArray[0][0] = ResourceEnum.BRICK;
         tavernArray[0][1] = ResourceEnum.BRICK;

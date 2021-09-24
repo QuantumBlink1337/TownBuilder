@@ -26,6 +26,9 @@ public class Cottage extends Building{
     public boolean getCondition() {
         return condition;
     }
+    public String wordDefinition() {
+        return "Cottage";
+    }
     public ResourceEnum[][][] getPatterns() {
         cottageArray[0][0] = ResourceEnum.GLASS;
         cottageArray[0][1] = ResourceEnum.WHEAT;

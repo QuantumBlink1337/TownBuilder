@@ -25,6 +25,11 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
+    public String wordDefinition() {
+        return null;
+    }
+
+    @Override
     public int scorer(Building[][] bArray, int row, int col) {
         return 0;
     }

@@ -27,6 +27,9 @@ public class Warehouse extends Building{
     public int getFullness() {
         return fullness;
     }
+    public String wordDefinition() {
+        return "Warehouse";
+    }
     public void printStoredResources() {
         for (ResourceEnum resource : storedResources) {
             System.out.println(resource);

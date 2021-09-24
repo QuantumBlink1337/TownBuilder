@@ -28,6 +28,9 @@ public class Farm extends Building {
     public int getFed() {
         return fed;
     }
+    public String wordDefinition() {
+        return "Farm";
+    }
     public ResourceEnum[][][] getPatterns() {
         farmArray[0][0] = ResourceEnum.WHEAT;
         farmArray[0][1] = ResourceEnum.WHEAT;
