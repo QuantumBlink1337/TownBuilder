@@ -10,6 +10,7 @@ public class Board {
     //private final Player player;
     private int resourceTurn = 0;
     private Building[] buildingsForGame;
+    private final Manual manual;
     private TownResource[][] gameResourceBoard = new TownResource[4][4];
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
@@ -22,6 +23,7 @@ public class Board {
     public Board(Building[] b) {
         //player = new Player();
         buildingsForGame = b;
+        manual = new Manual(buildingsForGame);
         gameCompletion = false;
         buildArrays();
     }
@@ -237,7 +239,7 @@ public class Board {
                 }
                 userCoordinate = sc.nextLine().toLowerCase();
                 if (userCoordinate.equals("help")) {
-                    System.out.println("You typed help, good for you");
+                    manual.displayBuildingPatterns();
                 }
                 else if (userCoordinate.equals("place") && warehouseExists) {
                     if (warehouse.getFullness() != 3) {
