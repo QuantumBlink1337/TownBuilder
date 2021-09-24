@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Board {
     //private final Player player;
-    private final Building[] buildingsForGame;
+    private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
     private final TownResource[][] gameResourceBoard = new TownResource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
@@ -16,10 +16,11 @@ public class Board {
     private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
+    private int resourceTurn = 0;
     private boolean gameCompletion;
     private final Scanner sc = new Scanner(System.in);
 
-    public Board(Building[] b) {
+    public Board(ArrayList<Building> b) {
         //player = new Player();
         buildingsForGame = b;
         manual = new Manual(buildingsForGame);
@@ -118,41 +119,26 @@ public class Board {
     private void detectValidBuilding() {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[0].getType())) {
-                        placementPrompt(buildingsForGame[0].getType(), row, col);
+                for (int i = 0; i < buildingsForGame.size(); i++) {
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame.get(i).getPatterns(), buildingsForGame.get(i).getType())) {
+                        placementPrompt(buildingsForGame.get(i).getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[1].getPatterns(), buildingsForGame[1].getType())) {
-                        placementPrompt(buildingsForGame[1].getType(), row, col);
-                    }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[2].getPatterns(), buildingsForGame[2].getType())) {
-                        placementPrompt(buildingsForGame[2].getType(), row, col);
-                    }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[3].getPatterns(), buildingsForGame[3].getType())) {
-                        placementPrompt(buildingsForGame[3].getType(), row, col);
-                    }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[4].getPatterns(), buildingsForGame[4].getType())) {
-                        placementPrompt(buildingsForGame[4].getType(), row, col);
-                    }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[5].getPatterns(), buildingsForGame[5].getType())) {
-                        placementPrompt(buildingsForGame[5].getType(), row, col);
-                    }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[6].getPatterns(), buildingsForGame[6].getType())) {
-                        placementPrompt(buildingsForGame[6].getType(), row, col);
                 }
             }
         }
     }
     private void playerTurn() throws InterruptedException {
         ResourceEnum turnResource;
-//        if (resourceTurn == 2) {
-//            turnResource = ResourceEnum.resourcePicker();
-//            resourceTurn = 0;
-//        }
-//        else {
-//            turnResource = ResourceEnum.randomResource();
-//            resourceTurn++;
-//        }
-        turnResource = ResourceEnum.resourcePicker();
+
+        if (resourceTurn == 2) {
+            turnResource = ResourceEnum.resourcePicker();
+            resourceTurn = 0;
+        }
+        else {
+            turnResource = ResourceEnum.randomResource();
+            resourceTurn++;
+        }
+        //turnResource = ResourceEnum.resourcePicker();
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
         resourcePlacer(turnResource);
     }

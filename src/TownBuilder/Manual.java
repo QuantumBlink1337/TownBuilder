@@ -2,12 +2,13 @@ package TownBuilder;
 
 import TownBuilder.Buildings.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Manual {
-        private Building[] gameBuildings = new Building[7];
+        private ArrayList<Building> gameBuildings;
         private Scanner sc = new Scanner(System.in);
-    public Manual(Building[] b) {
+    public Manual(ArrayList<Building> b) {
         gameBuildings = b;
     }
     public static void tutorial() throws InterruptedException {
@@ -140,8 +141,8 @@ public class Manual {
     }
     public void displayBuildings() {
         System.out.println("The buildings in your game are:");
-        for (int i = 0; i < gameBuildings.length; i++) {
-            System.out.println(gameBuildings[i].wordDefinition());
+        for (int i = 0; i < gameBuildings.size(); i++) {
+            System.out.println(gameBuildings.get(i).wordDefinition());
         }
     }
     public void displayBuildingPatterns() {

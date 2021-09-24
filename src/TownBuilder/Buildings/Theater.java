@@ -11,12 +11,12 @@ import java.util.List;
 public class Theater extends Building
 {
     private boolean condition;
-    private List<Building> buildingsOnBoard;
+    private ArrayList<Building> buildingsOnBoard;
 
     private static ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
-    public Theater(List<Building> b) {
+    public Theater(ArrayList<Building> b) {
         buildingsOnBoard = b;
         condition = false;
         theaterArray[0][0] = ResourceEnum.NONE;
@@ -72,11 +72,11 @@ public class Theater extends Building
         int score = 0;
         for (int i = 0;  i < buildingsOnBoard.size(); i++) {
             if (toBeChecked.getType() == buildingsOnBoard.get(i).getType()) {
-                if (toBeChecked.equals(scoreTarget)) {}
-                else {
+                if (!toBeChecked.equals(scoreTarget)) {
                     buildingsOnBoard.remove(i);
                     score++;
                 }
+
             }
         }
         return score;

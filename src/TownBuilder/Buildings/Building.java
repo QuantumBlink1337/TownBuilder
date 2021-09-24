@@ -32,7 +32,7 @@ public abstract class Building {
             }
         }
     }
-    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building, Building[] buildings) {
+    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building, ArrayList<Building> buildings) {
         String userInput;
         int[] coords;
         boolean validInput = false;
@@ -79,7 +79,7 @@ public abstract class Building {
             case FARM -> bArray[coords[0]][coords[1]] = new Farm();
             case COTTAGE -> bArray[coords[0]][coords[1]] = new Cottage();
             case WELL -> bArray[coords[0]][coords[1]] = new Well();
-            case THEATER -> bArray[coords[0]][coords[1]] = new Theater(Arrays.asList(buildings));
+            case THEATER -> bArray[coords[0]][coords[1]] = new Theater(buildings);
             case WHOUSE -> bArray[coords[0]][coords[1]] = new Warehouse();
             case TAVERN -> bArray[coords[0]][coords[1]] = new Tavern();
             case CHAPEL -> bArray[coords[0]][coords[1]] = new Chapel();

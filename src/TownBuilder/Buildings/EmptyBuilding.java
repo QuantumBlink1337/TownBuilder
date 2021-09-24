@@ -9,10 +9,6 @@ public class EmptyBuilding extends Building{
         return BuildingEnum.NONE;
     }
 
-    @Override
-    public void setCondition(boolean b) {
-
-    }
 
     @Override
     public boolean getCondition() {
