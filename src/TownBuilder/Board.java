@@ -51,7 +51,7 @@ public class Board {
         }
 
     }
-
+    // To do: Move this to Driver. Shouldn't run game logic from the object.
     public void game() throws InterruptedException {
         while (!gameCompletion) {
             renderBoard();
