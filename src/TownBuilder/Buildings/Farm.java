@@ -2,7 +2,7 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 
-public class RedBuilding extends Building {
+public class Farm extends Building {
     private BuildingEnum buildingEnum;
     private boolean condition;
     private int fed;
@@ -10,7 +10,7 @@ public class RedBuilding extends Building {
     private static ResourceEnum[][][] farmPatternList = new ResourceEnum[1][2][2];
     private Object BlueBuilding;
 
-    public RedBuilding(BuildingEnum b) {
+    public Farm(BuildingEnum b) {
         buildingEnum = b;
         condition = false;
         fed = 4;

@@ -5,7 +5,7 @@ import TownBuilder.ResourceEnum;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class YellowBuilding extends Building
+public class Theater extends Building
 {
     private BuildingEnum buildingEnum;
     private boolean condition;
@@ -14,7 +14,7 @@ public class YellowBuilding extends Building
     private static ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
-    public YellowBuilding(BuildingEnum b) {
+    public Theater(BuildingEnum b) {
         buildingEnum = b;
         condition = false;
     }

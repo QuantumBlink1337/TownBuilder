@@ -2,14 +2,14 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 
-public class GreenBuilding extends Building{
+public class Tavern extends Building{
     private BuildingEnum buildingEnum;
     private boolean condition;
     private static ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static ResourceEnum[][][] tavernPatternList = new ResourceEnum[1][2][2];
     static int scoreIncrement = 2;
 
-    public GreenBuilding(BuildingEnum b) {
+    public Tavern(BuildingEnum b) {
         buildingEnum = b;
         condition = false;
     }

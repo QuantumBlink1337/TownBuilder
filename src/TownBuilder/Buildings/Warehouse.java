@@ -4,7 +4,7 @@ import TownBuilder.ResourceEnum;
 
 import java.util.Scanner;
 
-public class BlackBuilding extends Building{
+public class Warehouse extends Building{
     private BuildingEnum buildingEnum;
     private boolean condition;
     private int fullness = 0;
@@ -13,7 +13,7 @@ public class BlackBuilding extends Building{
     private static ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
 
-    public BlackBuilding(BuildingEnum b) {
+    public Warehouse(BuildingEnum b) {
         buildingEnum = b;
         condition = false;
     }

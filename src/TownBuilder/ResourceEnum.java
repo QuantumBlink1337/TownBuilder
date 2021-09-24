@@ -23,19 +23,25 @@ public enum ResourceEnum {
     public static ResourceEnum resourcePicker() {
         Scanner sc = new Scanner(System.in);
         String resourceChoice = "";
-        System.out.println("What resource do you want?");
-        resourceChoice = sc.nextLine().toLowerCase();
-        switch (resourceChoice) {
-            case "wheat":
-                return WHEAT;
-            case "glass":
-                return GLASS;
-            case "brick":
-                return BRICK;
-            case "stone":
-                return STONE;
-            case "wood":
-                return WOOD;
+        while (resourceChoice.equals("")) {
+            System.out.println("What resource do you want?");
+            resourceChoice = sc.nextLine().toLowerCase();
+            switch (resourceChoice) {
+                case "wheat":
+                    return WHEAT;
+                case "glass":
+                    return GLASS;
+                case "brick":
+                    return BRICK;
+                case "stone":
+                    return STONE;
+                case "wood":
+                    return WOOD;
+                default:
+                    System.out.println("Invalid input. Please try again.");
+                    resourceChoice = "";
+                    break;
+            }
         }
         return NONE;
     }

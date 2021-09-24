@@ -7,14 +7,14 @@ import java.util.Scanner;
 
 
 
-public class BlueBuilding extends Building{
+public class Cottage extends Building{
     private boolean condition;
     private BuildingEnum buildingEnum;
     private static ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
     private static Scanner sc = new Scanner(System.in);
-    public BlueBuilding(BuildingEnum b) {
+    public Cottage(BuildingEnum b) {
         buildingEnum = b;
         condition = false;
 
@@ -48,7 +48,7 @@ public class BlueBuilding extends Building{
                 for (int r = 0; r < bArray.length; r++) {
                     for (int c = 0; c < bArray[r].length; c++) {
                         if (bArray[r][c].getType() == BuildingEnum.FARM) {
-                            RedBuilding farm = (RedBuilding) bArray[r][c];
+                            Farm farm = (Farm) bArray[r][c];
                             if (farm.getFed() != 0) {
                                 farm.decrementFed();
                                 condition = true;

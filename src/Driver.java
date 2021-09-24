@@ -1,6 +1,4 @@
 import TownBuilder.Board;
-import TownBuilder.Buildings.BlueBuilding;
-import TownBuilder.Buildings.Building;
 
 public class Driver {
     boolean debug = true;

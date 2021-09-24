@@ -83,13 +83,13 @@ public abstract class Building {
         clearResources(building);
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         switch (building) {
-            case FARM -> bArray[coords[0]][coords[1]] = new RedBuilding(BuildingEnum.FARM);
-            case COTTAGE -> bArray[coords[0]][coords[1]] = new BlueBuilding(BuildingEnum.COTTAGE);
-            case WELL -> bArray[coords[0]][coords[1]] = new GrayBuilding(BuildingEnum.WELL);
-            case THEATER -> bArray[coords[0]][coords[1]] = new YellowBuilding(BuildingEnum.THEATER);
-            case WHOUSE -> bArray[coords[0]][coords[1]] = new BlackBuilding(BuildingEnum.WHOUSE);
-            case TAVERN -> bArray[coords[0]][coords[1]] = new GreenBuilding(BuildingEnum.TAVERN);
-            case CHAPEL -> bArray[coords[0]][coords[1]] = new OrangeBuilding(BuildingEnum.CHAPEL);
+            case FARM -> bArray[coords[0]][coords[1]] = new Farm(BuildingEnum.FARM);
+            case COTTAGE -> bArray[coords[0]][coords[1]] = new Cottage(BuildingEnum.COTTAGE);
+            case WELL -> bArray[coords[0]][coords[1]] = new Well(BuildingEnum.WELL);
+            case THEATER -> bArray[coords[0]][coords[1]] = new Theater(BuildingEnum.THEATER);
+            case WHOUSE -> bArray[coords[0]][coords[1]] = new Warehouse(BuildingEnum.WHOUSE);
+            case TAVERN -> bArray[coords[0]][coords[1]] = new Tavern(BuildingEnum.TAVERN);
+            case CHAPEL -> bArray[coords[0]][coords[1]] = new Chapel(BuildingEnum.CHAPEL);
 
         }
 

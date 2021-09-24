@@ -33,7 +33,7 @@ public class Board {
         }
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col] = new BlackBuilding(BuildingEnum.NONE);
+                gameBuildingBoard[row][col] = new Warehouse(BuildingEnum.NONE);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -43,7 +43,7 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-        gameBuildingBoard[1][0] = new BlackBuilding(BuildingEnum.WHOUSE);
+        gameBuildingBoard[1][0] = new Warehouse(BuildingEnum.WHOUSE);
 //        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
@@ -119,25 +119,25 @@ public class Board {
     private void detectValidBuilding() {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                    if (Building.detection(row, col, gameResourceBoard, RedBuilding.getPatterns(), BuildingEnum.FARM)) {
+                    if (Building.detection(row, col, gameResourceBoard, Farm.getPatterns(), BuildingEnum.FARM)) {
                         placementPrompt(BuildingEnum.FARM, row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, BlueBuilding.getPatterns(), BuildingEnum.COTTAGE)) {
+                    if (Building.detection(row, col, gameResourceBoard, Cottage.getPatterns(), BuildingEnum.COTTAGE)) {
                         placementPrompt(BuildingEnum.COTTAGE, row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, GrayBuilding.getPatterns(), BuildingEnum.WELL)) {
+                    if (Building.detection(row, col, gameResourceBoard, Well.getPatterns(), BuildingEnum.WELL)) {
                         placementPrompt(BuildingEnum.WELL, row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, YellowBuilding.getPatterns(), BuildingEnum.THEATER)) {
+                    if (Building.detection(row, col, gameResourceBoard, Theater.getPatterns(), BuildingEnum.THEATER)) {
                         placementPrompt(BuildingEnum.THEATER, row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, BlackBuilding.getPatterns(), BuildingEnum.WHOUSE)) {
+                    if (Building.detection(row, col, gameResourceBoard, Warehouse.getPatterns(), BuildingEnum.WHOUSE)) {
                         placementPrompt(BuildingEnum.WHOUSE, row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, GreenBuilding.getPatterns(), BuildingEnum.TAVERN)) {
+                    if (Building.detection(row, col, gameResourceBoard, Tavern.getPatterns(), BuildingEnum.TAVERN)) {
                         placementPrompt(BuildingEnum.TAVERN, row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, OrangeBuilding.getPatterns(), BuildingEnum.CHAPEL)) {
+                    if (Building.detection(row, col, gameResourceBoard, Chapel.getPatterns(), BuildingEnum.CHAPEL)) {
                         placementPrompt(BuildingEnum.CHAPEL, row, col);
                 }
             }
@@ -157,7 +157,7 @@ public class Board {
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
         resourcePlacer(turnResource);
     }
-    private ResourceEnum warehouseOption(ResourceEnum t, BlackBuilding warehouse, boolean mode) {
+    private ResourceEnum warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
         ResourceEnum turnResource = t;
         //System.out.println(warehouse.getFullness());
         if (mode) {
@@ -214,10 +214,10 @@ public class Board {
     private void resourcePlacer(ResourceEnum random) {
         String userCoordinate = "";
         boolean validSpot = false;
-        BlackBuilding warehouse;
+        Warehouse warehouse;
         boolean warehouseExists = false;
         String warehouseText = "";
-        warehouse = (BlackBuilding) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
+        warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
         if (warehouse.getBuildingEnum() == BuildingEnum.WHOUSE) {
             warehouseExists = true;
         }
