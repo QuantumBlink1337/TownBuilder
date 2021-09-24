@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 public class Farm extends Building {
     private boolean condition;
@@ -11,6 +12,11 @@ public class Farm extends Building {
     public Farm() {
         condition = false;
         fed = 4;
+        farmArray[0][0] = ResourceEnum.WHEAT;
+        farmArray[0][1] = ResourceEnum.WHEAT;
+        farmArray[1][0] = ResourceEnum.WOOD;
+        farmArray[1][1] = ResourceEnum.WOOD;
+        farmPatternList[0] = farmArray;
     }
 
     public BuildingEnum getType() {
@@ -31,12 +37,11 @@ public class Farm extends Building {
     public String wordDefinition() {
         return "Farm";
     }
+    public static void printPattern() {
+        Utility.arrayPrinter(farmPatternList[0]);
+    }
     public ResourceEnum[][][] getPatterns() {
-        farmArray[0][0] = ResourceEnum.WHEAT;
-        farmArray[0][1] = ResourceEnum.WHEAT;
-        farmArray[1][0] = ResourceEnum.WOOD;
-        farmArray[1][1] = ResourceEnum.WOOD;
-        farmPatternList[0] = farmArray;
+
         return farmPatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {

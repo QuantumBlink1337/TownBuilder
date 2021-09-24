@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.util.Scanner;
 
@@ -12,6 +13,12 @@ public class Well extends Building {
     private static ResourceEnum[][][] wellPatternList = new ResourceEnum[2][2][2];
 
     public Well() {
+        wellArray[0][0] = ResourceEnum.WOOD;
+        wellArray[1][0] = ResourceEnum.STONE;
+        wellArrayMirror[0][0] = ResourceEnum.STONE;
+        wellArrayMirror[1][0] = ResourceEnum.WOOD;
+        wellPatternList[0] = wellArray;
+        wellPatternList[1] = wellArrayMirror;
         condition = false;
     }
     public BuildingEnum getType() {
@@ -26,13 +33,11 @@ public class Well extends Building {
     public String wordDefinition() {
         return "Well";
     }
+    public static void printPattern() {
+        Utility.arrayPrinter(wellPatternList[0]);
+    }
     public ResourceEnum[][][] getPatterns() {
-        wellArray[0][0] = ResourceEnum.WOOD;
-        wellArray[1][0] = ResourceEnum.STONE;
-        wellArrayMirror[0][0] = ResourceEnum.STONE;
-        wellArrayMirror[1][0] = ResourceEnum.WOOD;
-        wellPatternList[0] = wellArray;
-        wellPatternList[1] = wellArrayMirror;
+
         return wellPatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {

@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 public class Tavern extends Building{
     private boolean condition;
@@ -9,7 +10,10 @@ public class Tavern extends Building{
     static int scoreIncrement = 2;
 
     public Tavern() {
-
+        tavernArray[0][0] = ResourceEnum.BRICK;
+        tavernArray[0][1] = ResourceEnum.BRICK;
+        tavernArray[0][2] = ResourceEnum.GLASS;
+        tavernPatternList[0] = tavernArray;
         condition = false;
     }
     public BuildingEnum getType() {
@@ -24,11 +28,11 @@ public class Tavern extends Building{
     public String wordDefinition() {
         return "Tavern";
     }
+    public static void printPattern() {
+        Utility.arrayPrinter(tavernPatternList[0]);
+    }
     public ResourceEnum[][][] getPatterns() {
-        tavernArray[0][0] = ResourceEnum.BRICK;
-        tavernArray[0][1] = ResourceEnum.BRICK;
-        tavernArray[0][2] = ResourceEnum.GLASS;
-        tavernPatternList[0] = tavernArray;
+
         return tavernPatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {

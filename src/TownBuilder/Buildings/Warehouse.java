@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.util.Scanner;
 
@@ -29,6 +30,9 @@ public class Warehouse extends Building{
     }
     public String wordDefinition() {
         return "Warehouse";
+    }
+    public static void printPattern() {
+        Utility.arrayPrinter(warehousePatternList[0]);
     }
     public void printStoredResources() {
         for (ResourceEnum resource : storedResources) {

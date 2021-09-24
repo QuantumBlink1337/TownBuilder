@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.util.Scanner;
 
@@ -13,10 +14,23 @@ public class Cottage extends Building{
     private static ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
     private static Scanner sc = new Scanner(System.in);
+
+
+
     public Cottage() {
         condition = false;
-
+        cottageArray[0][0] = ResourceEnum.GLASS;
+        cottageArray[0][1] = ResourceEnum.WHEAT;
+        cottageArray[1][0] = ResourceEnum.BRICK;
+        cottageArray[1][1] = ResourceEnum.NONE;
+        cottageArrayMirror[0][0] = ResourceEnum.GLASS;
+        cottageArrayMirror[1][0] = ResourceEnum.WHEAT;
+        cottageArrayMirror[0][1] = ResourceEnum.BRICK;
+        cottageArrayMirror[1][1] = ResourceEnum.NONE;
+        cottagePatternList[0] = cottageArray;
+        cottagePatternList[1] = cottageArrayMirror;
     }
+
     public BuildingEnum getType() {
         return BuildingEnum.COTTAGE;
     }
@@ -29,17 +43,11 @@ public class Cottage extends Building{
     public String wordDefinition() {
         return "Cottage";
     }
+    public static void printPattern() {
+        Utility.arrayPrinter(cottagePatternList[0]);
+    }
     public ResourceEnum[][][] getPatterns() {
-        cottageArray[0][0] = ResourceEnum.GLASS;
-        cottageArray[0][1] = ResourceEnum.WHEAT;
-        cottageArray[1][0] = ResourceEnum.BRICK;
-        cottageArray[1][1] = ResourceEnum.NONE;
-        cottageArrayMirror[0][0] = ResourceEnum.GLASS;
-        cottageArrayMirror[1][0] = ResourceEnum.WHEAT;
-        cottageArrayMirror[0][1] = ResourceEnum.BRICK;
-        cottageArrayMirror[1][1] = ResourceEnum.NONE;
-        cottagePatternList[0] = cottageArray;
-        cottagePatternList[1] = cottageArrayMirror;
+
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {

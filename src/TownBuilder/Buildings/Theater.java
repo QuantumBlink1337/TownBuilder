@@ -1,6 +1,8 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.Manual;
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +19,23 @@ public class Theater extends Building
     public Theater(List<Building> b) {
         buildingsOnBoard = b;
         condition = false;
+        theaterArray[0][0] = ResourceEnum.NONE;
+        theaterArray[0][1] = ResourceEnum.STONE;
+        theaterArray[0][2] = ResourceEnum.NONE;
+        theaterArray[1][0] = ResourceEnum.WOOD;
+        theaterArray[1][1] = ResourceEnum.GLASS;
+        theaterArray[1][2] = ResourceEnum.WOOD;
+        theaterPatternList[0] = theaterArray;
     }
 
     public Theater() {
-
+        theaterArray[0][0] = ResourceEnum.NONE;
+        theaterArray[0][1] = ResourceEnum.STONE;
+        theaterArray[0][2] = ResourceEnum.NONE;
+        theaterArray[1][0] = ResourceEnum.WOOD;
+        theaterArray[1][1] = ResourceEnum.GLASS;
+        theaterArray[1][2] = ResourceEnum.WOOD;
+        theaterPatternList[0] = theaterArray;
     }
 
     public BuildingEnum getType() {
@@ -36,14 +51,11 @@ public class Theater extends Building
         return "Tavern";
     }
     public ResourceEnum[][][] getPatterns() {
-        theaterArray[0][0] = ResourceEnum.NONE;
-        theaterArray[0][1] = ResourceEnum.STONE;
-        theaterArray[0][2] = ResourceEnum.NONE;
-        theaterArray[1][0] = ResourceEnum.WOOD;
-        theaterArray[1][1] = ResourceEnum.GLASS;
-        theaterArray[1][2] = ResourceEnum.WOOD;
-        theaterPatternList[0] = theaterArray;
+
         return theaterPatternList;
+    }
+    public static void printPattern() {
+        Utility.arrayPrinter(theaterPatternList[0]);
     }
     public int scorer(Building[][] bArray, int row, int col) {
         int score = 0;

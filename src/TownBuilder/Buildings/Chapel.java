@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 public class Chapel extends Building{
     private boolean condition;
@@ -10,20 +11,6 @@ public class Chapel extends Building{
 
     public Chapel() {
         condition = false;
-    }
-    public BuildingEnum getType() {
-        return BuildingEnum.CHAPEL;
-    }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
-    public boolean getCondition() {
-        return condition;
-    }
-    public String wordDefinition() {
-        return "Chapel";
-    }
-    public ResourceEnum[][][] getPatterns() {
         templeArray[0][0] = ResourceEnum.NONE;
         templeArray[0][1] = ResourceEnum.NONE;
         templeArray[0][2] = ResourceEnum.GLASS;
@@ -38,6 +25,24 @@ public class Chapel extends Building{
         templeArrayMirror[1][2] = ResourceEnum.STONE;
         templePatternList[0] = templeArray;
         templePatternList[1] = templeArrayMirror;
+    }
+    public BuildingEnum getType() {
+        return BuildingEnum.CHAPEL;
+    }
+    public void setCondition(boolean b) {
+        condition = b;
+    }
+    public boolean getCondition() {
+        return condition;
+    }
+    public String wordDefinition() {
+        return "Chapel";
+    }
+    public static void printPattern() {
+        Utility.arrayPrinter(templePatternList[0]);
+    }
+    public ResourceEnum[][][] getPatterns() {
+
         return templePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {
