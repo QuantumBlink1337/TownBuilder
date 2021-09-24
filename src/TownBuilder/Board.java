@@ -47,7 +47,7 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-        gameBuildingBoard[1][0] = new Warehouse();
+        //gameBuildingBoard[1][0] = new Warehouse();
 //        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
@@ -58,7 +58,7 @@ public class Board {
 
     }
 
-    public void game() {
+    public void game() throws InterruptedException {
         while (!gameCompletion) {
             renderBoard();
             gameCompletion = gameOver();
@@ -147,7 +147,7 @@ public class Board {
             }
         }
     }
-    private void playerTurn() {
+    private void playerTurn() throws InterruptedException {
         ResourceEnum turnResource;
         if (resourceTurn == 2) {
             turnResource = ResourceEnum.resourcePicker();
@@ -215,7 +215,7 @@ public class Board {
         return turnResource;
     }
 
-    private void resourcePlacer(ResourceEnum random) {
+    private void resourcePlacer(ResourceEnum random) throws InterruptedException {
         String userCoordinate = "";
         boolean validSpot = false;
         Warehouse warehouse;
@@ -232,14 +232,15 @@ public class Board {
                 warehouseText = "You can also place or swap it on your warehouse with 'place' or 'swap'.";
             }
             while (userCoordinate.length() != 2) {
-                System.out.println("Where would you like to place your "+ random+ " resource? "+warehouseText+" Alternatively, to view building patterns type \'help\'");
+                System.out.println("Where would you like to place your "+ random+ " resource? "+warehouseText+" Alternatively, to view the game manual type \'help\'");
                 if (warehouseExists) {
                     ResourceEnum[] list = warehouse.getStoredResources();
                     System.out.println("Here's what's inside the warehouse: "+ list[0] + "," + list[1] + "," + list[2]);
                 }
                 userCoordinate = sc.nextLine().toLowerCase();
                 if (userCoordinate.equals("help")) {
-                    manual.displayBuildingPatterns();
+                    manual.openManual();
+                    renderBoard();
                 }
                 else if (userCoordinate.equals("place") && warehouseExists) {
                     if (warehouse.getFullness() != 3) {
