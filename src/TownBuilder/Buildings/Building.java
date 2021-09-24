@@ -10,30 +10,21 @@ import java.util.Scanner;
 
 public abstract class Building {
 
-    private BuildingEnum buildingEnum;
-    private boolean condition;
-    private static Scanner sc = new Scanner(System.in);
-    private static ArrayList<TownResource> validResources = new ArrayList<>();
+    private static final Scanner sc = new Scanner(System.in);
+    private static final ArrayList<TownResource> validResources = new ArrayList<>();
 
-//    public Building(BuildingEnum b) {
-//        buildingEnum = b;
-//        condition = false;
-//    }
+
     public abstract BuildingEnum getType();
-    public abstract void setCondition(boolean b);
+    //public abstract void setCondition(boolean b);
     public abstract boolean getCondition();
     public abstract ResourceEnum[][][] getPatterns();
     public abstract String wordDefinition();
-
     public abstract int scorer(Building[][] bArray, int row, int col);
-    public static ArrayList<TownResource> getValidResources() {
-        return validResources;
-    }
 
-    @Override
-    public String toString() {
-        return "[" + buildingEnum +"]";
-    }
+//    public static ArrayList<TownResource> getValidResources() {
+//        return validResources;
+//    }
+
     public static void clearResources(BuildingEnum building) {
         for (int i = 0; i < validResources.size(); i++) {
             if (validResources.get(i).getScannedBuilding() == building) {
@@ -41,10 +32,8 @@ public abstract class Building {
             }
         }
     }
-
-
     public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building, Building[] buildings) {
-        String userInput = "";
+        String userInput;
         int[] coords;
         boolean validInput = false;
         do {
@@ -52,8 +41,8 @@ public abstract class Building {
             System.out.println("Valid positions for the "+building+" are:");
             for (int r = 0; r < rArray.length; r++) {
                 for (int c = 0; c < rArray[r].length; c++) {
-                    for (int i = 0; i < validResources.size(); i++) {
-                        if (rArray[r][c] == validResources.get(i)) {
+                    for (TownResource validResource : validResources) {
+                        if (rArray[r][c] == validResource) {
                             System.out.println(Utility.coordsToOutput(r, c));
                         }
                     }
@@ -79,10 +68,10 @@ public abstract class Building {
 //            }
 //        }
 //        System.out.println("Size at placement: "+ validResources.size());
-        for (int i = 0; i < validResources.size(); i++) {
+        for (TownResource validResource : validResources) {
 //            System.out.println("Is this statement firing?");
 //            System.out.println(validResources.get(i).getResource());
-            validResources.get(i).setResource(ResourceEnum.NONE);
+            validResource.setResource(ResourceEnum.NONE);
         }
         clearResources(building);
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
@@ -104,7 +93,7 @@ public abstract class Building {
                 //System.out.println("Length of bT: " + bT.length);
                 int checkTime = 0;
                 int patternIndex = 0;
-                for (ResourceEnum[][] board : bT) {
+                for (ResourceEnum[][] ignored : bT) {
                     checkTime += 4;
                 }
                 //System.out.println("CheckTime: " + checkTime);
@@ -116,9 +105,9 @@ public abstract class Building {
                         patternIndex++;
                     }
                     //Utility.arrayPrinter(bT[patternIndex]);
-                    if (compare(row, col, rArray, buildingTemplate[patternIndex], buildingType)) {
-                        for (int j = 0; j < validResources.size(); j++) {
-                            validResources.get(j).setScannedBuilding(buildingType);
+                    if (compare(row, col, rArray, buildingTemplate[patternIndex])) {
+                        for (TownResource validResource : validResources) {
+                            validResource.setScannedBuilding(buildingType);
                         }
                         //System.out.println("Size at compare" + validResources.size());
                         return true;
@@ -133,14 +122,10 @@ public abstract class Building {
             }
         return false;
     }
-    private static boolean compare(int row, int col, TownResource[][] rArray, ResourceEnum[][] buildingTemplate, BuildingEnum buildingType) {
+    private static boolean compare(int row, int col, TownResource[][] rArray, ResourceEnum[][] buildingTemplate) {
         for (int r = 0; r < buildingTemplate.length; r++) {
             for (int c = 0; c < buildingTemplate[r].length; c++) {
-                if (match(rArray[row+r][col+c], buildingTemplate[r][c])) {
-                    //System.out.println("Successful comparison at " + (row+r) + ", " + (col+c));
-                }
-                else {
-                    //System.out.println("Failure of comparison at " + (row+r) + ", " + (col+c));
+                if (!match(rArray[row+r][col+c], buildingTemplate[r][c])) {
                     validResources.clear();
                     return false;
                 }
