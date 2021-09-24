@@ -15,7 +15,7 @@ public class Board {
     private Building[][] gameBuildingBoard = new Building[4][4];
     private String[][] gameBoard = new String[4][4];
     private String[][] coordinateBoard = new String[4][4];
-    private final char[] letterCoords = {' ', 'a', 'b', 'c', 'd'};
+    private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
     private boolean gameCompletion;
     private Scanner sc = new Scanner(System.in);
@@ -101,7 +101,7 @@ public class Board {
         int i = 0;
         for (String[] tileRow : gameBoard) {
             for (String tile : tileRow) {
-                if (!(tile.equals("[Empty!]"))) {
+                if (!(tile.equals("[EMPTY!]"))) {
                     i++;
                 }
                 else {
@@ -131,22 +131,22 @@ public class Board {
                     if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[0].getType())) {
                         placementPrompt(buildingsForGame[0].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[1].getType())) {
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[1].getPatterns(), buildingsForGame[1].getType())) {
                         placementPrompt(buildingsForGame[1].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[2].getType())) {
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[2].getPatterns(), buildingsForGame[2].getType())) {
                         placementPrompt(buildingsForGame[2].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[3].getType())) {
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[3].getPatterns(), buildingsForGame[3].getType())) {
                         placementPrompt(buildingsForGame[3].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[4].getType())) {
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[4].getPatterns(), buildingsForGame[4].getType())) {
                         placementPrompt(buildingsForGame[4].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[5].getType())) {
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[5].getPatterns(), buildingsForGame[5].getType())) {
                         placementPrompt(buildingsForGame[5].getType(), row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[0].getPatterns(), buildingsForGame[6].getType())) {
+                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame[6].getPatterns(), buildingsForGame[6].getType())) {
                         placementPrompt(buildingsForGame[6].getType(), row, col);
                 }
             }
@@ -154,15 +154,15 @@ public class Board {
     }
     private void playerTurn() throws InterruptedException {
         ResourceEnum turnResource;
-        if (resourceTurn == 2) {
-            turnResource = ResourceEnum.resourcePicker();
-            resourceTurn = 0;
-        }
-        else {
-            turnResource = ResourceEnum.randomResource();
-            resourceTurn++;
-        }
-        //turnResource = ResourceEnum.resourcePicker();
+//        if (resourceTurn == 2) {
+//            turnResource = ResourceEnum.resourcePicker();
+//            resourceTurn = 0;
+//        }
+//        else {
+//            turnResource = ResourceEnum.randomResource();
+//            resourceTurn++;
+//        }
+        turnResource = ResourceEnum.resourcePicker();
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
         resourcePlacer(turnResource);
     }
@@ -295,15 +295,15 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED) {
-                    gameBoard[row][col] = gameResourceBoard[row][col].toString();
+                    gameBoard[row][col] = "[" + Utility.lengthResizer(gameResourceBoard[row][col].toString(), 6) + "]";
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
 //                    System.out.println("Printing Building list");
 //                    System.out.println(gameBuildingBoard[row][col].getType());
-                    gameBoard[row][col] = "["+ gameBuildingBoard[row][col].getType().toString() + "]";
+                    gameBoard[row][col] = "["+ Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), 6) + "]";
                 }
                 else {
-                    gameBoard[row][col] = "[Empty!]";
+                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", 6)+"]";
                 }
 
             }
@@ -316,7 +316,7 @@ public class Board {
             }
             else {
                 System.out.print(letterCoords[i]);
-                System.out.print("     ");
+
             }
 
         }

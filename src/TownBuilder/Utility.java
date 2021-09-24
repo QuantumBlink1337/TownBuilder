@@ -20,6 +20,14 @@ public class Utility {
             }
         }
     }
+    public static String lengthResizer(String t, int length) {
+        String target = t;
+        int targetLength = target.length();
+        for (int i = 0; i < length - targetLength; i++) {
+            target = target + " ";
+        }
+        return target;
+    }
     public static void log(String s, int level) {}
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();

@@ -41,7 +41,7 @@ public class TownResource {
 
 
     public String toString() {
-        return "[" + resource + "]";
+        return resource.toString() ;
     }
 
 
