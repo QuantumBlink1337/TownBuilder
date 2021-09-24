@@ -1,5 +1,6 @@
 package TownBuilder;
 
+import TownBuilder.Buildings.EmptyBuilding;
 import TownBuilder.Buildings.Warehouse;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
@@ -41,7 +42,7 @@ public class Utility {
                 }
             }
         }
-        return new Warehouse(BuildingEnum.COTTAGE);
+        return new EmptyBuilding();
     }
     public static int[] inputToCoords(String i) {
         String[] input = i.split("", 2);

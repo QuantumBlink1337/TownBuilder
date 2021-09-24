@@ -4,22 +4,22 @@ import TownBuilder.ResourceEnum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Theater extends Building
 {
-    private BuildingEnum buildingEnum;
     private boolean condition;
-    private ArrayList<BuildingEnum> resources = new ArrayList<>(Arrays.asList(BuildingEnum.COTTAGE, BuildingEnum.FARM, BuildingEnum.WELL, BuildingEnum.WHOUSE, BuildingEnum.THEATER, BuildingEnum.CHAPEL, BuildingEnum.TAVERN));
+    private List<BuildingEnum> resources;
 
     private static ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
-    public Theater(BuildingEnum b) {
-        buildingEnum = b;
+    public Theater(List<BuildingEnum> b) {
+        resources = b;
         condition = false;
     }
     public BuildingEnum getType() {
-        return buildingEnum;
+        return BuildingEnum.THEATER;
     }
     public void setCondition(boolean b) {
         condition = b;
@@ -60,9 +60,6 @@ public class Theater extends Building
             }
         }
         return score;
-    }
-    public BuildingEnum getBuildingEnum() {
-        return buildingEnum;
     }
 }
 

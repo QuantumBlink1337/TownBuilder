@@ -9,18 +9,16 @@ import java.util.Scanner;
 
 public class Cottage extends Building{
     private boolean condition;
-    private BuildingEnum buildingEnum;
     private static ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
     private static Scanner sc = new Scanner(System.in);
-    public Cottage(BuildingEnum b) {
-        buildingEnum = b;
+    public Cottage() {
         condition = false;
 
     }
     public BuildingEnum getType() {
-        return buildingEnum;
+        return BuildingEnum.COTTAGE;
     }
     public void setCondition(boolean b) {
         condition = b;
@@ -42,9 +40,7 @@ public class Cottage extends Building{
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {
-        BuildingEnum scoredType = this.buildingEnum;
         int score = 0;
-        if (scoredType == BuildingEnum.COTTAGE) {
                 for (int r = 0; r < bArray.length; r++) {
                     for (int c = 0; c < bArray[r].length; c++) {
                         if (bArray[r][c].getType() == BuildingEnum.FARM) {
@@ -59,7 +55,7 @@ public class Cottage extends Building{
             if (this.condition) {
                 score += 3;
             }
-        }
+
         return score;
     }
 }

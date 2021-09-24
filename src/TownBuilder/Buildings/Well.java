@@ -5,19 +5,17 @@ import TownBuilder.ResourceEnum;
 import java.util.Scanner;
 
 public class Well extends Building {
-    private BuildingEnum buildingEnum;
     private boolean condition;
     private static Scanner sc = new Scanner(System.in);
     private static ResourceEnum[][] wellArray = new ResourceEnum[2][1];
     private static ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
     private static ResourceEnum[][][] wellPatternList = new ResourceEnum[2][2][2];
 
-    public Well(BuildingEnum b) {
-        buildingEnum = b;
+    public Well() {
         condition = false;
     }
     public BuildingEnum getType() {
-        return buildingEnum;
+        return BuildingEnum.WELL;
     }
     public void setCondition(boolean b) {
         condition = b;

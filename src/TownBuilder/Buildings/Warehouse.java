@@ -5,7 +5,6 @@ import TownBuilder.ResourceEnum;
 import java.util.Scanner;
 
 public class Warehouse extends Building{
-    private BuildingEnum buildingEnum;
     private boolean condition;
     private int fullness = 0;
     private static Scanner sc = new Scanner(System.in);
@@ -13,12 +12,11 @@ public class Warehouse extends Building{
     private static ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
 
-    public Warehouse(BuildingEnum b) {
-        buildingEnum = b;
+    public Warehouse() {
         condition = false;
     }
     public BuildingEnum getType() {
-        return buildingEnum;
+        return BuildingEnum.WHOUSE;
     }
     public void setCondition(boolean b) {
         condition = b;
@@ -89,8 +87,5 @@ public class Warehouse extends Building{
             }
         }
         return 0;
-    }
-    public BuildingEnum getBuildingEnum() {
-        return buildingEnum;
     }
 }

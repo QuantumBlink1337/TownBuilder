@@ -3,18 +3,17 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 
 public class Tavern extends Building{
-    private BuildingEnum buildingEnum;
     private boolean condition;
     private static ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static ResourceEnum[][][] tavernPatternList = new ResourceEnum[1][2][2];
     static int scoreIncrement = 2;
 
-    public Tavern(BuildingEnum b) {
-        buildingEnum = b;
+    public Tavern() {
+
         condition = false;
     }
     public BuildingEnum getType() {
-        return buildingEnum;
+        return BuildingEnum.TAVERN;
     }
     public void setCondition(boolean b) {
         condition = b;
@@ -34,14 +33,10 @@ public class Tavern extends Building{
             return 0;
         }
         int score =0;
-
-        System.out.println("Adding scoreIncrement " + scoreIncrement + " to score " + score);
+        //System.out.println("Adding scoreIncrement " + scoreIncrement + " to score " + score);
         score += scoreIncrement;
         scoreIncrement++;
 
         return score;
-    }
-    public BuildingEnum getBuildingEnum() {
-        return buildingEnum;
     }
 }

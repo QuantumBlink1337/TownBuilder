@@ -3,20 +3,18 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 
 public class Farm extends Building {
-    private BuildingEnum buildingEnum;
     private boolean condition;
     private int fed;
     private static ResourceEnum[][] farmArray = new ResourceEnum[2][2];
     private static ResourceEnum[][][] farmPatternList = new ResourceEnum[1][2][2];
-    private Object BlueBuilding;
 
-    public Farm(BuildingEnum b) {
-        buildingEnum = b;
+    public Farm() {
         condition = false;
         fed = 4;
     }
+
     public BuildingEnum getType() {
-        return buildingEnum;
+        return BuildingEnum.FARM;
     }
     public void setCondition(boolean b) {
         condition = b;
@@ -54,8 +52,5 @@ public class Farm extends Building {
 //                }
 //        }
         return 0;
-    }
-    public BuildingEnum getBuildingEnum() {
-        return buildingEnum;
     }
 }

@@ -5,6 +5,7 @@ import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public abstract class Building {
@@ -39,7 +40,8 @@ public abstract class Building {
         }
     }
 
-    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building) {
+
+    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building, BuildingEnum[] buildings) {
         String userInput = "";
         int[] coords;
         boolean validInput = false;
@@ -83,13 +85,13 @@ public abstract class Building {
         clearResources(building);
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         switch (building) {
-            case FARM -> bArray[coords[0]][coords[1]] = new Farm(BuildingEnum.FARM);
-            case COTTAGE -> bArray[coords[0]][coords[1]] = new Cottage(BuildingEnum.COTTAGE);
-            case WELL -> bArray[coords[0]][coords[1]] = new Well(BuildingEnum.WELL);
-            case THEATER -> bArray[coords[0]][coords[1]] = new Theater(BuildingEnum.THEATER);
-            case WHOUSE -> bArray[coords[0]][coords[1]] = new Warehouse(BuildingEnum.WHOUSE);
-            case TAVERN -> bArray[coords[0]][coords[1]] = new Tavern(BuildingEnum.TAVERN);
-            case CHAPEL -> bArray[coords[0]][coords[1]] = new Chapel(BuildingEnum.CHAPEL);
+            case FARM -> bArray[coords[0]][coords[1]] = new Farm();
+            case COTTAGE -> bArray[coords[0]][coords[1]] = new Cottage();
+            case WELL -> bArray[coords[0]][coords[1]] = new Well();
+            case THEATER -> bArray[coords[0]][coords[1]] = new Theater(Arrays.asList(buildings));
+            case WHOUSE -> bArray[coords[0]][coords[1]] = new Warehouse();
+            case TAVERN -> bArray[coords[0]][coords[1]] = new Tavern();
+            case CHAPEL -> bArray[coords[0]][coords[1]] = new Chapel();
 
         }
 

@@ -3,18 +3,16 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 
 public class Chapel extends Building{
-    private BuildingEnum buildingEnum;
     private boolean condition;
     private static ResourceEnum[][] templeArray = new ResourceEnum[2][3];
     private static ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
     private static ResourceEnum[][][] templePatternList = new ResourceEnum[2][2][2];
 
-    public Chapel(BuildingEnum b) {
-        buildingEnum = b;
+    public Chapel() {
         condition = false;
     }
     public BuildingEnum getType() {
-        return buildingEnum;
+        return BuildingEnum.CHAPEL;
     }
     public void setCondition(boolean b) {
         condition = b;
@@ -49,8 +47,5 @@ public class Chapel extends Building{
             }
         }
         return score;
-    }
-    public BuildingEnum getBuildingEnum() {
-        return buildingEnum;
     }
 }
