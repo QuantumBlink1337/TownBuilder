@@ -2,7 +2,6 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.*;
-import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -44,7 +43,7 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-        gameBuildingBoard[1][0] = new BlackBuilding(BuildingEnum.WHOUSE);
+       // gameBuildingBoard[1][0] = new BlackBuilding(BuildingEnum.WHOUSE);
 //        gameBuildingBoard[1][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[0][1] = new BlueBuilding(BuildingEnum.COTTAGE);
 //        gameBuildingBoard[1][2] = new BlueBuilding(BuildingEnum.COTTAGE);
@@ -75,7 +74,7 @@ public class Board {
             for (int c = 0; c < gameBuildingBoard[r].length; c++) {
                 if (gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
                     System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
-                    if (gameBuildingBoard[r][c].getType() == BuildingEnum.TEMPLE) {
+                    if (gameBuildingBoard[r][c].getType() == BuildingEnum.CHAPEL) {
                         temples.add(gameBuildingBoard[r][c]);
                     }
                     else {
@@ -138,23 +137,23 @@ public class Board {
                     if (Building.detection(row, col, gameResourceBoard, GreenBuilding.getPatterns(), BuildingEnum.TAVERN)) {
                         placementPrompt(BuildingEnum.TAVERN, row, col);
                     }
-                    if (Building.detection(row, col, gameResourceBoard, OrangeBuilding.getPatterns(), BuildingEnum.TEMPLE)) {
-                        placementPrompt(BuildingEnum.TEMPLE, row, col);
+                    if (Building.detection(row, col, gameResourceBoard, OrangeBuilding.getPatterns(), BuildingEnum.CHAPEL)) {
+                        placementPrompt(BuildingEnum.CHAPEL, row, col);
                 }
             }
         }
     }
     private void playerTurn() {
         ResourceEnum turnResource;
-//        if (resourceTurn == 2) {
-//            turnResource = ResourceEnum.resourcePicker();
-//            resourceTurn = 0;
-//        }
-//        else {
-//            turnResource = ResourceEnum.randomResource();
-//            resourceTurn++;
-//        }
-        turnResource = ResourceEnum.resourcePicker();
+        if (resourceTurn == 2) {
+            turnResource = ResourceEnum.resourcePicker();
+            resourceTurn = 0;
+        }
+        else {
+            turnResource = ResourceEnum.randomResource();
+            resourceTurn++;
+        }
+        //turnResource = ResourceEnum.resourcePicker();
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
         resourcePlacer(turnResource);
     }
@@ -169,31 +168,42 @@ public class Board {
             String resourceChoice = "";
             ResourceEnum swap = ResourceEnum.NONE;
             do {
-                System.out.println("The warehouse is full. What resource do you want to swap out?");
-                resourceChoice = sc.nextLine().toLowerCase();
-                switch (resourceChoice) {
-                    case "wheat":
-                        swap = ResourceEnum.WHEAT;
-                        break;
-                    case "glass":
-                        swap = ResourceEnum.GLASS;
-                        break;
-                    case "brick":
-                        swap = ResourceEnum.BRICK;
-                        break;
-                    case "stone":
-                        swap = ResourceEnum.STONE;
-                        break;
-                    case "wood":
-                        swap = ResourceEnum.WOOD;
-                        break;
-                    default:
-                        resourceChoice = "";
-                        break;
+                do {
+                    System.out.println("The warehouse is full. What resource do you want to swap out?");
+                    resourceChoice = sc.nextLine().toLowerCase();
+                    switch (resourceChoice) {
+                        case "wheat":
+                            swap = ResourceEnum.WHEAT;
+                            break;
+                        case "glass":
+                            swap = ResourceEnum.GLASS;
+                            break;
+                        case "brick":
+                            swap = ResourceEnum.BRICK;
+                            break;
+                        case "stone":
+                            swap = ResourceEnum.STONE;
+                            break;
+                        case "wood":
+                            swap = ResourceEnum.WOOD;
+                            break;
+                        default:
+                            resourceChoice = "";
+                            break;
+                    }
+                }
+                while (resourceChoice == "");
+                if (turnResource != ResourceEnum.OBSTRUCTED) {
+                    turnResource = warehouse.placeResource(turnResource, swap);
+                }
+                else {
+                    turnResource = t;
                 }
             }
-            while (resourceChoice == "");
-            turnResource = warehouse.placeResource(turnResource, swap);
+            while (turnResource == ResourceEnum.OBSTRUCTED);
+
+
+
         }
         return turnResource;
     }
@@ -216,6 +226,10 @@ public class Board {
             }
             while (userCoordinate.length() > 2) {
                 System.out.println("Where would you like to place your "+ random+ " resource?"+warehouseText+" Alternatively, to view building patterns type \'help\'");
+                if (warehouseExists) {
+                    ResourceEnum[] list = warehouse.getStoredResources();
+                    System.out.println("Here's what's inside the warehouse: "+ list[0] + "," + list[1] + "," + list[2]);
+                }
                 userCoordinate = sc.nextLine().toLowerCase();
                 if (userCoordinate.equals("help")) {
                     System.out.println("You typed help, good for you");

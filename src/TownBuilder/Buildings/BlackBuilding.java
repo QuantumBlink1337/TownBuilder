@@ -34,6 +34,13 @@ public class BlackBuilding extends Building{
             System.out.println(resource);
         }
     }
+    public ResourceEnum[] getStoredResources() {
+        ResourceEnum[] list = new ResourceEnum[3];
+        for (int i = 0; i < storedResources.length; i++) {
+            list[i] = storedResources[i];
+        }
+        return list;
+    }
     public ResourceEnum placeResource(ResourceEnum swappedResource, ResourceEnum requestedResource) {
         if (fullness < 3) {
             System.out.println("Call made to place a resource inside of the Warehouse");

@@ -1,7 +1,6 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +9,7 @@ public class YellowBuilding extends Building
 {
     private BuildingEnum buildingEnum;
     private boolean condition;
-    private ArrayList<BuildingEnum> resources = new ArrayList<>(Arrays.asList(BuildingEnum.COTTAGE, BuildingEnum.FARM, BuildingEnum.WELL, BuildingEnum.WHOUSE, BuildingEnum.THEATER, BuildingEnum.TEMPLE, BuildingEnum.TAVERN));
+    private ArrayList<BuildingEnum> resources = new ArrayList<>(Arrays.asList(BuildingEnum.COTTAGE, BuildingEnum.FARM, BuildingEnum.WELL, BuildingEnum.WHOUSE, BuildingEnum.THEATER, BuildingEnum.CHAPEL, BuildingEnum.TAVERN));
 
     private static ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];

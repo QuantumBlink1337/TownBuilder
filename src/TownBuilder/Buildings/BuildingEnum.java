@@ -4,7 +4,7 @@ import TownBuilder.ResourceEnum;
 
 public enum BuildingEnum {
     FARM,
-    TEMPLE,
+    CHAPEL,
     COTTAGE,
     THEATER,
     TAVERN,
