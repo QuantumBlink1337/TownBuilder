@@ -93,10 +93,9 @@ public class Utility {
         return col+row;
     }
     public static boolean prompt() {
-        String prompt = "";
         Scanner sc = new Scanner(System.in);
-        prompt = sc.nextLine().toLowerCase();
         do {
+            String prompt = sc.nextLine().toLowerCase();
             if (prompt.equals("y") || prompt.equals("yes")) {
                 return true;
             }
@@ -105,7 +104,6 @@ public class Utility {
             }
             else {
                 System.out.println("Invalid input. Please use yes or no. (y or n)");
-                prompt = sc.nextLine().toLowerCase();
             }
         }
         while(true);
