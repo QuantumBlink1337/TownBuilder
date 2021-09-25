@@ -2,6 +2,7 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.*;
+import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -138,23 +139,10 @@ public class Board {
             }
         }
         else {
-            String resourceChoice;
-            ResourceEnum swap = ResourceEnum.NONE;
+            ResourceEnum swap;
             do {
-                do {
                     turnResource = t;
-                    System.out.println("What resource do you want to swap out?");
-                    resourceChoice = sc.nextLine().toLowerCase();
-                    switch (resourceChoice) {
-                        case "wheat" -> swap = ResourceEnum.WHEAT;
-                        case "glass" -> swap = ResourceEnum.GLASS;
-                        case "brick" -> swap = ResourceEnum.BRICK;
-                        case "stone" -> swap = ResourceEnum.STONE;
-                        case "wood" -> swap = ResourceEnum.WOOD;
-                        default -> resourceChoice = "";
-                    }
-                }
-                while (resourceChoice.equals(""));
+                    swap = ResourceEnum.resourcePicker();
                 if (turnResource != ResourceEnum.OBSTRUCTED) {
                     turnResource = warehouse.placeResource(turnResource, swap);
                 }
