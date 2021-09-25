@@ -1,17 +1,21 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Warehouse extends Building{
     private boolean condition;
     private int fullness = 0;
     private static Scanner sc = new Scanner(System.in);
-    private ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
-    private static ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
-    private static ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
+    private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
+    private static final ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
+    private static final ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
+    private static final int MAX_FULLNESS = 3;
+    private static final int MIN_FULLNESS = 3;
 
     public Warehouse() {
         condition = false;
@@ -31,8 +35,14 @@ public class Warehouse extends Building{
     public String wordDefinition() {
         return "Warehouse";
     }
-    public static void printPattern() {
+    public void printPattern() {
         Utility.arrayPrinter(warehousePatternList[0]);
+    }
+    public static int getMaxFullness() {
+        return MAX_FULLNESS;
+    }
+    public static int getMinFullness() {
+        return MIN_FULLNESS;
     }
     public void printStoredResources() {
         for (ResourceEnum resource : storedResources) {
@@ -75,6 +85,39 @@ public class Warehouse extends Building{
             }
         }
         return -1;
+    }
+    public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
+        Scanner sc = new Scanner((System.in));
+        String userInput;
+        int[] coords;
+        boolean validInput = false;
+        do {
+            System.out.println("Where would you like to place your Warehouse?");
+            System.out.println("Valid positions for the Warehouse are:");
+            for (int r = 0; r < rArray.length; r++) {
+                for (int c = 0; c < rArray[r].length; c++) {
+                    for (TownResource validResource : Building.getValidResources()) {
+                        if (rArray[r][c] == validResource) {
+                            System.out.println(Utility.coordsToOutput(r, c));
+                        }
+                    }
+
+                }
+            }
+            userInput = sc.nextLine().toLowerCase();
+            coords = Utility.inputToCoords(userInput);
+            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.WHOUSE) {
+                validInput = true;
+            }
+        }
+        while (!validInput);
+
+        for (TownResource validResource : Building.getValidResources()) {
+            validResource.setResource(ResourceEnum.NONE);
+        }
+        clearResources(BuildingEnum.WHOUSE);
+        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
+        bArray[coords[0]][coords[1]] = new Warehouse();
     }
     public ResourceEnum[][][] getPatterns() {
         warehouseArray[0][0] = ResourceEnum.WHEAT;

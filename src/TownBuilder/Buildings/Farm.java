@@ -1,13 +1,17 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.TownResource;
 import TownBuilder.Utility;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Farm extends Building {
     private boolean condition;
     private int fed;
-    private static ResourceEnum[][] farmArray = new ResourceEnum[2][2];
-    private static ResourceEnum[][][] farmPatternList = new ResourceEnum[1][2][2];
+    private static final ResourceEnum[][] farmArray = new ResourceEnum[2][2];
+    private static final ResourceEnum[][][] farmPatternList = new ResourceEnum[1][2][2];
 
     public Farm() {
         condition = false;
@@ -37,28 +41,47 @@ public class Farm extends Building {
     public String wordDefinition() {
         return "Farm";
     }
-    public static void printPattern() {
+    public void printPattern() {
         Utility.arrayPrinter(farmPatternList[0]);
     }
     public ResourceEnum[][][] getPatterns() {
 
         return farmPatternList;
     }
+    public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
+        Scanner sc = new Scanner((System.in));
+        String userInput;
+        int[] coords;
+        boolean validInput = false;
+        do {
+            System.out.println("Where would you like to place your Farm?");
+            System.out.println("Valid positions for the Farm are:");
+            for (int r = 0; r < rArray.length; r++) {
+                for (int c = 0; c < rArray[r].length; c++) {
+                    for (TownResource validResource : Building.getValidResources()) {
+                        if (rArray[r][c] == validResource) {
+                            System.out.println(Utility.coordsToOutput(r, c));
+                        }
+                    }
+
+                }
+            }
+            userInput = sc.nextLine().toLowerCase();
+            coords = Utility.inputToCoords(userInput);
+            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.FARM) {
+                validInput = true;
+            }
+        }
+        while (!validInput);
+
+        for (TownResource validResource : Building.getValidResources()) {
+            validResource.setResource(ResourceEnum.NONE);
+        }
+        clearResources(BuildingEnum.FARM);
+        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
+        bArray[coords[0]][coords[1]] = new Farm();
+    }
     public int scorer(Building[][] bArray, int row, int col) {
-//        BuildingEnum scoredType = this.buildingEnum;
-//        if (scoredType == BuildingEnum.FARM) {
-//            System.out.println("Farm scoring invoked.");
-//            int i = 0;
-//                for (int r = 0; r < bArray.length && i < 4 ; r++) {
-//                    for (int c = 0; c < bArray[r].length && i < 4; c++) {
-//                        if (bArray[r][c].getType() == BuildingEnum.COTTAGE && !bArray[r][c].getCondition()) {
-//                            System.out.println("A cottage was fed." + i);
-//                            bArray[r][c].setCondition(true);
-//                            i++;
-//                        }
-//                    }
-//                }
-//        }
         return 0;
     }
 }

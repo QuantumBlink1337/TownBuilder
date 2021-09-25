@@ -5,7 +5,6 @@ import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public abstract class Building {
@@ -32,61 +31,12 @@ public abstract class Building {
             }
         }
     }
-    public static void placement(TownResource[][] rArray, Building[][] bArray, BuildingEnum building, ArrayList<Building> buildings) {
-        String userInput;
-        int[] coords;
-        boolean validInput = false;
-        do {
-            System.out.println("Where would you like to place your " + building + "?");
-            System.out.println("Valid positions for the "+building+" are:");
-            for (int r = 0; r < rArray.length; r++) {
-                for (int c = 0; c < rArray[r].length; c++) {
-                    for (TownResource validResource : validResources) {
-                        if (rArray[r][c] == validResource) {
-                            System.out.println(Utility.coordsToOutput(r, c));
-                        }
-                    }
-
-                }
-            }
-            userInput = sc.nextLine().toLowerCase();
-            coords = Utility.inputToCoords(userInput);
-            if (rArray[coords[0]][coords[1]].getScannedBuilding() == building) {
-                validInput = true;
-            }
-        }
-        while (!validInput);
-
-
-//        for (int r = 0; r < rArray.length; r++){
-//            for (int c = 0; c < rArray[r].length; c++) {
-//                if (rArray[r][c].getScannedBuilding() == building) {
-//                    System.out.println("Clearing type " + building + " from resource at row " + r + " and col "+c);
-//                    rArray[r][c].setScannedBuilding(BuildingEnum.NONE);
-//                    rArray[r][c].setResource(ResourceEnum.NONE);
-//                }
-//            }
-//        }
-//        System.out.println("Size at placement: "+ validResources.size());
-        for (TownResource validResource : validResources) {
-//            System.out.println("Is this statement firing?");
-//            System.out.println(validResources.get(i).getResource());
-            validResource.setResource(ResourceEnum.NONE);
-        }
-        clearResources(building);
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        switch (building) {
-            case FARM -> bArray[coords[0]][coords[1]] = new Farm();
-            case COTTAGE -> bArray[coords[0]][coords[1]] = new Cottage();
-            case WELL -> bArray[coords[0]][coords[1]] = new Well();
-            case THEATER -> bArray[coords[0]][coords[1]] = new Theater(buildings);
-            case WHOUSE -> bArray[coords[0]][coords[1]] = new Warehouse();
-            case TAVERN -> bArray[coords[0]][coords[1]] = new Tavern();
-            case CHAPEL -> bArray[coords[0]][coords[1]] = new Chapel();
-
-        }
-
+    public static ArrayList<TownResource> getValidResources() {
+        return validResources;
     }
+    public abstract void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
+    public abstract void printPattern();
+
     public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][][] bT, BuildingEnum buildingType) {
             try {
                 //System.out.println("Received detection call for " + buildingType);

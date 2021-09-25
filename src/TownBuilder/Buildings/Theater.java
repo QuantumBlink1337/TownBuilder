@@ -2,19 +2,21 @@ package TownBuilder.Buildings;
 
 import TownBuilder.Manual;
 import TownBuilder.ResourceEnum;
+import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Theater extends Building
 {
     private boolean condition;
     private ArrayList<Building> buildingsOnBoard;
 
-    private static ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
-    private static ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
+    private static final ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
+    private static final ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
     public Theater(ArrayList<Building> b) {
         buildingsOnBoard = b;
@@ -54,8 +56,41 @@ public class Theater extends Building
 
         return theaterPatternList;
     }
-    public static void printPattern() {
+    public void printPattern() {
         Utility.arrayPrinter(theaterPatternList[0]);
+    }
+    public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
+        Scanner sc = new Scanner((System.in));
+        String userInput;
+        int[] coords;
+        boolean validInput = false;
+        do {
+            System.out.println("Where would you like to place your Theater?");
+            System.out.println("Valid positions for the Theater are:");
+            for (int r = 0; r < rArray.length; r++) {
+                for (int c = 0; c < rArray[r].length; c++) {
+                    for (TownResource validResource : Building.getValidResources()) {
+                        if (rArray[r][c] == validResource) {
+                            System.out.println(Utility.coordsToOutput(r, c));
+                        }
+                    }
+
+                }
+            }
+            userInput = sc.nextLine().toLowerCase();
+            coords = Utility.inputToCoords(userInput);
+            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.THEATER) {
+                validInput = true;
+            }
+        }
+        while (!validInput);
+
+        for (TownResource validResource : Building.getValidResources()) {
+            validResource.setResource(ResourceEnum.NONE);
+        }
+        clearResources(BuildingEnum.THEATER);
+        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
+        bArray[coords[0]][coords[1]] = new Theater(buildings);
     }
     public int scorer(Building[][] bArray, int row, int col) {
         int score = 0;
