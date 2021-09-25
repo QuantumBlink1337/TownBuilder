@@ -29,7 +29,7 @@ public class Tavern extends Building{
     public boolean getCondition() {
         return condition;
     }
-    public String wordDefinition() {
+    public String toString() {
         return "Tavern";
     }
     public void printPattern() {

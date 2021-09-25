@@ -17,7 +17,7 @@ public abstract class Building {
     //public abstract void setCondition(boolean b);
     public abstract boolean getCondition();
     public abstract ResourceEnum[][][] getPatterns();
-    public abstract String wordDefinition();
+    public abstract String toString();
     public abstract int scorer(Building[][] bArray, int row, int col);
 
 //    public static ArrayList<TownResource> getValidResources() {

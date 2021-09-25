@@ -32,7 +32,7 @@ public class Warehouse extends Building{
     public int getFullness() {
         return fullness;
     }
-    public String wordDefinition() {
+    public String toString() {
         return "Warehouse";
     }
     public void printPattern() {

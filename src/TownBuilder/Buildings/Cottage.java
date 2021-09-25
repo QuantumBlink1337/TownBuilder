@@ -42,7 +42,7 @@ public class Cottage extends Building{
     public boolean getCondition() {
         return condition;
     }
-    public String wordDefinition() {
+    public String toString() {
         return "Cottage";
     }
     public void printPattern() {

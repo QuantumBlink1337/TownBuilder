@@ -133,7 +133,7 @@ public class Board {
         ResourceEnum turnResource = t;
         //System.out.println(warehouse.getFullness());
         if (mode) {
-            if (warehouse.getFullness() != 3) {
+            if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
                 //System.out.println("Warehouse is not full, so placing it there");
                  return warehouse.placeResource(turnResource, ResourceEnum.NONE);
             }

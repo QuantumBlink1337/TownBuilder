@@ -38,7 +38,7 @@ public class Farm extends Building {
     public int getFed() {
         return fed;
     }
-    public String wordDefinition() {
+    public String toString() {
         return "Farm";
     }
     public void printPattern() {

@@ -142,7 +142,7 @@ public class Manual {
     public void displayBuildings() {
         System.out.println("The buildings in your game are:");
         for (int i = 0; i < gameBuildings.size(); i++) {
-            System.out.println(gameBuildings.get(i).wordDefinition());
+            System.out.println(gameBuildings.get(i).toString());
         }
     }
     public void displayBuildingPatterns() throws InterruptedException {
@@ -152,7 +152,7 @@ public class Manual {
             displayBuildings();
             userInput = sc.nextLine().toLowerCase();
             for (int i = 0; i < gameBuildings.size(); i++) {
-                if (gameBuildings.get(i).wordDefinition().toLowerCase().equals(userInput)) {
+                if (gameBuildings.get(i).toString().toLowerCase().equals(userInput)) {
                     gameBuildings.get(i).printPattern();
                     Thread.sleep(3000);
                 }

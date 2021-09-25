@@ -32,7 +32,7 @@ public class Well extends Building {
     public boolean getCondition() {
         return condition;
     }
-    public String wordDefinition() {
+    public String toString() {
         return "Well";
     }
     public void printPattern() {

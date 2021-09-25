@@ -24,7 +24,7 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
-    public String wordDefinition() {
+    public String toString() {
         return null;
     }
 

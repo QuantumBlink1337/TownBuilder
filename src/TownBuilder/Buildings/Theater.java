@@ -49,7 +49,7 @@ public class Theater extends Building
     public boolean getCondition() {
         return condition;
     }
-    public String wordDefinition() {
+    public String toString() {
         return "Theater";
     }
     public ResourceEnum[][][] getPatterns() {

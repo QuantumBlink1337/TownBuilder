@@ -39,7 +39,7 @@ public class Chapel extends Building{
     public boolean getCondition() {
         return condition;
     }
-    public String wordDefinition() {
+    public String toString() {
         return "Chapel";
     }
     public void printPattern() {
