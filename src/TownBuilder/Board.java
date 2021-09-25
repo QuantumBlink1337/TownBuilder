@@ -2,7 +2,6 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.*;
-import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,6 +17,7 @@ public class Board {
     private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
     private int resourceTurn = 0;
+
     private boolean gameCompletion;
     private final Scanner sc = new Scanner(System.in);
 
@@ -86,7 +86,7 @@ public class Board {
                 }
             }
         }
-        if (i >= 16)  {
+        if (i >= (gameResourceBoard.length * gameResourceBoard.length))  {
             System.out.println("Game over!");
             return true;
         }
@@ -94,13 +94,13 @@ public class Board {
             return false;
         }
     }
-    private void placementPrompt(BuildingEnum building, int row, int col) {
+    private void placementPrompt(Building building, int row, int col) {
         System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at " + Utility.coordsToOutput(row, col) + "! Place it this turn?");
         if (Utility.prompt()) {
-            Building.placement(gameResourceBoard, gameBuildingBoard, building, buildingsForGame);
+            building.placement(gameResourceBoard, gameBuildingBoard, buildingsForGame);
         }
         else {
-            Building.clearResources(building);
+            Building.clearResources(building.getType());
         }
     }
     public void detectValidBuilding() {
@@ -108,7 +108,7 @@ public class Board {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (int i = 0; i < buildingsForGame.size(); i++) {
                     if (Building.detection(row, col, gameResourceBoard, buildingsForGame.get(i).getPatterns(), buildingsForGame.get(i).getType())) {
-                        placementPrompt(buildingsForGame.get(i).getType(), row, col);
+                        placementPrompt(buildingsForGame.get(i), row, col);
                     }
                 }
             }
@@ -184,7 +184,7 @@ public class Board {
                     renderBoard();
                 }
                 else if (userCoordinate.equals("place") && warehouseExists) {
-                    if (warehouse.getFullness() != 3) {
+                    if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
                         random = warehouseOption(random, warehouse, true);
                         if (random == ResourceEnum.NONE) {
                             break;
@@ -196,7 +196,7 @@ public class Board {
 
                 }
                 else if (userCoordinate.equals("swap") && warehouseExists) {
-                    if (warehouse.getFullness() != 0) {
+                    if (warehouse.getFullness() != Warehouse.getMinFullness()) {
                         random = warehouseOption(random, warehouse, false);
                     }
                     else {
@@ -210,7 +210,10 @@ public class Board {
 
                 int[] coords = Utility.inputToCoords(userCoordinate);
                 //System.out.println("Row: " + row + "Col: " + col);
-                if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
+                if (coords[0] == -1 || coords[1] == -1) {
+                    System.out.println("Your coordinate is not valid.");
+                }
+                else if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
                 {
                     gameResourceBoard[coords[0]][coords[1]].setResource(random);
                     validSpot = true;
