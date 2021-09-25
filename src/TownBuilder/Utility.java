@@ -54,6 +54,8 @@ public class Utility {
                     coords[1] = 2;
             case "d" -> //System.out.println("Case D");
                     coords[1] = 3;
+            default -> coords[1] = -1;
+
         }
         switch (input[1]) {
             case "1" -> //System.out.println("Case 0");
@@ -64,6 +66,7 @@ public class Utility {
                     coords[0] = 2;
             case "4" -> //System.out.println("Case 3");
                     coords[0] = 3;
+            default -> coords[0] = -1;
         }
         return coords;
     }
