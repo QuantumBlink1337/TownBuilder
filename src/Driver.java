@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Driver {
     boolean debug = true;
     public static void main (String[] args) throws InterruptedException {
-
+        boolean gameCompletion = false;
         ArrayList<Building> buildings = new ArrayList<Building>();
         buildings.add(new Cottage());
         buildings.add(new Farm());
@@ -20,7 +20,16 @@ public class Driver {
         Board board = new Board(buildings);
         Manual.tutorial();
         board.getManual().displayBuildings();
-        board.game();
+        while (!gameCompletion) {
+            board.renderBoard();
+            gameCompletion = board.gameOver();
+            if (gameCompletion) {
+                break;
+            }
+            board.playerTurn();
+            board.detectValidBuilding();
+        }
+        System.out.println("Final score: " + board.scoring());
     }
 
 }

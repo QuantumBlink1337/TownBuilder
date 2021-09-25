@@ -52,21 +52,7 @@ public class Board {
         }
 
     }
-    // To do: Move this to Driver. Shouldn't run game logic from the object.
-    public void game() throws InterruptedException {
-        while (!gameCompletion) {
-            renderBoard();
-            gameCompletion = gameOver();
-            if (gameCompletion) {
-                break;
-            }
-            playerTurn();
-            detectValidBuilding();
-        }
-        System.out.println("Final score: " + scoring());
-
-    }
-    private int scoring() {
+    public int scoring() {
         int totalScore = 0;
         ArrayList<Building> temples = new ArrayList<>();
         for (int r = 0; r < gameBuildingBoard.length; r++) {
@@ -90,7 +76,7 @@ public class Board {
         }
         return totalScore;
     }
-    private boolean gameOver() {
+    public boolean gameOver() {
         int i = 0;
         for (String[] tileRow : gameBoard) {
             for (String tile : tileRow) {
@@ -116,7 +102,7 @@ public class Board {
             Building.clearResources(building);
         }
     }
-    private void detectValidBuilding() {
+    public void detectValidBuilding() {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (int i = 0; i < buildingsForGame.size(); i++) {
@@ -127,7 +113,7 @@ public class Board {
             }
         }
     }
-    private void playerTurn() throws InterruptedException {
+    public void playerTurn() throws InterruptedException {
         ResourceEnum turnResource;
 
         if (resourceTurn == 2) {
@@ -249,7 +235,7 @@ public class Board {
         while (!validSpot);
 
     }
-    private void renderBoard() {
+    public void renderBoard() {
         //System.out.println("Rendering game board");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
