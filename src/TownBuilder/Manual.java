@@ -60,8 +60,8 @@ public class Manual {
                 case "placement":
                     System.out.println("Buildings are made by placing resources on your board. Each building has its own unique pattern of ");
                     System.out.println("what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example,");
-                    System.out.println(" the Cottage can have 8 different orientations! Note: If a building pattern has NONE as part of it, it just means");
-                    System.out.println(" it doesn't matter what's there!");
+                    System.out.println("the Cottage can have 8 different orientations! Note: If a building pattern has NONE as part of it, it just means");
+                    System.out.println("it doesn't matter what's there!");
                     Thread.sleep(3000);
                     userInput = "";
                     break;
@@ -93,8 +93,8 @@ public class Manual {
     }
     private void displayBuildingRules() throws InterruptedException {
         String userInput = "";
-        while (userInput.equals("")) {
-            System.out.println("What building would you like to learn about?");
+        while (!userInput.equals("exit")) {
+            System.out.println("What building would you like to learn about? Or type 'exit' to go back.");
             displayBuildings();
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
@@ -145,38 +145,18 @@ public class Manual {
             System.out.println(gameBuildings.get(i).wordDefinition());
         }
     }
-    public void displayBuildingPatterns() {
+    public void displayBuildingPatterns() throws InterruptedException {
         String userInput = "";
-        while (userInput.equals("")) {
-            System.out.println("What building would you like to view?");
+        while (!userInput.equals("exit")) {
+            System.out.println("What building would you like to view? Or type 'exit' to go back.");
             displayBuildings();
             userInput = sc.nextLine().toLowerCase();
-            switch (userInput) {
-                case "cottage":
-                    Cottage.printPattern();
-                    break;
-                case "farm":
-                    Farm.printPattern();
-                    break;
-                case "well":
-                    Well.printPattern();
-                    break;
-                case "chapel":
-                    Chapel.printPattern();
-                    break;
-                case "warehouse":
-                    Warehouse.printPattern();
-                    break;
-                case "theater":
-                    Theater.printPattern();
-                    break;
-                case "tavern":
-                    Tavern.printPattern();
-                    break;
+            for (int i = 0; i < gameBuildings.size(); i++) {
+                if (gameBuildings.get(i).wordDefinition().toLowerCase().equals(userInput)) {
+                    gameBuildings.get(i).printPattern();
+                    Thread.sleep(3000);
+                }
             }
-
         }
-
     }
-
 }
