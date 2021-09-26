@@ -60,19 +60,7 @@ public class Cottage extends Building{
         do {
             System.out.println("Where would you like to place your Cottage?");
             System.out.println("Valid positions for the Cottage are: ");
-            for (int r = 0; r < rArray.length; r++) {
-                for (int c = 0; c < rArray[r].length; c++) {
-                    for (int i = 0; i < getValidResources().size(); i++) {
-                        if (rArray[r][c] == getValidResources().get(i) && i != (getValidResources().size() -1)) {
-                            System.out.print(Utility.coordsToOutput(r, c) + ", ");
-                        }
-                        else if (rArray[r][c] == getValidResources().get(i)) {
-                            System.out.println(Utility.coordsToOutput(r, c));
-                        }
-                    }
-
-                }
-            }
+            Utility.displayValidResources(rArray);
             userInput = sc.nextLine().toLowerCase();
             coords = Utility.inputToCoords(userInput);
             if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.COTTAGE) {

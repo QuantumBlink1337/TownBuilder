@@ -56,16 +56,7 @@ public class Farm extends Building {
         do {
             System.out.println("Where would you like to place your Farm?");
             System.out.println("Valid positions for the Farm are:");
-            for (int r = 0; r < rArray.length; r++) {
-                for (int c = 0; c < rArray[r].length; c++) {
-                    for (TownResource validResource : Building.getValidResources()) {
-                        if (rArray[r][c] == validResource) {
-                            System.out.println(Utility.coordsToOutput(r, c));
-                        }
-                    }
-
-                }
-            }
+            Utility.displayValidResources(rArray);
             userInput = sc.nextLine().toLowerCase();
             coords = Utility.inputToCoords(userInput);
             if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.FARM) {
