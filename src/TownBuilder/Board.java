@@ -95,7 +95,9 @@ public class Board {
         }
     }
     private void placementPrompt(Building building, int row, int col) {
-        System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at " + Utility.coordsToOutput(row, col) + "! Place it this turn?");
+        System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at the following coordinates:");
+        Utility.displayValidResources(gameResourceBoard);
+        System.out.println("Place it this turn?");
         if (Utility.prompt()) {
             building.placement(gameResourceBoard, gameBuildingBoard, buildingsForGame);
         }

@@ -59,11 +59,14 @@ public class Cottage extends Building{
         boolean validInput = false;
         do {
             System.out.println("Where would you like to place your Cottage?");
-            System.out.println("Valid positions for the Cottage are:");
+            System.out.println("Valid positions for the Cottage are: ");
             for (int r = 0; r < rArray.length; r++) {
                 for (int c = 0; c < rArray[r].length; c++) {
-                    for (TownResource validResource : Building.getValidResources()) {
-                        if (rArray[r][c] == validResource) {
+                    for (int i = 0; i < getValidResources().size(); i++) {
+                        if (rArray[r][c] == getValidResources().get(i) && i != (getValidResources().size() -1)) {
+                            System.out.print(Utility.coordsToOutput(r, c) + ", ");
+                        }
+                        else if (rArray[r][c] == getValidResources().get(i)) {
                             System.out.println(Utility.coordsToOutput(r, c));
                         }
                     }

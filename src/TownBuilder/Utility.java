@@ -20,6 +20,21 @@ public class Utility {
             }
         }
     }
+    public static void displayValidResources(TownResource rArray[][]) {
+        for (int r = 0; r < rArray.length; r++) {
+            for (int c = 0; c < rArray[r].length; c++) {
+                for (int i = 0; i < Building.getValidResources().size(); i++) {
+                    if (rArray[r][c] == Building.getValidResources().get(i) && i != (Building.getValidResources().size() -1)) {
+                        System.out.print(Utility.coordsToOutput(r, c) + ", ");
+                    }
+                    else if (rArray[r][c] == Building.getValidResources().get(i)) {
+                        System.out.println(Utility.coordsToOutput(r, c));
+                    }
+                }
+
+            }
+        }
+    }
     public static String lengthResizer(String t, int length) {
         String target = t;
         int targetLength = target.length();
