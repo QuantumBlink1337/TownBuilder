@@ -51,29 +51,54 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
+        // Test Case - Legitimate Game Board
+//        gameBuildingBoard[0][0] = new Cottage();
+//        gameBuildingBoard[0][1] = new Well();
+//        gameBuildingBoard[0][2] = new Cottage();
+//        gameBuildingBoard[0][3] = new Farm();
+//
+//        gameBuildingBoard[1][0] = new Well();
+//        gameBuildingBoard[1][1] = new Farm();
+//        gameResourceBoard[1][2].setResource(ResourceEnum.WOOD);
+//        gameResourceBoard[1][3].setResource(ResourceEnum.STONE);
+//
+//        gameResourceBoard[2][0].setResource(ResourceEnum.STONE);
+//        gameResourceBoard[2][1].setResource(ResourceEnum.GLASS);
+//        gameResourceBoard[2][2].setResource(ResourceEnum.STONE);
+//        gameBuildingBoard[2][3] = new Cottage();
+//
+//        gameBuildingBoard[3][0] = new Tavern();
+//        gameBuildingBoard[3][1] = new Chapel();
+//        gameBuildingBoard[3][2] = new Tavern();
+//        gameBuildingBoard[3][3] = new Theater(buildingsForGame);
+
 
     }
     public int scoring() {
         int totalScore = 0;
-        ArrayList<Building> temples = new ArrayList<>();
+        int score = 0;
+        ArrayList<Building> chapels = new ArrayList<>();
         for (int r = 0; r < gameBuildingBoard.length; r++) {
             for (int c = 0; c < gameBuildingBoard[r].length; c++) {
                 if (gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
-                    System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
+                    //System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
                     if (gameBuildingBoard[r][c].getType() == BuildingEnum.CHAPEL) {
-                        temples.add(gameBuildingBoard[r][c]);
+                        chapels.add(gameBuildingBoard[r][c]);
                     }
                     else {
-                        totalScore += gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
+                        totalScore = gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
+                        //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
+                        //System.out.println("Total score now: "+totalScore);
                     }
                 }
-                if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
+                else if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
+                   // System.out.println("Resource found. Decrementing");
                     totalScore--;
                 }
             }
         }
-        for (Building temple : temples) {
-            totalScore += temple.scorer(gameBuildingBoard, 0, 0);
+        for (Building chapel : chapels) {
+            totalScore += chapel.scorer(gameBuildingBoard, 0, 0);
         }
         return totalScore;
     }
