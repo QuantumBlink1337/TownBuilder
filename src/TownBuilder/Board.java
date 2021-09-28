@@ -212,7 +212,7 @@ public class Board {
                     System.out.println("Here's what's inside the warehouse: "+ list[0] + "," + list[1] + "," + list[2]);
                 }
                 userCoordinate = sc.nextLine().toLowerCase();
-                if (userCoordinate.equals("help")) {
+                if (userCoordinate.equals("help") || userCoordinate.equals("h") || userCoordinate.equals("manual") || userCoordinate.equals("m")) {
                     manual.openManual();
                     renderBoard();
                 }
