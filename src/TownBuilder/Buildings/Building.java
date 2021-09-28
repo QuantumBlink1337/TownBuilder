@@ -37,7 +37,7 @@ public abstract class Building {
 
                 //System.out.println("Received detection call for " + buildingType);
                 //System.out.println("Length of bT: " + bT.length);
-                System.out.println("Checking " + Utility.coordsToOutput(row, col));
+                //System.out.println("Checking " + Utility.coordsToOutput(row, col));
                 int checkTime = 0;
                 int patternIndex = 0;
                 for (ResourceEnum[][] ignored : bT) {
@@ -49,10 +49,10 @@ public abstract class Building {
                     for (int i = 1; i < checkTime+1; i++) {
                         //System.out.println("i: " + i);
                         if (i % 5 == 0) {
-                            System.out.println("Switching to next pattern available");
+                            //System.out.println("Switching to next pattern available");
                             patternIndex++;
                         }
-                        Utility.arrayPrinter(bT[patternIndex]);
+                        //Utility.arrayPrinter(bT[patternIndex]);
                         if (compare(row, col, rArray, buildingTemplate[patternIndex])) {
                             for (TownResource validResource : validResources) {
                                 validResource.setScannedBuilding(buildingType);
@@ -61,7 +61,7 @@ public abstract class Building {
                             return true;
                         }
                         else {
-                            System.out.println("Rotating pattern.");
+                            //System.out.println("Rotating pattern.");
                             buildingTemplate[patternIndex] = buildingRotation(buildingTemplate[patternIndex]);
                         }
                     }
@@ -76,14 +76,14 @@ public abstract class Building {
         try {
             for (int r = 0; r < buildingTemplate.length; r++) {
                 for (int c = 0; c < buildingTemplate[r].length; c++) {
-                    System.out.println("received call for detection");
+                    //System.out.println("received call for detection");
                     if (!match(rArray[row+r][col+c], buildingTemplate[r][c])) {
                         validResources.clear();
-                        System.out.print("Failed comparison at " + Utility.coordsToOutput(row+r, col+c));
+                        //System.out.print("Failed comparison at " + Utility.coordsToOutput(row+r, col+c));
                         return false;
                     }
                     else {
-                        System.out.println("Successful comparison at " + Utility.coordsToOutput(row+r, col+c));
+                        //System.out.println("Successful comparison at " + Utility.coordsToOutput(row+r, col+c));
                     }
                 }
             }
