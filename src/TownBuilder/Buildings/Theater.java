@@ -53,7 +53,6 @@ public class Theater extends Building
         return "Theater";
     }
     public ResourceEnum[][][] getPatterns() {
-
         return theaterPatternList;
     }
     public void printPattern() {

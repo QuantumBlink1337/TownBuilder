@@ -15,7 +15,7 @@ public class Warehouse extends Building{
     private static final ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
     private static final ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
     private static final int MAX_FULLNESS = 3;
-    private static final int MIN_FULLNESS = 3;
+    private static final int MIN_FULLNESS = 0;
 
     public Warehouse() {
         condition = false;

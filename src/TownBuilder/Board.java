@@ -243,7 +243,7 @@ public class Board {
 
                 int[] coords = Utility.inputToCoords(userCoordinate);
                 //System.out.println("Row: " + row + "Col: " + col);
-                if (coords[0] == -1 || coords[1] == -1) {
+                if (coords[0] == -1 || coords[1] == -1 && userCoordinate.length() > 2) {
                     System.out.println("Your coordinate is not valid.");
                 }
                 else if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
