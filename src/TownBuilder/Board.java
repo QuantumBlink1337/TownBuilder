@@ -81,7 +81,7 @@ public class Board {
         int i = 0;
         for (String[] tileRow : gameBoard) {
             for (String tile : tileRow) {
-                if (!(tile.equals("[EMPTY!]"))) {
+                if (!(tile.equals("[EMPTY! ]"))) {
                     i++;
                 }
             }
@@ -118,7 +118,6 @@ public class Board {
     }
     public void playerTurn() throws InterruptedException {
         ResourceEnum turnResource;
-
         if (resourceTurn == 2) {
             turnResource = ResourceEnum.resourcePicker();
             resourceTurn = 0;
@@ -233,15 +232,15 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED) {
-                    gameBoard[row][col] = "[" + Utility.lengthResizer(gameResourceBoard[row][col].toString(), 6) + "]";
+                    gameBoard[row][col] = "[" + Utility.lengthResizer(gameResourceBoard[row][col].toString(), 7) + "]";
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
 //                    System.out.println("Printing Building list");
 //                    System.out.println(gameBuildingBoard[row][col].getType());
-                    gameBoard[row][col] = "["+ Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), 6) + "]";
+                    gameBoard[row][col] = "["+ Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), 7) + "]";
                 }
                 else {
-                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", 6)+"]";
+                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", 7)+"]";
                 }
 
             }

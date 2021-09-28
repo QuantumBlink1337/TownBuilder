@@ -36,6 +36,9 @@ public class Well extends Building {
         return "Well";
     }
     public void printPattern() {
+        System.out.println("The Well grants one point for each adjacent Cottage.");
+        System.out.println("Note: these Cottages do not need to be fed. Note: diagonals do not count.");
+        System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(wellPatternList[0]);
     }
     public ResourceEnum[][][] getPatterns() {

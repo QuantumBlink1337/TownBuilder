@@ -26,7 +26,7 @@ public class Manual {
         String userInput = "";
         while (!userInput.equals("exit")) {
             System.out.println("Welcome to the TownBuilder Manual. What would you like to learn about? You can read the rules of the game using 'rules', see building info with 'buildings', ");
-            System.out.println("or view building placement patterns with 'patterns', or 'exit' to leave the manual.");
+            System.out.println("or 'exit' to leave the manual.");
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
                 case "rules":
@@ -35,10 +35,6 @@ public class Manual {
                     break;
                 case "buildings":
                     displayBuildingRules();
-                    userInput = "";
-                    break;
-                case "patterns":
-                    displayBuildingPatterns();
                     userInput = "";
                     break;
                 case "exit":
@@ -62,21 +58,21 @@ public class Manual {
                     System.out.println("what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example,");
                     System.out.println("the Cottage can have 8 different orientations! Note: If a building pattern has NONE as part of it, it just means");
                     System.out.println("it doesn't matter what's there!");
-                    Thread.sleep(3000);
+                    Thread.sleep(5000);
                     userInput = "";
                     break;
                 case "objective":
                     System.out.println("The goal of TownBuilder is to construct as many buildings as possible to earn points.");
                     System.out.println("The game ends when you have nowhere else to place a resource or building. Planning is key!");
                     userInput = "";
-                    Thread.sleep(3000);
+                    Thread.sleep(4000);
                     break;
                 case "scoring":
                     System.out.println("Each building has it's own unique rules on how they accumulate points. (see: building score) ");
                     System.out.println("But remember - for each resource you leave on the board you LOSE a point! It's up to you ");
                     System.out.println("to figure out how to build your town for the most points possible.");
                     userInput = "";
-                    Thread.sleep(3000);
+                    Thread.sleep(4000);
                     break;
                 case "tutorial":
                     userInput = "";
@@ -97,66 +93,21 @@ public class Manual {
             System.out.println("What building would you like to learn about? Or type 'exit' to go back.");
             displayBuildings();
             userInput = sc.nextLine().toLowerCase();
-            switch (userInput) {
-                case "cottage":
-                    System.out.println("The Cottage is a building grants three points when it is fed.");
-                    Thread.sleep(3000);
+            for (int i = 0; i < gameBuildings.size(); i++) {
+                if (gameBuildings.get(i).toString().toLowerCase().equals(userInput)) {
+                    gameBuildings.get(i).printPattern();
+                    Thread.sleep(4000);
                     break;
-                case "farm":
-                    System.out.println("The Farm feeds up to four buildings on the board.");
-                    Thread.sleep(3000);
-                    break;
-                case "chapel":
-                    System.out.println("The Chapel grants one point for each fed Cottage.");
-                    Thread.sleep(3000);
-                    break;
-                case "tavern":
-                    System.out.println("The Tavern grants points based on how many Taverns you have:");
-                    System.out.print("1 Tavern: 2 Points | ");
-                    System.out.print("2 Taverns: 5 Points | ");
-                    System.out.print("3 Taverns: 9 Points | ");
-                    System.out.print("4 Taverns: 14 Points | ");
-                    System.out.print("5 Taverns: 20 Points");
-                    Thread.sleep(3000);
-                    break;
-                case "theater":
-                    System.out.println("The Theater grants one point for each unique building in it's row and column.");
-                    Thread.sleep(3000);
-                case "warehouse":
-                    System.out.println("While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.");
-                    System.out.println("Note: these resources still count as a negative point!");
-                    Thread.sleep(3000);
-                case "well":
-                    System.out.println("The Well grants one point for each adjacent Cottage.");
-                    System.out.println("Note: these Cottages do not need to be fed. Note: diagonals do not count.");
-                    Thread.sleep(3000);
-                case "exit":
-                    break;
-                default:
-                    System.out.println("Oops! That wasn't a valid command. Please try again.");
-                    userInput = "";
-                    break;
+
+                }
             }
+
         }
     }
     public void displayBuildings() {
         System.out.println("The buildings in your game are:");
         for (int i = 0; i < gameBuildings.size(); i++) {
             System.out.println(gameBuildings.get(i).toString());
-        }
-    }
-    public void displayBuildingPatterns() throws InterruptedException {
-        String userInput = "";
-        while (!userInput.equals("exit")) {
-            System.out.println("What building would you like to view? Or type 'exit' to go back.");
-            displayBuildings();
-            userInput = sc.nextLine().toLowerCase();
-            for (int i = 0; i < gameBuildings.size(); i++) {
-                if (gameBuildings.get(i).toString().toLowerCase().equals(userInput)) {
-                    gameBuildings.get(i).printPattern();
-                    Thread.sleep(3000);
-                }
-            }
         }
     }
 }

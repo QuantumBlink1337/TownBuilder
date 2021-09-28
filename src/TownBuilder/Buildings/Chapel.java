@@ -43,6 +43,8 @@ public class Chapel extends Building{
         return "Chapel";
     }
     public void printPattern() {
+        System.out.println("The Chapel grants one point for each fed Cottage.");
+        System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(templePatternList[0]);
     }
     public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {

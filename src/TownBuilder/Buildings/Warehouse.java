@@ -36,6 +36,9 @@ public class Warehouse extends Building{
         return "Warehouse";
     }
     public void printPattern() {
+        System.out.println("While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.");
+        System.out.println("Note: these resources still count as a negative point!");
+        System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(warehousePatternList[0]);
     }
     public static int getMaxFullness() {

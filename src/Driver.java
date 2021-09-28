@@ -14,11 +14,11 @@ public class Driver {
         buildings.add(new Theater());
         buildings.add(new Well());
         buildings.add(new Warehouse());
-        buildings.add(new Chapel());
         buildings.add(new Tavern());
+        buildings.add(new Chapel());
 
         Board board = new Board(buildings);
-        Manual.tutorial();
+        //Manual.tutorial();
         board.getManual().displayBuildings();
         while (!gameCompletion) {
             board.renderBoard();

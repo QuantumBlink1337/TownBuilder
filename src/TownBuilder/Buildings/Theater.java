@@ -53,7 +53,8 @@ public class Theater extends Building
         return "Theater";
     }
     public ResourceEnum[][][] getPatterns() {
-
+        System.out.println("The Theater grants one point for each unique building in it's row and column.");
+        System.out.println("Here's what it looks like:");
         return theaterPatternList;
     }
     public void printPattern() {

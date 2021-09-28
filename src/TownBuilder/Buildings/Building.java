@@ -3,18 +3,14 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
 import TownBuilder.Utility;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Building {
 
-    private static final Scanner sc = new Scanner(System.in);
     private static final ArrayList<TownResource> validResources = new ArrayList<>();
 
 
     public abstract BuildingEnum getType();
-    //public abstract void setCondition(boolean b);
     public abstract boolean getCondition();
     public abstract ResourceEnum[][][] getPatterns();
     public abstract String toString();
@@ -38,9 +34,10 @@ public abstract class Building {
     public abstract void printPattern();
 
     public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][][] bT, BuildingEnum buildingType) {
-            try {
+
                 //System.out.println("Received detection call for " + buildingType);
                 //System.out.println("Length of bT: " + bT.length);
+                System.out.println("Checking " + Utility.coordsToOutput(row, col));
                 int checkTime = 0;
                 int patternIndex = 0;
                 for (ResourceEnum[][] ignored : bT) {
@@ -48,44 +45,58 @@ public abstract class Building {
                 }
                 //System.out.println("CheckTime: " + checkTime);
                 ResourceEnum[][][] buildingTemplate = bT;
-                for (int i = 1; i < checkTime+1; i++) {
-                    //System.out.println("i: " + i);
-                    if (i % 5 == 0) {
-                        //System.out.println("Switching to next pattern available");
-                        patternIndex++;
-                    }
-                    //Utility.arrayPrinter(bT[patternIndex]);
-                    if (compare(row, col, rArray, buildingTemplate[patternIndex])) {
-                        for (TownResource validResource : validResources) {
-                            validResource.setScannedBuilding(buildingType);
+               // try {
+                    for (int i = 1; i < checkTime+1; i++) {
+                        //System.out.println("i: " + i);
+                        if (i % 5 == 0) {
+                            System.out.println("Switching to next pattern available");
+                            patternIndex++;
                         }
-                        //System.out.println("Size at compare" + validResources.size());
-                        return true;
+                        Utility.arrayPrinter(bT[patternIndex]);
+                        if (compare(row, col, rArray, buildingTemplate[patternIndex])) {
+                            for (TownResource validResource : validResources) {
+                                validResource.setScannedBuilding(buildingType);
+                            }
+                            //System.out.println("Size at compare" + validResources.size());
+                            return true;
+                        }
+                        else {
+                            System.out.println("Rotating pattern.");
+                            buildingTemplate[patternIndex] = buildingRotation(buildingTemplate[patternIndex]);
+                        }
                     }
-                    else {
-                        buildingTemplate[patternIndex] = buildingRotation(buildingTemplate[patternIndex]);
-                    }
-                }
-            }
-            catch (ArrayIndexOutOfBoundsException e){
-                //System.out.println("Out of bounds exception?");
-            }
+                //}
+//                catch (ArrayIndexOutOfBoundsException e) {
+//                    System.out.println("Out of bounds exception");
+//                }
+
         return false;
     }
     private static boolean compare(int row, int col, TownResource[][] rArray, ResourceEnum[][] buildingTemplate) {
-        for (int r = 0; r < buildingTemplate.length; r++) {
-            for (int c = 0; c < buildingTemplate[r].length; c++) {
-                if (!match(rArray[row+r][col+c], buildingTemplate[r][c])) {
-                    validResources.clear();
-                    return false;
+        try {
+            for (int r = 0; r < buildingTemplate.length; r++) {
+                for (int c = 0; c < buildingTemplate[r].length; c++) {
+                    System.out.println("received call for detection");
+                    if (!match(rArray[row+r][col+c], buildingTemplate[r][c])) {
+                        validResources.clear();
+                        System.out.print("Failed comparison at " + Utility.coordsToOutput(row+r, col+c));
+                        return false;
+                    }
+                    else {
+                        System.out.println("Successful comparison at " + Utility.coordsToOutput(row+r, col+c));
+                    }
                 }
             }
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            validResources.clear();
+            return false;
         }
         return true;
     }
     private static boolean match(TownResource toBeChecked, ResourceEnum checker) {
         if (checker == ResourceEnum.NONE) {
-            //System.out.println("Checked tile was matched to NONE, therefore it is true");
+            //  System.out.println("Checked tile was matched to NONE, therefore it is true");
             return true;
         }
         else if (toBeChecked.getResource() == checker) {

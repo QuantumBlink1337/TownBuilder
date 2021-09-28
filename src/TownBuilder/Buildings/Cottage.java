@@ -46,6 +46,8 @@ public class Cottage extends Building{
         return "Cottage";
     }
     public void printPattern() {
+        System.out.println("The Cottage is a building grants three points when it is fed.");
+        System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(cottagePatternList[0]);
     }
     public ResourceEnum[][][] getPatterns() {
