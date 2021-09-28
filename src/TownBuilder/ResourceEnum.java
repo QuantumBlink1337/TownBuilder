@@ -17,9 +17,6 @@ public enum ResourceEnum {
         int random = (int) (Math.random() * 5);
         return resourceArray[random];
     }
-
-
-    // this method should NEVER be used for actual gameplay
     public static ResourceEnum resourcePicker() {
         Scanner sc = new Scanner(System.in);
         String resourceChoice = "";
@@ -37,6 +34,8 @@ public enum ResourceEnum {
                     return STONE;
                 case "wood":
                     return WOOD;
+                case "help":
+                    return NONE;
                 default:
                     System.out.println("Invalid input. Please try again.");
                     resourceChoice = "";

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Board {
-    //private final Player player;
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
     private final TownResource[][] gameResourceBoard = new TownResource[4][4];
@@ -144,7 +143,15 @@ public class Board {
     public void playerTurn() throws InterruptedException {
         ResourceEnum turnResource;
         if (resourceTurn == 2) {
-            turnResource = ResourceEnum.resourcePicker();
+            do {
+                turnResource = ResourceEnum.resourcePicker();
+                if (turnResource == ResourceEnum.NONE) {
+                    manual.openManual();
+                    renderBoard();
+                }
+            }
+            while (turnResource == ResourceEnum.NONE);
+
             resourceTurn = 0;
         }
         else {
