@@ -1,6 +1,8 @@
 package TownBuilder;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public enum ResourceEnum {
@@ -11,13 +13,16 @@ public enum ResourceEnum {
     STONE,
     OBSTRUCTED,
     NONE;
-
+    private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
     public static ResourceEnum randomResource() {
-        ResourceEnum resourceArray[] = {GLASS, BRICK, WOOD, WHEAT, STONE};
-        int random = (int) (Math.random() * 5);
-        return resourceArray[random];
+        int random = (int) (Math.random() * resourceArray.size());
+        ResourceEnum result = resourceArray.get(random);
+        resourceArray.remove(random);
+        //System.out.println("Removed result " + result);
+        return result;
     }
     public static ResourceEnum resourcePicker() {
+        resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
         Scanner sc = new Scanner(System.in);
         String resourceChoice = "";
         while (resourceChoice.equals("")) {
