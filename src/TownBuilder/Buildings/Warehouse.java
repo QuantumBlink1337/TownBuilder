@@ -20,6 +20,11 @@ public class Warehouse extends Building{
     public Warehouse() {
         condition = false;
     }
+    public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
+        storedResources[0] = a;
+        storedResources[1] = b;
+        storedResources[2] = c;
+    }
     public BuildingEnum getType() {
         return BuildingEnum.WHOUSE;
     }
@@ -40,6 +45,12 @@ public class Warehouse extends Building{
         System.out.println("Note: these resources still count as a negative point!");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(warehousePatternList[0]);
+    }
+    public void fillResources() {
+        storedResources[0] = ResourceEnum.GLASS;
+        storedResources[1] = ResourceEnum.GLASS;
+        storedResources[2] = ResourceEnum.GLASS;
+
     }
     public static int getMaxFullness() {
         return MAX_FULLNESS;
@@ -130,6 +141,6 @@ public class Warehouse extends Building{
                 score--;
             }
         }
-        return 0;
+        return score;
     }
 }
