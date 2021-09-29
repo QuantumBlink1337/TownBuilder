@@ -18,7 +18,7 @@ public class Driver {
         buildings.add(new Chapel());
 
         Board board = new Board(buildings);
-        //Manual.tutorial();
+        Manual.tutorial();
         board.getManual().displayBuildings();
         while (!gameCompletion) {
             board.renderBoard();
