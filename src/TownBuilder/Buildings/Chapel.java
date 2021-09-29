@@ -42,7 +42,7 @@ public class Chapel extends Building{
     public String toString() {
         return "Chapel";
     }
-    public void printPattern() {
+    public void printManualText() {
         System.out.println("The Chapel grants one point for each fed Cottage.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(templePatternList[0]);

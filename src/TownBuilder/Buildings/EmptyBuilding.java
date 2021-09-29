@@ -39,7 +39,7 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
-    public void printPattern() {
+    public void printManualText() {
 
     }
 }

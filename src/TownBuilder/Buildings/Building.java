@@ -31,7 +31,7 @@ public abstract class Building {
         return validResources;
     }
     public abstract void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
-    public abstract void printPattern();
+    public abstract void printManualText();
 
     public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][][] bT, BuildingEnum buildingType) {
 

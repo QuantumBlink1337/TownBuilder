@@ -41,7 +41,7 @@ public class Farm extends Building {
     public String toString() {
         return "Farm";
     }
-    public void printPattern() {
+    public void printManualText() {
         System.out.println("The Farm feeds up to four buildings on the board.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(farmPatternList[0]);

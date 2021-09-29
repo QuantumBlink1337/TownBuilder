@@ -95,7 +95,7 @@ public class Manual {
             userInput = sc.nextLine().toLowerCase();
             for (int i = 0; i < gameBuildings.size(); i++) {
                 if (gameBuildings.get(i).toString().toLowerCase().equals(userInput)) {
-                    gameBuildings.get(i).printPattern();
+                    gameBuildings.get(i).printManualText();
                     Thread.sleep(4000);
                     break;
 

@@ -19,11 +19,26 @@ public class Warehouse extends Building{
 
     public Warehouse() {
         condition = false;
+        warehouseArray[0][0] = ResourceEnum.WHEAT;
+        warehouseArray[0][1] = ResourceEnum.WOOD;
+        warehouseArray[0][2] = ResourceEnum.WHEAT;
+        warehouseArray[1][0] = ResourceEnum.BRICK;
+        warehouseArray[1][1] = ResourceEnum.NONE;
+        warehouseArray[1][2] = ResourceEnum.BRICK;
+        warehousePatternList[0] = warehouseArray;
     }
     public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
         storedResources[0] = a;
         storedResources[1] = b;
         storedResources[2] = c;
+        warehouseArray[0][0] = ResourceEnum.WHEAT;
+        warehouseArray[0][1] = ResourceEnum.WOOD;
+        warehouseArray[0][2] = ResourceEnum.WHEAT;
+        warehouseArray[1][0] = ResourceEnum.BRICK;
+        warehouseArray[1][1] = ResourceEnum.NONE;
+        warehouseArray[1][2] = ResourceEnum.BRICK;
+        warehousePatternList[0] = warehouseArray;
+
     }
     public BuildingEnum getType() {
         return BuildingEnum.WHOUSE;
@@ -40,7 +55,7 @@ public class Warehouse extends Building{
     public String toString() {
         return "Warehouse";
     }
-    public void printPattern() {
+    public void printManualText() {
         System.out.println("While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.");
         System.out.println("Note: these resources still count as a negative point!");
         System.out.println("Here's what it looks like:");
@@ -125,13 +140,8 @@ public class Warehouse extends Building{
         bArray[coords[0]][coords[1]] = new Warehouse();
     }
     public ResourceEnum[][][] getPatterns() {
-        warehouseArray[0][0] = ResourceEnum.WHEAT;
-        warehouseArray[0][1] = ResourceEnum.WOOD;
-        warehouseArray[0][2] = ResourceEnum.WHEAT;
-        warehouseArray[1][0] = ResourceEnum.BRICK;
-        warehouseArray[1][1] = ResourceEnum.NONE;
-        warehouseArray[1][2] = ResourceEnum.BRICK;
-        warehousePatternList[0] = warehouseArray;
+
+
         return warehousePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {
