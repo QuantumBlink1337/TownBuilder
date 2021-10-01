@@ -61,27 +61,37 @@ public class Utility {
         String[] input = i.split("", 2);
         int[] coords = new int[2];
         switch (input[0]) {
-            case "a" -> //System.out.println("Case A");
+            case "a": //System.out.println("Case A");
                     coords[1] = 0;
-            case "b" -> //System.out.println("Case B");
+                    break;
+            case "b": //System.out.println("Case B");
                     coords[1] = 1;
-            case "c" -> //System.out.println("Case C");
+                    break;
+            case "c": //System.out.println("Case C");
                     coords[1] = 2;
-            case "d" -> //System.out.println("Case D");
+                    break;
+            case "d": //System.out.println("Case D");
                     coords[1] = 3;
-            default -> coords[1] = -1;
+                    break;
+            default: coords[1] = -1;
+                break;
 
         }
         switch (input[1]) {
-            case "1" -> //System.out.println("Case 0");
+            case "1": //System.out.println("Case 0");
                     coords[0] = 0;
-            case "2" -> //.out.println("Case 1");
+                    break;
+            case "2": //.out.println("Case 1");
                     coords[0] = 1;
-            case "3" -> //System.out.println("Case 2");
+                    break;
+            case "3": //System.out.println("Case 2");
                     coords[0] = 2;
-            case "4" -> //System.out.println("Case 3");
+                    break;
+            case "4": //System.out.println("Case 3");
                     coords[0] = 3;
-            default -> coords[0] = -1;
+                    break;
+            default: coords[0] = -1;
+                    break;
         }
         return coords;
     }
@@ -89,24 +99,32 @@ public class Utility {
         String row = "";
         String col = "";
         switch (r) {
-            case 0 -> //System.out.println("Case A");
+            case 0: //System.out.println("Case A");
                     row = "1";
-            case 1 -> //System.out.println("Case B");
+                break;
+            case 1: //System.out.println("Case B");
                     row = "2";
-            case 2 -> //System.out.println("Case C");
+                break;
+            case 2: //System.out.println("Case C");
                     row = "3";
-            case 3 -> //System.out.println("Case D");
+                break;
+            case 3: //System.out.println("Case D");
                     row = "4";
+                break;
         }
         switch (c) {
-            case 0 -> //System.out.println("Case 0");
+            case 0: //System.out.println("Case 0");
                     col = "a";
-            case 1 -> //.out.println("Case 1");
+                break;
+            case 1: //.out.println("Case 1");
                     col = "b";
-            case 2 -> //System.out.println("Case 2");
+                break;
+            case 2: //System.out.println("Case 2");
                     col = "c";
-            case 3 -> //System.out.println("Case 3");
+                break;
+            case 3: //System.out.println("Case 3");
                     col = "d";
+                break;
         }
         return col+row;
     }

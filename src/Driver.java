@@ -8,7 +8,7 @@ public class Driver {
     boolean debug = true;
     public static void main (String[] args) throws InterruptedException {
         boolean gameCompletion = false;
-        ArrayList<Building> buildings = new ArrayList<Building>();
+        ArrayList<Building> buildings = new ArrayList<>();
         buildings.add(new Cottage());
         buildings.add(new Farm());
         buildings.add(new Theater());
