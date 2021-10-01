@@ -68,7 +68,7 @@ public class Board {
 //
 //        gameBuildingBoard[3][0] = new Chapel();
 //        gameBuildingBoard[3][1] = new Farm();
-          gameBuildingBoard[3][2] = new Warehouse();
+          //gameBuildingBoard[3][2] = new Warehouse();
 //        gameBuildingBoard[3][3] = new Theater(buildingsForGame);
 
 
