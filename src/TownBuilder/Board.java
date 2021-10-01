@@ -68,7 +68,7 @@ public class Board {
 //
 //        gameBuildingBoard[3][0] = new Chapel();
 //        gameBuildingBoard[3][1] = new Farm();
-//        gameBuildingBoard[3][2] = new Warehouse(ResourceEnum.GLASS, ResourceEnum.GLASS, ResourceEnum.GLASS);
+          gameBuildingBoard[3][2] = new Warehouse();
 //        gameBuildingBoard[3][3] = new Theater(buildingsForGame);
 
 
@@ -222,7 +222,9 @@ public class Board {
                     if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
                         random = warehouseOption(random, warehouse, true);
                         if (random == ResourceEnum.NONE) {
+                            validSpot = true;
                             break;
+
                         }
                     }
                     else {
@@ -245,7 +247,10 @@ public class Board {
 
                 int[] coords = Utility.inputToCoords(userCoordinate);
                 //System.out.println("Row: " + row + "Col: " + col);
-                if (coords[0] == -1 || coords[1] == -1 && userCoordinate.length() > 2) {
+                if (validSpot) {
+                    break;
+                }
+                else if ((coords[0] == -1 || coords[1] == -1 && userCoordinate.length() > 2)) {
                     System.out.println("Your coordinate is not valid.");
                 }
                 else if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
