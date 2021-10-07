@@ -8,6 +8,7 @@ import TownBuilder.Buildings.BuildingEnum;
 import java.util.Scanner;
 
 public class Utility {
+    private static Scanner sc = new Scanner(System.in);
     public static <T> void arrayPrinter(T[][] array) {
         for (int row = 0; row < array.length; row++) {
             for (int col = 0; col < array[row].length; col++) {
@@ -43,6 +44,12 @@ public class Utility {
         }
         return target;
     }
+//    public static boolean anyKey() {
+//        String userInput = "";
+//        while (!userInput.equals(null)) {
+//            user
+//        }
+//    }
     public static void log(String s, int level) {}
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
@@ -129,7 +136,7 @@ public class Utility {
         return col+row;
     }
     public static boolean prompt() {
-        Scanner sc = new Scanner(System.in);
+
         do {
             String prompt = sc.nextLine().toLowerCase();
             if (prompt.equals("y") || prompt.equals("yes")) {
@@ -143,5 +150,9 @@ public class Utility {
             }
         }
         while(true);
+    }
+    public static void anyKey() {
+        System.out.println("Press any key to continue.");
+        String input = sc.nextLine();
     }
 }

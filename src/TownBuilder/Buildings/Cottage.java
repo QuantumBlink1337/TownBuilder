@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class Cottage extends Building{
     private boolean condition;
+    private int count = 0;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static final ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
@@ -96,5 +97,14 @@ public class Cottage extends Building{
             }
 
         return score;
+    }
+    @Override
+    public void setCount() {
+        count++;
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 }

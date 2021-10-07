@@ -34,6 +34,16 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
+    public void setCount() {
+
+    }
+
+    @Override
+    public int getCount() {
+        return 0;
+    }
+
+    @Override
     public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
 
     }

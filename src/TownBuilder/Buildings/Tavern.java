@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Tavern extends Building{
     private boolean condition;
+    private int count = 0;
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ResourceEnum[][][] tavernPatternList = new ResourceEnum[1][2][2];
     static int scoreIncrement = 2;
@@ -80,5 +81,14 @@ public class Tavern extends Building{
         scoreIncrement++;
 
         return score;
+    }
+    @Override
+    public void setCount() {
+        count++;
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 }

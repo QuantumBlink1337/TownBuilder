@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Chapel extends Building{
     private boolean condition;
+    private int count = 0;
     private static ResourceEnum[][] templeArray = new ResourceEnum[2][3];
     private static ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
     private static ResourceEnum[][][] templePatternList = new ResourceEnum[2][2][2];
@@ -88,5 +89,15 @@ public class Chapel extends Building{
             }
         }
         return score;
+    }
+
+    @Override
+    public void setCount() {
+        count++;
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 }

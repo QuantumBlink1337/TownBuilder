@@ -14,7 +14,7 @@ public class Theater extends Building
 {
     private boolean condition;
     private ArrayList<Building> buildingsOnBoard;
-
+    private int count = 0;
     private static final ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static final ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
@@ -107,6 +107,15 @@ public class Theater extends Building
             }
         }
         return score;
+    }
+    @Override
+    public void setCount() {
+        count++;
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 }
 

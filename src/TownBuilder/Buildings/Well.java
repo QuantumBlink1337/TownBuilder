@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Well extends Building {
     private boolean condition;
+    private int count = 0;
     private static Scanner sc = new Scanner(System.in);
     private static final ResourceEnum[][] wellArray = new ResourceEnum[2][1];
     private static final ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
@@ -96,5 +97,14 @@ public class Well extends Building {
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
         return score;
+    }
+    @Override
+    public void setCount() {
+        count++;
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 }

@@ -15,6 +15,8 @@ public abstract class Building {
     public abstract ResourceEnum[][][] getPatterns();
     public abstract String toString();
     public abstract int scorer(Building[][] bArray, int row, int col);
+    public abstract void setCount();
+    public abstract int getCount();
 
 //    public static ArrayList<TownResource> getValidResources() {
 //        return validResources;

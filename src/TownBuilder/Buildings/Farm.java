@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Farm extends Building {
     private boolean condition;
     private int fed;
+    private int count = 0;
     private static final ResourceEnum[][] farmArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][][] farmPatternList = new ResourceEnum[1][2][2];
 
@@ -76,5 +77,14 @@ public class Farm extends Building {
     }
     public int scorer(Building[][] bArray, int row, int col) {
         return 0;
+    }
+    @Override
+    public void setCount() {
+        count++;
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 }

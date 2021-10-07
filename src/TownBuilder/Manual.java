@@ -19,7 +19,7 @@ public class Manual {
         System.out.println("For the first two turns, the resource you place will be decided for you. On the third turn, you can choose which resource you need.");
         System.out.println("But be warned! For every resource you leave off the board, you lose a point! It's up to you to design the perfect town.");
         System.out.println("You can reread this prompt as well as access other game information with the 'help' command during your turn.");
-        Thread.sleep(8000);
+        Utility.anyKey();
     }
     public void openManual() throws InterruptedException {
 
@@ -58,21 +58,21 @@ public class Manual {
                     System.out.println("what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example,");
                     System.out.println("the Cottage can have 8 different orientations! Note: If a building pattern has NONE as part of it, it just means");
                     System.out.println("it doesn't matter what's there!");
-                    Thread.sleep(5000);
+                    Utility.anyKey();
                     userInput = "";
                     break;
                 case "objective":
                     System.out.println("The goal of TownBuilder is to construct as many buildings as possible to earn points.");
                     System.out.println("The game ends when you have nowhere else to place a resource or building. Planning is key!");
                     userInput = "";
-                    Thread.sleep(4000);
+                    Utility.anyKey();
                     break;
                 case "scoring":
                     System.out.println("Each building has it's own unique rules on how they accumulate points. (see: building score) ");
                     System.out.println("But remember - for each resource you leave on the board you LOSE a point! It's up to you ");
                     System.out.println("to figure out how to build your town for the most points possible.");
                     userInput = "";
-                    Thread.sleep(4000);
+                    Utility.anyKey();
                     break;
                 case "tutorial":
                     userInput = "";
@@ -96,7 +96,7 @@ public class Manual {
             for (int i = 0; i < gameBuildings.size(); i++) {
                 if (gameBuildings.get(i).toString().toLowerCase().equals(userInput)) {
                     gameBuildings.get(i).printManualText();
-                    Thread.sleep(4000);
+                    Utility.anyKey();
                     break;
 
                 }

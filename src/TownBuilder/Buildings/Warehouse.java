@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Warehouse extends Building{
     private boolean condition;
     private int fullness = 0;
+    private int count = 0;
     private static Scanner sc = new Scanner(System.in);
     private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
     private static final ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
@@ -152,5 +153,14 @@ public class Warehouse extends Building{
             }
         }
         return score;
+    }
+    @Override
+    public void setCount() {
+        count++;
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 }
