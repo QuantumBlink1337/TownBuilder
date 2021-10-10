@@ -2,9 +2,14 @@ package TownBuilder;
 
 import TownBuilder.Buildings.*;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Manual {
         private ArrayList<Building> gameBuildings;
         private Scanner sc = new Scanner(System.in);
@@ -21,12 +26,12 @@ public class Manual {
         System.out.println("You can reread this prompt as well as access other game information with the 'help' command during your turn.");
         Utility.anyKey();
     }
-    public void openManual() throws InterruptedException {
+    public void openManual() throws InterruptedException, IOException, URISyntaxException {
 
         String userInput = "";
         while (!userInput.equals("exit")) {
             System.out.println("Welcome to the TownBuilder Manual. What would you like to learn about? You can read the rules of the game using 'rules', see building info with 'buildings', ");
-            System.out.println("or 'exit' to leave the manual.");
+            System.out.println("or 'exit' to leave the manual. You can also use 'internet' to download a copy of the manual to your computer.");
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
                 case "rules":
@@ -37,6 +42,9 @@ public class Manual {
                     displayBuildingRules();
                     userInput = "";
                     break;
+                case "internet":
+                    openManualOnInternet();
+                    break;
                 case "exit":
                     break;
                 default:
@@ -46,6 +54,14 @@ public class Manual {
             }
         }
     }
+    public void openManualOnInternet() throws IOException, URISyntaxException {
+        System.out.println("This will open a link in your default web browser that will download a copy of the manual as a text file. Continue?");
+        if (Utility.prompt()) {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.browse(new URI("https://drive.google.com/uc?export=download&id=1_otans2D6rnIKLWtAdEaG2_afLfEVhq7"));
+        }
+    }
+
     public void displayRules() throws InterruptedException {
         String userInput = "";
         while (!userInput.equals("exit")) {

@@ -2,11 +2,13 @@ import TownBuilder.Board;
         import TownBuilder.Buildings.*;
         import TownBuilder.Manual;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class Driver {
     boolean debug = true;
-    public static void main (String[] args) throws InterruptedException {
+    public static void main (String[] args) throws InterruptedException, IOException, URISyntaxException {
         boolean gameCompletion = false;
         ArrayList<Building> buildings = new ArrayList<>();
         buildings.add(new Cottage());

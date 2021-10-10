@@ -3,6 +3,8 @@ package TownBuilder;
 
 import TownBuilder.Buildings.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -142,7 +144,7 @@ public class Board {
             }
         }
     }
-    public void playerTurn() throws InterruptedException {
+    public void playerTurn() throws InterruptedException, IOException, URISyntaxException {
         ResourceEnum turnResource;
         if (resourceTurn == 2) {
             do {
@@ -190,7 +192,7 @@ public class Board {
         return turnResource;
     }
 
-    private void resourcePlacer(ResourceEnum random) throws InterruptedException {
+    private void resourcePlacer(ResourceEnum random) throws InterruptedException, IOException, URISyntaxException {
         String userCoordinate = "";
         boolean validSpot;
         Warehouse warehouse = null;
