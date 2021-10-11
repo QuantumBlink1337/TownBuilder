@@ -4,10 +4,8 @@ import TownBuilder.Buildings.*;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Manual {
@@ -57,6 +55,7 @@ public class Manual {
     public void openManualOnInternet() throws IOException, URISyntaxException {
         System.out.println("This will open a link in your default web browser that will download a copy of the manual as a text file. Continue?");
         if (Utility.prompt()) {
+            // ah yes, the floor is made of floor...
             Desktop desktop = Desktop.getDesktop();
             desktop.browse(new URI("https://drive.google.com/uc?export=download&id=1_otans2D6rnIKLWtAdEaG2_afLfEVhq7"));
         }

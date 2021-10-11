@@ -11,19 +11,23 @@ import java.util.Scanner;
 public class Board {
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
+    private int playerNumber = 0;
+    private boolean isGameCompletion = false;
+    private String boardName;
     private final TownResource[][] gameResourceBoard = new TownResource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
     private final String[][] gameBoard = new String[4][4];
     private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
-    private int resourceTurn = 0;
 
     private boolean gameCompletion;
     private final Scanner sc = new Scanner(System.in);
 
-    public Board(ArrayList<Building> b) {
-        //player = new Player();
+    public Board(ArrayList<Building> b, int p) {
+        System.out.println("What's your name?");
+        playerNumber = p;
+        boardName = sc.nextLine();
         buildingsForGame = b;
         manual = new Manual(buildingsForGame);
         gameCompletion = false;
@@ -144,9 +148,10 @@ public class Board {
             }
         }
     }
-    public void playerTurn() throws InterruptedException, IOException, URISyntaxException {
+    public void playerTurn(boolean resourcePicker) throws InterruptedException, IOException, URISyntaxException {
         ResourceEnum turnResource;
-        if (resourceTurn == 2) {
+        if (resourcePicker) {
+            System.out.println("It's " + boardName +"'s turn to pick the resource!");
             do {
                 turnResource = ResourceEnum.resourcePicker();
                 if (turnResource == ResourceEnum.NONE) {
@@ -155,12 +160,10 @@ public class Board {
                 }
             }
             while (turnResource == ResourceEnum.NONE);
-
-            resourceTurn = 0;
         }
         else {
+            System.out.println("It's " + boardName + "'s turn to place a resource.");
             turnResource = ResourceEnum.randomResource();
-            resourceTurn++;
         }
         //turnResource = ResourceEnum.resourcePicker();
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
@@ -326,5 +329,29 @@ public class Board {
 //
 //            }
 //        }
+    }
+
+    public String getBoardName() {
+        return boardName;
+    }
+
+    public void setBoardName(String boardName) {
+        this.boardName = boardName;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
+
+    public boolean isGameCompletion() {
+        return isGameCompletion;
+    }
+
+    public void setGameCompletion(boolean gameCompletion) {
+        isGameCompletion = gameCompletion;
     }
 }
