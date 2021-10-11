@@ -13,6 +13,7 @@ public class Board {
     private final Manual manual;
     private int playerNumber = 0;
     private boolean isGameCompletion = false;
+    private boolean turnComplete = false;
     private String boardName;
     private final TownResource[][] gameResourceBoard = new TownResource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
@@ -148,8 +149,8 @@ public class Board {
             }
         }
     }
-    public void playerTurn(boolean resourcePicker) throws InterruptedException, IOException, URISyntaxException {
-        ResourceEnum turnResource;
+    public ResourceEnum playerTurn(boolean resourcePicker) throws InterruptedException, IOException, URISyntaxException {
+        ResourceEnum turnResource = null;
         if (resourcePicker) {
             System.out.println("It's " + boardName +"'s turn to pick the resource!");
             do {
@@ -163,11 +164,9 @@ public class Board {
         }
         else {
             System.out.println("It's " + boardName + "'s turn to place a resource.");
-            turnResource = ResourceEnum.randomResource();
         }
         //turnResource = ResourceEnum.resourcePicker();
-        System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(turnResource.toString()) +".");
-        resourcePlacer(turnResource);
+        return turnResource;
     }
     private ResourceEnum warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
         ResourceEnum turnResource = t;
@@ -195,12 +194,14 @@ public class Board {
         return turnResource;
     }
 
-    private void resourcePlacer(ResourceEnum random) throws InterruptedException, IOException, URISyntaxException {
+    public void resourcePlacer(ResourceEnum resource) throws InterruptedException, IOException, URISyntaxException {
         String userCoordinate = "";
         boolean validSpot;
         Warehouse warehouse = null;
         boolean warehouseExists = false;
         String warehouseText = "";
+        System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(resource.toString()) +".");
+
         try {
             warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
             warehouseExists = true;
@@ -213,7 +214,7 @@ public class Board {
                 warehouseText = "You can also place or swap it on your warehouse with 'place' or 'swap'.";
             }
             while (userCoordinate.length() != 2) {
-                System.out.println("Where would you like to place your "+ random+ " resource? "+warehouseText+" Alternatively, to view the game manual type 'help'");
+                System.out.println("Where would you like to place your "+ resource+ " resource? "+warehouseText+" Alternatively, to view the game manual type 'help'");
                 if (warehouseExists) {
                     ResourceEnum[] list = warehouse.getStoredResources();
                     System.out.println("Here's what's inside the warehouse: "+ list[0] + "," + list[1] + "," + list[2]);
@@ -225,8 +226,8 @@ public class Board {
                 }
                 else if (userCoordinate.equals("place") && warehouseExists) {
                     if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
-                        random = warehouseOption(random, warehouse, true);
-                        if (random == ResourceEnum.NONE) {
+                        resource = warehouseOption(resource, warehouse, true);
+                        if (resource == ResourceEnum.NONE) {
                             validSpot = true;
                             break;
 
@@ -239,7 +240,7 @@ public class Board {
                 }
                 else if (userCoordinate.equals("swap") && warehouseExists) {
                     if (warehouse.getFullness() != Warehouse.getMinFullness()) {
-                        random = warehouseOption(random, warehouse, false);
+                        resource = warehouseOption(resource, warehouse, false);
                     }
                     else {
                         System.out.println("There's nothing to swap with in the warehouse.");
@@ -260,7 +261,7 @@ public class Board {
                 }
                 else if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
                 {
-                    gameResourceBoard[coords[0]][coords[1]].setResource(random);
+                    gameResourceBoard[coords[0]][coords[1]].setResource(resource);
                     validSpot = true;
                 }
                 else {
@@ -353,5 +354,13 @@ public class Board {
 
     public void setGameCompletion(boolean gameCompletion) {
         isGameCompletion = gameCompletion;
+    }
+
+    public boolean isTurnComplete() {
+        return turnComplete;
+    }
+
+    public void setTurnComplete(boolean turnComplete) {
+        this.turnComplete = turnComplete;
     }
 }

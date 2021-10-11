@@ -1,6 +1,7 @@
 import TownBuilder.Board;
         import TownBuilder.Buildings.*;
         import TownBuilder.Manual;
+import TownBuilder.ResourceEnum;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -28,30 +29,36 @@ public class Driver {
             playerCount = sc.nextInt();
         }
         while (playerCount <= 0 || playerCount > 6);
-        for (int i= 1; i <= playerCount; i++) {
+        for (int i= 0; i < playerCount; i++) {
             Board temp = new Board(buildings, i);
             boardArrayList.add(temp);
             }
         Manual.tutorial();
         boardArrayList.get(0).getManual().displayBuildings();
-        for (int i = 0; gameCompletion != boardArrayList.size(); i++) {
-            Board temp = boardArrayList.get(i);
-            temp.renderBoard();
-            if (!temp.gameOver()) {
-                if (temp.getPlayerNumber() == i) {
-                    temp.playerTurn(true);
+        do {
+            ResourceEnum resource;
+            Board pickResourceBoard = boardArrayList.get(0);
+            pickResourceBoard.renderBoard();
+            resource = pickResourceBoard.playerTurn(true);
+            pickResourceBoard.resourcePlacer(resource);
+            pickResourceBoard.detectValidBuilding();
+            boardArrayList.remove(pickResourceBoard);
+            pickResourceBoard.setGameCompletion(pickResourceBoard.gameOver());
+            for (int p = 0; p < boardArrayList.size(); p++) {
+                Board temp = boardArrayList.get(p);
+                if (!temp.isGameCompletion())  {
+                    temp.renderBoard();
+                    System.out.println("It's " + temp.getBoardName() + "'s turn to place a resource.");
+                    temp.resourcePlacer(resource);
+                    temp.detectValidBuilding();
+                    temp.setGameCompletion(temp.gameOver());
                 }
-                else {
-                    temp.playerTurn(false);
+            }
+            boardArrayList.add(pickResourceBoard);
+            for (int i = 0; i < boardArrayList.size(); i++) {
+                if (boardArrayList.get(i).isGameCompletion()) {
+                    boardArrayList.remove(i);
                 }
-                temp.detectValidBuilding();
-
-            }
-            else {
-                temp.setGameCompletion(true);
-            }
-            if (i == boardArrayList.size()-1) {
-                i = 0;
             }
             for (Board board : boardArrayList) {
                 if (board.isGameCompletion()) {
@@ -59,6 +66,7 @@ public class Driver {
                 }
             }
         }
+        while (gameCompletion != boardArrayList.size());
     }
 
 }
