@@ -6,12 +6,12 @@ import TownBuilder.ResourceEnum;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
 
     public static void main (String[] args) throws InterruptedException, IOException, URISyntaxException {
-        int gameCompletion = 0;
         Scanner sc = new Scanner(System.in);
         ArrayList<Building> buildings = new ArrayList<>();
         buildings.add(new Cottage());
@@ -25,8 +25,15 @@ public class Driver {
         ArrayList<Board> boardArrayList = new ArrayList<>();
 
         do {
-            System.out.println("How many players would you like? You can have up to 6.");
-            playerCount = sc.nextInt();
+            try {
+                System.out.println("How many players would you like? You can have up to 6.");
+                playerCount = sc.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.println("That's not a number!");
+                playerCount = 0;
+                sc.next();
+                }
         }
         while (playerCount <= 0 || playerCount > 6);
         for (int i= 0; i < playerCount; i++) {
@@ -40,11 +47,11 @@ public class Driver {
             Board board = boardArrayList.get(0);
             System.out.println("Town Hall mode enabled!");
             while (!board.isGameCompletion()) {
+                board.setGameCompletion(board.gameOver());
                 board.renderBoard();
                 resource = board.resourcePicker(false);
                 board.playerTurn(resource);
                 board.detectValidBuilding();
-                board.setGameCompletion(board.gameOver());
             }
             board.scoring();
         }
