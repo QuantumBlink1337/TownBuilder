@@ -89,7 +89,7 @@ public class Board {
         int totalScore = 0;
         int score = 0;
         int resourcePenalty =0;
-        HashMap<Building, Integer> scores = new HashMap<>();
+        HashMap<Building, Integer> scores = new HashMap<>(buildingsForGame.size());
         for (int i = 0; i < buildingsForGame.size(); i++) {
             scores.put(buildingsForGame.get(i), 0);
         }
