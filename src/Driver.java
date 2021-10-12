@@ -39,8 +39,9 @@ public class Driver {
             ResourceEnum resource;
             Board pickResourceBoard = boardArrayList.get(0);
             pickResourceBoard.renderBoard();
-            resource = pickResourceBoard.playerTurn(true);
-            pickResourceBoard.resourcePlacer(resource);
+            System.out.println("It's " + pickResourceBoard.getBoardName() + "'s turn to pick the resource!");
+            resource = pickResourceBoard.resourcePicker(true);
+            pickResourceBoard.playerTurn(resource);
             pickResourceBoard.detectValidBuilding();
             boardArrayList.remove(pickResourceBoard);
             pickResourceBoard.setGameCompletion(pickResourceBoard.gameOver());
@@ -49,7 +50,7 @@ public class Driver {
                 if (!temp.isGameCompletion())  {
                     temp.renderBoard();
                     System.out.println("It's " + temp.getBoardName() + "'s turn to place a resource.");
-                    temp.resourcePlacer(resource);
+                    temp.playerTurn(resource);
                     temp.detectValidBuilding();
                     temp.setGameCompletion(temp.gameOver());
                 }
@@ -57,6 +58,7 @@ public class Driver {
             boardArrayList.add(pickResourceBoard);
             for (int i = 0; i < boardArrayList.size(); i++) {
                 if (boardArrayList.get(i).isGameCompletion()) {
+                    boardArrayList.get(i).scoring();
                     boardArrayList.remove(i);
                 }
             }

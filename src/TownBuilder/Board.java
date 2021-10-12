@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Board {
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
-    private int playerNumber = 0;
+    private int boardNumber = 0;
     private boolean isGameCompletion = false;
     private boolean turnComplete = false;
     private String boardName;
@@ -27,7 +27,7 @@ public class Board {
 
     public Board(ArrayList<Building> b, int p) {
         System.out.println("What's your name?");
-        playerNumber = p;
+        boardNumber = p;
         boardName = sc.nextLine();
         buildingsForGame = b;
         manual = new Manual(buildingsForGame);
@@ -149,10 +149,9 @@ public class Board {
             }
         }
     }
-    public ResourceEnum playerTurn(boolean resourcePicker) throws InterruptedException, IOException, URISyntaxException {
+    public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws InterruptedException, IOException, URISyntaxException {
         ResourceEnum turnResource = null;
-        if (resourcePicker) {
-            System.out.println("It's " + boardName +"'s turn to pick the resource!");
+        if (isMultiplayerGame) {
             do {
                 turnResource = ResourceEnum.resourcePicker();
                 if (turnResource == ResourceEnum.NONE) {
@@ -163,9 +162,23 @@ public class Board {
             while (turnResource == ResourceEnum.NONE);
         }
         else {
-            System.out.println("It's " + boardName + "'s turn to place a resource.");
+            int turn = 0;
+            if (turn == 2) {
+                do {
+                    turnResource = ResourceEnum.resourcePicker();
+                    if (turnResource == ResourceEnum.NONE) {
+                        manual.openManual();
+                        renderBoard();
+                    }
+                }
+                while (turnResource == ResourceEnum.NONE);
+                turn = 0;
+            }
+            else {
+                turnResource = ResourceEnum.resourcePicker();
+                turn++;
+            }
         }
-        //turnResource = ResourceEnum.resourcePicker();
         return turnResource;
     }
     private ResourceEnum warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
@@ -194,7 +207,7 @@ public class Board {
         return turnResource;
     }
 
-    public void resourcePlacer(ResourceEnum resource) throws InterruptedException, IOException, URISyntaxException {
+    public void playerTurn(ResourceEnum resource) throws InterruptedException, IOException, URISyntaxException {
         String userCoordinate = "";
         boolean validSpot;
         Warehouse warehouse = null;
@@ -290,7 +303,7 @@ public class Board {
 
             }
         }
-
+        System.out.println("============="+boardName.toUpperCase()+"'s BOARD============");
         for (int i = 0; i < letterCoords.length; i++) {
             if (i == 4) {
                 System.out.println(letterCoords[i]);
@@ -340,12 +353,12 @@ public class Board {
         this.boardName = boardName;
     }
 
-    public int getPlayerNumber() {
-        return playerNumber;
+    public int getBoardNumber() {
+        return boardNumber;
     }
 
-    public void setPlayerNumber(int playerNumber) {
-        this.playerNumber = playerNumber;
+    public void setBoardNumber(int boardNumber) {
+        this.boardNumber = boardNumber;
     }
 
     public boolean isGameCompletion() {
