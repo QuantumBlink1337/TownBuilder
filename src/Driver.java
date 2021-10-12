@@ -48,10 +48,13 @@ public class Driver {
             System.out.println("Town Hall mode enabled!");
             while (!board.isGameCompletion()) {
                 board.setGameCompletion(board.gameOver());
-                board.renderBoard();
-                resource = board.resourcePicker(false);
-                board.playerTurn(resource);
-                board.detectValidBuilding();
+                if (!board.isGameCompletion()) {
+                    board.updateBoard();
+                    board.renderBoard();
+                    resource = board.resourcePicker(false);
+                    board.playerTurn(resource);
+                    board.detectValidBuilding();
+                }
             }
             board.scoring();
         }
@@ -64,6 +67,10 @@ public class Driver {
                 pickResourceBoard.detectValidBuilding();
                 boardArrayList.remove(pickResourceBoard);
                 pickResourceBoard.setGameCompletion(pickResourceBoard.gameOver());
+                if (pickResourceBoard.isGameCompletion()) {
+                    System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+pickResourceBoard.scoring());
+                }
+
                 for (int p = 0; p < boardArrayList.size(); p++) {
                     Board temp = boardArrayList.get(p);
                     if (!temp.isGameCompletion())  {
@@ -72,19 +79,21 @@ public class Driver {
                         temp.playerTurn(resource);
                         temp.detectValidBuilding();
                         temp.setGameCompletion(temp.gameOver());
+                        if (temp.isGameCompletion()) {
+                            System.out.println(temp.getBoardName() + "'s final score: "+temp.scoring());
+                            boardArrayList.remove(temp);
+                        }
                     }
                 }
-                boardArrayList.add(pickResourceBoard);
-                for (int i = 0; i < boardArrayList.size(); i++) {
-                    if (boardArrayList.get(i).isGameCompletion()) {
-                        boardArrayList.remove(i);
-                    }
+                if (!pickResourceBoard.isGameCompletion()) {
+                    boardArrayList.add(pickResourceBoard);
                 }
+
             }
             while (boardArrayList.size() != 0);
         }
 
-
+        System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
     }
 
 }

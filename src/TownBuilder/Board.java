@@ -34,6 +34,7 @@ public class Board {
         manual = new Manual(buildingsForGame);
         gameCompletion = false;
         buildArrays();
+        updateBoard();
     }
     public Manual getManual() {
         return manual;
@@ -58,26 +59,26 @@ public class Board {
                 coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
             }
         }
-        // Test Case - Legitimate Game Board
-//        gameBuildingBoard[0][0] = new Cottage();
-//        gameBuildingBoard[0][1] = new Cottage();
-//        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);
-//        gameBuildingBoard[0][3] = new Cottage();
-//
-//        gameBuildingBoard[1][0] = new Well();
-//        gameResourceBoard[1][1].setResource(ResourceEnum.WOOD);
-//        gameResourceBoard[1][2].setResource(ResourceEnum.WOOD);
-//        gameBuildingBoard[1][3] = new Theater(buildingsForGame);
-//
-//        gameBuildingBoard[2][0] = new Theater(buildingsForGame);
-//        gameBuildingBoard[2][1] = new Cottage();
-//        gameBuildingBoard[2][2] = new Well();
-//        gameBuildingBoard[2][3] = new Tavern();
-//
-//        gameBuildingBoard[3][0] = new Chapel();
-//        gameBuildingBoard[3][1] = new Farm();
-          //gameBuildingBoard[3][2] = new Warehouse();
-//        gameBuildingBoard[3][3] = new Theater(buildingsForGame);
+         //Test Case - Legitimate Game Board
+        gameBuildingBoard[0][0] = new Cottage();
+        gameBuildingBoard[0][1] = new Cottage();
+        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);
+        gameBuildingBoard[0][3] = new Cottage();
+
+        gameBuildingBoard[1][0] = new Well();
+        gameResourceBoard[1][1].setResource(ResourceEnum.WOOD);
+        gameResourceBoard[1][2].setResource(ResourceEnum.WOOD);
+        gameBuildingBoard[1][3] = new Theater(buildingsForGame);
+
+        gameBuildingBoard[2][0] = new Theater(buildingsForGame);
+        gameBuildingBoard[2][1] = new Cottage();
+        gameBuildingBoard[2][2] = new Well();
+        gameBuildingBoard[2][3] = new Tavern();
+
+        gameBuildingBoard[3][0] = new Chapel();
+        gameBuildingBoard[3][1] = new Farm();
+          gameBuildingBoard[3][2] = new Warehouse();
+
 
 
 
@@ -89,19 +90,19 @@ public class Board {
         for (int r = 0; r < gameBuildingBoard.length; r++) {
             for (int c = 0; c < gameBuildingBoard[r].length; c++) {
                 if (gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
-                    System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
+                    //System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
                     if (gameBuildingBoard[r][c].getType() == BuildingEnum.CHAPEL) {
                         chapels.add(gameBuildingBoard[r][c]);
                     }
                     else {
                         score = gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
-                        System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
+                        //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
                         totalScore += score;
-                        System.out.println("Total score now: "+totalScore);
+                        //System.out.println("Total score now: "+totalScore);
                     }
                 }
                 else if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
-                    System.out.println("Resource found. Decrementing");
+                    //System.out.println("Resource found. Decrementing");
                     totalScore--;
                 }
             }
@@ -113,6 +114,7 @@ public class Board {
     }
     public boolean gameOver() {
         int i = 0;
+        this.updateBoard();
         for (String[] tileRow : gameBoard) {
             for (String tile : tileRow) {
                 if (!(tile.equals("[EMPTY! ]"))) {
@@ -121,7 +123,8 @@ public class Board {
             }
         }
         if (i >= (gameResourceBoard.length * gameResourceBoard.length))  {
-            System.out.println("Game over!");
+            System.out.println("=====GAME OVER=====");
+            System.out.println("     "+boardName+"     ");
             return true;
         }
         else {
@@ -285,8 +288,7 @@ public class Board {
         while (!validSpot);
 
     }
-    public void renderBoard() {
-        //System.out.println("Rendering game board");
+    public void updateBoard() {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED) {
@@ -303,46 +305,32 @@ public class Board {
 
             }
         }
+    }
+    public void renderBoard() {
+        this.updateBoard();
         System.out.println("============="+boardName.toUpperCase()+"'s BOARD============");
         for (int i = 0; i < letterCoords.length; i++) {
             if (i == 4) {
                 System.out.println(letterCoords[i]);
-
             }
             else {
                 System.out.print(letterCoords[i]);
 
             }
-
         }
         for (int row = 0; row < gameBoard.length; row++) {
             for (int col = -1; col < gameBoard[row].length; col++) {
                 if (col == -1) {
                     System.out.print(numberCoords[row]);
-                }
-                else {
+                } else {
                     if (col == 3) {
                         System.out.println(gameBoard[row][col]);
-                    }
-                    else {
+                    } else {
                         System.out.print(gameBoard[row][col]);
                     }
                 }
-
             }
         }
-//        System.out.println("This grid helps with figuring out where things should go");
-//        for (int row = 0; row < coordinateBoard.length; row++) {
-//            for (int col = 0; col < coordinateBoard[row].length; col++) {
-//                if (col == 3) {
-//                    System.out.println(coordinateBoard[row][col]);
-//                }
-//                else {
-//                    System.out.print(coordinateBoard[row][col]);
-//                }
-//
-//            }
-//        }
     }
 
     public String getBoardName() {
