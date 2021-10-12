@@ -35,40 +35,49 @@ public class Driver {
             }
         Manual.tutorial();
         boardArrayList.get(0).getManual().displayBuildings();
-        do {
-            ResourceEnum resource;
-            Board pickResourceBoard = boardArrayList.get(0);
-            pickResourceBoard.renderBoard();
-            System.out.println("It's " + pickResourceBoard.getBoardName() + "'s turn to pick the resource!");
-            resource = pickResourceBoard.resourcePicker(true);
-            pickResourceBoard.playerTurn(resource);
-            pickResourceBoard.detectValidBuilding();
-            boardArrayList.remove(pickResourceBoard);
-            pickResourceBoard.setGameCompletion(pickResourceBoard.gameOver());
-            for (int p = 0; p < boardArrayList.size(); p++) {
-                Board temp = boardArrayList.get(p);
-                if (!temp.isGameCompletion())  {
-                    temp.renderBoard();
-                    System.out.println("It's " + temp.getBoardName() + "'s turn to place a resource.");
-                    temp.playerTurn(resource);
-                    temp.detectValidBuilding();
-                    temp.setGameCompletion(temp.gameOver());
-                }
+        ResourceEnum resource;
+        if (playerCount < 2) {
+            Board board = boardArrayList.get(0);
+            System.out.println("Town Hall mode enabled!");
+            while (!board.isGameCompletion()) {
+                board.renderBoard();
+                resource = board.resourcePicker(false);
+                board.playerTurn(resource);
+                board.detectValidBuilding();
+                board.setGameCompletion(board.gameOver());
             }
-            boardArrayList.add(pickResourceBoard);
-            for (int i = 0; i < boardArrayList.size(); i++) {
-                if (boardArrayList.get(i).isGameCompletion()) {
-                    boardArrayList.get(i).scoring();
-                    boardArrayList.remove(i);
-                }
-            }
-            for (Board board : boardArrayList) {
-                if (board.isGameCompletion()) {
-                    gameCompletion++;
-                }
-            }
+            board.scoring();
         }
-        while (gameCompletion != boardArrayList.size());
+        else {
+            do {
+                Board pickResourceBoard = boardArrayList.get(0);
+                pickResourceBoard.renderBoard();
+                resource = pickResourceBoard.resourcePicker(true);
+                pickResourceBoard.playerTurn(resource);
+                pickResourceBoard.detectValidBuilding();
+                boardArrayList.remove(pickResourceBoard);
+                pickResourceBoard.setGameCompletion(pickResourceBoard.gameOver());
+                for (int p = 0; p < boardArrayList.size(); p++) {
+                    Board temp = boardArrayList.get(p);
+                    if (!temp.isGameCompletion())  {
+                        temp.renderBoard();
+                        System.out.println("It's " + temp.getBoardName() + "'s turn to place a resource.");
+                        temp.playerTurn(resource);
+                        temp.detectValidBuilding();
+                        temp.setGameCompletion(temp.gameOver());
+                    }
+                }
+                boardArrayList.add(pickResourceBoard);
+                for (int i = 0; i < boardArrayList.size(); i++) {
+                    if (boardArrayList.get(i).isGameCompletion()) {
+                        boardArrayList.remove(i);
+                    }
+                }
+            }
+            while (boardArrayList.size() != 0);
+        }
+
+
     }
 
 }

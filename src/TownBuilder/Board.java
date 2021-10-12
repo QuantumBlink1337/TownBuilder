@@ -12,6 +12,7 @@ public class Board {
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
     private int boardNumber = 0;
+    private int turn = 0;
     private boolean isGameCompletion = false;
     private boolean turnComplete = false;
     private String boardName;
@@ -162,7 +163,6 @@ public class Board {
             while (turnResource == ResourceEnum.NONE);
         }
         else {
-            int turn = 0;
             if (turn == 2) {
                 do {
                     turnResource = ResourceEnum.resourcePicker();
@@ -175,7 +175,7 @@ public class Board {
                 turn = 0;
             }
             else {
-                turnResource = ResourceEnum.resourcePicker();
+                turnResource = ResourceEnum.randomResource();
                 turn++;
             }
         }
