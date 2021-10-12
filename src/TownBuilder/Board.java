@@ -6,6 +6,7 @@ import TownBuilder.Buildings.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Board {
@@ -83,9 +84,15 @@ public class Board {
 
 
     }
+    // move this to its own class
     public int scoring() {
         int totalScore = 0;
         int score = 0;
+        int resourcePenalty =0;
+        HashMap<Building, Integer> scores = new HashMap<>();
+        for (int i = 0; i < buildingsForGame.size(); i++) {
+            scores.put(buildingsForGame.get(i), 0);
+        }
         ArrayList<Building> chapels = new ArrayList<>();
         for (int r = 0; r < gameBuildingBoard.length; r++) {
             for (int c = 0; c < gameBuildingBoard[r].length; c++) {
@@ -96,6 +103,7 @@ public class Board {
                     }
                     else {
                         score = gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
+                        scores.put(gameBuildingBoard[r][c], score);
                         //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
                         totalScore += score;
                         //System.out.println("Total score now: "+totalScore);
@@ -103,14 +111,19 @@ public class Board {
                 }
                 else if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
                     //System.out.println("Resource found. Decrementing");
-                    totalScore--;
+                    resourcePenalty++;
                 }
             }
         }
         for (Building chapel : chapels) {
-            totalScore += chapel.scorer(gameBuildingBoard, 0, 0);
+            score = chapel.scorer(gameBuildingBoard, 0, 0);
+            totalScore += score;
+            scores.put(chapel, score);
         }
-        return totalScore;
+        for (int i = 0; i < scores.size(); i++) {
+
+        }
+        return totalScore - resourcePenalty;
     }
     public boolean gameOver() {
         int i = 0;
