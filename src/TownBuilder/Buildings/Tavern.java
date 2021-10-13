@@ -11,14 +11,14 @@ public class Tavern extends Building{
     private boolean condition;
     private int count = 0;
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
-    private static final ResourceEnum[][][] tavernPatternList = new ResourceEnum[1][2][2];
+    private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
     static int scoreIncrement = 2;
 
     public Tavern() {
         tavernArray[0][0] = ResourceEnum.BRICK;
         tavernArray[0][1] = ResourceEnum.BRICK;
         tavernArray[0][2] = ResourceEnum.GLASS;
-        tavernPatternList[0] = tavernArray;
+        patternBuilder(tavernArray, tavernPatternList, 3);
         condition = false;
     }
     public BuildingEnum getType() {
@@ -41,9 +41,9 @@ public class Tavern extends Building{
         System.out.print("4 Taverns: 14 Points | ");
         System.out.print("5 Taverns: 20 Points");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(tavernPatternList[0]);
+        Utility.arrayPrinter(tavernArray);
     }
-    public ResourceEnum[][][] getPatterns() {
+    public ArrayList<ResourceEnum[][]> getPatterns() {
 
         return tavernPatternList;
     }

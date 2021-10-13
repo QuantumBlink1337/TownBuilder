@@ -13,15 +13,16 @@ public class Well extends Building {
     private static Scanner sc = new Scanner(System.in);
     private static final ResourceEnum[][] wellArray = new ResourceEnum[2][1];
     private static final ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
-    private static final ResourceEnum[][][] wellPatternList = new ResourceEnum[2][2][2];
+    private static final ArrayList<ResourceEnum[][]> wellPatternList = new ArrayList<>();
 
     public Well() {
         wellArray[0][0] = ResourceEnum.WOOD;
         wellArray[1][0] = ResourceEnum.STONE;
+        patternBuilder(wellArray, wellPatternList, 3);
         wellArrayMirror[0][0] = ResourceEnum.STONE;
         wellArrayMirror[1][0] = ResourceEnum.WOOD;
-        wellPatternList[0] = wellArray;
-        wellPatternList[1] = wellArrayMirror;
+        patternBuilder(wellArrayMirror, wellPatternList, 3);
+
         condition = false;
     }
     public BuildingEnum getType() {
@@ -40,9 +41,9 @@ public class Well extends Building {
         System.out.println("The Well grants one point for each adjacent Cottage.");
         System.out.println("Note: these Cottages do not need to be fed. Note: diagonals do not count.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(wellPatternList[0]);
+        Utility.arrayPrinter(wellArray);
     }
-    public ResourceEnum[][][] getPatterns() {
+    public ArrayList<ResourceEnum[][]> getPatterns() {
 
         return wellPatternList;
     }

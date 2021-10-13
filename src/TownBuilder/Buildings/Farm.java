@@ -12,7 +12,7 @@ public class Farm extends Building {
     private int fed;
     private int count = 0;
     private static final ResourceEnum[][] farmArray = new ResourceEnum[2][2];
-    private static final ResourceEnum[][][] farmPatternList = new ResourceEnum[1][2][2];
+    private static final ArrayList<ResourceEnum[][]> farmPatternList = new ArrayList<>();
 
     public Farm() {
         condition = false;
@@ -21,7 +21,7 @@ public class Farm extends Building {
         farmArray[0][1] = ResourceEnum.WHEAT;
         farmArray[1][0] = ResourceEnum.WOOD;
         farmArray[1][1] = ResourceEnum.WOOD;
-        farmPatternList[0] = farmArray;
+       patternBuilder(farmArray, farmPatternList, 3);
     }
 
     public BuildingEnum getType() {
@@ -45,9 +45,9 @@ public class Farm extends Building {
     public void printManualText() {
         System.out.println("The Farm feeds up to four buildings on the board.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(farmPatternList[0]);
+        Utility.arrayPrinter(farmArray);
     }
-    public ResourceEnum[][][] getPatterns() {
+    public ArrayList<ResourceEnum[][]> getPatterns() {
 
         return farmPatternList;
     }

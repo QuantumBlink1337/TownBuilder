@@ -14,7 +14,7 @@ public class Warehouse extends Building{
     private static Scanner sc = new Scanner(System.in);
     private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
     private static final ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
-    private static final ResourceEnum[][][] warehousePatternList = new ResourceEnum[1][2][2];
+    private static final ArrayList<ResourceEnum[][]> warehousePatternList = new ArrayList<>();
     private static final int MAX_FULLNESS = 3;
     private static final int MIN_FULLNESS = 0;
 
@@ -26,7 +26,7 @@ public class Warehouse extends Building{
         warehouseArray[1][0] = ResourceEnum.BRICK;
         warehouseArray[1][1] = ResourceEnum.NONE;
         warehouseArray[1][2] = ResourceEnum.BRICK;
-        warehousePatternList[0] = warehouseArray;
+        patternBuilder(warehouseArray, warehousePatternList, 3);
     }
     public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
         storedResources[0] = a;
@@ -38,8 +38,7 @@ public class Warehouse extends Building{
         warehouseArray[1][0] = ResourceEnum.BRICK;
         warehouseArray[1][1] = ResourceEnum.NONE;
         warehouseArray[1][2] = ResourceEnum.BRICK;
-        warehousePatternList[0] = warehouseArray;
-
+        patternBuilder(warehouseArray, warehousePatternList, 3);
     }
     public BuildingEnum getType() {
         return BuildingEnum.WHOUSE;
@@ -60,7 +59,7 @@ public class Warehouse extends Building{
         System.out.println("While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.");
         System.out.println("Note: these resources still count as a negative point!");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(warehousePatternList[0]);
+        Utility.arrayPrinter(warehouseArray);
     }
     public void fillResources() {
         storedResources[0] = ResourceEnum.GLASS;
@@ -140,9 +139,7 @@ public class Warehouse extends Building{
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         bArray[coords[0]][coords[1]] = new Warehouse();
     }
-    public ResourceEnum[][][] getPatterns() {
-
-
+    public ArrayList<ResourceEnum[][]> getPatterns() {
         return warehousePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col) {

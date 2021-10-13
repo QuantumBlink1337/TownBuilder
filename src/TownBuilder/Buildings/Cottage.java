@@ -15,7 +15,7 @@ public class Cottage extends Building{
     private int count = 0;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
-    private static final ResourceEnum[][][] cottagePatternList = new ResourceEnum[2][2][2];
+    private static final ArrayList<ResourceEnum[][]> cottagePatternList = new ArrayList<>();
     private static Scanner sc = new Scanner(System.in);
 
 
@@ -26,12 +26,12 @@ public class Cottage extends Building{
         cottageArray[0][1] = ResourceEnum.WHEAT;
         cottageArray[1][0] = ResourceEnum.BRICK;
         cottageArray[1][1] = ResourceEnum.NONE;
+        patternBuilder(cottageArray, cottagePatternList, 3);
         cottageArrayMirror[0][0] = ResourceEnum.GLASS;
         cottageArrayMirror[1][0] = ResourceEnum.WHEAT;
         cottageArrayMirror[0][1] = ResourceEnum.BRICK;
         cottageArrayMirror[1][1] = ResourceEnum.NONE;
-        cottagePatternList[0] = cottageArray;
-        cottagePatternList[1] = cottageArrayMirror;
+        patternBuilder(cottageArrayMirror, cottagePatternList, 3);
     }
 
     public BuildingEnum getType() {
@@ -49,9 +49,9 @@ public class Cottage extends Building{
     public void printManualText() {
         System.out.println("The Cottage is a building grants three points when it is fed.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(cottagePatternList[0]);
+        Utility.arrayPrinter(cottageArray);
     }
-    public ResourceEnum[][][] getPatterns() {
+    public ArrayList<ResourceEnum[][]> getPatterns() {
 
         return cottagePatternList;
     }

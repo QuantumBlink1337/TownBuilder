@@ -19,8 +19,8 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
-    public ResourceEnum[][][] getPatterns() {
-        return new ResourceEnum[0][][];
+    public ArrayList<ResourceEnum[][]> getPatterns() {
+        return new ArrayList<>();
     }
 
     @Override

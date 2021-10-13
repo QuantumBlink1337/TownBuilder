@@ -1,13 +1,10 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.Manual;
 import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Theater extends Building
@@ -16,7 +13,7 @@ public class Theater extends Building
     private ArrayList<Building> buildingsOnBoard;
     private int count = 0;
     private static final ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
-    private static final ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
+    private static final ArrayList<ResourceEnum[][]> theaterPatternList= new ArrayList<>();
 
     public Theater(ArrayList<Building> b) {
         buildingsOnBoard = new ArrayList<>(b);
@@ -27,7 +24,7 @@ public class Theater extends Building
         theaterArray[1][0] = ResourceEnum.WOOD;
         theaterArray[1][1] = ResourceEnum.GLASS;
         theaterArray[1][2] = ResourceEnum.WOOD;
-        theaterPatternList[0] = theaterArray;
+        patternBuilder(theaterArray, theaterPatternList, 3);
     }
 
     public Theater() {
@@ -37,7 +34,7 @@ public class Theater extends Building
         theaterArray[1][0] = ResourceEnum.WOOD;
         theaterArray[1][1] = ResourceEnum.GLASS;
         theaterArray[1][2] = ResourceEnum.WOOD;
-        theaterPatternList[0] = theaterArray;
+        patternBuilder(theaterArray, theaterPatternList, 3);
     }
 
     public BuildingEnum getType() {
@@ -52,13 +49,13 @@ public class Theater extends Building
     public String toString() {
         return "Theater";
     }
-    public ResourceEnum[][][] getPatterns() {
+    public ArrayList<ResourceEnum[][]> getPatterns() {
         return theaterPatternList;
     }
     public void printManualText() {
         System.out.println("The Theater grants one point for each unique building in it's row and column.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(theaterPatternList[0]);
+        Utility.arrayPrinter(theaterArray);
     }
     public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
         Scanner sc = new Scanner((System.in));

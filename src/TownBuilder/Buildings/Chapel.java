@@ -12,7 +12,7 @@ public class Chapel extends Building{
     private int count = 0;
     private static ResourceEnum[][] templeArray = new ResourceEnum[2][3];
     private static ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
-    private static ResourceEnum[][][] templePatternList = new ResourceEnum[2][2][2];
+    private static final ArrayList<ResourceEnum[][]> templeList = new ArrayList<>();
 
     public Chapel() {
         condition = false;
@@ -22,15 +22,24 @@ public class Chapel extends Building{
         templeArray[1][0] = ResourceEnum.STONE;
         templeArray[1][1] = ResourceEnum.GLASS;
         templeArray[1][2] = ResourceEnum.STONE;
+        patternBuilder(templeArray, templeList, 3);
+
         templeArrayMirror[0][0] = ResourceEnum.GLASS;
         templeArrayMirror[0][1] = ResourceEnum.NONE;
         templeArrayMirror[0][2] = ResourceEnum.NONE;
         templeArrayMirror[1][0] = ResourceEnum.STONE;
         templeArrayMirror[1][1] = ResourceEnum.GLASS;
         templeArrayMirror[1][2] = ResourceEnum.STONE;
-        templePatternList[0] = templeArray;
-        templePatternList[1] = templeArrayMirror;
+        patternBuilder(templeArrayMirror, templeList, 3);
     }
+    public void printList() {
+        System.out.println("Temple List");
+        for (int i = 0; i < templeList.size(); i++) {
+            System.out.println(i);
+            Utility.arrayPrinter(templeList.get(i));
+        }
+    }
+
     public BuildingEnum getType() {
         return BuildingEnum.CHAPEL;
     }
@@ -46,7 +55,7 @@ public class Chapel extends Building{
     public void printManualText() {
         System.out.println("The Chapel grants one point for each fed Cottage.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(templePatternList[0]);
+        Utility.arrayPrinter(templeArray);
     }
     public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
         Scanner sc = new Scanner((System.in));
@@ -75,9 +84,9 @@ public class Chapel extends Building{
 
     @Override
 
-    public ResourceEnum[][][] getPatterns() {
+    public ArrayList<ResourceEnum[][]> getPatterns() {
 
-        return templePatternList;
+        return templeList;
     }
     public int scorer(Building[][] bArray, int row, int col) {
         int score = 0;
@@ -100,4 +109,6 @@ public class Chapel extends Building{
     public int getCount() {
         return count;
     }
+
+
 }

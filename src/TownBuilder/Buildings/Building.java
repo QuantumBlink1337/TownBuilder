@@ -2,7 +2,7 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 import TownBuilder.TownResource;
-import TownBuilder.Utility;
+
 import java.util.ArrayList;
 
 public abstract class Building {
@@ -12,11 +12,18 @@ public abstract class Building {
 
     public abstract BuildingEnum getType();
     public abstract boolean getCondition();
-    public abstract ResourceEnum[][][] getPatterns();
+    public abstract ArrayList<ResourceEnum[][]> getPatterns();
     public abstract String toString();
     public abstract int scorer(Building[][] bArray, int row, int col);
     public abstract void setCount();
     public abstract int getCount();
+    public void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
+        if (rotations > 0) {
+            ResourceEnum[][] rotatedPattern = Building.buildingRotation(pattern);
+            patternList.add(rotatedPattern);
+            patternBuilder(rotatedPattern, patternList, rotations-1);
+        }
+    }
 
 //    public static ArrayList<TownResource> getValidResources() {
 //        return validResources;
@@ -35,43 +42,15 @@ public abstract class Building {
     public abstract void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
     public abstract void printManualText();
 
-    public static boolean detection(int row, int col, TownResource[][] rArray, ResourceEnum[][][] bT, BuildingEnum buildingType) {
-
-                //System.out.println("Received detection call for " + buildingType);
-                //System.out.println("Length of bT: " + bT.length);
-                //System.out.println("Checking " + Utility.coordsToOutput(row, col));
-                int checkTime = 0;
-                int patternIndex = 0;
-                for (ResourceEnum[][] ignored : bT) {
-                    checkTime += 4;
+    public static boolean detection(int row, int col, TownResource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
+        for (int i = 0; i < bT.size(); i++) {
+            if (compare(row, col, rArray, bT.get(i))) {
+                for (TownResource validResource : validResources) {
+                    validResource.setScannedBuilding(buildingType);
                 }
-                //System.out.println("CheckTime: " + checkTime);
-                ResourceEnum[][][] buildingTemplate = bT;
-               // try {
-                    for (int i = 1; i < checkTime+1; i++) {
-                        //System.out.println("i: " + i);
-                        if (i % 5 == 0) {
-                            //System.out.println("Switching to next pattern available");
-                            patternIndex++;
-                        }
-                        //Utility.arrayPrinter(bT[patternIndex]);
-                        if (compare(row, col, rArray, buildingTemplate[patternIndex])) {
-                            for (TownResource validResource : validResources) {
-                                validResource.setScannedBuilding(buildingType);
-                            }
-                            //System.out.println("Size at compare" + validResources.size());
-                            return true;
-                        }
-                        else {
-                            //System.out.println("Rotating pattern.");
-                            buildingTemplate[patternIndex] = buildingRotation(buildingTemplate[patternIndex]);
-                        }
-                    }
-                //}
-//                catch (ArrayIndexOutOfBoundsException e) {
-//                    System.out.println("Out of bounds exception");
-//                }
-
+                return true;
+            }
+        }
         return false;
     }
     private static boolean compare(int row, int col, TownResource[][] rArray, ResourceEnum[][] buildingTemplate) {
@@ -109,7 +88,7 @@ public abstract class Building {
         //System.out.println("Checked tile has no match");
         return false;
     }
-    private static ResourceEnum[][] buildingRotation(ResourceEnum[][] a) {
+    protected static ResourceEnum[][] buildingRotation(ResourceEnum[][] a) {
         //System.out.println("No match found. Flipping array...");
         final int M = a.length;
         final int N = a[0].length;
