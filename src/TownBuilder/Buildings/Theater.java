@@ -19,7 +19,7 @@ public class Theater extends Building
     private static final ResourceEnum[][][] theaterPatternList = new ResourceEnum[1][2][2];
 
     public Theater(ArrayList<Building> b) {
-        buildingsOnBoard = b;
+        buildingsOnBoard = new ArrayList<>(b);
         condition = false;
         theaterArray[0][0] = ResourceEnum.NONE;
         theaterArray[0][1] = ResourceEnum.STONE;
@@ -97,10 +97,12 @@ public class Theater extends Building
     }
     private int buildingMatch(Building toBeChecked, Building scoreTarget) {
         int score = 0;
-        for (int i = 0;  i < buildingsOnBoard.size(); i++) {
-            if (toBeChecked.getType() == buildingsOnBoard.get(i).getType()) {
+        System.out.println("buildingMatch called");
+        ArrayList<Building> buildings = buildingsOnBoard;
+        for (int i = 0;  i < buildings.size(); i++) {
+            if (toBeChecked.getType() == buildings.get(i).getType()) {
                 if (!toBeChecked.equals(scoreTarget)) {
-                    buildingsOnBoard.remove(i);
+                    buildings.remove(i);
                     score++;
                 }
 

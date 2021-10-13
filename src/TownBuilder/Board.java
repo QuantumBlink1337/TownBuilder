@@ -5,9 +5,11 @@ import TownBuilder.Buildings.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Board {
     private final ArrayList<Building> buildingsForGame;
@@ -89,9 +91,9 @@ public class Board {
         int totalScore = 0;
         int score = 0;
         int resourcePenalty =0;
-        HashMap<Building, Integer> scores = new HashMap<>(buildingsForGame.size());
+        HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
         for (int i = 0; i < buildingsForGame.size(); i++) {
-            scores.put(buildingsForGame.get(i), 0);
+            scores.put(buildingsForGame.get(i).getType(), 0);
         }
         ArrayList<Building> chapels = new ArrayList<>();
         for (int r = 0; r < gameBuildingBoard.length; r++) {
@@ -103,7 +105,7 @@ public class Board {
                     }
                     else {
                         score = gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
-                        scores.put(gameBuildingBoard[r][c], score);
+                        scores.put(gameBuildingBoard[r][c].getType(), scores.get(gameBuildingBoard[r][c].getType())+score);
                         //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
                         totalScore += score;
                         //System.out.println("Total score now: "+totalScore);
@@ -118,12 +120,16 @@ public class Board {
         for (Building chapel : chapels) {
             score = chapel.scorer(gameBuildingBoard, 0, 0);
             totalScore += score;
-            scores.put(chapel, score);
+            scores.put(chapel.getType(), score);
         }
+        totalScore -= resourcePenalty;
         for (int i = 0; i < scores.size(); i++) {
+            System.out.println("Score contribution of "+buildingsForGame.get(i).toString() + ": " +scores.get(buildingsForGame.get(i).getType()));
 
         }
-        return totalScore - resourcePenalty;
+        System.out.println("Resource penalty: -" + resourcePenalty);
+        System.out.println("Total score: " + totalScore);
+        return totalScore;
     }
     public boolean gameOver() {
         int i = 0;
@@ -156,6 +162,7 @@ public class Board {
         }
     }
     public void detectValidBuilding() {
+        long initialTime = System.nanoTime();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (int i = 0; i < buildingsForGame.size(); i++) {
@@ -165,6 +172,7 @@ public class Board {
                 }
             }
         }
+        System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
     }
     public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws InterruptedException, IOException, URISyntaxException {
         ResourceEnum turnResource = null;
