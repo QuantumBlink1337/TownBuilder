@@ -51,8 +51,8 @@ public class Scorer {
                         //System.out.println("Total score now: "+totalScore);
                     }
                 }
-                else if (board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.NONE || board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
-                    //System.out.println("Resource found. Decrementing");
+                else if (board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.NONE && board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
+                    //System.out.println("Resource found. Decrementing. Resource: "+board.getGameResourceBoard()[r][c].getResource());
                     resourcePenalty++;
                 }
             }
@@ -78,7 +78,9 @@ public class Scorer {
             }
             previousScore = totalScore;
         }
-        System.out.println("Total score: " + totalScore);
+        else {
+            System.out.println("Total score: " + totalScore);
+        }
         return totalScore;
     }
 }

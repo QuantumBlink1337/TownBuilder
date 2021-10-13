@@ -65,26 +65,25 @@ public class Board {
             }
         }
          //Test Case - Legitimate Game Board
-        gameBuildingBoard[0][0] = new Cottage();
-        gameBuildingBoard[0][1] = new Cottage();
-        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);
-        gameBuildingBoard[0][3] = new Cottage();
-
-        gameBuildingBoard[1][0] = new Well();
-        gameResourceBoard[1][1].setResource(ResourceEnum.WOOD);
-        gameResourceBoard[1][2].setResource(ResourceEnum.WOOD);
-        gameBuildingBoard[1][3] = new Theater(buildingsForGame);
-
-        gameBuildingBoard[2][0] = new Theater(buildingsForGame);
-        gameBuildingBoard[2][1] = new Cottage();
-        gameBuildingBoard[2][2] = new Well();
-        gameBuildingBoard[2][3] = new Tavern();
-
-        gameBuildingBoard[3][0] = new Chapel();
-        gameBuildingBoard[3][1] = new Farm();
-          gameBuildingBoard[3][2] = new Warehouse();
+//        gameBuildingBoard[0][0] = new Cottage();
+//        gameBuildingBoard[0][1] = new Cottage();
+//        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);
+//        gameBuildingBoard[0][3] = new Cottage();
+//
+//        gameBuildingBoard[1][0] = new Well();
+//        gameResourceBoard[1][1].setResource(ResourceEnum.WOOD);
+//        gameResourceBoard[1][2].setResource(ResourceEnum.WOOD);
+//        gameBuildingBoard[1][3] = new Theater(buildingsForGame);
+//
+//        gameBuildingBoard[2][0] = new Theater(buildingsForGame);
+//        gameBuildingBoard[2][1] = new Cottage();
+//        gameBuildingBoard[2][2] = new Well();
+//        gameBuildingBoard[2][3] = new Tavern();
+//
+//        gameBuildingBoard[3][0] = new Chapel();
+//        gameBuildingBoard[3][1] = new Farm();
+//          gameBuildingBoard[3][2] = new Warehouse();
     }
-    // move this to its own class
     public int scoring(boolean isMidGameCheck) {
         return scorer.scoring(isMidGameCheck);
     }

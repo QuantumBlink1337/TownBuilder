@@ -62,6 +62,7 @@ public class Driver {
             do {
                 Board pickResourceBoard = boardArrayList.get(0);
                 pickResourceBoard.renderBoard();
+                System.out.println("It's "+ pickResourceBoard.getBoardName() + "'s turn to DECIDE the resource!");
                 resource = pickResourceBoard.resourcePicker(true);
                 pickResourceBoard.playerTurn(resource);
                 pickResourceBoard.detectValidBuilding();
