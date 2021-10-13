@@ -94,7 +94,6 @@ public class Theater extends Building
     }
     private int buildingMatch(Building toBeChecked, Building scoreTarget) {
         int score = 0;
-        System.out.println("buildingMatch called");
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);
         for (int i = 0;  i < buildings.size(); i++) {
             if (toBeChecked.getType() == buildings.get(i).getType()) {
