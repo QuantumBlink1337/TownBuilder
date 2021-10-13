@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class Board {
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
+    private final Scorer scorer;
     private int boardNumber = 0;
     private int turn = 0;
     private boolean isGameCompletion = false;
@@ -33,8 +34,9 @@ public class Board {
         System.out.println("What's your name?");
         boardNumber = p;
         boardName = sc.nextLine();
-        buildingsForGame = b;
+        buildingsForGame = new ArrayList<>(b);
         manual = new Manual(buildingsForGame);
+        scorer = new Scorer(this, buildingsForGame);
         gameCompletion = false;
         buildArrays();
         updateBoard();
@@ -81,55 +83,10 @@ public class Board {
         gameBuildingBoard[3][0] = new Chapel();
         gameBuildingBoard[3][1] = new Farm();
           gameBuildingBoard[3][2] = new Warehouse();
-
-
-
-
     }
     // move this to its own class
-    public int scoring() {
-        int totalScore = 0;
-        int score = 0;
-        int resourcePenalty =0;
-        HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
-        for (int i = 0; i < buildingsForGame.size(); i++) {
-            scores.put(buildingsForGame.get(i).getType(), 0);
-        }
-        ArrayList<Building> chapels = new ArrayList<>();
-        for (int r = 0; r < gameBuildingBoard.length; r++) {
-            for (int c = 0; c < gameBuildingBoard[r].length; c++) {
-                if (gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
-                    //System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
-                    if (gameBuildingBoard[r][c].getType() == BuildingEnum.CHAPEL) {
-                        chapels.add(gameBuildingBoard[r][c]);
-                    }
-                    else {
-                        score = gameBuildingBoard[r][c].scorer(gameBuildingBoard, r, c);
-                        scores.put(gameBuildingBoard[r][c].getType(), scores.get(gameBuildingBoard[r][c].getType())+score);
-                        //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
-                        totalScore += score;
-                        //System.out.println("Total score now: "+totalScore);
-                    }
-                }
-                else if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameResourceBoard[r][c].getResource() != ResourceEnum.OBSTRUCTED) {
-                    //System.out.println("Resource found. Decrementing");
-                    resourcePenalty++;
-                }
-            }
-        }
-        for (Building chapel : chapels) {
-            score = chapel.scorer(gameBuildingBoard, 0, 0);
-            totalScore += score;
-            scores.put(chapel.getType(), score);
-        }
-        totalScore -= resourcePenalty;
-        for (int i = 0; i < scores.size(); i++) {
-            System.out.println("Score contribution of "+buildingsForGame.get(i).toString() + ": " +scores.get(buildingsForGame.get(i).getType()));
-
-        }
-        System.out.println("Resource penalty: -" + resourcePenalty);
-        System.out.println("Total score: " + totalScore);
-        return totalScore;
+    public int scoring(boolean isMidGameCheck) {
+        return scorer.scoring(isMidGameCheck);
     }
     public boolean gameOver() {
         int i = 0;
@@ -252,6 +209,7 @@ public class Board {
             }
             while (userCoordinate.length() != 2) {
                 System.out.println("Where would you like to place your "+ resource+ " resource? "+warehouseText+" Alternatively, to view the game manual type 'help'");
+                System.out.println("You may also run a tentative score check on your board with 'score'.");
                 if (warehouseExists) {
                     ResourceEnum[] list = warehouse.getStoredResources();
                     System.out.println("Here's what's inside the warehouse: "+ list[0] + "," + list[1] + "," + list[2]);
@@ -259,6 +217,10 @@ public class Board {
                 userCoordinate = sc.nextLine().toLowerCase();
                 if (userCoordinate.equals("help") || userCoordinate.equals("h") || userCoordinate.equals("manual") || userCoordinate.equals("m")) {
                     manual.openManual();
+                    renderBoard();
+                }
+                if (userCoordinate.equals("score") || userCoordinate.equals("s")) {
+                    scoring(true);
                     renderBoard();
                 }
                 else if (userCoordinate.equals("place") && warehouseExists) {
@@ -384,5 +346,11 @@ public class Board {
 
     public void setTurnComplete(boolean turnComplete) {
         this.turnComplete = turnComplete;
+    }
+    public TownResource[][] getGameResourceBoard() {
+        return gameResourceBoard;
+    }
+    public Building[][] getGameBuildingBoard() {
+        return gameBuildingBoard;
     }
 }
