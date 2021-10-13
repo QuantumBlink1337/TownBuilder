@@ -56,7 +56,7 @@ public class Driver {
                     board.detectValidBuilding();
                 }
             }
-            board.scoring();
+            board.scoring(false);
         }
         else {
             do {
@@ -68,7 +68,8 @@ public class Driver {
                 boardArrayList.remove(pickResourceBoard);
                 pickResourceBoard.setGameCompletion(pickResourceBoard.gameOver());
                 if (pickResourceBoard.isGameCompletion()) {
-                    System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+pickResourceBoard.scoring());
+                    int score = pickResourceBoard.scoring(false);
+                    System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+score);
                 }
 
                 for (int p = 0; p < boardArrayList.size(); p++) {
@@ -80,7 +81,8 @@ public class Driver {
                         temp.detectValidBuilding();
                         temp.setGameCompletion(temp.gameOver());
                         if (temp.isGameCompletion()) {
-                            System.out.println(temp.getBoardName() + "'s final score: "+temp.scoring());
+                            int score = pickResourceBoard.scoring(false);
+                            System.out.println(temp.getBoardName() + "'s final score: "+score);
                             boardArrayList.remove(temp);
                         }
                     }
