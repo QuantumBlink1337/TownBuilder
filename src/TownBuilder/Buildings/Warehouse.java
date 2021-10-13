@@ -142,7 +142,7 @@ public class Warehouse extends Building{
     public ArrayList<ResourceEnum[][]> getPatterns() {
         return warehousePatternList;
     }
-    public int scorer(Building[][] bArray, int row, int col) {
+    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
         for (ResourceEnum resource : storedResources) {
             if (resource != ResourceEnum.NONE) {

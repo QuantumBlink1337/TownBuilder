@@ -29,7 +29,7 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int row, int col) {
+    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         return 0;
     }
 

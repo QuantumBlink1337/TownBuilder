@@ -75,7 +75,7 @@ public class Farm extends Building {
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         bArray[coords[0]][coords[1]] = new Farm();
     }
-    public int scorer(Building[][] bArray, int row, int col) {
+    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         return 0;
     }
     @Override

@@ -13,6 +13,7 @@ public class Tavern extends Building{
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
     static int scoreIncrement = 2;
+    private static final int SCORE_INCREMENT_STARTING_VALUE = 2;
 
     public Tavern() {
         tavernArray[0][0] = ResourceEnum.BRICK;
@@ -71,14 +72,13 @@ public class Tavern extends Building{
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         bArray[coords[0]][coords[1]] = new Tavern();
     }
-    public int scorer(Building[][] bArray, int row, int col) {
+    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         if (condition) {
             return 0;
         }
         int score =0;
         //System.out.println("Adding scoreIncrement " + scoreIncrement + " to score " + score);
         score += scoreIncrement;
-        scoreIncrement++;
 
         return score;
     }
@@ -90,5 +90,9 @@ public class Tavern extends Building{
     @Override
     public int getCount() {
         return count;
+    }
+
+    public static int getSCORE_INCREMENT_STARTING_VALUE() {
+        return SCORE_INCREMENT_STARTING_VALUE;
     }
 }

@@ -14,7 +14,7 @@ public abstract class Building {
     public abstract boolean getCondition();
     public abstract ArrayList<ResourceEnum[][]> getPatterns();
     public abstract String toString();
-    public abstract int scorer(Building[][] bArray, int row, int col);
+    public abstract int scorer(Building[][] bArray, int row, int col, int scoreIncrement);
     public abstract void setCount();
     public abstract int getCount();
     public void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {

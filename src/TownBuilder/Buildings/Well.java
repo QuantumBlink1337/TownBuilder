@@ -71,7 +71,7 @@ public class Well extends Building {
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         bArray[coords[0]][coords[1]] = new Well();
     }
-    public int scorer(Building[][] bArray, int row, int col) {
+    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
         try {
             if (bArray[row][col-1].getType() == BuildingEnum.COTTAGE) {

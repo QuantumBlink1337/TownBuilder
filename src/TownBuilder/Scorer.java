@@ -2,8 +2,8 @@ package TownBuilder;
 
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.Tavern;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,9 +21,16 @@ public class Scorer {
         int totalScore = 0;
         int score = 0;
         int resourcePenalty =0;
+        int scoreIncrement = 0;
+        BuildingEnum scoreIncrementType = BuildingEnum.NONE;
         HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
         for (int i = 0; i < buildingsForGame.size(); i++) {
             scores.put(buildingsForGame.get(i).getType(), 0);
+            if (buildingsForGame.get(i).getType() == BuildingEnum.TAVERN) {
+                scoreIncrement = Tavern.getSCORE_INCREMENT_STARTING_VALUE();
+                scoreIncrementType = BuildingEnum.TAVERN;
+
+            }
         }
         ArrayList<Building> chapels = new ArrayList<>();
         for (int r = 0; r < board.getGameBuildingBoard().length; r++) {
@@ -34,7 +41,10 @@ public class Scorer {
                         chapels.add(board.getGameBuildingBoard()[r][c]);
                     }
                     else {
-                        score = board.getGameBuildingBoard()[r][c].scorer(board.getGameBuildingBoard(), r, c);
+                        score = board.getGameBuildingBoard()[r][c].scorer(board.getGameBuildingBoard(), r, c, scoreIncrement);
+                        if (scoreIncrementType == board.getGameBuildingBoard()[r][c].getType()) {
+                            scoreIncrement++;
+                        }
                         scores.put(board.getGameBuildingBoard()[r][c].getType(), scores.get(board.getGameBuildingBoard()[r][c].getType())+score);
                         //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
                         totalScore += score;
@@ -48,7 +58,7 @@ public class Scorer {
             }
         }
         for (Building chapel : chapels) {
-            score = chapel.scorer(board.getGameBuildingBoard(), 0, 0);
+            score = chapel.scorer(board.getGameBuildingBoard(), 0, 0, 0);
             totalScore += score;
             scores.put(chapel.getType(), score);
         }
