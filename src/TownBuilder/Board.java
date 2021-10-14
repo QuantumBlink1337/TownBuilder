@@ -12,11 +12,9 @@ public class Board {
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
     private final Scorer scorer;
-    private int boardNumber = 0;
     private int turn = 0;
     private boolean isGameCompletion = false;
-    private boolean turnComplete = false;
-    private String boardName;
+    private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
     private final String[][] gameBoard = new String[4][4];
@@ -24,17 +22,14 @@ public class Board {
     private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
 
-    private boolean gameCompletion;
     private final Scanner sc = new Scanner(System.in);
 
-    public Board(ArrayList<Building> b, int p) {
+    public Board(ArrayList<Building> b) {
         System.out.println("What's your name?");
-        boardNumber = p;
         boardName = sc.nextLine();
         buildingsForGame = new ArrayList<>(b);
         manual = new Manual(buildingsForGame);
         scorer = new Scorer(this, buildingsForGame);
-        gameCompletion = false;
         buildArrays();
         updateBoard();
     }
@@ -103,7 +98,7 @@ public class Board {
             return false;
         }
     }
-    private void placementPrompt(Building building, int row, int col) {
+    private void placementPrompt(Building building) {
         System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at the following coordinates:");
         Utility.displayValidResources(gameResourceBoard);
         System.out.println("Place it this turn?");
@@ -118,17 +113,17 @@ public class Board {
         long initialTime = System.nanoTime();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                for (int i = 0; i < buildingsForGame.size(); i++) {
-                    if (Building.detection(row, col, gameResourceBoard, buildingsForGame.get(i).getPatterns(), buildingsForGame.get(i).getType())) {
-                        placementPrompt(buildingsForGame.get(i), row, col);
+                for (Building building : buildingsForGame) {
+                    if (Building.detection(row, col, gameResourceBoard, building.getPatterns(), building.getType())) {
+                        placementPrompt(building);
                     }
                 }
             }
         }
         System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
     }
-    public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws InterruptedException, IOException, URISyntaxException {
-        ResourceEnum turnResource = null;
+    public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
+        ResourceEnum turnResource;
         if (isMultiplayerGame) {
             do {
                 turnResource = ResourceEnum.resourcePicker();
@@ -184,7 +179,7 @@ public class Board {
         return turnResource;
     }
 
-    public void playerTurn(ResourceEnum resource) throws InterruptedException, IOException, URISyntaxException {
+    public void playerTurn(ResourceEnum resource) throws IOException, URISyntaxException {
         String userCoordinate = "";
         boolean validSpot;
         Warehouse warehouse = null;
@@ -196,7 +191,7 @@ public class Board {
             warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
             warehouseExists = true;
         }
-        catch(ClassCastException e) {}
+        catch(ClassCastException ignored) {}
         do {
             validSpot = false;
 
@@ -251,7 +246,7 @@ public class Board {
                 if (validSpot) {
                     break;
                 }
-                else if ((coords[0] == -1 || coords[1] == -1 && userCoordinate.length() > 2)) {
+                else if (coords[0] == -1 || coords[1] == -1) {
                     System.out.println("Your coordinate is not valid.");
                 }
                 else if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
@@ -274,8 +269,6 @@ public class Board {
                     gameBoard[row][col] = "[" + Utility.lengthResizer(gameResourceBoard[row][col].toString(), 7) + "]";
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-//                    System.out.println("Printing Building list");
-//                    System.out.println(gameBuildingBoard[row][col].getType());
                     gameBoard[row][col] = "["+ Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), 7) + "]";
                 }
                 else {
@@ -316,18 +309,6 @@ public class Board {
         return boardName;
     }
 
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
-    }
-
-    public int getBoardNumber() {
-        return boardNumber;
-    }
-
-    public void setBoardNumber(int boardNumber) {
-        this.boardNumber = boardNumber;
-    }
-
     public boolean isGameCompletion() {
         return isGameCompletion;
     }
@@ -336,13 +317,6 @@ public class Board {
         isGameCompletion = gameCompletion;
     }
 
-    public boolean isTurnComplete() {
-        return turnComplete;
-    }
-
-    public void setTurnComplete(boolean turnComplete) {
-        this.turnComplete = turnComplete;
-    }
     public Resource[][] getGameResourceBoard() {
         return gameResourceBoard;
     }

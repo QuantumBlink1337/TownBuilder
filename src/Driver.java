@@ -37,7 +37,7 @@ public class Driver {
         }
         while (playerCount <= 0 || playerCount > 6);
         for (int i= 0; i < playerCount; i++) {
-            Board temp = new Board(buildings, i);
+            Board temp = new Board(buildings);
             boardArrayList.add(temp);
             }
         Manual.tutorial();
