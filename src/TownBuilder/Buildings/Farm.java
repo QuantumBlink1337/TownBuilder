@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Farm extends Building {
-    private boolean condition;
+    private final boolean condition;
     private int fed;
-    private int count = 0;
     private static final ResourceEnum[][] farmArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> farmPatternList = new ArrayList<>();
 
@@ -27,14 +26,12 @@ public class Farm extends Building {
     public BuildingEnum getType() {
         return BuildingEnum.FARM;
     }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
+
     public boolean getCondition() {
         return condition;
     }
-    public int decrementFed() {
-        return --fed;
+    public void decrementFed() {
+        --fed;
     }
     public int getFed() {
         return fed;
