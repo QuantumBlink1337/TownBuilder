@@ -2,11 +2,10 @@ package TownBuilder;
 
 import TownBuilder.Buildings.BuildingEnum;
 
-public class TownResource {
+public class Resource {
     private ResourceEnum resource;
-    private ResourceEnum status;
     private BuildingEnum scannedBuilding;
-    public TownResource(ResourceEnum r) {
+    public Resource(ResourceEnum r) {
         resource = r;
         scannedBuilding = BuildingEnum.NONE;
     }
@@ -19,9 +18,6 @@ public class TownResource {
     }
     public BuildingEnum getScannedBuilding() {
         return scannedBuilding;
-    }
-    public ResourceEnum getStatus() {
-        return status;
     }
 
 

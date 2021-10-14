@@ -1,7 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.TownResource;
+import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class Tavern extends Building{
 
         return tavernPatternList;
     }
-    public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
+    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
         Scanner sc = new Scanner((System.in));
         String userInput;
         int[] coords;
@@ -65,7 +65,7 @@ public class Tavern extends Building{
         }
         while (!validInput);
 
-        for (TownResource validResource : Building.getValidResources()) {
+        for (Resource validResource : Building.getValidResources()) {
             validResource.setResource(ResourceEnum.NONE);
         }
         clearResources(BuildingEnum.TAVERN);

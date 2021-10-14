@@ -19,7 +19,7 @@ public class Utility {
             }
         }
     }
-    public static void displayValidResources(TownResource[][] rArray) {
+    public static void displayValidResources(Resource[][] rArray) {
         for (int r = 0; r < rArray.length; r++) {
             for (int c = 0; c < rArray[r].length; c++) {
                 for (int i = 0; i < Building.getValidResources().size(); i++) {

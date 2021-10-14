@@ -5,11 +5,8 @@ import TownBuilder.Buildings.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Board {
     private final ArrayList<Building> buildingsForGame;
@@ -20,7 +17,7 @@ public class Board {
     private boolean isGameCompletion = false;
     private boolean turnComplete = false;
     private String boardName;
-    private final TownResource[][] gameResourceBoard = new TownResource[4][4];
+    private final Resource[][] gameResourceBoard = new Resource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
     private final String[][] gameBoard = new String[4][4];
     private final String[][] coordinateBoard = new String[4][4];
@@ -48,7 +45,7 @@ public class Board {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                gameResourceBoard[row][col] = new TownResource(ResourceEnum.NONE);
+                gameResourceBoard[row][col] = new Resource(ResourceEnum.NONE);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -346,7 +343,7 @@ public class Board {
     public void setTurnComplete(boolean turnComplete) {
         this.turnComplete = turnComplete;
     }
-    public TownResource[][] getGameResourceBoard() {
+    public Resource[][] getGameResourceBoard() {
         return gameResourceBoard;
     }
     public Building[][] getGameBuildingBoard() {

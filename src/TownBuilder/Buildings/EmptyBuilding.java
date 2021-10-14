@@ -1,7 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.TownResource;
+import TownBuilder.Resource;
 
 import java.util.ArrayList;
 
@@ -44,7 +44,7 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
-    public void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
+    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
 
     }
 

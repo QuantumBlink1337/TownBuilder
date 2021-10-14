@@ -1,13 +1,13 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.TownResource;
+import TownBuilder.Resource;
 
 import java.util.ArrayList;
 
 public abstract class Building {
 
-    private static final ArrayList<TownResource> validResources = new ArrayList<>();
+    private static final ArrayList<Resource> validResources = new ArrayList<>();
 
 
     public abstract BuildingEnum getType();
@@ -36,16 +36,16 @@ public abstract class Building {
             }
         }
     }
-    public static ArrayList<TownResource> getValidResources() {
+    public static ArrayList<Resource> getValidResources() {
         return validResources;
     }
-    public abstract void placement(TownResource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
+    public abstract void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
     public abstract void printManualText();
 
-    public static boolean detection(int row, int col, TownResource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
+    public static boolean detection(int row, int col, Resource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
         for (int i = 0; i < bT.size(); i++) {
             if (compare(row, col, rArray, bT.get(i))) {
-                for (TownResource validResource : validResources) {
+                for (Resource validResource : validResources) {
                     validResource.setScannedBuilding(buildingType);
                 }
                 return true;
@@ -53,7 +53,7 @@ public abstract class Building {
         }
         return false;
     }
-    private static boolean compare(int row, int col, TownResource[][] rArray, ResourceEnum[][] buildingTemplate) {
+    private static boolean compare(int row, int col, Resource[][] rArray, ResourceEnum[][] buildingTemplate) {
         try {
             for (int r = 0; r < buildingTemplate.length; r++) {
                 for (int c = 0; c < buildingTemplate[r].length; c++) {
@@ -75,7 +75,7 @@ public abstract class Building {
         }
         return true;
     }
-    private static boolean match(TownResource toBeChecked, ResourceEnum checker) {
+    private static boolean match(Resource toBeChecked, ResourceEnum checker) {
         if (checker == ResourceEnum.NONE) {
             //  System.out.println("Checked tile was matched to NONE, therefore it is true");
             return true;
