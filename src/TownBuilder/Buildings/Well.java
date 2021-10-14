@@ -99,13 +99,5 @@ public class Well extends Building {
         catch (ArrayIndexOutOfBoundsException ignored) {}
         return score;
     }
-    @Override
-    public void setCount() {
-        count++;
-    }
 
-    @Override
-    public int getCount() {
-        return count;
-    }
 }

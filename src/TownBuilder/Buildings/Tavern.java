@@ -82,15 +82,6 @@ public class Tavern extends Building{
 
         return score;
     }
-    @Override
-    public void setCount() {
-        count++;
-    }
-
-    @Override
-    public int getCount() {
-        return count;
-    }
 
     public static int getSCORE_INCREMENT_STARTING_VALUE() {
         return SCORE_INCREMENT_STARTING_VALUE;

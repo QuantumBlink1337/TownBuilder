@@ -15,8 +15,9 @@ public abstract class Building {
     public abstract ArrayList<ResourceEnum[][]> getPatterns();
     public abstract String toString();
     public abstract int scorer(Building[][] bArray, int row, int col, int scoreIncrement);
-    public abstract void setCount();
-    public abstract int getCount();
+    public abstract void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
+    public abstract void printManualText();
+
     public void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
         if (rotations > 0) {
             ResourceEnum[][] rotatedPattern = Building.buildingRotation(pattern);
@@ -24,11 +25,6 @@ public abstract class Building {
             patternBuilder(rotatedPattern, patternList, rotations-1);
         }
     }
-
-//    public static ArrayList<TownResource> getValidResources() {
-//        return validResources;
-//    }
-
     public static void clearResources(BuildingEnum building) {
         for (int i = 0; i < validResources.size(); i++) {
             if (validResources.get(i).getScannedBuilding() == building) {
@@ -39,12 +35,11 @@ public abstract class Building {
     public static ArrayList<Resource> getValidResources() {
         return validResources;
     }
-    public abstract void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
-    public abstract void printManualText();
+
 
     public static boolean detection(int row, int col, Resource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
-        for (int i = 0; i < bT.size(); i++) {
-            if (compare(row, col, rArray, bT.get(i))) {
+        for (ResourceEnum[][] resourceEnums : bT) {
+            if (compare(row, col, rArray, resourceEnums)) {
                 for (Resource validResource : validResources) {
                     validResource.setScannedBuilding(buildingType);
                 }
@@ -57,14 +52,9 @@ public abstract class Building {
         try {
             for (int r = 0; r < buildingTemplate.length; r++) {
                 for (int c = 0; c < buildingTemplate[r].length; c++) {
-                    //System.out.println("received call for detection");
                     if (!match(rArray[row+r][col+c], buildingTemplate[r][c])) {
                         validResources.clear();
-                        //System.out.print("Failed comparison at " + Utility.coordsToOutput(row+r, col+c));
                         return false;
-                    }
-                    else {
-                        //System.out.println("Successful comparison at " + Utility.coordsToOutput(row+r, col+c));
                     }
                 }
             }
@@ -77,19 +67,15 @@ public abstract class Building {
     }
     private static boolean match(Resource toBeChecked, ResourceEnum checker) {
         if (checker == ResourceEnum.NONE) {
-            //  System.out.println("Checked tile was matched to NONE, therefore it is true");
             return true;
         }
         else if (toBeChecked.getResource() == checker) {
             validResources.add(toBeChecked);
-            //System.out.println("Checked tile was matched to an arbitrary value " + checker + ", therefore it is true");
             return true;
         }
-        //System.out.println("Checked tile has no match");
         return false;
     }
     protected static ResourceEnum[][] buildingRotation(ResourceEnum[][] a) {
-        //System.out.println("No match found. Flipping array...");
         final int M = a.length;
         final int N = a[0].length;
         ResourceEnum[][] ret = new ResourceEnum[N][M];
@@ -98,9 +84,6 @@ public abstract class Building {
                 ret[c][M - 1 - r] = a[r][c];
             }
         }
-        //System.out.println("Flipped array:");
-        //System.out.println("["+ret[0][0]+"]["+ret[0][1]+"]");
-        //System.out.println("["+ret[1][0]+"]["+ret[1][1]+"]");
         return ret;
     }
 }

@@ -151,13 +151,5 @@ public class Warehouse extends Building{
         }
         return score;
     }
-    @Override
-    public void setCount() {
-        count++;
-    }
 
-    @Override
-    public int getCount() {
-        return count;
-    }
 }

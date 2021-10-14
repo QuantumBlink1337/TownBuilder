@@ -78,13 +78,5 @@ public class Farm extends Building {
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         return 0;
     }
-    @Override
-    public void setCount() {
-        count++;
-    }
 
-    @Override
-    public int getCount() {
-        return count;
-    }
 }
