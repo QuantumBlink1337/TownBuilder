@@ -10,8 +10,6 @@ import java.util.Scanner;
 public class Warehouse extends Building{
     private boolean condition;
     private int fullness = 0;
-    private int count = 0;
-    private static Scanner sc = new Scanner(System.in);
     private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
     private static final ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> warehousePatternList = new ArrayList<>();
@@ -43,9 +41,7 @@ public class Warehouse extends Building{
     public BuildingEnum getType() {
         return BuildingEnum.WHOUSE;
     }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
+
     public boolean getCondition() {
         return condition;
     }
@@ -61,6 +57,7 @@ public class Warehouse extends Building{
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(warehouseArray);
     }
+    @SuppressWarnings("unused")
     public void fillResources() {
         storedResources[0] = ResourceEnum.GLASS;
         storedResources[1] = ResourceEnum.GLASS;
@@ -73,35 +70,24 @@ public class Warehouse extends Building{
     public static int getMinFullness() {
         return MIN_FULLNESS;
     }
-    public void printStoredResources() {
-        for (ResourceEnum resource : storedResources) {
-            System.out.println(resource);
-        }
-    }
+
     public ResourceEnum[] getStoredResources() {
         ResourceEnum[] list = new ResourceEnum[3];
-        for (int i = 0; i < storedResources.length; i++) {
-            list[i] = storedResources[i];
-        }
+        System.arraycopy(storedResources, 0, list, 0, storedResources.length);
         return list;
     }
     public ResourceEnum placeResource(ResourceEnum swappedResource, ResourceEnum requestedResource) {
         if (fullness < 3 && requestedResource == ResourceEnum.NONE) {
-            //System.out.println("Call made to place a resource inside of the Warehouse");
             storedResources[fullness] = swappedResource;
             fullness++;
-            //printStoredResources();
-            //System.out.println("Fullness after operation: " + fullness);
             return ResourceEnum.NONE;
         }
         else {
-            //System.out.println("Warehouse is full, so swapping it out");
             int index = arraySearcher(requestedResource, storedResources);
             ResourceEnum deletedResource;
             if (index != -1) {
                 deletedResource = storedResources[index];
                 storedResources[index] = swappedResource;
-                //printStoredResources();
                 return deletedResource;
             }
         }
