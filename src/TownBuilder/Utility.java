@@ -1,27 +1,25 @@
 package TownBuilder;
 
 import TownBuilder.Buildings.EmptyBuilding;
-import TownBuilder.Buildings.Warehouse;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
 import java.util.Scanner;
 
 public class Utility {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
     public static <T> void arrayPrinter(T[][] array) {
-        for (int row = 0; row < array.length; row++) {
-            for (int col = 0; col < array[row].length; col++) {
-                if (col == (array[row].length - 1)) {
-                    System.out.println("[" + array[row][col] + "]");
-                }
-                else {
-                    System.out.print("[" + array[row][col] + "]");
+        for (T[] ts : array) {
+            for (int col = 0; col < ts.length; col++) {
+                if (col == (ts.length - 1)) {
+                    System.out.println("[" + ts[col] + "]");
+                } else {
+                    System.out.print("[" + ts[col] + "]");
                 }
             }
         }
     }
-    public static void displayValidResources(TownResource rArray[][]) {
+    public static void displayValidResources(TownResource[][] rArray) {
         for (int r = 0; r < rArray.length; r++) {
             for (int c = 0; c < rArray[r].length; c++) {
                 for (int i = 0; i < Building.getValidResources().size(); i++) {
@@ -37,28 +35,22 @@ public class Utility {
         }
     }
     public static String lengthResizer(String t, int length) {
-        String target = t;
+        StringBuilder target = new StringBuilder(t);
         int targetLength = target.length();
         for (int i = 0; i < length - targetLength; i++) {
-            target = target + " ";
+            target.append(" ");
         }
-        return target;
+        return target.toString();
     }
-//    public static boolean anyKey() {
-//        String userInput = "";
-//        while (!userInput.equals(null)) {
-//            user
-//        }
-//    }
-    public static void log(String s, int level) {}
+
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
     public static Building boardParser(BuildingEnum buildingEnum, Building[][] bArray) {
-        for (int r = 0; r < bArray.length; r++) {
-            for (int c = 0; c < bArray[r].length; c++) {
-                if (buildingEnum == bArray[r][c].getType()) {
-                    return bArray[r][c];
+        for (Building[] buildings : bArray) {
+            for (Building building : buildings) {
+                if (buildingEnum == building.getType()) {
+                    return building;
                 }
             }
         }
@@ -69,8 +61,7 @@ public class Utility {
         int[] coords = new int[2];
         switch (input[0]) {
             case "a": //System.out.println("Case A");
-                    coords[1] = 0;
-                    break;
+                break;
             case "b": //System.out.println("Case B");
                     coords[1] = 1;
                     break;
@@ -86,8 +77,7 @@ public class Utility {
         }
         switch (input[1]) {
             case "1": //System.out.println("Case 0");
-                    coords[0] = 0;
-                    break;
+                break;
             case "2": //.out.println("Case 1");
                     coords[0] = 1;
                     break;
@@ -153,7 +143,7 @@ public class Utility {
     }
     public static void anyKey() {
         System.out.println("Press any key to continue.");
-        String input = sc.nextLine();
+        sc.nextLine();
     }
 
 }

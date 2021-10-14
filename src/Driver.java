@@ -21,7 +21,7 @@ public class Driver {
         buildings.add(new Warehouse());
         buildings.add(new Tavern());
         buildings.add(new Chapel());
-        int playerCount = 0;
+        int playerCount;
         ArrayList<Board> boardArrayList = new ArrayList<>();
 
         do {
