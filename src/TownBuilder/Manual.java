@@ -9,12 +9,12 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Manual {
-        private ArrayList<Building> gameBuildings;
-        private Scanner sc = new Scanner(System.in);
+        private final ArrayList<Building> gameBuildings;
+        private final Scanner sc = new Scanner(System.in);
     public Manual(ArrayList<Building> b) {
         gameBuildings = b;
     }
-    public static void tutorial() throws InterruptedException {
+    public static void tutorial() {
         System.out.println("Welcome to TownBuilder! You are the mayor of a town founded deep in the woods. It's up to you to build the town to success!");
         System.out.println("To do so, you'll be using five resources: Wheat, Glass, Brick, Stone, and Wood. You can place these on the board using coordinates, ");
         System.out.println("like a1, or c4. You can create buildings from patterns of resources to earn points. The goal of the game is to earn as many points as possible!");
@@ -24,7 +24,7 @@ public class Manual {
         System.out.println("You can reread this prompt as well as access other game information with the 'help' command during your turn.");
         Utility.anyKey();
     }
-    public void openManual() throws InterruptedException, IOException, URISyntaxException {
+    public void openManual() throws IOException, URISyntaxException {
 
         String userInput = "";
         while (!userInput.equals("exit")) {
@@ -61,7 +61,7 @@ public class Manual {
         }
     }
 
-    public void displayRules() throws InterruptedException {
+    public void displayRules() {
         String userInput = "";
         while (!userInput.equals("exit")) {
             System.out.println("What rules would you like to read? Type 'placement' for building rules, 'objective' to view the goal of the game, ");
@@ -102,15 +102,15 @@ public class Manual {
             }
         }
     }
-    private void displayBuildingRules() throws InterruptedException {
+    private void displayBuildingRules() {
         String userInput = "";
         while (!userInput.equals("exit")) {
             System.out.println("What building would you like to learn about? Or type 'exit' to go back.");
             displayBuildings();
             userInput = sc.nextLine().toLowerCase();
-            for (int i = 0; i < gameBuildings.size(); i++) {
-                if (gameBuildings.get(i).toString().toLowerCase().equals(userInput)) {
-                    gameBuildings.get(i).printManualText();
+            for (Building gameBuilding : gameBuildings) {
+                if (gameBuilding.toString().toLowerCase().equals(userInput)) {
+                    gameBuilding.printManualText();
                     Utility.anyKey();
                     break;
 
@@ -121,8 +121,8 @@ public class Manual {
     }
     public void displayBuildings() {
         System.out.println("The buildings in your game are:");
-        for (int i = 0; i < gameBuildings.size(); i++) {
-            System.out.println(gameBuildings.get(i).toString());
+        for (Building gameBuilding : gameBuildings) {
+            System.out.println(gameBuilding.toString());
         }
     }
 }

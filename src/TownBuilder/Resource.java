@@ -26,9 +26,6 @@ public class Resource {
     public void setResource(ResourceEnum r) {
         resource = r;
     }
-    public void clearScannedBuilding() {
-        scannedBuilding = BuildingEnum.NONE;
-    }
     public void setScannedBuilding(BuildingEnum b) {
         scannedBuilding = b;
     }
