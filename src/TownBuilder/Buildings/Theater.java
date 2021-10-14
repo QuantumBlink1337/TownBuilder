@@ -11,7 +11,6 @@ public class Theater extends Building
 {
     private boolean condition;
     private ArrayList<Building> buildingsOnBoard;
-    private int count = 0;
     private static final ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> theaterPatternList= new ArrayList<>();
 
@@ -40,9 +39,7 @@ public class Theater extends Building
     public BuildingEnum getType() {
         return BuildingEnum.THEATER;
     }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
+
     public boolean getCondition() {
         return condition;
     }
@@ -84,6 +81,7 @@ public class Theater extends Building
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
 
+        //noinspection ForLoopReplaceableByForEach
         for (int r = 0; r < bArray.length; r++) {
             score += buildingMatch(bArray[r][col], this);
         }
