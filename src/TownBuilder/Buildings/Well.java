@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Well extends Building {
-    private boolean condition;
-    private int count = 0;
-    private static Scanner sc = new Scanner(System.in);
+    private final boolean condition;
     private static final ResourceEnum[][] wellArray = new ResourceEnum[2][1];
     private static final ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
     private static final ArrayList<ResourceEnum[][]> wellPatternList = new ArrayList<>();
@@ -22,15 +20,12 @@ public class Well extends Building {
         wellArrayMirror[0][0] = ResourceEnum.STONE;
         wellArrayMirror[1][0] = ResourceEnum.WOOD;
         patternBuilder(wellArrayMirror, wellPatternList, 3);
-
         condition = false;
     }
     public BuildingEnum getType() {
         return BuildingEnum.WELL;
     }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
+
     public boolean getCondition() {
         return condition;
     }
