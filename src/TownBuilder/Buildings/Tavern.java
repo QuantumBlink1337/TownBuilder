@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Tavern extends Building{
-    private boolean condition;
-    private int count = 0;
+    private final boolean condition;
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
-    static int scoreIncrement = 2;
     private static final int SCORE_INCREMENT_STARTING_VALUE = 2;
 
     public Tavern() {
@@ -25,9 +23,7 @@ public class Tavern extends Building{
     public BuildingEnum getType() {
         return BuildingEnum.TAVERN;
     }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
+
     public boolean getCondition() {
         return condition;
     }
