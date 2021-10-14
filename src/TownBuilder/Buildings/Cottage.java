@@ -12,12 +12,9 @@ import java.util.Scanner;
 
 public class Cottage extends Building{
     private boolean condition;
-    private int count = 0;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> cottagePatternList = new ArrayList<>();
-    private static Scanner sc = new Scanner(System.in);
-
 
 
     public Cottage() {
@@ -37,9 +34,7 @@ public class Cottage extends Building{
     public BuildingEnum getType() {
         return BuildingEnum.COTTAGE;
     }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
+
     public boolean getCondition() {
         return condition;
     }
@@ -81,17 +76,17 @@ public class Cottage extends Building{
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
-                for (int r = 0; r < bArray.length; r++) {
-                    for (int c = 0; c < bArray[r].length; c++) {
-                        if (bArray[r][c].getType() == BuildingEnum.FARM) {
-                            Farm farm = (Farm) bArray[r][c];
-                            if (farm.getFed() != 0) {
-                                farm.decrementFed();
-                                condition = true;
-                            }
-                        }
+        for (Building[] buildings : bArray) {
+            for (Building building : buildings) {
+                if (building.getType() == BuildingEnum.FARM) {
+                    Farm farm = (Farm) building;
+                    if (farm.getFed() != 0) {
+                        farm.decrementFed();
+                        condition = true;
                     }
                 }
+            }
+        }
             if (this.condition) {
                 score += 3;
             }
