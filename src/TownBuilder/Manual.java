@@ -56,8 +56,14 @@ public class Manual {
         System.out.println("This will open a link in your default web browser that will download a copy of the manual as a text file. Continue?");
         if (Utility.prompt()) {
             // ah yes, the floor is made of floor...
-            Desktop desktop = Desktop.getDesktop();
-            desktop.browse(new URI("https://drive.google.com/uc?export=download&id=1_otans2D6rnIKLWtAdEaG2_afLfEVhq7"));
+            try {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.browse(new URI("https://drive.google.com/uc?export=download&id=1_otans2D6rnIKLWtAdEaG2_afLfEVhq7"));
+            }
+            catch (HeadlessException e) {
+                System.out.println("This command doesn't work in headless environments :( Probably a WSL user? Try running in your OS's default shell.");
+                e.printStackTrace();
+            }
         }
     }
 
