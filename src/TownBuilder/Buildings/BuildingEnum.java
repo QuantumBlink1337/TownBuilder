@@ -1,7 +1,5 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.ResourceEnum;
-
 public enum BuildingEnum {
     FARM,
     CHAPEL,
@@ -10,6 +8,6 @@ public enum BuildingEnum {
     TAVERN,
     WELL,
     WHOUSE,
-    NONE;
+    NONE
 
 }

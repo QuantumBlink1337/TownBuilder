@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Chapel extends Building{
-    private boolean condition;
-    private int count = 0;
-    private static ResourceEnum[][] templeArray = new ResourceEnum[2][3];
-    private static ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
+    private final boolean condition;
+    private static final ResourceEnum[][] templeArray = new ResourceEnum[2][3];
+    private static final ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> templeList = new ArrayList<>();
 
     public Chapel() {
@@ -32,20 +31,11 @@ public class Chapel extends Building{
         templeArrayMirror[1][2] = ResourceEnum.STONE;
         patternBuilder(templeArrayMirror, templeList, 3);
     }
-    public void printList() {
-        System.out.println("Temple List");
-        for (int i = 0; i < templeList.size(); i++) {
-            System.out.println(i);
-            Utility.arrayPrinter(templeList.get(i));
-        }
-    }
 
     public BuildingEnum getType() {
         return BuildingEnum.CHAPEL;
     }
-    public void setCondition(boolean b) {
-        condition = b;
-    }
+
     public boolean getCondition() {
         return condition;
     }
@@ -90,9 +80,9 @@ public class Chapel extends Building{
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
-        for (int r = 0; r < bArray.length; r++) {
-            for (int c = 0; c < bArray[r].length; c++) {
-                if (bArray[r][c].getType() == BuildingEnum.COTTAGE && bArray[r][c].getCondition()) {
+        for (Building[] buildings : bArray) {
+            for (Building building : buildings) {
+                if (building.getType() == BuildingEnum.COTTAGE && building.getCondition()) {
                     score += 1;
                 }
             }
