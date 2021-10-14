@@ -2,6 +2,7 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 import TownBuilder.Resource;
+import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public abstract class Building {
     public abstract void printManualText();
 
     public void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
-        if (rotations > 0) {
+        if (rotations >= 0) {
             ResourceEnum[][] rotatedPattern = Building.buildingRotation(pattern);
             patternList.add(rotatedPattern);
             patternBuilder(rotatedPattern, patternList, rotations-1);
