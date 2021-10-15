@@ -18,7 +18,6 @@ public enum ResourceEnum {
         int random = (int) (Math.random() * resourceArray.size());
         ResourceEnum result = resourceArray.get(random);
         resourceArray.remove(random);
-        //System.out.println("Removed result " + result);
         return result;
     }
     public static ResourceEnum resourcePicker() {
