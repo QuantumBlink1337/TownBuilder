@@ -42,18 +42,14 @@ public class Driver {
             }
         Manual.tutorial();
         boardArrayList.get(0).getManual().displayBuildings();
-        ResourceEnum resource;
+        ResourceEnum resource = null;
         if (playerCount < 2) {
             Board board = boardArrayList.get(0);
             System.out.println("Town Hall mode enabled!");
             while (!board.isGameCompletion()) {
                 board.setGameCompletion(board.gameOver());
                 if (!board.isGameCompletion()) {
-                    board.updateBoard();
-                    board.renderBoard();
-                    resource = board.resourcePicker(false);
-                    board.playerTurn(resource);
-                    board.detectValidBuilding();
+                    resource = turnExecution(board, boardArrayList, resource, true, false);
                 }
             }
             board.scoring(false);
@@ -61,13 +57,9 @@ public class Driver {
         else {
             do {
                 Board pickResourceBoard = boardArrayList.get(0);
-                pickResourceBoard.renderBoard();
-                System.out.println("It's "+ pickResourceBoard.getBoardName() + "'s turn to DECIDE the resource!");
-                resource = pickResourceBoard.resourcePicker(true);
-                pickResourceBoard.playerTurn(resource);
-                pickResourceBoard.detectValidBuilding();
+                resource = turnExecution(pickResourceBoard, boardArrayList, resource, true, true);
                 boardArrayList.remove(pickResourceBoard);
-                pickResourceBoard.setGameCompletion(pickResourceBoard.gameOver());
+
                 if (pickResourceBoard.isGameCompletion()) {
                     int score = pickResourceBoard.scoring(false);
                     System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+score);
@@ -76,11 +68,7 @@ public class Driver {
                 for (int p = 0; p < boardArrayList.size(); p++) {
                     Board temp = boardArrayList.get(p);
                     if (!temp.isGameCompletion())  {
-                        temp.renderBoard();
-                        System.out.println("It's " + temp.getBoardName() + "'s turn to place a resource.");
-                        temp.playerTurn(resource);
-                        temp.detectValidBuilding();
-                        temp.setGameCompletion(temp.gameOver());
+                        turnExecution(temp, boardArrayList, resource, false, true);
                         if (temp.isGameCompletion()) {
                             int score = pickResourceBoard.scoring(false);
                             System.out.println(temp.getBoardName() + "'s final score: "+score);
@@ -91,12 +79,32 @@ public class Driver {
                 if (!pickResourceBoard.isGameCompletion()) {
                     boardArrayList.add(pickResourceBoard);
                 }
-
             }
             while (boardArrayList.size() != 0);
         }
-
         System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
     }
-
+    public static ResourceEnum turnExecution(Board board, ArrayList<Board> boardArrayList, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame) throws IOException, URISyntaxException {
+        if (resourcePick) {
+            ResourceEnum r;
+            board.renderBoard();
+            if (isMultiplayerGame) {
+                System.out.println("It's "+ board.getBoardName() + "'s turn to DECIDE the resource!");
+            }
+            r = board.resourcePicker(isMultiplayerGame);
+            turnActions(board, r);
+            return r;
+        }
+        else {
+            board.renderBoard();
+            System.out.println("It's " + board.getBoardName() + "'s turn to place a resource.");
+            turnActions(board, resource);
+        }
+        return null;
+    }
+    private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException {
+        board.playerTurn(resource);
+        board.detectValidBuilding();
+        board.setGameCompletion(board.gameOver());
+    }
 }
