@@ -13,14 +13,14 @@ public class Driver {
 
     public static void main (String[] args) throws IOException, URISyntaxException {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Building> buildings = new ArrayList<>();
-        buildings.add(new Cottage());
-        buildings.add(new Farm());
-        buildings.add(new Theater());
-        buildings.add(new Well());
-        buildings.add(new Warehouse());
-        buildings.add(new Tavern());
-        buildings.add(new Chapel());
+        ArrayList<Building> buildingsForGame = new ArrayList<>();
+        buildingsForGame.add(new Cottage());
+        buildingsForGame.add(new Farm());
+        buildingsForGame.add(new Theater());
+        buildingsForGame.add(new Well());
+        buildingsForGame.add(new Warehouse());
+        buildingsForGame.add(new Tavern());
+        buildingsForGame.add(new Chapel());
         int playerCount;
         ArrayList<Board> boardArrayList = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class Driver {
         while (playerCount <= 0 || playerCount > 6); // prompts until program gets integer 0 < x <= 6
         for (int i= 0; i < playerCount; i++) {
             // generates a new Board object for each player
-            Board temp = new Board(buildings);
+            Board temp = new Board(buildingsForGame);
             boardArrayList.add(temp);
             }
         Manual.tutorial();
