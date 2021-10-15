@@ -12,7 +12,7 @@ public class Board {
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
     private final Scorer scorer;
-    private int turn = 0;
+    private int spResourceSelectionIncrement = 0;
     private boolean isGameCompletion = false;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
@@ -120,7 +120,7 @@ public class Board {
                 }
             }
         }
-        System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
+        //System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
     }
     public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
         ResourceEnum turnResource;
@@ -135,7 +135,7 @@ public class Board {
             while (turnResource == ResourceEnum.NONE);
         }
         else {
-            if (turn == 2) {
+            if (spResourceSelectionIncrement == 2) {
                 do {
                     turnResource = ResourceEnum.resourcePicker();
                     if (turnResource == ResourceEnum.NONE) {
@@ -144,11 +144,11 @@ public class Board {
                     }
                 }
                 while (turnResource == ResourceEnum.NONE);
-                turn = 0;
+                spResourceSelectionIncrement = 0;
             }
             else {
                 turnResource = ResourceEnum.randomResource();
-                turn++;
+                spResourceSelectionIncrement++;
             }
         }
         return turnResource;
