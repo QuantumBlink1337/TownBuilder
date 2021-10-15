@@ -19,7 +19,7 @@ public class Scorer {
     }
     public int scoring(boolean isMidGameCheck) {
         int totalScore = 0;
-        int score = 0;
+        int score;
         int resourcePenalty =0;
         int scoreIncrement = 0;
         BuildingEnum scoreIncrementType = BuildingEnum.NONE;
