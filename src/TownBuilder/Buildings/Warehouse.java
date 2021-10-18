@@ -18,25 +18,16 @@ public class Warehouse extends Building{
 
     public Warehouse() {
         condition = false;
-        warehouseArray[0][0] = ResourceEnum.WHEAT;
-        warehouseArray[0][1] = ResourceEnum.WOOD;
-        warehouseArray[0][2] = ResourceEnum.WHEAT;
-        warehouseArray[1][0] = ResourceEnum.BRICK;
-        warehouseArray[1][1] = ResourceEnum.NONE;
-        warehouseArray[1][2] = ResourceEnum.BRICK;
+    }
+    static {
+        warehouseArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WOOD, ResourceEnum.WHEAT};
+        warehouseArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE, ResourceEnum.BRICK};
         patternBuilder(warehouseArray, warehousePatternList, 3);
     }
     public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
         storedResources[0] = a;
         storedResources[1] = b;
         storedResources[2] = c;
-        warehouseArray[0][0] = ResourceEnum.WHEAT;
-        warehouseArray[0][1] = ResourceEnum.WOOD;
-        warehouseArray[0][2] = ResourceEnum.WHEAT;
-        warehouseArray[1][0] = ResourceEnum.BRICK;
-        warehouseArray[1][1] = ResourceEnum.NONE;
-        warehouseArray[1][2] = ResourceEnum.BRICK;
-        patternBuilder(warehouseArray, warehousePatternList, 3);
     }
     public BuildingEnum getType() {
         return BuildingEnum.WHOUSE;

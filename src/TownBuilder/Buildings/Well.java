@@ -14,13 +14,15 @@ public class Well extends Building {
     private static final ArrayList<ResourceEnum[][]> wellPatternList = new ArrayList<>();
 
     public Well() {
+        condition = false;
+    }
+    static {
         wellArray[0][0] = ResourceEnum.WOOD;
         wellArray[1][0] = ResourceEnum.STONE;
         patternBuilder(wellArray, wellPatternList, 3);
         wellArrayMirror[0][0] = ResourceEnum.STONE;
         wellArrayMirror[1][0] = ResourceEnum.WOOD;
         patternBuilder(wellArrayMirror, wellPatternList, 3);
-        condition = false;
     }
     public BuildingEnum getType() {
         return BuildingEnum.WELL;

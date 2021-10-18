@@ -14,11 +14,11 @@ public class Tavern extends Building{
     private static final int SCORE_INCREMENT_STARTING_VALUE = 2;
 
     public Tavern() {
-        tavernArray[0][0] = ResourceEnum.BRICK;
-        tavernArray[0][1] = ResourceEnum.BRICK;
-        tavernArray[0][2] = ResourceEnum.GLASS;
-        patternBuilder(tavernArray, tavernPatternList, 3);
         condition = false;
+    }
+    static {
+        tavernArray[0] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.BRICK, ResourceEnum.GLASS};
+        patternBuilder(tavernArray, tavernPatternList, 3);
     }
     public BuildingEnum getType() {
         return BuildingEnum.TAVERN;

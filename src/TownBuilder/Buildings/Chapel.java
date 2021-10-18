@@ -15,27 +15,18 @@ public class Chapel extends Building{
 
     public Chapel() {
         condition = false;
-        templeArray[0][0] = ResourceEnum.NONE;
-        templeArray[0][1] = ResourceEnum.NONE;
-        templeArray[0][2] = ResourceEnum.GLASS;
-        templeArray[1][0] = ResourceEnum.STONE;
-        templeArray[1][1] = ResourceEnum.GLASS;
-        templeArray[1][2] = ResourceEnum.STONE;
+    }
+    static {
+        templeArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
+        templeArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         patternBuilder(templeArray, templeList, 3);
-
-        templeArrayMirror[0][0] = ResourceEnum.GLASS;
-        templeArrayMirror[0][1] = ResourceEnum.NONE;
-        templeArrayMirror[0][2] = ResourceEnum.NONE;
-        templeArrayMirror[1][0] = ResourceEnum.STONE;
-        templeArrayMirror[1][1] = ResourceEnum.GLASS;
-        templeArrayMirror[1][2] = ResourceEnum.STONE;
+        templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
+        templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         patternBuilder(templeArrayMirror, templeList, 3);
     }
-
     public BuildingEnum getType() {
         return BuildingEnum.CHAPEL;
     }
-
     public boolean getCondition() {
         return condition;
     }
@@ -63,6 +54,4 @@ public class Chapel extends Building{
         }
         return score;
     }
-
-
 }

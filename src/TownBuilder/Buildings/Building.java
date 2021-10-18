@@ -11,8 +11,6 @@ import java.util.Scanner;
 public abstract class Building {
 
     private static final ArrayList<Resource> validResources = new ArrayList<>();
-
-
     public abstract BuildingEnum getType();
     public abstract boolean getCondition();
     private HashMap<String, ArrayList<Class<Building>>> buildingMasterList = new HashMap<>();
@@ -21,7 +19,7 @@ public abstract class Building {
     public abstract int scorer(Building[][] bArray, int row, int col, int scoreIncrement);
     public abstract void printManualText();
 
-    public void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
+    public static void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
         if (rotations >= 0) {
             ResourceEnum[][] rotatedPattern = Building.buildingRotation(pattern);
             patternList.add(rotatedPattern);
@@ -63,8 +61,6 @@ public abstract class Building {
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
         bArray[coords[0]][coords[1]] = this.getClass().newInstance();
     }
-
-
     public static boolean detection(int row, int col, Resource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
         for (ResourceEnum[][] resourceEnums : bT) {
             if (compare(row, col, rArray, resourceEnums)) {

@@ -19,18 +19,15 @@ public class Cottage extends Building{
 
     public Cottage() {
         condition = false;
-        cottageArray[0][0] = ResourceEnum.GLASS;
-        cottageArray[0][1] = ResourceEnum.WHEAT;
-        cottageArray[1][0] = ResourceEnum.BRICK;
-        cottageArray[1][1] = ResourceEnum.NONE;
+    }
+    static {
+        cottageArray[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.WHEAT};
+        cottageArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE};
         patternBuilder(cottageArray, cottagePatternList, 3);
-        cottageArrayMirror[0][0] = ResourceEnum.GLASS;
-        cottageArrayMirror[1][0] = ResourceEnum.WHEAT;
-        cottageArrayMirror[0][1] = ResourceEnum.BRICK;
-        cottageArrayMirror[1][1] = ResourceEnum.NONE;
+        cottageArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.BRICK};
+        cottageArrayMirror[1] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.NONE};
         patternBuilder(cottageArrayMirror, cottagePatternList, 3);
     }
-
     public BuildingEnum getType() {
         return BuildingEnum.COTTAGE;
     }

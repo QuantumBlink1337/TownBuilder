@@ -17,23 +17,13 @@ public class Theater extends Building
     public Theater(ArrayList<Building> b) {
         buildingsOnBoard = new ArrayList<>(b);
         condition = false;
-        theaterArray[0][0] = ResourceEnum.NONE;
-        theaterArray[0][1] = ResourceEnum.STONE;
-        theaterArray[0][2] = ResourceEnum.NONE;
-        theaterArray[1][0] = ResourceEnum.WOOD;
-        theaterArray[1][1] = ResourceEnum.GLASS;
-        theaterArray[1][2] = ResourceEnum.WOOD;
+    }
+    static {
+        theaterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.STONE,  ResourceEnum.NONE};
+        theaterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.WOOD};
         patternBuilder(theaterArray, theaterPatternList, 3);
     }
-
     public Theater() {
-        theaterArray[0][0] = ResourceEnum.NONE;
-        theaterArray[0][1] = ResourceEnum.STONE;
-        theaterArray[0][2] = ResourceEnum.NONE;
-        theaterArray[1][0] = ResourceEnum.WOOD;
-        theaterArray[1][1] = ResourceEnum.GLASS;
-        theaterArray[1][2] = ResourceEnum.WOOD;
-        patternBuilder(theaterArray, theaterPatternList, 3);
     }
 
     public BuildingEnum getType() {
