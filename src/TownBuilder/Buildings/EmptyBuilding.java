@@ -34,11 +34,6 @@ public class EmptyBuilding extends Building{
     }
 
     @Override
-    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
-
-    }
-
-    @Override
     public void printManualText() {
 
     }

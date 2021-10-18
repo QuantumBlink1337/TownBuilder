@@ -25,7 +25,6 @@ public class Well extends Building {
     public BuildingEnum getType() {
         return BuildingEnum.WELL;
     }
-
     public boolean getCondition() {
         return condition;
     }
@@ -39,32 +38,7 @@ public class Well extends Building {
         Utility.arrayPrinter(wellArray);
     }
     public ArrayList<ResourceEnum[][]> getPatterns() {
-
         return wellPatternList;
-    }
-    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
-        Scanner sc = new Scanner((System.in));
-        String userInput;
-        int[] coords;
-        boolean validInput = false;
-        do {
-            System.out.println("Where would you like to place your Well?");
-            System.out.println("Valid positions for the Well are:");
-            Utility.displayValidResources(rArray);
-            userInput = sc.nextLine().toLowerCase();
-            coords = Utility.inputToCoords(userInput);
-            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.WELL) {
-                validInput = true;
-            }
-        }
-        while (!validInput);
-
-        for (Resource validResource : Building.getValidResources()) {
-            validResource.setResource(ResourceEnum.NONE);
-        }
-        clearResources(BuildingEnum.WELL);
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        bArray[coords[0]][coords[1]] = new Well();
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;

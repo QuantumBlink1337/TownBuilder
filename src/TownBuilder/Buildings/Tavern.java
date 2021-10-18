@@ -44,30 +44,6 @@ public class Tavern extends Building{
 
         return tavernPatternList;
     }
-    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
-        Scanner sc = new Scanner((System.in));
-        String userInput;
-        int[] coords;
-        boolean validInput = false;
-        do {
-            System.out.println("Where would you like to place your Tavern?");
-            System.out.println("Valid positions for the Tavern are:");
-            Utility.displayValidResources(rArray);
-            userInput = sc.nextLine().toLowerCase();
-            coords = Utility.inputToCoords(userInput);
-            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.TAVERN) {
-                validInput = true;
-            }
-        }
-        while (!validInput);
-
-        for (Resource validResource : Building.getValidResources()) {
-            validResource.setResource(ResourceEnum.NONE);
-        }
-        clearResources(BuildingEnum.TAVERN);
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        bArray[coords[0]][coords[1]] = new Tavern();
-    }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         if (condition) {
             return 0;

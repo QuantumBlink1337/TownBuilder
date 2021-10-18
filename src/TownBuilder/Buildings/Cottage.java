@@ -50,30 +50,6 @@ public class Cottage extends Building{
 
         return cottagePatternList;
     }
-    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
-        Scanner sc = new Scanner((System.in));
-        String userInput;
-        int[] coords;
-        boolean validInput = false;
-        do {
-            System.out.println("Where would you like to place your Cottage?");
-            System.out.println("Valid positions for the Cottage are: ");
-            Utility.displayValidResources(rArray);
-            userInput = sc.nextLine().toLowerCase();
-            coords = Utility.inputToCoords(userInput);
-            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.COTTAGE) {
-                validInput = true;
-            }
-        }
-        while (!validInput);
-
-        for (Resource validResource : Building.getValidResources()) {
-            validResource.setResource(ResourceEnum.NONE);
-        }
-        clearResources(BuildingEnum.COTTAGE);
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        bArray[coords[0]][coords[1]] = new Cottage();
-    }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
         for (Building[] buildings : bArray) {

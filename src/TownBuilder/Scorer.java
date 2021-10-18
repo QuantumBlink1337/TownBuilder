@@ -22,6 +22,7 @@ public class Scorer {
         int score;
         int resourcePenalty =0;
         int scoreIncrement = 0;
+        Building[][] resourceBoard = board.getGameBuildingBoard();
         BuildingEnum scoreIncrementType = BuildingEnum.NONE;
         HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
         for (int i = 0; i < buildingsForGame.size(); i++) {
@@ -35,17 +36,18 @@ public class Scorer {
         ArrayList<Building> chapels = new ArrayList<>();
         for (int r = 0; r < board.getGameBuildingBoard().length; r++) {
             for (int c = 0; c < board.getGameBuildingBoard()[r].length; c++) {
-                if (board.getGameBuildingBoard()[r][c].getType() != BuildingEnum.NONE) {
+                Building building = board.getGameBuildingBoard()[r][c];
+                if (building.getType() != BuildingEnum.NONE) {
                     //System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
-                    if (board.getGameBuildingBoard()[r][c].getType() == BuildingEnum.CHAPEL) {
-                        chapels.add(board.getGameBuildingBoard()[r][c]);
+                    if (building.getType() == BuildingEnum.CHAPEL) {
+                        chapels.add(building);
                     }
                     else {
-                        score = board.getGameBuildingBoard()[r][c].scorer(board.getGameBuildingBoard(), r, c, scoreIncrement);
-                        if (scoreIncrementType == board.getGameBuildingBoard()[r][c].getType()) {
+                        score = building.scorer(board.getGameBuildingBoard(), r, c, scoreIncrement);
+                        if (scoreIncrementType == building.getType()) {
                             scoreIncrement++;
                         }
-                        scores.put(board.getGameBuildingBoard()[r][c].getType(), scores.get(board.getGameBuildingBoard()[r][c].getType())+score);
+                        scores.put(building.getType(), scores.get(building.getType())+score);
                         //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
                         totalScore += score;
                         //System.out.println("Total score now: "+totalScore);

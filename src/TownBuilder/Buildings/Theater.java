@@ -54,30 +54,6 @@ public class Theater extends Building
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(theaterArray);
     }
-    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
-        Scanner sc = new Scanner((System.in));
-        String userInput;
-        int[] coords;
-        boolean validInput = false;
-        do {
-            System.out.println("Where would you like to place your Theater?");
-            System.out.println("Valid positions for the Theater are:");
-            Utility.displayValidResources(rArray);
-            userInput = sc.nextLine().toLowerCase();
-            coords = Utility.inputToCoords(userInput);
-            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.THEATER) {
-                validInput = true;
-            }
-        }
-        while (!validInput);
-
-        for (Resource validResource : Building.getValidResources()) {
-            validResource.setResource(ResourceEnum.NONE);
-        }
-        clearResources(BuildingEnum.THEATER);
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        bArray[coords[0]][coords[1]] = new Theater(buildings);
-    }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
 

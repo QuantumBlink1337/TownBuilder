@@ -47,33 +47,7 @@ public class Chapel extends Building{
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(templeArray);
     }
-    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) {
-        Scanner sc = new Scanner((System.in));
-        String userInput;
-        int[] coords;
-        boolean validInput = false;
-        do {
-            System.out.println("Where would you like to place your Chapel?");
-            System.out.println("Valid positions for the Chapel are:");
-            Utility.displayValidResources(rArray);
-            userInput = sc.nextLine().toLowerCase();
-            coords = Utility.inputToCoords(userInput);
-            if (rArray[coords[0]][coords[1]].getScannedBuilding() == BuildingEnum.CHAPEL) {
-                validInput = true;
-            }
-        }
-        while (!validInput);
-
-        for (Resource validResource : Building.getValidResources()) {
-            validResource.setResource(ResourceEnum.NONE);
-        }
-        clearResources(BuildingEnum.CHAPEL);
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        bArray[coords[0]][coords[1]] = new Chapel();
-    }
-
     @Override
-
     public ArrayList<ResourceEnum[][]> getPatterns() {
 
         return templeList;

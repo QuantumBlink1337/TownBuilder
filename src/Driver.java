@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Driver {
 
-    public static void main (String[] args) throws IOException, URISyntaxException {
+    public static void main (String[] args) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
         Scanner sc = new Scanner(System.in);
         ArrayList<Building> buildingsForGame = new ArrayList<>();
         buildingsForGame.add(new Cottage());
@@ -106,7 +106,7 @@ public class Driver {
             This tells resourcePicker() what instructions to follow
 
      */
-    public static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame) throws IOException, URISyntaxException {
+    public static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
         // run code that returns a resource if method was called with resourcePick = true
         if (resourcePick) {
             ResourceEnum r;
@@ -129,7 +129,7 @@ public class Driver {
     /*
         every turn does this, so I decided to split it into its own method. Runs the turn actions for all players.
      */
-    private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException {
+    private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
         board.playerTurn(resource);
         board.detectValidBuilding();
         board.setGameCompletion(board.gameOver());

@@ -5,6 +5,8 @@ import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public abstract class Building {
 
@@ -13,10 +15,10 @@ public abstract class Building {
 
     public abstract BuildingEnum getType();
     public abstract boolean getCondition();
+    private HashMap<String, ArrayList<Class<Building>>> buildingMasterList = new HashMap<>();
     public abstract ArrayList<ResourceEnum[][]> getPatterns();
     public abstract String toString();
     public abstract int scorer(Building[][] bArray, int row, int col, int scoreIncrement);
-    public abstract void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings);
     public abstract void printManualText();
 
     public void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
@@ -35,6 +37,31 @@ public abstract class Building {
     }
     public static ArrayList<Resource> getValidResources() {
         return validResources;
+    }
+    public void placement(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildings) throws InstantiationException, IllegalAccessException {
+        Scanner sc = new Scanner((System.in));
+        String userInput;
+        int[] coords;
+        boolean validInput = false;
+        Building building = this;
+        do {
+            System.out.println("Where would you like to place your " + building.toString() + "?");
+            System.out.println("Valid positions for the "+building.toString()+ " are:");
+            Utility.displayValidResources(rArray);
+            userInput = sc.nextLine().toLowerCase();
+            coords = Utility.inputToCoords(userInput);
+            if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
+                validInput = true;
+            }
+        }
+        while (!validInput);
+
+        for (Resource validResource : Building.getValidResources()) {
+            validResource.setResource(ResourceEnum.NONE);
+        }
+        clearResources(building.getType());
+        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
+        bArray[coords[0]][coords[1]] = this.getClass().newInstance();
     }
 
 
@@ -87,5 +114,9 @@ public abstract class Building {
         }
         return ret;
     }
+    public HashMap<String, ArrayList<Class<Building>>> getBuildingMasterList() {
+        return buildingMasterList;
+    }
+
 }
 
