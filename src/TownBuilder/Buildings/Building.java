@@ -13,12 +13,24 @@ public abstract class Building {
     private static final ArrayList<Resource> validResources = new ArrayList<>();
     public abstract BuildingEnum getType();
     public abstract boolean getCondition();
-    private HashMap<String, ArrayList<Class<Building>>> buildingMasterList = new HashMap<>();
+    private static final HashMap<String, ArrayList<Building>> buildingMasterList = new HashMap<>();
+    private static final String[] colors = new String[]{"blue", "red", "gray", "orange", "green", "yellow", "black"};
     public abstract ArrayList<ResourceEnum[][]> getPatterns();
     public abstract String toString();
     public abstract int scorer(Building[][] bArray, int row, int col, int scoreIncrement);
     public abstract void printManualText();
+    static {
+        for (int i = 0; i < colors.length; i++) {
+            buildingMasterList.put(colors[i], new ArrayList<Building>());
 
+        }
+    }
+    public static void setbuildingMasterList(String key, Building building) {
+        buildingMasterList.get(key).add(building);
+    }
+    public static String[] getColors() {
+        return colors;
+    }
     public static void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
         if (rotations >= 0) {
             ResourceEnum[][] rotatedPattern = Building.buildingRotation(pattern);
@@ -110,7 +122,7 @@ public abstract class Building {
         }
         return ret;
     }
-    public HashMap<String, ArrayList<Class<Building>>> getBuildingMasterList() {
+    public static HashMap<String, ArrayList<Building>> getBuildingMasterList() {
         return buildingMasterList;
     }
 

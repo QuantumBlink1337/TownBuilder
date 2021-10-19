@@ -19,6 +19,8 @@ public class Tavern extends Building{
     static {
         tavernArray[0] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.BRICK, ResourceEnum.GLASS};
         patternBuilder(tavernArray, tavernPatternList, 3);
+        Building.setbuildingMasterList("green", new Tavern());
+
     }
     public BuildingEnum getType() {
         return BuildingEnum.TAVERN;

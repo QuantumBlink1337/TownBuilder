@@ -22,6 +22,8 @@ public class Theater extends Building
         theaterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.STONE,  ResourceEnum.NONE};
         theaterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.WOOD};
         patternBuilder(theaterArray, theaterPatternList, 3);
+        Building.setbuildingMasterList("yellow", new Theater());
+
     }
     public Theater() {
     }

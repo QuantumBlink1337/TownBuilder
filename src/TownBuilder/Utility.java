@@ -4,6 +4,7 @@ import TownBuilder.Buildings.EmptyBuilding;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utility {
@@ -17,6 +18,11 @@ public class Utility {
                     System.out.print("[" + ts[col] + "]");
                 }
             }
+        }
+    }
+    public static <T> void printMembersOfArrayList(ArrayList<T> arrayList) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            System.out.println(arrayList.get(i));
         }
     }
     public static void displayValidResources(Resource[][] rArray) {

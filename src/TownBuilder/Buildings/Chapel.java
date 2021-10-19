@@ -23,6 +23,8 @@ public class Chapel extends Building{
         templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
         templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         patternBuilder(templeArrayMirror, templeList, 3);
+        Building.setbuildingMasterList("orange", new Chapel());
+
     }
     public BuildingEnum getType() {
         return BuildingEnum.CHAPEL;

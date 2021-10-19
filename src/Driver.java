@@ -2,25 +2,21 @@ import TownBuilder.Board;
 import TownBuilder.Buildings.*;
 import TownBuilder.Manual;
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
-
     public static void main (String[] args) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
-        Scanner sc = new Scanner(System.in);
         ArrayList<Building> buildingsForGame = new ArrayList<>();
-        buildingsForGame.add(new Cottage());
-        buildingsForGame.add(new Farm());
-        buildingsForGame.add(new Theater());
-        buildingsForGame.add(new Well());
-        buildingsForGame.add(new Warehouse());
-        buildingsForGame.add(new Tavern());
-        buildingsForGame.add(new Chapel());
+        Scanner sc = new Scanner(System.in);
+        buildingSelection(buildingsForGame);
         int playerCount;
         ArrayList<Board> boardArrayList = new ArrayList<>();
 
@@ -96,6 +92,29 @@ public class Driver {
             while (boardArrayList.size() != 0);
         }
         System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
+    }
+    public static void buildingSelection(ArrayList<Building> buildingsForGame) throws InstantiationException, IllegalAccessException {
+        Scanner sc = new Scanner(System.in);
+        HashMap<String, ArrayList<Building>> buildingMasterList = Building.getBuildingMasterList();
+        String[] colors = Building.getColors();
+        for (int a = 0; a < colors.length; a++) {
+            ArrayList<Building> coloredBuildings = buildingMasterList.get(colors[a]);
+            boolean isUserInputValid = false;
+            do {
+                System.out.println("What " + colors[a] + " building would you like for your game?");
+                System.out.println("Available choices include:");
+                Utility.printMembersOfArrayList(coloredBuildings);
+                String userInput = sc.nextLine().toLowerCase();
+                for (int b = 0; b < coloredBuildings.size(); b++ ) {
+                    if (userInput.equals(coloredBuildings.get(b).toString().toLowerCase())) {
+                        buildingsForGame.add(coloredBuildings.get(b).getClass().newInstance());
+                        isUserInputValid = true;
+                    }
+                }
+            }
+            while (!isUserInputValid);
+
+        }
     }
     /*
         This method faciliates the actions of each turn and includes code for use in both multiplayer and singleplayer applications.

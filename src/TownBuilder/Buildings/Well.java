@@ -23,6 +23,8 @@ public class Well extends Building {
         wellArrayMirror[0][0] = ResourceEnum.STONE;
         wellArrayMirror[1][0] = ResourceEnum.WOOD;
         patternBuilder(wellArrayMirror, wellPatternList, 3);
+        Building.setbuildingMasterList("gray", new Well());
+
     }
     public BuildingEnum getType() {
         return BuildingEnum.WELL;

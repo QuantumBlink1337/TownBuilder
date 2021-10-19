@@ -23,6 +23,8 @@ public class Warehouse extends Building{
         warehouseArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WOOD, ResourceEnum.WHEAT};
         warehouseArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE, ResourceEnum.BRICK};
         patternBuilder(warehouseArray, warehousePatternList, 3);
+        Building.setbuildingMasterList("black", new Warehouse());
+
     }
     public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
         storedResources[0] = a;
