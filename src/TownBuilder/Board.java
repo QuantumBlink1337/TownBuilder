@@ -21,13 +21,14 @@ public class Board {
     private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
-
+    private final BuildingFactory buildingFactory;
     private final Scanner sc = new Scanner(System.in);
 
     public Board(ArrayList<Building> b) {
         System.out.println("What's your name?");
         boardName = sc.nextLine();
         buildingsForGame = new ArrayList<>(b);
+        buildingFactory = new BuildingFactory();
         manual = new Manual(buildingsForGame);
         scorer = new Scorer(this, buildingsForGame);
         buildArrays();
@@ -100,13 +101,13 @@ public class Board {
     }
     private void placementPrompt(Building building) throws InstantiationException, IllegalAccessException {
         System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at the following coordinates:");
-        Utility.displayValidResources(gameResourceBoard);
+        Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            building.placement(gameResourceBoard, gameBuildingBoard, buildingsForGame);
+            buildingFactory.placement(gameResourceBoard, gameBuildingBoard, building.getType());
         }
         else {
-            Building.clearResources(building.getType());
+            buildingFactory.clearResources(building.getType());
         }
     }
     public void detectValidBuilding() throws InstantiationException, IllegalAccessException {
@@ -114,7 +115,7 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : buildingsForGame) {
-                    if (Building.detection(row, col, gameResourceBoard, building.getPatterns(), building.getType())) {
+                    if (buildingFactory.detection(row, col, gameResourceBoard, building.getPatterns(), building.getType())) {
                         placementPrompt(building);
                     }
                 }

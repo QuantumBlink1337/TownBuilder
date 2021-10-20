@@ -1,5 +1,6 @@
 package TownBuilder;
 
+import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.Buildings.EmptyBuilding;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
@@ -25,14 +26,15 @@ public class Utility {
             System.out.println(arrayList.get(i));
         }
     }
-    public static void displayValidResources(Resource[][] rArray) {
+    public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) {
+
         for (int r = 0; r < rArray.length; r++) {
             for (int c = 0; c < rArray[r].length; c++) {
-                for (int i = 0; i < Building.getValidResources().size(); i++) {
-                    if (rArray[r][c] == Building.getValidResources().get(i) && i != (Building.getValidResources().size() -1)) {
+                for (int i = 0; i < buildingFactory.getValidResources().size(); i++) {
+                    if (rArray[r][c] == buildingFactory.getValidResources().get(i) && i != (buildingFactory.getValidResources().size() -1)) {
                         System.out.print(Utility.coordsToOutput(r, c) + ", ");
                     }
-                    else if (rArray[r][c] == Building.getValidResources().get(i)) {
+                    else if (rArray[r][c] == buildingFactory.getValidResources().get(i)) {
                         System.out.println(Utility.coordsToOutput(r, c));
                     }
                 }
