@@ -5,6 +5,7 @@ import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -22,11 +23,17 @@ public abstract class Building {
     static {
         for (int i = 0; i < colors.length; i++) {
             buildingMasterList.put(colors[i], new ArrayList<Building>());
-
         }
     }
-    public static void setbuildingMasterList(String key, Building building) {
-        buildingMasterList.get(key).add(building);
+    public static void setbuildingMasterList() {
+        buildingMasterList.put("blue", new ArrayList<>(Arrays.asList(new Cottage())));
+        buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm())));
+        buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well())));
+        buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel())));
+        buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern())));
+        buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater())));
+        buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse())));
+
     }
     public static String[] getColors() {
         return colors;

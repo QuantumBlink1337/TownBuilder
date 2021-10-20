@@ -1,13 +1,11 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Chapel extends Building{
+public class Chapel extends Building {
     private final boolean condition;
     private static final ResourceEnum[][] templeArray = new ResourceEnum[2][3];
     private static final ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
@@ -23,7 +21,6 @@ public class Chapel extends Building{
         templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
         templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         patternBuilder(templeArrayMirror, templeList, 3);
-        Building.setbuildingMasterList("orange", new Chapel());
 
     }
     public BuildingEnum getType() {

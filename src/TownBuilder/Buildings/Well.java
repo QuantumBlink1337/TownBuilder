@@ -1,11 +1,9 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Well extends Building {
     private final boolean condition;
@@ -23,8 +21,6 @@ public class Well extends Building {
         wellArrayMirror[0][0] = ResourceEnum.STONE;
         wellArrayMirror[1][0] = ResourceEnum.WOOD;
         patternBuilder(wellArrayMirror, wellPatternList, 3);
-        Building.setbuildingMasterList("gray", new Well());
-
     }
     public BuildingEnum getType() {
         return BuildingEnum.WELL;

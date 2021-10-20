@@ -1,16 +1,12 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
-
-
-public class Cottage extends Building{
+public class Cottage extends Building {
     private boolean condition;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
@@ -27,8 +23,6 @@ public class Cottage extends Building{
         cottageArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.BRICK};
         cottageArrayMirror[1] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.NONE};
         patternBuilder(cottageArrayMirror, cottagePatternList, 3);
-        System.out.println("This statement fired!");
-        Building.setbuildingMasterList("blue", new Cottage());
     }
     public BuildingEnum getType() {
         return BuildingEnum.COTTAGE;

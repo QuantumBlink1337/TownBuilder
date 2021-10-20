@@ -1,11 +1,10 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 
 import java.util.ArrayList;
 
-public class EmptyBuilding extends Building{
+public class EmptyBuilding extends Building {
     public EmptyBuilding() {}
     @Override
     public BuildingEnum getType() {

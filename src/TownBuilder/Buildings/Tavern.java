@@ -1,13 +1,11 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Tavern extends Building{
+public class Tavern extends Building {
     private final boolean condition;
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
@@ -19,8 +17,6 @@ public class Tavern extends Building{
     static {
         tavernArray[0] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.BRICK, ResourceEnum.GLASS};
         patternBuilder(tavernArray, tavernPatternList, 3);
-        Building.setbuildingMasterList("green", new Tavern());
-
     }
     public BuildingEnum getType() {
         return BuildingEnum.TAVERN;

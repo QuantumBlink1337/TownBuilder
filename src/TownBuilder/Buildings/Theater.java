@@ -1,11 +1,9 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Theater extends Building
 {
@@ -22,8 +20,6 @@ public class Theater extends Building
         theaterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.STONE,  ResourceEnum.NONE};
         theaterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.WOOD};
         patternBuilder(theaterArray, theaterPatternList, 3);
-        Building.setbuildingMasterList("yellow", new Theater());
-
     }
     public Theater() {
     }
@@ -48,7 +44,6 @@ public class Theater extends Building
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
-
         //noinspection ForLoopReplaceableByForEach
         for (int r = 0; r < bArray.length; r++) {
             score += buildingMatch(bArray[r][col], this);

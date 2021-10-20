@@ -1,11 +1,9 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Farm extends Building {
     private final boolean condition;
@@ -21,8 +19,6 @@ public class Farm extends Building {
         farmArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WHEAT};
         farmArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WOOD};
         patternBuilder(farmArray, farmPatternList, 3);
-        Building.setbuildingMasterList("red", new Farm());
-
     }
 
     public BuildingEnum getType() {

@@ -1,13 +1,11 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Warehouse extends Building{
+public class Warehouse extends Building {
     private boolean condition;
     private int fullness = 0;
     private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
@@ -23,8 +21,6 @@ public class Warehouse extends Building{
         warehouseArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WOOD, ResourceEnum.WHEAT};
         warehouseArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE, ResourceEnum.BRICK};
         patternBuilder(warehouseArray, warehousePatternList, 3);
-        Building.setbuildingMasterList("black", new Warehouse());
-
     }
     public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
         storedResources[0] = a;
