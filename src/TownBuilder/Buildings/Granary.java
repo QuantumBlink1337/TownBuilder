@@ -51,7 +51,7 @@ public class Granary implements Building{
     }
 
     public String toString() {
-        return "Orchard";
+        return "Granary";
     }
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
