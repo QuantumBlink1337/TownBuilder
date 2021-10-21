@@ -95,9 +95,9 @@ public class Driver {
     }
     public static void buildingSelection(ArrayList<Building> buildingsForGame) throws InstantiationException, IllegalAccessException {
         Scanner sc = new Scanner(System.in);
-        HashMap<String, ArrayList<Building>> buildingMasterList = Building.getBuildingMasterList();
-        String[] colors = Building.getColors();
-        Building.setbuildingMasterList();
+        HashMap<String, ArrayList<Building>> buildingMasterList = BuildingFactory.getBuildingMasterList();
+        String[] colors = new String[]{"blue", "red", "gray", "orange", "green", "yellow", "black"};
+        BuildingFactory.setbuildingMasterList();
         for (int a = 0; a < colors.length; a++) {
             ArrayList<Building> coloredBuildings = buildingMasterList.get(colors[a]);
             boolean isUserInputValid = false;
@@ -157,6 +157,7 @@ public class Driver {
     private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
         board.playerTurn(resource);
         board.detectValidBuilding();
+        board.runBuildingTurnAction();
         board.setGameCompletion(board.gameOver());
     }
 }
