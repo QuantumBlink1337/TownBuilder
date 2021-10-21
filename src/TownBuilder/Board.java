@@ -27,6 +27,9 @@ public class Board {
     public Board(ArrayList<Building> b) {
         System.out.println("What's your name?");
         boardName = sc.nextLine();
+        if (boardName.equals("debug")) {
+            System.out.println("Debug/testing mode activated. Disabled randomized resource collection");
+        }
         buildingsForGame = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
         manual = new Manual(buildingsForGame);
@@ -58,6 +61,7 @@ public class Board {
             }
         }
          //Test Case - Legitimate Game Board
+
         //gameBuildingBoard[0][0] = new Cottage();
 //        gameBuildingBoard[0][1] = new Cottage();
 //        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);

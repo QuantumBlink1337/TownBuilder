@@ -48,7 +48,12 @@ public class Driver {
             while (!board.isGameCompletion()) { // this loop continues until the player has no empty slots in board
                 board.setGameCompletion(board.gameOver());
                 if (!board.isGameCompletion()) {
-                    resource = turnExecution(board, resource, true, false);
+                    if (!board.getBoardName().equals("debug")) {
+                        resource = turnExecution(board, resource, true, false);
+                    }
+                    else {
+                        resource = turnExecution(board, resource, true, true);
+                    }
                 }
             }
             // when loop exits, immediately perform the final score check
