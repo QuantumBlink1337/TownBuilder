@@ -23,7 +23,7 @@ public class BuildingFactory {
         buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1))));
     }
 
-    public Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col) {
+    public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col) {
         if (buildingEnum == BuildingEnum.CHAPEL) {
             return new Chapel(row, col);
         }
