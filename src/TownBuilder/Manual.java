@@ -19,9 +19,14 @@ public class Manual {
         System.out.println("To do so, you'll be using five resources: Wheat, Glass, Brick, Stone, and Wood. You can place these on the board using coordinates, ");
         System.out.println("like a1, or c4. You can create buildings from patterns of resources to earn points. The goal of the game is to earn as many points as possible!");
         System.out.println("When you successfully design a building, the game will let you decide if you'd like to place it or not");
-        System.out.println("For the first two turns, the resource you place will be decided for you. On the third turn, you can choose which resource you need.");
         System.out.println("But be warned! For every resource you leave off the board, you lose a point! It's up to you to design the perfect town.");
         System.out.println("You can reread this prompt as well as access other game information with the 'help' command during your turn.");
+        Utility.anyKey();
+    }
+    public static void townHallNote() {
+        System.out.println("Town Hall Mode enabled!");
+        System.out.println("This is the Singleplayer mode of TownBuilder. Every two turns you'll have your resource picked for you.");
+        System.out.println("On the third turn, you may choose the resource for your choice!");
         Utility.anyKey();
     }
     public void openManual() throws IOException, URISyntaxException {
