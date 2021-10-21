@@ -26,6 +26,11 @@ public class Utility {
             System.out.println(arrayList.get(i));
         }
     }
+    public static <T> void printMembersof3dArrayList(ArrayList<T[][]> arrayList) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            arrayPrinter(arrayList.get(i));
+        }
+    }
     public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) {
 
         for (int r = 0; r < rArray.length; r++) {
