@@ -5,7 +5,6 @@ import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
