@@ -9,6 +9,7 @@ public class Greenhouse implements Building{
     private final int row;
     private final int col;
     private boolean condition;
+    private final String color = "red";
     private static final ResourceEnum[][] greenhouseArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> greenhousePatternList = new ArrayList<>();
     static {
@@ -53,6 +54,12 @@ public class Greenhouse implements Building{
     public int getCol() {
         return col;
     }
+
+    @Override
+    public String getColor() {
+        return color;
+    }
+
     public String toString() {
         return "Greenhouse";
     }

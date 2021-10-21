@@ -33,6 +33,11 @@ public class EmptyBuilding implements Building {
     }
 
     @Override
+    public String getColor() {
+        return "nothing";
+    }
+
+    @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return new ArrayList<>();
     }

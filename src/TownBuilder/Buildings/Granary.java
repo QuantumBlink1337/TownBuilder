@@ -9,6 +9,7 @@ public class Granary implements Building{
     private boolean condition;
     private final int row;
     private final int col;
+    private final String color = "red";
     private static final ResourceEnum[][] orchardArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> orchardPatternList = new ArrayList<>();
     static {
@@ -48,6 +49,11 @@ public class Granary implements Building{
     @Override
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
     }
 
     public String toString() {

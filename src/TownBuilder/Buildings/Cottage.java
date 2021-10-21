@@ -10,6 +10,7 @@ public class Cottage implements Building {
     private boolean condition;
     private final int row;
     private final int col;
+    private final String color = "blue";
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> cottagePatternList = new ArrayList<>();
@@ -48,6 +49,11 @@ public class Cottage implements Building {
     @Override
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
     }
 
     public String toString() {

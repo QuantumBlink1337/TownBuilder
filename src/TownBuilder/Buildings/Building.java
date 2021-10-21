@@ -13,6 +13,7 @@ public interface Building {
     void setCondition(boolean condition);
     int getRow();
     int getCol();
+    String getColor();
     String toString();
     boolean isFeedable();
 

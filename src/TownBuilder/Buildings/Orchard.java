@@ -11,6 +11,7 @@ public class Orchard implements Building {
     private static final ArrayList<ResourceEnum[][]> orchardPatternList = new ArrayList<>();
     private final int row;
     private final int col;
+    private final String color = "red";
     private boolean condition;
     static {
         orchardPattern[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WHEAT};
@@ -54,6 +55,11 @@ public class Orchard implements Building {
     @Override
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
     }
 
     @Override

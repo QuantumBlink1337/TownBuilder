@@ -12,6 +12,7 @@ public class Tavern implements Building {
     private boolean condition;
     private final int row;
     private final int col;
+    private final String color = "green";
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
     private static final int SCORE_INCREMENT_STARTING_VALUE = 2;
@@ -45,6 +46,11 @@ public class Tavern implements Building {
     @Override
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
     }
 
     public String toString() {

@@ -12,6 +12,7 @@ public class Fountain implements Building{
     private static final ArrayList<ResourceEnum[][]> fountainPatternArray = new ArrayList<>();
     private final int row;
     private final int col;
+    private final String color = "gray";
     private boolean condition;
 
     static {
@@ -56,6 +57,11 @@ public class Fountain implements Building{
     @Override
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
     }
 
     @Override

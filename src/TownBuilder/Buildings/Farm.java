@@ -8,6 +8,7 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 public class Farm implements Building {
     private boolean condition;
     private int fed;
+    private final String color = "red";
     private final int row;
     private final int col;
     private static final ResourceEnum[][] farmArray = new ResourceEnum[2][2];
@@ -46,6 +47,11 @@ public class Farm implements Building {
     @Override
     public int getCol() {
         return col;
+    }
+
+    @Override
+    public String getColor() {
+        return color;
     }
 
     public void decrementFed() {
