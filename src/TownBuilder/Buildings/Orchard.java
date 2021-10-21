@@ -14,7 +14,7 @@ public class Orchard implements Building{
         orchardArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.WOOD};
         BuildingFactory.patternBuilder(orchardArray, orchardPatternList, 3);
         orchardArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WHEAT};
-        orchardArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.WOOD};
+        orchardArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.BRICK};
         BuildingFactory.patternBuilder(orchardArray, orchardPatternList, 3);
 
     }
@@ -56,15 +56,14 @@ public class Orchard implements Building{
     @Override
     public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
         /*
-            when performing maintenance, assuming that Orchard is at 1,1
+            when performing maintenance, assume that Orchard is at 1,1
+            for best results
          */
-
 
         // 0,0
         try {
             if (buildingBoard[row-1][col-1].isFeedable() && !buildingBoard[row-1][col-1].getCondition()) {
                 buildingBoard[row-1][col-1].setCondition(true);
-                System.out.println("Row: "+(row-1)+ "Col: "+(col-1)+ " is fed!");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
@@ -72,7 +71,6 @@ public class Orchard implements Building{
         try {
             if (buildingBoard[row-1][col].isFeedable() && !buildingBoard[row-1][col].getCondition()) {
                 buildingBoard[row-1][col].setCondition(true);
-                System.out.println("Row: "+(row-1)+ "Col: "+(col)+ " is fed!");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
@@ -80,7 +78,6 @@ public class Orchard implements Building{
         try {
             if (buildingBoard[row-1][col+1].isFeedable() && !buildingBoard[row-1][col+1].getCondition()) {
                 buildingBoard[row-1][col+1].setCondition(true);
-                System.out.println("Row: "+(row-1)+ "Col: "+(col+1)+ " is fed!");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
@@ -88,7 +85,6 @@ public class Orchard implements Building{
         try {
             if (buildingBoard[row][col-1].isFeedable() && !buildingBoard[row][col-1].getCondition()) {
                 buildingBoard[row][col-1].setCondition(true);
-                System.out.println("Row: "+(row)+ "Col: "+(col-1)+ " is fed!");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
@@ -96,7 +92,6 @@ public class Orchard implements Building{
         try {
             if (buildingBoard[row][col+1].isFeedable() && !buildingBoard[row][col+1].getCondition()) {
                 buildingBoard[row][col+1].setCondition(true);
-                System.out.println("Row: "+(row)+ "Col: "+(col+1)+ " is fed!");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
@@ -104,10 +99,6 @@ public class Orchard implements Building{
         try {
             if (buildingBoard[row+1][col-1].isFeedable() && !buildingBoard[row+1][col-1].getCondition()) {
                 buildingBoard[row+1][col-1].setCondition(true);
-                System.out.println("Row: "+(row-1)+ "Col: "+(col+1)+ " is fed!");
-            }
-            else {
-                System.out.println("Not fed...");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
@@ -115,10 +106,6 @@ public class Orchard implements Building{
         try {
             if (buildingBoard[row+1][col].isFeedable() && !buildingBoard[row+1][col].getCondition()) {
                 buildingBoard[row+1][col].setCondition(true);
-                System.out.println("Row: "+(row)+ "Col: "+(col+1)+ " is fed!");
-            }
-            else {
-                System.out.println("Not fed...");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
@@ -126,7 +113,6 @@ public class Orchard implements Building{
         try {
             if (buildingBoard[row+1][col+1].isFeedable() && !buildingBoard[row+1][col+1].getCondition()) {
                 buildingBoard[row+1][col+1].setCondition(true);
-                System.out.println("Row: "+(row+1)+ "Col: "+(col+1)+ " is fed!");
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
