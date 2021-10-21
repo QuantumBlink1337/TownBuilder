@@ -4,6 +4,7 @@ public enum BuildingEnum {
     FARM,
     GRANARY,
     GRHOUSE,
+    ORCHARD,
     CHAPEL,
     COTTAGE,
     THEATER,
