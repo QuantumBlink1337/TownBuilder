@@ -21,13 +21,14 @@ public class Board {
     private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
-
+    private final BuildingFactory buildingFactory;
     private final Scanner sc = new Scanner(System.in);
 
     public Board(ArrayList<Building> b) {
         System.out.println("What's your name?");
         boardName = sc.nextLine();
         buildingsForGame = new ArrayList<>(b);
+        buildingFactory = new BuildingFactory();
         manual = new Manual(buildingsForGame);
         scorer = new Scorer(this, buildingsForGame);
         buildArrays();
@@ -57,7 +58,7 @@ public class Board {
             }
         }
          //Test Case - Legitimate Game Board
-//        gameBuildingBoard[0][0] = new Cottage();
+        //gameBuildingBoard[0][0] = new Cottage();
 //        gameBuildingBoard[0][1] = new Cottage();
 //        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);
 //        gameBuildingBoard[0][3] = new Cottage();
@@ -73,7 +74,7 @@ public class Board {
 //        gameBuildingBoard[2][3] = new Tavern();
 //
 //        gameBuildingBoard[3][0] = new Chapel();
-//        gameBuildingBoard[3][1] = new Farm();
+        //gameBuildingBoard[3][1] = new Farm();
 //          gameBuildingBoard[3][2] = new Warehouse();
     }
     public int scoring(boolean isMidGameCheck) {
@@ -100,13 +101,13 @@ public class Board {
     }
     private void placementPrompt(Building building) throws InstantiationException, IllegalAccessException {
         System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at the following coordinates:");
-        Utility.displayValidResources(gameResourceBoard);
+        Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            building.placement(gameResourceBoard, gameBuildingBoard, buildingsForGame);
+            buildingFactory.placement(gameResourceBoard, gameBuildingBoard, building.getType(), buildingsForGame);
         }
         else {
-            Building.clearResources(building.getType());
+            buildingFactory.clearResources(building.getType());
         }
     }
     public void detectValidBuilding() throws InstantiationException, IllegalAccessException {
@@ -114,13 +115,20 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : buildingsForGame) {
-                    if (Building.detection(row, col, gameResourceBoard, building.getPatterns(), building.getType())) {
+                    if (buildingFactory.detection(row, col, gameResourceBoard, building.getBuildingPatternsList(), building.getType())) {
                         placementPrompt(building);
                     }
                 }
             }
         }
         //System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
+    }
+    public void runBuildingTurnAction() {
+        for (int row = 0; row < gameBuildingBoard.length; row++) {
+            for (int col = 0; col < gameBuildingBoard[row].length; col++) {
+                gameBuildingBoard[row][col].onTurnInterval(gameBuildingBoard,row ,col);
+            }
+        }
     }
     public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
         ResourceEnum turnResource;

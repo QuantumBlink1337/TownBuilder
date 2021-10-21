@@ -1,13 +1,13 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
+import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
+
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Theater extends Building
+public class Theater implements Building
 {
     private boolean condition;
     private ArrayList<Building> buildingsOnBoard;
@@ -22,8 +22,6 @@ public class Theater extends Building
         theaterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.STONE,  ResourceEnum.NONE};
         theaterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.WOOD};
         patternBuilder(theaterArray, theaterPatternList, 3);
-        Building.setbuildingMasterList("yellow", new Theater());
-
     }
     public Theater() {
     }
@@ -35,10 +33,22 @@ public class Theater extends Building
     public boolean getCondition() {
         return condition;
     }
+
+    @Override
+    public void setCondition(boolean condition) {
+        this.condition = condition;
+    }
+
     public String toString() {
         return "Theater";
     }
-    public ArrayList<ResourceEnum[][]> getPatterns() {
+
+    @Override
+    public boolean isFeedable() {
+        return false;
+    }
+
+    public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return theaterPatternList;
     }
     public void printManualText() {
@@ -48,7 +58,6 @@ public class Theater extends Building
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
-
         //noinspection ForLoopReplaceableByForEach
         for (int r = 0; r < bArray.length; r++) {
             score += buildingMatch(bArray[r][col], this);
@@ -58,6 +67,12 @@ public class Theater extends Building
         }
         return score;
     }
+
+    @Override
+    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+
+    }
+
     private int buildingMatch(Building toBeChecked, Building scoreTarget) {
         int score = 0;
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);

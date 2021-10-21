@@ -4,17 +4,25 @@ import TownBuilder.ResourceEnum;
 
 import java.util.ArrayList;
 
-public class EmptyBuilding implements Building {
-    public EmptyBuilding() {}
+public class Orchard implements Building{
+    private boolean condition;
+    private static final ResourceEnum[][] orchardArray = new ResourceEnum[2][2];
+    private static final ResourceEnum[][] orchardMirrorArray = new ResourceEnum[2][2];
+    private static final ArrayList<ResourceEnum[][]> farmPatternList = new ArrayList<>();
+    static {
+
+    }
+    public Orchard() {
+        condition = false;
+    }
     @Override
     public BuildingEnum getType() {
-        return BuildingEnum.NONE;
+        return BuildingEnum.ORCHARD;
     }
-
 
     @Override
     public boolean getCondition() {
-        return false;
+        return condition;
     }
 
     @Override
@@ -24,11 +32,6 @@ public class EmptyBuilding implements Building {
 
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public String toString() {
         return null;
     }
 

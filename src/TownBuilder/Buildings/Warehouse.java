@@ -1,13 +1,12 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Resource;
 import TownBuilder.Utility;
+import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class Warehouse extends Building{
+public class Warehouse implements Building {
     private boolean condition;
     private int fullness = 0;
     private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
@@ -23,14 +22,12 @@ public class Warehouse extends Building{
         warehouseArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WOOD, ResourceEnum.WHEAT};
         warehouseArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE, ResourceEnum.BRICK};
         patternBuilder(warehouseArray, warehousePatternList, 3);
-        Building.setbuildingMasterList("black", new Warehouse());
-
     }
-    public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
-        storedResources[0] = a;
-        storedResources[1] = b;
-        storedResources[2] = c;
-    }
+//    public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
+//        storedResources[0] = a;
+//        storedResources[1] = b;
+//        storedResources[2] = c;
+//    }
     public BuildingEnum getType() {
         return BuildingEnum.WHOUSE;
     }
@@ -38,12 +35,24 @@ public class Warehouse extends Building{
     public boolean getCondition() {
         return condition;
     }
+
+    @Override
+    public void setCondition(boolean condition) {
+        this.condition = condition;
+    }
+
     public int getFullness() {
         return fullness;
     }
     public String toString() {
         return "Warehouse";
     }
+
+    @Override
+    public boolean isFeedable() {
+        return false;
+    }
+
     public void printManualText() {
         System.out.println("While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.");
         System.out.println("Note: these resources still count as a negative point!");
@@ -94,7 +103,7 @@ public class Warehouse extends Building{
         }
         return -1;
     }
-    public ArrayList<ResourceEnum[][]> getPatterns() {
+    public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return warehousePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
@@ -105,6 +114,11 @@ public class Warehouse extends Building{
             }
         }
         return score;
+    }
+
+    @Override
+    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+
     }
 
 }

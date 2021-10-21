@@ -95,24 +95,30 @@ public class Driver {
     }
     public static void buildingSelection(ArrayList<Building> buildingsForGame) throws InstantiationException, IllegalAccessException {
         Scanner sc = new Scanner(System.in);
-        HashMap<String, ArrayList<Building>> buildingMasterList = Building.getBuildingMasterList();
-        String[] colors = Building.getColors();
+        HashMap<String, ArrayList<Building>> buildingMasterList = BuildingFactory.getBuildingMasterList();
+        String[] colors = new String[]{"blue", "red", "gray", "orange", "green", "yellow", "black"};
+        BuildingFactory.setbuildingMasterList();
         for (int a = 0; a < colors.length; a++) {
             ArrayList<Building> coloredBuildings = buildingMasterList.get(colors[a]);
             boolean isUserInputValid = false;
-            do {
-                System.out.println("What " + colors[a] + " building would you like for your game?");
-                System.out.println("Available choices include:");
-                Utility.printMembersOfArrayList(coloredBuildings);
-                String userInput = sc.nextLine().toLowerCase();
-                for (int b = 0; b < coloredBuildings.size(); b++ ) {
-                    if (userInput.equals(coloredBuildings.get(b).toString().toLowerCase())) {
-                        buildingsForGame.add(coloredBuildings.get(b).getClass().newInstance());
-                        isUserInputValid = true;
+            if (coloredBuildings.size() > 1) {
+                do {
+                    System.out.println("What " + colors[a] + " building would you like for your game?");
+                    System.out.println("Available choices include:");
+                    Utility.printMembersOfArrayList(coloredBuildings);
+                    String userInput = sc.nextLine().toLowerCase();
+                    for (int b = 0; b < coloredBuildings.size(); b++ ) {
+                        if (userInput.equals(coloredBuildings.get(b).toString().toLowerCase())) {
+                            buildingsForGame.add(coloredBuildings.get(b).getClass().newInstance());
+                            isUserInputValid = true;
+                        }
                     }
                 }
+                while (!isUserInputValid);
             }
-            while (!isUserInputValid);
+            else {
+                buildingsForGame.add(coloredBuildings.get(0));
+            }
 
         }
     }
@@ -151,6 +157,7 @@ public class Driver {
     private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
         board.playerTurn(resource);
         board.detectValidBuilding();
+        board.runBuildingTurnAction();
         board.setGameCompletion(board.gameOver());
     }
 }
