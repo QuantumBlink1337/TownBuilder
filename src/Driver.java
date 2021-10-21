@@ -113,7 +113,7 @@ public class Driver {
                     String userInput = sc.nextLine().toLowerCase();
                     for (int b = 0; b < coloredBuildings.size(); b++ ) {
                         if (userInput.equals(coloredBuildings.get(b).toString().toLowerCase())) {
-                            buildingsForGame.add(coloredBuildings.get(b).getClass().newInstance());
+                            buildingsForGame.add(BuildingFactory.getBuilding(coloredBuildings.get(b).getType(), buildingsForGame, -1,-1));
                             isUserInputValid = true;
                         }
                     }
