@@ -2,43 +2,60 @@ package TownBuilder.Buildings;
 
 import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Fountain implements Building{
-    public static final ResourceEnum[][] fountainArray = new ResourceEnum[1][2];
-    public static final ArrayList<ResourceEnum[][]> fountainPatternArray = new ArrayList<>();
+    private static final ResourceEnum[][] fountainArray = new ResourceEnum[1][2];
+    private static final ArrayList<ResourceEnum[][]> fountainPatternArray = new ArrayList<>();
+    private final int row;
+    private final int col;
+    private boolean condition;
+
+    static {
+        fountainArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.STONE};
+        BuildingFactory.patternBuilder(fountainArray, fountainPatternArray, 3);
+        fountainArray[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WOOD};
+        BuildingFactory.patternBuilder(fountainArray, fountainPatternArray, 3);
+
+    }
+    public Fountain(int r, int c) {
+        row = r;
+        col = c;
+        condition = false;
+    }
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
-        return null;
+        return fountainPatternArray;
     }
     public String toString() {
         return "Fountain";
     }
     @Override
     public BuildingEnum getType() {
-        return null;
+        return BuildingEnum.FOUNTAIN;
     }
 
     @Override
     public boolean getCondition() {
-        return false;
+        return condition;
     }
 
     @Override
     public void setCondition(boolean condition) {
-
+        this.condition = condition;
     }
 
     @Override
     public int getRow() {
-        return 0;
+        return row;
     }
 
     @Override
     public int getCol() {
-        return 0;
+        return col;
     }
 
     @Override
@@ -48,16 +65,43 @@ public class Fountain implements Building{
 
     @Override
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
-        return 0;
+        int score = 0;
+        try {
+            if (bArray[row][col-1].getType() == BuildingEnum.FOUNTAIN) {
+                score+=2;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {
+            if (bArray[row-1][col].getType() == BuildingEnum.FOUNTAIN) {
+                score+=2;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {
+            if (bArray[row][col+1].getType() == BuildingEnum.FOUNTAIN) {
+                score+=2;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {
+            if (bArray[row+1][col].getType() == BuildingEnum.FOUNTAIN) {
+                score+=2;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException ignored) {}
+        return score;
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        // nothing
     }
 
     @Override
     public void printManualText() {
-
+        System.out.println("The Fountain grants 2 points for each adjacent Fountain.");
+        System.out.println("Here's what it looks like:");
+        Utility.arrayPrinter(fountainPatternArray.get(0));
     }
 }
