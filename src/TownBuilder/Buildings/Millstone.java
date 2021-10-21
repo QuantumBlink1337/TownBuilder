@@ -108,7 +108,8 @@ public class Millstone implements Building{
 
     @Override
     public void printManualText() {
-        System.out.println("The Fountain grants 2 points for each adjacent Fountain.");
+        System.out.println("The Millstone grants 2 points if it is adjacent to a RED building or a YELLOW building.");
+        System.out.println("Note: the maximum amount of points a Millstone can earn is 2.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(millstonePatternArray.get(0));
     }

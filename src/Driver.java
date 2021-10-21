@@ -43,7 +43,7 @@ public class Driver {
         // if there's only one player, use default singleplayer code
         if (playerCount < 2) {
             Board board = boardArrayList.get(0);
-            System.out.println("Town Hall mode enabled!");
+            Manual.townHallNote();
             while (!board.isGameCompletion()) { // this loop continues until the player has no empty slots in board
                 board.setGameCompletion(board.gameOver());
                 if (!board.isGameCompletion()) {
@@ -99,32 +99,62 @@ public class Driver {
     }
     public static void buildingSelection(ArrayList<Building> buildingsForGame) throws InstantiationException, IllegalAccessException {
         Scanner sc = new Scanner(System.in);
+
         HashMap<String, ArrayList<Building>> buildingMasterList = BuildingFactory.getBuildingMasterList();
-        String[] colors = new String[]{"blue", "red", "gray", "orange", "green", "yellow", "black"};
-        BuildingFactory.setbuildingMasterList();
-        for (int a = 0; a < colors.length; a++) {
-            ArrayList<Building> coloredBuildings = buildingMasterList.get(colors[a]);
-            boolean isUserInputValid = false;
-            if (coloredBuildings.size() > 1) {
-                do {
-                    System.out.println("What " + colors[a] + " building would you like for your game?");
-                    System.out.println("Available choices include:");
-                    Utility.printMembersOfArrayList(coloredBuildings);
-                    String userInput = sc.nextLine().toLowerCase();
-                    for (int b = 0; b < coloredBuildings.size(); b++ ) {
-                        if (userInput.equals(coloredBuildings.get(b).toString().toLowerCase())) {
-                            buildingsForGame.add(BuildingFactory.getBuilding(coloredBuildings.get(b).getType(), buildingsForGame, -1,-1));
-                            isUserInputValid = true;
-                        }
-                    }
-                }
-                while (!isUserInputValid);
+        String userInput;
+        boolean isUserInputValid = false;
+        boolean isCustomGame = true;
+        do {
+            System.out.println("Welcome to TownBuilder. Would you like to play a default game (recommended for new players) or a custom game?");
+            userInput = sc.nextLine().toLowerCase();
+            if (userInput.equals("default") || userInput.equals("d")) {
+                isUserInputValid = true;
+                isCustomGame = false;
+            }
+            else if (userInput.equals("custom") || userInput.equals("c")) {
+                isUserInputValid = true;
             }
             else {
-                buildingsForGame.add(coloredBuildings.get(0));
+               System.out.println("Invalid input. Please try again with 'custom' or 'default'.");
             }
-
         }
+        while (!isUserInputValid);
+        if (isCustomGame) {
+            String[] colors = new String[]{"blue", "red", "gray", "orange", "green", "yellow", "black"};
+            BuildingFactory.setbuildingMasterList();
+            for (String color : colors) {
+                ArrayList<Building> coloredBuildings = buildingMasterList.get(color);
+                isUserInputValid = false;
+                if (coloredBuildings.size() > 1) {
+                    do {
+                        System.out.println("What " + color + " building would you like for your game?");
+                        System.out.println("Available choices include:");
+                        Utility.printMembersOfArrayList(coloredBuildings);
+                        userInput = sc.nextLine().toLowerCase();
+                        for (Building coloredBuilding : coloredBuildings) {
+                            if (userInput.equals(coloredBuilding.toString().toLowerCase())) {
+                                buildingsForGame.add(BuildingFactory.getBuilding(coloredBuilding.getType(), buildingsForGame, -1, -1));
+                                isUserInputValid = true;
+                            }
+                        }
+                    }
+                    while (!isUserInputValid);
+                } else {
+                    buildingsForGame.add(coloredBuildings.get(0));
+                }
+
+            }
+        }
+        else {
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, -1, -1));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.FARM, buildingsForGame, -1, -1));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WELL, buildingsForGame, -1, -1));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.CHAPEL, buildingsForGame, -1, -1));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.TAVERN, buildingsForGame, -1, -1));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.THEATER, buildingsForGame, -1, -1));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, -1, -1));
+        }
+
     }
     /*
         This method faciliates the actions of each turn and includes code for use in both multiplayer and singleplayer applications.
