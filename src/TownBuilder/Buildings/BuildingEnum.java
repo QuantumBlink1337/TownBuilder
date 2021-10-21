@@ -3,14 +3,15 @@ package TownBuilder.Buildings;
 public enum BuildingEnum {
     FARM,
     GRANARY,
-    GRHOUSE,
+    GRENHOUSE,
     ORCHARD,
     CHAPEL,
     COTTAGE,
     THEATER,
     TAVERN,
     WELL,
-    WHOUSE,
+    FOUNTAIN,
+    WAREHOUSE,
     NONE
 
 }

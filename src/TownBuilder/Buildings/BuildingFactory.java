@@ -45,7 +45,7 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.THEATER) {
             return new Theater(buildingMasterList, row, col);
         }
-        else if (buildingEnum == BuildingEnum.WHOUSE) {
+        else if (buildingEnum == BuildingEnum.WAREHOUSE) {
             return new Warehouse(row, col);
         }
         else if (buildingEnum == BuildingEnum.WELL) {

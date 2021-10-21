@@ -33,7 +33,7 @@ public class Warehouse implements Building {
 //        storedResources[2] = c;
 //    }
     public BuildingEnum getType() {
-        return BuildingEnum.WHOUSE;
+        return BuildingEnum.WAREHOUSE;
     }
 
     public boolean getCondition() {

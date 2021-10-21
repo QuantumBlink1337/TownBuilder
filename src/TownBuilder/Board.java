@@ -12,6 +12,7 @@ public class Board {
     private final ArrayList<Building> buildingsForGame;
     private final Manual manual;
     private final Scorer scorer;
+    private final int boardWhiteSpaceLength = 9;
     private int spResourceSelectionIncrement = 0;
     private boolean isGameCompletion = false;
     private final String boardName;
@@ -200,7 +201,7 @@ public class Board {
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(resource.toString()) +".");
 
         try {
-            warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WHOUSE, gameBuildingBoard);
+            warehouse = (Warehouse) Utility.boardParser(BuildingEnum.WAREHOUSE, gameBuildingBoard);
             warehouseExists = true;
         }
         catch(ClassCastException ignored) {}
@@ -278,13 +279,13 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED) {
-                    gameBoard[row][col] = "[" + Utility.lengthResizer(gameResourceBoard[row][col].toString(), 7) + "]";
+                    gameBoard[row][col] = "[" + Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength) + "]";
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-                    gameBoard[row][col] = "["+ Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), 7) + "]";
+                    gameBoard[row][col] = "["+ Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength) + "]";
                 }
                 else {
-                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", 7)+"]";
+                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
                 }
 
             }

@@ -3,7 +3,6 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class Greenhouse implements Building{
@@ -32,7 +31,7 @@ public class Greenhouse implements Building{
 
     @Override
     public BuildingEnum getType() {
-        return BuildingEnum.GRHOUSE;
+        return BuildingEnum.GRENHOUSE;
     }
 
     @Override
