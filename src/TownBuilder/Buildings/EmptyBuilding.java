@@ -23,6 +23,16 @@ public class EmptyBuilding implements Building {
     }
 
     @Override
+    public int getRow() {
+        return -1;
+    }
+
+    @Override
+    public int getCol() {
+        return -1;
+    }
+
+    @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return new ArrayList<>();
     }
@@ -43,7 +53,7 @@ public class EmptyBuilding implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
 
     }
 

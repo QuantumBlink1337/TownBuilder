@@ -14,39 +14,39 @@ public class BuildingFactory {
     private static final HashMap<String, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() {
 
-        buildingMasterList.put("blue", new ArrayList<>(Arrays.asList(new Cottage())));
-        buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(), new Granary())));
-        buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well())));
-        buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel())));
-        buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern())));
+        buildingMasterList.put("blue", new ArrayList<>(Arrays.asList(new Cottage(-1, -1))));
+        buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1))));
+        buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well(-1, -1))));
+        buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ))));
+        buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern(-1, -1))));
         buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater())));
-        buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse())));
+        buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1))));
     }
 
-    public Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList) {
+    public Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col) {
         if (buildingEnum == BuildingEnum.CHAPEL) {
-            return new Chapel();
+            return new Chapel(row, col);
         }
         else if (buildingEnum == BuildingEnum.COTTAGE) {
-            return new Cottage();
+            return new Cottage(row, col);
         }
         else if (buildingEnum == BuildingEnum.FARM) {
-            return new Farm();
+            return new Farm(row, col);
         }
         else if (buildingEnum == BuildingEnum.GRANARY) {
-            return new Granary();
+            return new Granary(row, col);
         }
         else if (buildingEnum == BuildingEnum.TAVERN) {
-            return new Tavern();
+            return new Tavern(row, col);
         }
         else if (buildingEnum == BuildingEnum.THEATER) {
-            return new Theater(buildingMasterList);
+            return new Theater(buildingMasterList, row, col);
         }
         else if (buildingEnum == BuildingEnum.WHOUSE) {
-            return new Warehouse();
+            return new Warehouse(row, col);
         }
         else if (buildingEnum == BuildingEnum.WELL) {
-            return new Well();
+            return new Well(row, col);
         }
         return null;
     }
@@ -125,7 +125,7 @@ public class BuildingFactory {
         String userInput;
         int[] coords;
         boolean validInput = false;
-        Building building = getBuilding(buildingEnum,buildingArrayList);
+        Building building = getBuilding(buildingEnum,buildingArrayList, -1, -1);
         do {
             System.out.println("Where would you like to place your " + building.toString() + "?");
             System.out.println("Valid positions for the "+building.toString()+ " are:");
@@ -143,7 +143,7 @@ public class BuildingFactory {
         }
         clearResources(building.getType());
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        bArray[coords[0]][coords[1]] = building;
+        bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1]);;
     }
 
 }

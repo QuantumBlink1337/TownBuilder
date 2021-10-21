@@ -10,12 +10,16 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 public class Chapel implements Building {
     private boolean condition;
     private final boolean FEEDABLE = false;
+    private final int row;
+    private final int col;
     private static final ResourceEnum[][] templeArray = new ResourceEnum[2][3];
     private static final ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> templeList = new ArrayList<>();
 
-    public Chapel() {
+    public Chapel(int r, int c) {
         condition = false;
+        row = r;
+        col = c;
     }
     static {
         templeArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
@@ -35,6 +39,16 @@ public class Chapel implements Building {
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
     }
 
     public String toString() {
@@ -69,7 +83,7 @@ public class Chapel implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
         // no actions taken in between turns
     }
 }

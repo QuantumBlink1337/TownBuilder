@@ -8,12 +8,16 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
 public class Cottage implements Building {
     private boolean condition;
+    private final int row;
+    private final int col;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> cottagePatternList = new ArrayList<>();
 
 
-    public Cottage() {
+    public Cottage(int r, int c) {
+        row = r;
+        col = c;
         condition = false;
     }
     static {
@@ -35,6 +39,17 @@ public class Cottage implements Building {
     public void setCondition(boolean condition) {
         this.condition = condition;
     }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
+    }
+
     public String toString() {
         return "Cottage";
     }
@@ -60,7 +75,7 @@ public class Cottage implements Building {
         return 0;
     }
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
 
     }
 

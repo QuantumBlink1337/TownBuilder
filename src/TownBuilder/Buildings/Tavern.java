@@ -10,11 +10,15 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
 public class Tavern implements Building {
     private boolean condition;
+    private final int row;
+    private final int col;
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
     private static final int SCORE_INCREMENT_STARTING_VALUE = 2;
 
-    public Tavern() {
+    public Tavern(int r, int c) {
+        row = r;
+        col =c;
         condition = false;
     }
     static {
@@ -32,6 +36,17 @@ public class Tavern implements Building {
     public void setCondition(boolean condition) {
         this.condition = condition;
     }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
+    }
+
     public String toString() {
         return "Tavern";
     }
@@ -67,7 +82,7 @@ public class Tavern implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
 
     }
 

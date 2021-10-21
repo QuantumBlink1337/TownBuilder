@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Granary implements Building{
     private boolean condition;
+    private final int row;
+    private final int col;
     private static final ResourceEnum[][] orchardArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> orchardPatternList = new ArrayList<>();
     static {
@@ -18,7 +20,9 @@ public class Granary implements Building{
         BuildingFactory.patternBuilder(orchardArray, orchardPatternList, 3);
 
     }
-    public Granary() {
+    public Granary(int r, int c) {
+        row = r;
+        col =c;
         condition = false;
     }
     @Override
@@ -35,6 +39,17 @@ public class Granary implements Building{
     public void setCondition(boolean condition) {
         this.condition = condition;
     }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
+    }
+
     public String toString() {
         return "Orchard";
     }
@@ -54,7 +69,7 @@ public class Granary implements Building{
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
         /*
             when performing maintenance, assume that Orchard is at 1,1
             for best results

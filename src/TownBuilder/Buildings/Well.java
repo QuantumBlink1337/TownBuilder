@@ -9,11 +9,15 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
 public class Well implements Building {
     private final boolean condition;
+    private final int row;
+    private final int col;
     private static final ResourceEnum[][] wellArray = new ResourceEnum[2][1];
     private static final ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
     private static final ArrayList<ResourceEnum[][]> wellPatternList = new ArrayList<>();
 
-    public Well() {
+    public Well(int r, int c) {
+        row = r;
+        col = c;
         condition = false;
     }
     static {
@@ -34,6 +38,16 @@ public class Well implements Building {
     @Override
     public void setCondition(boolean condition) {
 
+    }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
     }
 
     public String toString() {
@@ -84,7 +98,7 @@ public class Well implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
 
     }
 

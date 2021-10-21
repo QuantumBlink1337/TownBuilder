@@ -8,10 +8,14 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 public class Farm implements Building {
     private boolean condition;
     private int fed;
+    private final int row;
+    private final int col;
     private static final ResourceEnum[][] farmArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> farmPatternList = new ArrayList<>();
 
-    public Farm() {
+    public Farm(int r, int c) {
+        row = r;
+        col = c;
         condition = false;
         fed = 4;
     }
@@ -32,6 +36,16 @@ public class Farm implements Building {
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
     }
 
     public void decrementFed() {
@@ -63,7 +77,7 @@ public class Farm implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
                 if (building.isFeedable() && !building.getCondition() && fed > 0) {

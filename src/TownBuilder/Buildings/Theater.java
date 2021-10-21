@@ -10,11 +10,15 @@ import java.util.ArrayList;
 public class Theater implements Building
 {
     private boolean condition;
+    private final int row;
+    private final int col;
     private ArrayList<Building> buildingsOnBoard;
     private static final ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> theaterPatternList= new ArrayList<>();
 
-    public Theater(ArrayList<Building> b) {
+    public Theater(ArrayList<Building> b, int r, int c) {
+        row = r;
+        col = c;
         buildingsOnBoard = new ArrayList<>(b);
         condition = false;
     }
@@ -24,6 +28,8 @@ public class Theater implements Building
         patternBuilder(theaterArray, theaterPatternList, 3);
     }
     public Theater() {
+        row = -1;
+        col = 1;
     }
 
     public BuildingEnum getType() {
@@ -37,6 +43,16 @@ public class Theater implements Building
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
     }
 
     public String toString() {
@@ -69,7 +85,7 @@ public class Theater implements Building
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
 
     }
 

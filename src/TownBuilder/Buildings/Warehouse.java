@@ -9,13 +9,17 @@ import java.util.ArrayList;
 public class Warehouse implements Building {
     private boolean condition;
     private int fullness = 0;
+    private final int row;
+    private final int col;
     private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
     private static final ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> warehousePatternList = new ArrayList<>();
     private static final int MAX_FULLNESS = 3;
     private static final int MIN_FULLNESS = 0;
 
-    public Warehouse() {
+    public Warehouse(int r, int c) {
+        row = r;
+        col = c;
         condition = false;
     }
     static {
@@ -39,6 +43,16 @@ public class Warehouse implements Building {
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
     }
 
     public int getFullness() {
@@ -117,7 +131,7 @@ public class Warehouse implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+    public void onTurnInterval(Building[][] buildingBoard) {
 
     }
 

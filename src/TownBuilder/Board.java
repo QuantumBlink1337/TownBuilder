@@ -130,7 +130,7 @@ public class Board {
     public void runBuildingTurnAction() {
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col].onTurnInterval(gameBuildingBoard,row ,col);
+                gameBuildingBoard[row][col].onTurnInterval(gameBuildingBoard);
             }
         }
     }
