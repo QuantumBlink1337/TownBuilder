@@ -58,7 +58,7 @@ public class Board {
             }
         }
          //Test Case - Legitimate Game Board
-//        gameBuildingBoard[0][0] = new Cottage();
+        //gameBuildingBoard[0][0] = new Cottage();
 //        gameBuildingBoard[0][1] = new Cottage();
 //        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);
 //        gameBuildingBoard[0][3] = new Cottage();
@@ -74,7 +74,7 @@ public class Board {
 //        gameBuildingBoard[2][3] = new Tavern();
 //
 //        gameBuildingBoard[3][0] = new Chapel();
-//        gameBuildingBoard[3][1] = new Farm();
+        //gameBuildingBoard[3][1] = new Farm();
 //          gameBuildingBoard[3][2] = new Warehouse();
     }
     public int scoring(boolean isMidGameCheck) {
@@ -104,7 +104,7 @@ public class Board {
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            buildingFactory.placement(gameResourceBoard, gameBuildingBoard, building.getType());
+            buildingFactory.placement(gameResourceBoard, gameBuildingBoard, building.getType(), buildingsForGame);
         }
         else {
             buildingFactory.clearResources(building.getType());
@@ -115,13 +115,20 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : buildingsForGame) {
-                    if (buildingFactory.detection(row, col, gameResourceBoard, building.getPatterns(), building.getType())) {
+                    if (buildingFactory.detection(row, col, gameResourceBoard, building.getBuildingPatternsList(), building.getType())) {
                         placementPrompt(building);
                     }
                 }
             }
         }
         //System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
+    }
+    public void runBuildingTurnAction() {
+        for (int row = 0; row < gameBuildingBoard.length; row++) {
+            for (int col = 0; col < gameBuildingBoard[row].length; col++) {
+                gameBuildingBoard[row][col].onTurnInterval(gameBuildingBoard,row ,col);
+            }
+        }
     }
     public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
         ResourceEnum turnResource;

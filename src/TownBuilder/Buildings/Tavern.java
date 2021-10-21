@@ -3,10 +3,13 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+
 import java.util.ArrayList;
 
-public class Tavern extends Building {
-    private final boolean condition;
+import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
+
+public class Tavern implements Building {
+    private boolean condition;
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
     private static final int SCORE_INCREMENT_STARTING_VALUE = 2;
@@ -25,9 +28,19 @@ public class Tavern extends Building {
     public boolean getCondition() {
         return condition;
     }
+    @Override
+    public void setCondition(boolean condition) {
+        this.condition = condition;
+    }
     public String toString() {
         return "Tavern";
     }
+
+    @Override
+    public boolean isFeedable() {
+        return false;
+    }
+
     public void printManualText() {
         System.out.println("The Tavern grants points based on how many Taverns you have:");
         System.out.print("1 Tavern: 2 Points | ");
@@ -38,7 +51,7 @@ public class Tavern extends Building {
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(tavernArray);
     }
-    public ArrayList<ResourceEnum[][]> getPatterns() {
+    public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
 
         return tavernPatternList;
     }
@@ -51,6 +64,11 @@ public class Tavern extends Building {
         score += scoreIncrement;
 
         return score;
+    }
+
+    @Override
+    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+
     }
 
     public static int getSCORE_INCREMENT_STARTING_VALUE() {

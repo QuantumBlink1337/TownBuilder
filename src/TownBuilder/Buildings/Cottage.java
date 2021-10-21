@@ -4,9 +4,9 @@ import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
+import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
-
-public class Cottage extends Building {
+public class Cottage implements Building {
     private boolean condition;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
@@ -31,36 +31,37 @@ public class Cottage extends Building {
     public boolean getCondition() {
         return condition;
     }
+    @Override
+    public void setCondition(boolean condition) {
+        this.condition = condition;
+    }
     public String toString() {
         return "Cottage";
     }
+
+    @Override
+    public boolean isFeedable() {
+        return true;
+    }
+
     public void printManualText() {
         System.out.println("The Cottage is a building grants three points when it is fed.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(cottageArray);
     }
-    public ArrayList<ResourceEnum[][]> getPatterns() {
+    public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
 
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
-        int score = 0;
-        for (Building[] buildings : bArray) {
-            for (Building building : buildings) {
-                if (building.getType() == BuildingEnum.FARM) {
-                    Farm farm = (Farm) building;
-                    if (farm.getFed() != 0) {
-                        farm.decrementFed();
-                        condition = true;
-                    }
-                }
-            }
+        if (condition) {
+            return 3;
         }
-            if (this.condition) {
-                score += 3;
-            }
+        return 0;
+    }
+    @Override
+    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
 
-        return score;
     }
 
 }

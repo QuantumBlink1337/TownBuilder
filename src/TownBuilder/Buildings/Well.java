@@ -4,8 +4,10 @@ import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
+import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
-public class Well extends Building {
+
+public class Well implements Building {
     private final boolean condition;
     private static final ResourceEnum[][] wellArray = new ResourceEnum[2][1];
     private static final ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
@@ -28,16 +30,28 @@ public class Well extends Building {
     public boolean getCondition() {
         return condition;
     }
+
+    @Override
+    public void setCondition(boolean condition) {
+
+    }
+
     public String toString() {
         return "Well";
     }
+
+    @Override
+    public boolean isFeedable() {
+        return false;
+    }
+
     public void printManualText() {
         System.out.println("The Well grants one point for each adjacent Cottage.");
         System.out.println("Note: these Cottages do not need to be fed. Note: diagonals do not count.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(wellArray);
     }
-    public ArrayList<ResourceEnum[][]> getPatterns() {
+    public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return wellPatternList;
     }
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
@@ -67,6 +81,11 @@ public class Well extends Building {
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
         return score;
+    }
+
+    @Override
+    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+
     }
 
 }

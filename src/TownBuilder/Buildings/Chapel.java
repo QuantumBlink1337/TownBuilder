@@ -5,8 +5,11 @@ import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
-public class Chapel extends Building {
-    private final boolean condition;
+import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
+
+public class Chapel implements Building {
+    private boolean condition;
+    private final boolean FEEDABLE = false;
     private static final ResourceEnum[][] templeArray = new ResourceEnum[2][3];
     private static final ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> templeList = new ArrayList<>();
@@ -21,7 +24,6 @@ public class Chapel extends Building {
         templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
         templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         patternBuilder(templeArrayMirror, templeList, 3);
-
     }
     public BuildingEnum getType() {
         return BuildingEnum.CHAPEL;
@@ -29,16 +31,28 @@ public class Chapel extends Building {
     public boolean getCondition() {
         return condition;
     }
+
+    @Override
+    public void setCondition(boolean condition) {
+        this.condition = condition;
+    }
+
     public String toString() {
         return "Chapel";
     }
+
+    @Override
+    public boolean isFeedable() {
+        return false;
+    }
+
     public void printManualText() {
         System.out.println("The Chapel grants one point for each fed Cottage.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(templeArray);
     }
     @Override
-    public ArrayList<ResourceEnum[][]> getPatterns() {
+    public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
 
         return templeList;
     }
@@ -52,5 +66,10 @@ public class Chapel extends Building {
             }
         }
         return score;
+    }
+
+    @Override
+    public void onTurnInterval(Building[][] buildingBoard, int row, int col) {
+        // no actions taken in between turns
     }
 }
