@@ -11,6 +11,7 @@ public enum BuildingEnum {
     TAVERN,
     WELL,
     FOUNTAIN,
+    MILLSTONE,
     WAREHOUSE,
     NONE
 
