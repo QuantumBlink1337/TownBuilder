@@ -5,7 +5,7 @@ import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
-public class Orchard implements Building{
+public class Granary implements Building{
     private boolean condition;
     private static final ResourceEnum[][] orchardArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> orchardPatternList = new ArrayList<>();
@@ -18,12 +18,12 @@ public class Orchard implements Building{
         BuildingFactory.patternBuilder(orchardArray, orchardPatternList, 3);
 
     }
-    public Orchard() {
+    public Granary() {
         condition = false;
     }
     @Override
     public BuildingEnum getType() {
-        return BuildingEnum.ORCHARD;
+        return BuildingEnum.GRANARY;
     }
 
     @Override

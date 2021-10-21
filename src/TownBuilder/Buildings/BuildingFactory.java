@@ -15,7 +15,7 @@ public class BuildingFactory {
     public static void setbuildingMasterList() {
 
         buildingMasterList.put("blue", new ArrayList<>(Arrays.asList(new Cottage())));
-        buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(), new Orchard())));
+        buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(), new Granary())));
         buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well())));
         buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel())));
         buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern())));
@@ -33,8 +33,8 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.FARM) {
             return new Farm();
         }
-        else if (buildingEnum == BuildingEnum.ORCHARD) {
-            return new Orchard();
+        else if (buildingEnum == BuildingEnum.GRANARY) {
+            return new Granary();
         }
         else if (buildingEnum == BuildingEnum.TAVERN) {
             return new Tavern();

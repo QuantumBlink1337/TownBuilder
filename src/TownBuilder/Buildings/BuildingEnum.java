@@ -2,7 +2,7 @@ package TownBuilder.Buildings;
 
 public enum BuildingEnum {
     FARM,
-    ORCHARD,
+    GRANARY,
     CHAPEL,
     COTTAGE,
     THEATER,
