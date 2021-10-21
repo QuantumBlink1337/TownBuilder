@@ -90,7 +90,7 @@ public class Board {
         this.updateBoard();
         for (String[] tileRow : gameBoard) {
             for (String tile : tileRow) {
-                if (!(tile.equals("[EMPTY! ]"))) {
+                if (!(tile.equals("[EMPTY!   ]"))) {
                     i++;
                 }
             }
