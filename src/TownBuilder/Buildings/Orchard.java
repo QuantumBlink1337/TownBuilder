@@ -33,7 +33,9 @@ public class Orchard implements Building {
     public BuildingEnum getType() {
         return BuildingEnum.ORCHARD;
     }
-
+    public String toString() {
+        return "Orchard";
+    }
     @Override
     public boolean getCondition() {
         return condition;
