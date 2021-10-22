@@ -12,6 +12,7 @@ public class Millstone implements Building{
     private final int row;
     private final int col;
     private boolean condition;
+    private boolean buildingFound = false;
 
     static {
         millstoneArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.STONE};
@@ -70,7 +71,6 @@ public class Millstone implements Building{
     @Override
     public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
         int score = 0;
-        boolean buildingFound = false;
         try {
             if ((bArray[row][col-1].getColor().equals("red")|| bArray[row][col-1].getColor().equals("yellow")) && !buildingFound) {
                 score+=2;
@@ -95,6 +95,7 @@ public class Millstone implements Building{
         try {
             if ((bArray[row+1][col].getColor().equals("red") || bArray[row+1][col].getColor().equals("yellow")) && !buildingFound) {
                 score+=2;
+                buildingFound = true;
             }
         }
         catch (ArrayIndexOutOfBoundsException ignored) {}
