@@ -55,7 +55,18 @@ public class Utility {
         }
         return target.toString();
     }
-
+    public static Building getBuildingAt(Building[][] buildingBoard, int row, int col) {
+        if ((row > 3 || row < 0) || (col > 3 || col < 0)) {
+            return BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1);
+        }
+        else {
+            return buildingBoard[row][col];
+        }
+    }
+    public static Building[] getAdjacentBuildings(Building[][] buildingBoard, int row, int col) {
+        return new Building[]{getBuildingAt(buildingBoard, row-1, col), getBuildingAt(buildingBoard, row+1, col), getBuildingAt(buildingBoard, row, col-1),
+        getBuildingAt(buildingBoard, row, col+1)};
+    }
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
