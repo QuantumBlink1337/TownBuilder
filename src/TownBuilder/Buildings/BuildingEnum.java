@@ -12,6 +12,7 @@ public enum BuildingEnum {
     COTTAGE,
     THEATER,
     TAVERN,
+    ALMSHOUSE,
     WELL,
     FOUNTAIN,
     MILLSTONE,
