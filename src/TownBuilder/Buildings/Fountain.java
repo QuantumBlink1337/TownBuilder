@@ -70,30 +70,12 @@ public class Fountain implements Building{
     @Override
     public int scorer(Building[][] bArray, int scoreIncrement) {
         int score = 0;
-        try {
-            if (bArray[row][col-1].getType() == BuildingEnum.FOUNTAIN) {
+        Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
+        for (Building building : adjacentBuildings) {
+            if (building.getType() == BuildingEnum.FOUNTAIN) {
                 score+=2;
             }
         }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if (bArray[row-1][col].getType() == BuildingEnum.FOUNTAIN) {
-                score+=2;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if (bArray[row][col+1].getType() == BuildingEnum.FOUNTAIN) {
-                score+=2;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if (bArray[row+1][col].getType() == BuildingEnum.FOUNTAIN) {
-                score+=2;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
         return score;
     }
 
