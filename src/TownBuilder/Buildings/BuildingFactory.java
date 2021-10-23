@@ -17,15 +17,27 @@ public class BuildingFactory {
         buildingMasterList.put("blue", new ArrayList<>(Arrays.asList(new Cottage(-1, -1))));
         buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1))));
         buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
-        buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ))));
+        buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern(-1, -1))));
         buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater())));
         buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1))));
     }
 
     public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col) {
-        if (buildingEnum == BuildingEnum.CHAPEL) {
+        if (buildingEnum == BuildingEnum.NONE) {
+            return new EmptyBuilding();
+        }
+        else if (buildingEnum == BuildingEnum.CHAPEL) {
             return new Chapel(row, col);
+        }
+        else if (buildingEnum == BuildingEnum.ABBEY) {
+            return new Abbey(row, col);
+        }
+        else if (buildingEnum == BuildingEnum.CLOISTER) {
+            return new Cloister(row, col);
+        }
+        else if (buildingEnum == BuildingEnum.TEMPLE) {
+            return new Temple(row, col);
         }
         else if (buildingEnum == BuildingEnum.COTTAGE) {
             return new Cottage(row, col);
@@ -57,6 +69,7 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.MILLSTONE) {
             return new Millstone(row, col);
         }
+
         return null;
     }
     public ArrayList<Resource> getValidResources() {
