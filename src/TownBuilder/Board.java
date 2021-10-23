@@ -20,7 +20,7 @@ public class Board {
     private final Building[][] gameBuildingBoard = new Building[4][4];
     private final String[][] gameBoard = new String[4][4];
     private final String[][] coordinateBoard = new String[4][4];
-    private final String[] letterCoords = {"      ", "a", "      b",  "      c", "      d"};
+    private final String[] letterCoords = {"      ", "a", "         b",  "           c", "          d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
     private final BuildingFactory buildingFactory;
     private final Scanner sc = new Scanner(System.in);
@@ -63,24 +63,21 @@ public class Board {
         }
          //Test Case - Legitimate Game Board
 
-        //gameBuildingBoard[0][0] = new Cottage();
-//        gameBuildingBoard[0][1] = new Cottage();
-//        gameResourceBoard[0][2].setResource(ResourceEnum.GLASS);
-//        gameBuildingBoard[0][3] = new Cottage();
+
+//        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.TEMPLE, buildingsForGame, 0, 0);
+//        gameBuildingBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 0, 1);
+//        gameBuildingBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 1, 0);
+//        gameBuildingBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.FARM, buildingsForGame, 3,3);
+
+//        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 0);
+//        gameBuildingBoard[0][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 3);
+//        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 0);
+//        gameBuildingBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 3);
 //
-//        gameBuildingBoard[1][0] = new Well();
-//        gameResourceBoard[1][1].setResource(ResourceEnum.WOOD);
-//        gameResourceBoard[1][2].setResource(ResourceEnum.WOOD);
-//        gameBuildingBoard[1][3] = new Theater(buildingsForGame);
-//
-//        gameBuildingBoard[2][0] = new Theater(buildingsForGame);
-//        gameBuildingBoard[2][1] = new Cottage();
-//        gameBuildingBoard[2][2] = new Well();
-//        gameBuildingBoard[2][3] = new Tavern();
-//
-//        gameBuildingBoard[3][0] = new Chapel();
-        //gameBuildingBoard[3][1] = new Farm();
-//          gameBuildingBoard[3][2] = new Warehouse();
+//        gameBuildingBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 1, 0);
+//        gameBuildingBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 2, 0);
+//        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 3, 0);
+
     }
     public int scoring(boolean isMidGameCheck) {
         return scorer.scoring(isMidGameCheck);
