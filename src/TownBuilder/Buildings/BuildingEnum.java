@@ -6,6 +6,9 @@ public enum BuildingEnum {
     GRENHOUSE,
     ORCHARD,
     CHAPEL,
+    ABBEY,
+    CLOISTER,
+    TEMPLE,
     COTTAGE,
     THEATER,
     TAVERN,
@@ -13,6 +16,7 @@ public enum BuildingEnum {
     FOUNTAIN,
     MILLSTONE,
     WAREHOUSE,
-    NONE
+    NONE;
 
+    String color;
 }
