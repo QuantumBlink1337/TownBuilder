@@ -56,7 +56,7 @@ public class Utility {
         return target.toString();
     }
     public static Building getBuildingAt(Building[][] buildingBoard, int row, int col) {
-        if ((row > 3 || row < 0) || (col > 3 || col < 0)) {
+        if ((row > buildingBoard.length-1 || row < 0) || (col > buildingBoard[row].length-1 || col < 0)) {
             return BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1);
         }
         else {
