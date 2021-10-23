@@ -69,7 +69,7 @@ public class Millstone implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         int score = 0;
         try {
             if ((bArray[row][col-1].getColor().equals("red")|| bArray[row][col-1].getColor().equals("yellow")) && !buildingFound) {

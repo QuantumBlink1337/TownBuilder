@@ -76,7 +76,7 @@ public class Chapel implements Building {
 
         return templeList;
     }
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         int score = 0;
         for (Building[] buildings : bArray) {
             for (Building building : buildings) {

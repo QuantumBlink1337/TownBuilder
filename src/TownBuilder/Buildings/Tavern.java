@@ -76,7 +76,7 @@ public class Tavern implements Building {
 
         return tavernPatternList;
     }
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         if (condition) {
             return 0;
         }

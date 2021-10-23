@@ -1,10 +1,8 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Fountain implements Building{
@@ -70,7 +68,7 @@ public class Fountain implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         int score = 0;
         try {
             if (bArray[row][col-1].getType() == BuildingEnum.FOUNTAIN) {

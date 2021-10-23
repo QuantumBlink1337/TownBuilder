@@ -3,7 +3,6 @@ package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Orchard implements Building {
@@ -68,7 +67,7 @@ public class Orchard implements Building {
     }
 
     @Override
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         return 0;
     }
 

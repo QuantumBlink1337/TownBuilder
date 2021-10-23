@@ -43,7 +43,7 @@ public class Scorer {
                         chapels.add(building);
                     }
                     else {
-                        score = building.scorer(board.getGameBuildingBoard(), r, c, scoreIncrement);
+                        score = building.scorer(board.getGameBuildingBoard(), scoreIncrement);
                         if (scoreIncrementType == building.getType()) {
                             scoreIncrement++;
                         }
@@ -60,7 +60,7 @@ public class Scorer {
             }
         }
         for (Building chapel : chapels) {
-            score = chapel.scorer(board.getGameBuildingBoard(), 0, 0, 0);
+            score = chapel.scorer(board.getGameBuildingBoard(), 0);
             totalScore += score;
             scores.put(chapel.getType(), score);
         }

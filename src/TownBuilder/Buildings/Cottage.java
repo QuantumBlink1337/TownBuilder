@@ -74,7 +74,7 @@ public class Cottage implements Building {
 
         return cottagePatternList;
     }
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         if (condition) {
             return 3;
         }

@@ -69,7 +69,7 @@ public class Greenhouse implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         return 0;
     }
 

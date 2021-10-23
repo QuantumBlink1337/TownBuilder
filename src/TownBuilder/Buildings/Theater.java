@@ -78,7 +78,7 @@ public class Theater implements Building
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(theaterArray);
     }
-    public int scorer(Building[][] bArray, int row, int col, int scoreIncrement) {
+    public int scorer(Building[][] bArray, int scoreIncrement) {
         int score = 0;
         //noinspection ForLoopReplaceableByForEach
         for (int r = 0; r < bArray.length; r++) {
