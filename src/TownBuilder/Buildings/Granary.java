@@ -76,68 +76,18 @@ public class Granary implements Building{
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-        /*
-            when performing maintenance, assume that Orchard is at 1,1
-            for best results
-         */
-
-        // 0,0
-        try {
-            if (buildingBoard[row-1][col-1].isFeedable() && !buildingBoard[row-1][col-1].getCondition()) {
-                buildingBoard[row-1][col-1].setCondition(true);
+        Building[] adjacentBuildings = Utility.getAdjacentBuildings(buildingBoard, row, col);
+        Building[] diagonalBuildings = Utility.getDiagonalBuildings(buildingBoard, row, col);
+        for (Building building : adjacentBuildings) {
+            if (building.isFeedable() && !building.getCondition()) {
+                building.setCondition(true);
             }
         }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        // 0,1
-        try {
-            if (buildingBoard[row-1][col].isFeedable() && !buildingBoard[row-1][col].getCondition()) {
-                buildingBoard[row-1][col].setCondition(true);
+        for (Building building : diagonalBuildings) {
+            if (building.isFeedable() && !building.getCondition()) {
+                building.setCondition(true);
             }
         }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        // 0, 2
-        try {
-            if (buildingBoard[row-1][col+1].isFeedable() && !buildingBoard[row-1][col+1].getCondition()) {
-                buildingBoard[row-1][col+1].setCondition(true);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        // 1,0
-        try {
-            if (buildingBoard[row][col-1].isFeedable() && !buildingBoard[row][col-1].getCondition()) {
-                buildingBoard[row][col-1].setCondition(true);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        // 1, 2
-        try {
-            if (buildingBoard[row][col+1].isFeedable() && !buildingBoard[row][col+1].getCondition()) {
-                buildingBoard[row][col+1].setCondition(true);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        // 2, 0
-        try {
-            if (buildingBoard[row+1][col-1].isFeedable() && !buildingBoard[row+1][col-1].getCondition()) {
-                buildingBoard[row+1][col-1].setCondition(true);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        // 2, 1
-        try {
-            if (buildingBoard[row+1][col].isFeedable() && !buildingBoard[row+1][col].getCondition()) {
-                buildingBoard[row+1][col].setCondition(true);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        // 2,2
-        try {
-            if (buildingBoard[row+1][col+1].isFeedable() && !buildingBoard[row+1][col+1].getCondition()) {
-                buildingBoard[row+1][col+1].setCondition(true);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-
     }
 
     @Override
