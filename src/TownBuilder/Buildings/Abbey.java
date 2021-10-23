@@ -72,30 +72,12 @@ public class Abbey implements Building{
 
     @Override
     public int scorer(Building[][] bArray, int scoreIncrement) {
-        try {
-            if ((bArray[row][col-1].getColor().equals("green")|| bArray[row][col-1].getColor().equals("yellow") || bArray[row][col-1].getColor().equals("black"))) {
+        Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
+        for (Building building : adjacentBuildings) {
+            if ((building.getColor().equals("green")|| building.getColor().equals("yellow") || building.getColor().equals("black"))) {
                 return 0;
             }
         }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if ((bArray[row-1][col].getColor().equals("green")|| bArray[row-1][col].getColor().equals("yellow") || bArray[row-1][col].getColor().equals("black"))) {
-                return 0;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if ((bArray[row][col+1].getColor().equals("green")|| bArray[row][col+1].getColor().equals("yellow") || bArray[row][col+1].getColor().equals("black"))) {
-                return 0;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if ((bArray[row+1][col].getColor().equals("green")|| bArray[row+1][col].getColor().equals("yellow") || bArray[row+1][col].getColor().equals("black"))) {
-                return 0;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
         return 3;
     }
 
