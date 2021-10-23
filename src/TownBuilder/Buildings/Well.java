@@ -76,30 +76,11 @@ public class Well implements Building {
     }
     public int scorer(Building[][] bArray, int scoreIncrement) {
         int score = 0;
-        try {
-            if (bArray[row][col-1].getType() == BuildingEnum.COTTAGE) {
+        for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
+            if (building.getType() == BuildingEnum.COTTAGE) {
                 score++;
             }
         }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if (bArray[row-1][col].getType() == BuildingEnum.COTTAGE) {
-                score++;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if (bArray[row][col+1].getType() == BuildingEnum.COTTAGE) {
-                score++;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if (bArray[row+1][col].getType() == BuildingEnum.COTTAGE) {
-                score++;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
         return score;
     }
 

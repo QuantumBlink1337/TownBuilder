@@ -70,36 +70,12 @@ public class Millstone implements Building{
 
     @Override
     public int scorer(Building[][] bArray, int scoreIncrement) {
-        int score = 0;
-        try {
-            if ((bArray[row][col-1].getColor().equals("red")|| bArray[row][col-1].getColor().equals("yellow")) && !buildingFound) {
-                score+=2;
-                buildingFound = true;
+        for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
+            if (building.getColor().equals("red") || building.getColor().equals("yellow")) {
+                return 2;
             }
         }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if ((bArray[row-1][col].getColor().equals("red") || bArray[row-1][col].getColor().equals("yellow")) && !buildingFound) {
-                score+=2;
-                buildingFound = true;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if ((bArray[row][col+1].getColor().equals("red") || bArray[row][col+1].getColor().equals("yellow")) && !buildingFound) {
-                score+=2;
-                buildingFound = true;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {
-            if ((bArray[row+1][col].getColor().equals("red") || bArray[row+1][col].getColor().equals("yellow")) && !buildingFound) {
-                score+=2;
-                buildingFound = true;
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException ignored) {}
-        return score;
+        return 0;
     }
 
     @Override
