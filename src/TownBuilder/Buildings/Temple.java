@@ -71,78 +71,15 @@ public class Temple implements Building{
 
     @Override
     public int scorer(Building[][] bArray, int scoreIncrement) {
-        Building building1;
-        Building building2;
-        Building building3;
-        Building building4;
-        try {
-            building1 = bArray[row-1][col];
-        }
-        catch(ArrayIndexOutOfBoundsException ignored) {
-            building1 = BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1);
-        }
-        try {
-            building2 = bArray[row+1][col];
-        }
-        catch(ArrayIndexOutOfBoundsException ignored) {
-            building2 = BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1);;
-        }
-        try {
-            building3 = bArray[row][col-1];
-        }
-        catch(ArrayIndexOutOfBoundsException ignored) {
-            building3 = BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1);;
-        }
-        try {
-            building4 = bArray[row][col+1];
-        }
-        catch(ArrayIndexOutOfBoundsException ignored) {
-            building4 = BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1);;
-        }
-
-        if (building1.getCondition() && building1.getColor().equals("blue")) {
-            if (building2.getCondition() && building2.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building3.getCondition() && building3.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building4.getCondition() && building4.getColor().equals("blue")) {
-                return 4;
+        Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
+        int cottagesFound = 0;
+        for (Building building : adjacentBuildings) {
+            if (building.getCondition() && building.getColor().equals("blue")) {
+                cottagesFound++;
             }
         }
-        if (building2.getCondition() && building2.getColor().equals("blue")) {
-            if (building1.getCondition() && building1.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building3.getCondition() && building3.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building4.getCondition() && building4.getColor().equals("blue")) {
-                return 4;
-            }
-        }
-        if (building3.getCondition() && building3.getColor().equals("blue")) {
-            if (building2.getCondition() && building2.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building1.getCondition() && building1.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building4.getCondition() && building4.getColor().equals("blue")) {
-                return 4;
-            }
-        }
-        if (building4.getCondition() && building4.getColor().equals("blue")) {
-            if (building2.getCondition() && building2.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building3.getCondition() && building3.getColor().equals("blue")) {
-                return 4;
-            }
-            else if (building1.getCondition() && building1.getColor().equals("blue")) {
-                return 4;
-            }
+        if (cottagesFound > 1) {
+            return 4;
         }
         return 0;
     }
