@@ -86,7 +86,7 @@ public class Almshouse implements Building{
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-        // nothing
+        condition = false;
     }
 
     @Override
