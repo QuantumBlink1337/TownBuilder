@@ -59,11 +59,6 @@ public class FeastHall implements Building{
     }
 
     @Override
-    public String getColor() {
-        return "green";
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }

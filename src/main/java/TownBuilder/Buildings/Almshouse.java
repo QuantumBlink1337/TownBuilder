@@ -55,11 +55,6 @@ public class Almshouse implements Building{
     }
 
     @Override
-    public String getColor() {
-        return "green";
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }

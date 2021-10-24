@@ -57,11 +57,6 @@ public class Orchard implements Building {
     }
 
     @Override
-    public String getColor() {
-        return color;
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }

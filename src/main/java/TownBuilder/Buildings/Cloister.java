@@ -59,11 +59,6 @@ public class Cloister implements Building {
     }
 
     @Override
-    public String getColor() {
-        return "orange";
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }

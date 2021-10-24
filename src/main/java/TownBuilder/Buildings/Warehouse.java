@@ -56,11 +56,6 @@ public class Warehouse implements Building {
         return col;
     }
 
-    @Override
-    public String getColor() {
-        return color;
-    }
-
     public int getFullness() {
         return fullness;
     }

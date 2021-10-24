@@ -59,11 +59,6 @@ public class Millstone implements Building{
     }
 
     @Override
-    public String getColor() {
-        return color;
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }

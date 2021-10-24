@@ -48,11 +48,6 @@ public class Tavern implements Building {
         return col;
     }
 
-    @Override
-    public String getColor() {
-        return color;
-    }
-
     public String toString() {
         return "Tavern";
     }

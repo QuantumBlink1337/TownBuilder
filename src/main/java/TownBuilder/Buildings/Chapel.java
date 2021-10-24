@@ -52,11 +52,6 @@ public class Chapel implements Building {
         return col;
     }
 
-    @Override
-    public String getColor() {
-        return color;
-    }
-
     public String toString() {
         return "Chapel";
     }

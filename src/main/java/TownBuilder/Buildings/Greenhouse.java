@@ -55,11 +55,6 @@ public class Greenhouse implements Building{
         return col;
     }
 
-    @Override
-    public String getColor() {
-        return color;
-    }
-
     public String toString() {
         return "Greenhouse";
     }

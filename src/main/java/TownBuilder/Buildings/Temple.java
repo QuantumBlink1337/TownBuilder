@@ -60,11 +60,6 @@ public class Temple implements Building{
     }
 
     @Override
-    public String getColor() {
-        return "blue";
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }

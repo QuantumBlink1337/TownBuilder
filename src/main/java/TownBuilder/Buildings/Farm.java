@@ -49,17 +49,6 @@ public class Farm implements Building {
         return col;
     }
 
-    @Override
-    public String getColor() {
-        return color;
-    }
-
-    public void decrementFed() {
-        --fed;
-    }
-    public int getFed() {
-        return fed;
-    }
     public String toString() {
         return "Farm";
     }

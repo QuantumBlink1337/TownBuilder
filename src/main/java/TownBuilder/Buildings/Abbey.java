@@ -61,11 +61,6 @@ public class Abbey implements Building{
     }
 
     @Override
-    public String getColor() {
-        return "orange";
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }
@@ -74,7 +69,7 @@ public class Abbey implements Building{
     public int scorer(Building[][] bArray, int scoreIncrement) {
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         for (Building building : adjacentBuildings) {
-            if ((building.getColor().equals("green")|| building.getColor().equals("yellow") || building.getColor().equals("black"))) {
+            if ((building.getType().getColor() == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW || building.getType().getColor() == ColorEnum.BLACK)) {
                 return 0;
             }
         }

@@ -51,11 +51,6 @@ public class Well implements Building {
         return col;
     }
 
-    @Override
-    public String getColor() {
-        return color;
-    }
-
     public String toString() {
         return "Well";
     }

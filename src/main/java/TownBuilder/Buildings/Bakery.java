@@ -60,11 +60,6 @@ public class Bakery implements Building{
     }
 
     @Override
-    public String getColor() {
-        return "yellow";
-    }
-
-    @Override
     public boolean isFeedable() {
         return false;
     }
