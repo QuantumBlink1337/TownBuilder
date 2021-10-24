@@ -8,6 +8,7 @@ import TownBuilder.Buildings.BuildingEnum;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import com.diogonunes.jcolor.*;
 
 public class Utility {
     private static final Scanner sc = new Scanner(System.in);
@@ -30,6 +31,17 @@ public class Utility {
     public static <T> void printMembersof3dArrayList(ArrayList<T[][]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             arrayPrinter(arrayList.get(i));
+        }
+    }
+    public static AnsiFormat generateColors(BuildingEnum building, ResourceEnum resource) {
+        if (building != null) {
+            return new AnsiFormat(building.getColor().getTextColor(), Attribute.BOLD());
+        }
+        else if (resource != null){
+            return new AnsiFormat(resource.getColor().getTextColor());
+        }
+        else {
+            throw new NullPointerException();
         }
     }
     public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) {
