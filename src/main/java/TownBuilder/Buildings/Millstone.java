@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Millstone implements Building{
     private static final ResourceEnum[][] millstoneArray = new ResourceEnum[1][2];
     private static final ArrayList<ResourceEnum[][]> millstonePatternArray = new ArrayList<>();
-    private final String color = "gray";
     private final int row;
     private final int col;
     private boolean condition;
@@ -66,7 +65,7 @@ public class Millstone implements Building{
     @Override
     public int scorer(Building[][] bArray, int scoreIncrement) {
         for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
-            if (building.getColor().equals("red") || building.getColor().equals("yellow")) {
+            if (building.getType().getColor()  == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW) {
                 return 2;
             }
         }

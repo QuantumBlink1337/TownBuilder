@@ -12,7 +12,6 @@ public class Theater implements Building
     private boolean condition;
     private final int row;
     private final int col;
-    private final String color = "yellow";
     private ArrayList<Building> buildingsOnBoard;
     private static final ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> theaterPatternList= new ArrayList<>();

@@ -69,7 +69,7 @@ public class Temple implements Building{
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         int cottagesFound = 0;
         for (Building building : adjacentBuildings) {
-            if (building.getCondition() && building.getColor().equals("blue")) {
+            if (building.getCondition() && building.getType().getColor() == ColorEnum.BLUE) {
                 cottagesFound++;
             }
         }

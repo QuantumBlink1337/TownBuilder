@@ -10,7 +10,6 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 public class Chapel implements Building {
     private boolean condition;
     private final boolean FEEDABLE = false;
-    private final String color = "orange";
     private final int row;
     private final int col;
     private static final ResourceEnum[][] templeArray = new ResourceEnum[2][3];
