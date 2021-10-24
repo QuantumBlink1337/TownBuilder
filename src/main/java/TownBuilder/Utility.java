@@ -33,12 +33,12 @@ public class Utility {
             arrayPrinter(arrayList.get(i));
         }
     }
-    public static AnsiFormat generateColors(BuildingEnum building, ResourceEnum resource) {
+    public static AnsiFormat generateColors(Building building, Resource resource) {
         if (building != null) {
-            return new AnsiFormat(building.getColor().getTextColor(), Attribute.BOLD());
+            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
         }
         else if (resource != null){
-            return new AnsiFormat(resource.getColor().getTextColor());
+            return new AnsiFormat(resource.getResource().getColor().getTextColor());
         }
         else {
             throw new NullPointerException();
