@@ -75,8 +75,7 @@ public class Greenhouse implements Building{
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-        boolean buildingFound = false;
-        ArrayList<Building> feedableBuildings = new ArrayList<>();
+
 
 
 

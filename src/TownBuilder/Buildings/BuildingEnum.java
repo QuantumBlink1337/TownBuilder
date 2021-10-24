@@ -13,6 +13,7 @@ public enum BuildingEnum {
     THEATER,
     TAVERN,
     ALMSHOUSE,
+    FEASTHALL,
     WELL,
     FOUNTAIN,
     MILLSTONE,
