@@ -1,18 +1,30 @@
 package TownBuilder;
 
 
+import TownBuilder.Buildings.ColorEnum;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public enum ResourceEnum {
-    GLASS,
-    BRICK,
-    WOOD,
-    WHEAT,
-    STONE,
-    OBSTRUCTED,
-    NONE;
+    GLASS (ColorEnum.TURQUIOSE),
+    BRICK (ColorEnum.ORANGERED),
+    WOOD (ColorEnum.BROWN),
+    WHEAT (ColorEnum.GOLD),
+    STONE (ColorEnum.LIGHTGRAY),
+    OBSTRUCTED (ColorEnum.COLORLESS),
+    NONE (ColorEnum.COLORLESS);
+
+    private final ColorEnum color;
+    ResourceEnum(ColorEnum color) {
+        this.color = color;
+    }
+
+    public ColorEnum getColor() {
+        return color;
+    }
+
     private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
     public static ResourceEnum randomResource() {
         int random = (int) (Math.random() * resourceArray.size());
