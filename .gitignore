@@ -26,3 +26,8 @@ hs_err_pid*
 out/
 .DS_Store
 TownBuilder.iml
+/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+/.gradle/checksums/checksums.lock
+/.gradle/7.1/dependencies-accessors/dependencies-accessors.lock
+/.gradle/7.1/executionHistory/executionHistory.lock
+/.gradle/7.1/fileHashes/fileHashes.lock
