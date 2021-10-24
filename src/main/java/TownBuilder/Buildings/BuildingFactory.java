@@ -19,7 +19,7 @@ public class BuildingFactory {
         buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
         buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1))));
-        buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater())));
+        buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1))));
         buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1))));
     }
 
@@ -62,6 +62,9 @@ public class BuildingFactory {
         }
         else if (buildingEnum == BuildingEnum.THEATER) {
             return new Theater(buildingMasterList, row, col);
+        }
+        else if (buildingEnum == BuildingEnum.BAKERY) {
+            return new Bakery(row, col);
         }
         else if (buildingEnum == BuildingEnum.WAREHOUSE) {
             return new Warehouse(row, col);

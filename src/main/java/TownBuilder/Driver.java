@@ -1,3 +1,5 @@
+package TownBuilder;
+
 import TownBuilder.Board;
 import TownBuilder.Buildings.*;
 import TownBuilder.Manual;

@@ -11,6 +11,7 @@ public enum BuildingEnum {
     TEMPLE,
     COTTAGE,
     THEATER,
+    BAKERY,
     TAVERN,
     ALMSHOUSE,
     FEASTHALL,
@@ -20,5 +21,4 @@ public enum BuildingEnum {
     WAREHOUSE,
     NONE;
 
-    String color;
-}
+    }
