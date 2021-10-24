@@ -80,12 +80,8 @@ public class Theater implements Building
     }
     public int scorer(Building[][] bArray, int scoreIncrement) {
         int score = 0;
-        //noinspection ForLoopReplaceableByForEach
-        for (int r = 0; r < bArray.length; r++) {
-            score += buildingMatch(bArray[r][col], this);
-        }
-        for (int c = 0; c < bArray[row].length; c++) {
-            score += buildingMatch(bArray[row][c], this);
+        for (Building building : Utility.getBuildingsInRowAndColumn(bArray, row, col)) {
+            score += buildingMatch(building, this);
         }
         return score;
     }
