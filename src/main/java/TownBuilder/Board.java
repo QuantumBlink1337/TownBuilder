@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.diogonunes.jcolor.*;
 
 public class Board {
     private final ArrayList<Building> buildingsForGame;
@@ -276,10 +277,10 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED) {
-                    gameBoard[row][col] = "[" + Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength) + "]";
+                    gameBoard[row][col] = "[" + Ansi.colorize(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), Utility.generateColors(null, gameResourceBoard[row][col])) + "]";
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-                    gameBoard[row][col] = "["+ Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength) + "]";
+                    gameBoard[row][col] = "["+ Ansi.colorize(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), Utility.generateColors(gameBuildingBoard[row][col], null)) + "]";
                 }
                 else {
                     gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
