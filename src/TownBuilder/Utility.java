@@ -6,6 +6,7 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Utility {
@@ -70,6 +71,14 @@ public class Utility {
     public static Building[] getDiagonalBuildings(Building[][] buildingBoard, int row, int col) {
         return new Building[]{getBuildingAt(buildingBoard, row-1, col-1), getBuildingAt(buildingBoard, row-1, col+1), getBuildingAt(buildingBoard, row+1, col-1),
                 getBuildingAt(buildingBoard, row+1, col+1)};
+    }
+    public static Building[] getBuildingsInRowAndColumn(Building[][] buildingBoard, int row, int col) {
+        ArrayList<Building> buildings = new ArrayList<>();
+        for (Building[] value : buildingBoard) {
+            buildings.add(value[col]);
+        }
+        Collections.addAll(buildings, buildingBoard[row]);
+        return (Building[]) buildings.toArray();
     }
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
