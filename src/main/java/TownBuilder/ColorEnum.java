@@ -28,7 +28,7 @@ public enum ColorEnum {
     // stone
     LIGHTGRAY(Attribute.TEXT_COLOR(192, 192, 192));
 
-    private Attribute textColor;
+    private final Attribute textColor;
     ColorEnum(Attribute t) {
         this.textColor = t;
     }
