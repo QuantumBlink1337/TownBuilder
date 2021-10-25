@@ -32,6 +32,9 @@ public class Board {
         if (boardName.equals("debug")) {
             System.out.println("Debug/testing mode activated. Disabled randomized resource collection");
         }
+        else if (boardName.equals("debug_building")) {
+            System.out.println("Debug/testing mode activated. Enabled direct building placement");
+        }
         buildingsForGame = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
         manual = new Manual(buildingsForGame);
@@ -63,6 +66,9 @@ public class Board {
             }
         }
          //Test Case - Legitimate Game Board
+
+
+
 
 
 //        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, buildingsForGame, 0, 0);
@@ -107,7 +113,7 @@ public class Board {
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            buildingFactory.placement(gameResourceBoard, gameBuildingBoard, building.getType(), buildingsForGame);
+            buildingFactory.placeBuildingOnBoard(gameResourceBoard, gameBuildingBoard, building.getType(), buildingsForGame, false);
         }
         else {
             buildingFactory.clearResources(building.getType());
@@ -163,6 +169,25 @@ public class Board {
             }
         }
         return turnResource;
+    }
+    public void buildingPlacer(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildingArrayList) throws InstantiationException, IllegalAccessException {
+        System.out.println("What building would you like?");
+        Scanner sc = new Scanner(System.in);
+        boolean validInput = false;
+        do {
+            String userInput = sc.nextLine().toLowerCase();
+            for (Building building : buildingArrayList) {
+                if (userInput.equalsIgnoreCase(building.toString())) {
+                    buildingFactory.placeBuildingOnBoard(rArray, bArray, building.getType(), buildingArrayList, true);
+                    validInput = true;
+                }
+            }
+            if (!validInput) {
+                System.out.println("Invalid input.");
+            }
+
+        }
+        while (!validInput);
     }
     private ResourceEnum warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
         ResourceEnum turnResource = t;
