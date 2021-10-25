@@ -12,6 +12,7 @@ public enum BuildingEnum {
     COTTAGE (ColorEnum.BLUE),
     THEATER (ColorEnum.YELLOW),
     BAKERY (ColorEnum.YELLOW),
+    MARKET (ColorEnum.YELLOW),
     TAVERN (ColorEnum.GREEN),
     ALMSHOUSE (ColorEnum.GREEN),
     FEASTHALL (ColorEnum.GREEN),
