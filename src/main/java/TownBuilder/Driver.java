@@ -14,6 +14,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
+
     public static void main (String[] args) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
         ArrayList<Building> buildingsForGame = new ArrayList<>();
         Scanner sc = new Scanner(System.in);

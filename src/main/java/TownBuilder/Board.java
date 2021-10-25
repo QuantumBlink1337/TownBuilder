@@ -65,19 +65,19 @@ public class Board {
          //Test Case - Legitimate Game Board
 
 
-//        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.TEMPLE, buildingsForGame, 0, 0);
+//        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, buildingsForGame, 0, 0);
 //        gameBuildingBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 0, 1);
-//        gameBuildingBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 1, 0);
+//        gameBuildingBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.TAVERN, buildingsForGame, 1, 0);
 //        gameBuildingBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.FARM, buildingsForGame, 3,3);
-
-//        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 0);
-//        gameBuildingBoard[0][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 3);
-//        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 0);
-//        gameBuildingBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 3);
 //
-//        gameBuildingBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 1, 0);
-//        gameBuildingBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 2, 0);
-//        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 3, 0);
+////        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 0);
+////        gameBuildingBoard[0][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 3);
+////        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 0);
+////        gameBuildingBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 3);
+////
+//        gameBuildingBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, 1, 0);
+//        gameBuildingBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.WELL, buildingsForGame, 2, 0);
+//        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.CHAPEL, buildingsForGame, 3, 0);
 
     }
     public int scoring(boolean isMidGameCheck) {

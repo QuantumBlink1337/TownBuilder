@@ -5,11 +5,10 @@ import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
-public class Granary implements Building{
+public class Granary implements Building {
     private boolean condition;
     private final int row;
     private final int col;
-    private final String color = "red";
     private static final ResourceEnum[][] orchardArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> orchardPatternList = new ArrayList<>();
     static {

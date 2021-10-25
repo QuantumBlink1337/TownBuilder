@@ -5,7 +5,7 @@ import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
-public class Greenhouse implements Building{
+public class Greenhouse implements Building {
     private final int row;
     private final int col;
     private boolean condition;
