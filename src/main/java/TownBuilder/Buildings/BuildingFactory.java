@@ -4,10 +4,8 @@ import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class BuildingFactory {
     private final ArrayList<Resource> validResources = new ArrayList<>();
@@ -154,21 +152,38 @@ public class BuildingFactory {
         }
         return false;
     }
-        public void placement(Resource[][] rArray, Building[][] bArray, BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList) throws InstantiationException, IllegalAccessException {
+
+
+    public void placeBuildingOnBoard(Resource[][] rArray, Building[][] bArray, BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere) throws InstantiationException, IllegalAccessException {
         Scanner sc = new Scanner((System.in));
-        String userInput;
-        int[] coords;
+        int[] coords = new int[]{-1, -1};
         boolean validInput = false;
         Building building = getBuilding(buildingEnum,buildingArrayList, -1, -1);
+
         do {
-            System.out.println("Where would you like to place your " + building.toString() + "?");
-            System.out.println("Valid positions for the "+building.toString()+ " are:");
-            Utility.displayValidResources(rArray, this);
-            userInput = sc.nextLine().toLowerCase();
-            coords = Utility.inputToCoords(userInput);
-            if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
-                validInput = true;
+            try {
+                System.out.println("Where would you like to place your " + building.toString() + "?");
+                if (PlaceBuildingAnywhere) {
+                    System.out.println("You can place your building wherever you want, provided there's nothing there already!");
+                    coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
+                    if (rArray[coords[0]][coords[1]].getResource() == ResourceEnum.NONE && bArray[coords[0]][coords[1]].getType() == BuildingEnum.NONE) {
+                        validInput = true;
+                    }
+                }
+                else {
+                    System.out.println("Valid positions for the "+building.toString()+ " are:");
+                    Utility.displayValidResources(rArray, this);
+                    coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
+                    if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
+                        validInput = true;
+                        sc.next();
+                    }
+                }
             }
+            catch(ArrayIndexOutOfBoundsException ignored) {
+                System.out.println("Invalid input.");
+            }
+
         }
         while (!validInput);
 
