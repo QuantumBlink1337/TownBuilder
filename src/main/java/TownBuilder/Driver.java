@@ -1,10 +1,6 @@
 package TownBuilder;
 
-import TownBuilder.Board;
 import TownBuilder.Buildings.*;
-import TownBuilder.Manual;
-import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -50,11 +46,16 @@ public class Driver {
             while (!board.isGameCompletion()) { // this loop continues until the player has no empty slots in board
                 board.setGameCompletion(board.gameOver());
                 if (!board.isGameCompletion()) {
-                    if (!board.getBoardName().equals("debug")) {
-                        resource = turnExecution(board, resource, true, false);
+                    if (board.getBoardName().equals("debug")) {
+                        resource = turnExecution(board, resource, true, true, false,buildingsForGame );
+                    }
+                    else if (board.getBoardName().equals("debug_building")) {
+                        System.out.println("Building debug");
+                        resource = turnExecution(board, resource, false, false, true, buildingsForGame);
                     }
                     else {
-                        resource = turnExecution(board, resource, true, true);
+                        System.out.println("Normal turn");
+                        resource = turnExecution(board, resource, true, false, false, buildingsForGame);
                     }
                 }
             }
@@ -70,7 +71,7 @@ public class Driver {
                     is added back to the end.
                  */
                 Board pickResourceBoard = boardArrayList.get(0); // grabs first index
-                resource = turnExecution(pickResourceBoard, resource, true, true);
+                resource = turnExecution(pickResourceBoard, resource, true, true, false,buildingsForGame );
                 boardArrayList.remove(pickResourceBoard); // removes from board
                 // if board is game complete, score them
                 if (pickResourceBoard.isGameCompletion()) {
@@ -81,7 +82,7 @@ public class Driver {
                 for (int p = 0; p < boardArrayList.size(); p++) {
                     Board temp = boardArrayList.get(p); // saves current board to temporary variable
                     if (!temp.isGameCompletion())  {
-                        turnExecution(temp, resource, false, true);
+                        turnExecution(temp, resource, false, true,false, buildingsForGame);
                         if (temp.isGameCompletion()) {
                             int score = pickResourceBoard.scoring(false);
                             System.out.println(temp.getBoardName() + "'s final score: "+score);
@@ -168,8 +169,14 @@ public class Driver {
             This tells resourcePicker() what instructions to follow
 
      */
-    public static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+    public static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
         // run code that returns a resource if method was called with resourcePick = true
+        if (placeBuilding) {
+            board.renderBoard();
+            board.buildingPlacer(board.getGameResourceBoard(), board.getGameBuildingBoard(), buildingsForGame);
+            turnActions(board, ResourceEnum.randomResource(), false);
+            return null;
+        }
         if (resourcePick) {
             ResourceEnum r;
             board.renderBoard();
@@ -178,21 +185,23 @@ public class Driver {
             }
             // if isMultiplayer = false, will use singleplayer code in resourcePicker()
             r = board.resourcePicker(isMultiplayerGame); // assigns the return value of resourcePicker()
-            turnActions(board, r);
+            turnActions(board, r, false);
             return r;
         }
         else {
             board.renderBoard();
             System.out.println("It's " + board.getBoardName() + "'s turn to place a resource.");
-            turnActions(board, resource);
+            turnActions(board, resource,false );
         }
         return null;
     }
     /*
         every turn does this, so I decided to split it into its own method. Runs the turn actions for all players.
      */
-    private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
-        board.playerTurn(resource);
+    private static void turnActions(Board board, ResourceEnum resource, boolean skipResourcePlacement) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+        if (!skipResourcePlacement) {
+            board.playerTurn(resource);
+        }
         board.detectValidBuilding();
         board.runBuildingTurnAction();
         board.setGameCompletion(board.gameOver());
