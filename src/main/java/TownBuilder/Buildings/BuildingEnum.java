@@ -1,5 +1,7 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.ColorEnum;
+
 public enum BuildingEnum {
     FARM (ColorEnum.RED),
     GRANARY (ColorEnum.RED),
@@ -13,6 +15,7 @@ public enum BuildingEnum {
     THEATER (ColorEnum.YELLOW),
     BAKERY (ColorEnum.YELLOW),
     MARKET (ColorEnum.YELLOW),
+    TAILOR (ColorEnum.YELLOW),
     TAVERN (ColorEnum.GREEN),
     ALMSHOUSE (ColorEnum.GREEN),
     FEASTHALL (ColorEnum.GREEN),

@@ -1,4 +1,4 @@
-package TownBuilder.Buildings;
+package TownBuilder;
 
 import com.diogonunes.jcolor.Attribute;
 

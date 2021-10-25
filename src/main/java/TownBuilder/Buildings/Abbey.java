@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 

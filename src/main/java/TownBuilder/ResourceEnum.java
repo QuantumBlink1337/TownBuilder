@@ -1,8 +1,6 @@
 package TownBuilder;
 
 
-import TownBuilder.Buildings.ColorEnum;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
