@@ -19,6 +19,7 @@ public enum BuildingEnum {
     TAVERN (ColorEnum.GREEN),
     ALMSHOUSE (ColorEnum.GREEN),
     FEASTHALL (ColorEnum.GREEN),
+    INN (ColorEnum.GREEN),
     WELL (ColorEnum.GRAY),
     FOUNTAIN (ColorEnum.GRAY),
     MILLSTONE (ColorEnum.GRAY),

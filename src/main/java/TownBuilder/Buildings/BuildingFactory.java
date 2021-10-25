@@ -4,7 +4,6 @@ import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class BuildingFactory {
@@ -57,6 +56,9 @@ public class BuildingFactory {
         }
         else if (buildingEnum == BuildingEnum.FEASTHALL) {
             return new FeastHall(row, col);
+        }
+        else if (buildingEnum == BuildingEnum.INN) {
+            return new Inn(row, col);
         }
         else if (buildingEnum == BuildingEnum.THEATER) {
             return new Theater(buildingMasterList, row, col);
