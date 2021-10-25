@@ -72,7 +72,7 @@ public class Tailor implements Building{
             for (Building building : buildingRow) {
                 int r = building.getRow();
                 int c = building.getCol();
-                if (building.getType() == BuildingEnum.TAILOR) {
+                if (building.getType() == BuildingEnum.TAILOR && !building.equals(this)) {
                     if ((r == 0 && c == 0) || (r == 0 && c == bArray[r].length -1) || (r == bArray.length -1 && c == 0) || (r == bArray.length -1 && c == bArray[r].length -1)) {
                         score+=1;
                     }
