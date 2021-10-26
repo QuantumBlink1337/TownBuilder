@@ -1,11 +1,9 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Factory implements Building{
     private static final ResourceEnum[][] factoryPattern = new ResourceEnum[2][4];
@@ -13,9 +11,6 @@ public class Factory implements Building{
     private final int row;
     private final int col;
     private boolean condition;
-
-
-
     private ResourceEnum factorizedResource;
     static {
         factoryPattern[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
@@ -25,11 +20,16 @@ public class Factory implements Building{
         factoryPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE, ResourceEnum.BRICK};
         BuildingFactory.patternBuilder(factoryPattern, factoryPatternList, 3);
     }
-    public Factory(int r, int c) {
+    public Factory(int r, int c, boolean playerMade) {
         row = r;
         col = c;
         condition = false;
-        pickResource();
+        if (playerMade) {
+            pickResource();
+        }
+        else {
+            factorizedResource = ResourceEnum.NONE;
+        }
     }
     private void pickResource() {
         System.out.println("You can choose a resource for your Factory.");
