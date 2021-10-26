@@ -11,9 +11,9 @@ import com.diogonunes.jcolor.*;
 
 public class Board {
     private final ArrayList<Building> buildingsForGame;
+    private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
     private final Scorer scorer;
-    private final int boardWhiteSpaceLength = 9;
     private int spResourceSelectionIncrement = 0;
     private boolean isGameCompletion = false;
     private final String boardName;
@@ -62,29 +62,11 @@ public class Board {
 
         for (int row = 0; row < coordinateBoard.length; row++) {
             for (int col = 0; col < coordinateBoard[row].length; col++) {
-                coordinateBoard[row][col] = "[Row: "+row+" Col: "+col+"]";
+                coordinateBoard[row][col] = "[Row: " + row + " Col: " + col + "]";
             }
         }
-         //Test Case - Legitimate Game Board
-
-
-
-
-
-//        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, buildingsForGame, 0, 0);
-//        gameBuildingBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, 0, 1);
-//        gameBuildingBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.TAVERN, buildingsForGame, 1, 0);
-//        gameBuildingBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.FARM, buildingsForGame, 3,3);
-//
-////        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 0);
-////        gameBuildingBoard[0][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 0, 3);
-////        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 0);
-////        gameBuildingBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.CLOISTER, buildingsForGame, 3, 3);
-////
-//        gameBuildingBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, 1, 0);
-//        gameBuildingBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.WELL, buildingsForGame, 2, 0);
-//        gameBuildingBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.CHAPEL, buildingsForGame, 3, 0);
-
+        blacklistedResources = new ArrayList<>();
+        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.BANK, buildingsForGame, 0, 0, true);
     }
     public int scoring(boolean isMidGameCheck) {
         return scorer.scoring(isMidGameCheck);
@@ -120,7 +102,7 @@ public class Board {
         }
     }
     public void detectValidBuilding() throws InstantiationException, IllegalAccessException {
-        long initialTime = System.nanoTime();
+        //long initialTime = System.nanoTime();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : buildingsForGame) {
@@ -133,17 +115,28 @@ public class Board {
         //System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
     }
     public void runBuildingTurnAction() {
-        for (int row = 0; row < gameBuildingBoard.length; row++) {
-            for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col].onTurnInterval(gameBuildingBoard);
+        int bankCounter = 0;
+        for (Building[] buildings : gameBuildingBoard) {
+            for (Building building : buildings) {
+                building.onTurnInterval(gameBuildingBoard);
+                if (building instanceof Bank bank) {
+                    bankCounter++;
+                    ResourceEnum blacklistedResource = bank.getLockedResource();
+                    if (!blacklistedResources.contains(blacklistedResource)) {
+                        blacklistedResources.add(blacklistedResource);
+                    }
+                }
             }
+        }
+        if (bankCounter > 4) {
+            buildingsForGame.removeIf(building -> building.getType() == BuildingEnum.BANK);
         }
     }
     public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
         ResourceEnum turnResource;
         if (isMultiplayerGame) {
             do {
-                turnResource = ResourceEnum.resourcePicker();
+                turnResource = ResourceEnum.resourcePicker(blacklistedResources.toArray(ResourceEnum[]::new));
                 if (turnResource == ResourceEnum.NONE) {
                     manual.openManual();
                     renderBoard();
@@ -154,7 +147,7 @@ public class Board {
         else {
             if (spResourceSelectionIncrement == 2) {
                 do {
-                    turnResource = ResourceEnum.resourcePicker();
+                    turnResource = ResourceEnum.resourcePicker(blacklistedResources.toArray(ResourceEnum[]::new));
                     if (turnResource == ResourceEnum.NONE) {
                         manual.openManual();
                         renderBoard();
@@ -278,7 +271,7 @@ public class Board {
             ResourceEnum swap;
             do {
                     turnResource = t;
-                    swap = ResourceEnum.resourcePicker();
+                    swap = ResourceEnum.resourcePicker(null);
                 if (turnResource != ResourceEnum.OBSTRUCTED) {
                     turnResource = warehouse.placeResource(turnResource, swap);
                 }
@@ -379,6 +372,7 @@ public class Board {
     public void updateBoard() {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
+                int boardWhiteSpaceLength = 9;
                 if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED) {
                     gameBoard[row][col] = "[" + Ansi.colorize(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), Utility.generateColors(null, gameResourceBoard[row][col])) + "]";
                 }
