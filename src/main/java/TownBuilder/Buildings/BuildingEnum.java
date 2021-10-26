@@ -24,6 +24,7 @@ public enum BuildingEnum {
     FOUNTAIN (ColorEnum.GRAY),
     MILLSTONE (ColorEnum.GRAY),
     WAREHOUSE (ColorEnum.BLACK),
+    FACTORY (ColorEnum.BLACK),
     NONE (ColorEnum.COLORLESS);
 
     private final ColorEnum color;
