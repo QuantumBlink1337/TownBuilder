@@ -2,6 +2,7 @@ package TownBuilder.Buildings;
 
 import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,6 +12,10 @@ public class Factory implements Building{
     private static final ArrayList<ResourceEnum[][]> factoryPatternList = new ArrayList<>();
     private final int row;
     private final int col;
+    private boolean condition;
+
+
+
     private ResourceEnum factorizedResource;
     static {
         factoryPattern[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
@@ -23,41 +28,47 @@ public class Factory implements Building{
     public Factory(int r, int c) {
         row = r;
         col = c;
+        condition = false;
         pickResource();
     }
     private void pickResource() {
         System.out.println("You can choose a resource for your Factory.");
         factorizedResource = ResourceEnum.resourcePicker();
     }
-
+    public ResourceEnum exchangeResource() {
+        return ResourceEnum.resourcePicker();
+    }
+    public ResourceEnum getFactorizedResource() {
+        return factorizedResource;
+    }
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
-        return null;
+        return factoryPatternList;
     }
 
     @Override
     public BuildingEnum getType() {
-        return null;
+        return BuildingEnum.FACTORY;
     }
 
     @Override
     public boolean getCondition() {
-        return false;
+        return condition;
     }
 
     @Override
     public void setCondition(boolean condition) {
-
+        this.condition = condition;
     }
 
     @Override
     public int getRow() {
-        return 0;
+        return row;
     }
 
     @Override
     public int getCol() {
-        return 0;
+        return col;
     }
 
     public String toString() {
@@ -76,11 +87,13 @@ public class Factory implements Building{
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        // nothing
     }
 
     @Override
     public void printManualText() {
-
+        System.out.println("When you place a Factory, you must also select a resource for it to use.\nIf your selected resource is the one given to you this turn, you may choose another resource.");
+        System.out.println("Here's what it looks like:");
+        Utility.arrayPrinter(factoryPattern);
     }
 }
