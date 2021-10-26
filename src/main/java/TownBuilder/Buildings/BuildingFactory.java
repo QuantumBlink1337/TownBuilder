@@ -17,10 +17,10 @@ public class BuildingFactory {
         buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
         buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
-        buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1))));
+        buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false))));
     }
 
-    public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col) {
+    public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade) {
         if (buildingEnum == BuildingEnum.NONE) {
             return new EmptyBuilding();
         }
@@ -74,6 +74,9 @@ public class BuildingFactory {
         }
         else if (buildingEnum == BuildingEnum.WAREHOUSE) {
             return new Warehouse(row, col);
+        }
+        else if (buildingEnum == BuildingEnum.FACTORY) {
+            return new Factory(row, col, isPlayerMade);
         }
         else if (buildingEnum == BuildingEnum.WELL) {
             return new Well(row, col);
@@ -163,7 +166,7 @@ public class BuildingFactory {
         Scanner sc = new Scanner((System.in));
         int[] coords = new int[]{-1, -1};
         boolean validInput = false;
-        Building building = getBuilding(buildingEnum,buildingArrayList, -1, -1);
+        Building building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false);
 
         do {
             try {
@@ -197,7 +200,7 @@ public class BuildingFactory {
         }
         clearResources(building.getType());
         rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-        bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1]);;
+        bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);;
     }
 
 }
