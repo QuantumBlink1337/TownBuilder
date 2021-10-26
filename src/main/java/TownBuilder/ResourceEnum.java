@@ -30,13 +30,21 @@ public enum ResourceEnum {
         resourceArray.remove(random);
         return result;
     }
-    public static ResourceEnum resourcePicker() {
-        resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
+    public static ResourceEnum resourcePicker(ResourceEnum[] blacklistedResources) {
+        //resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
         Scanner sc = new Scanner(System.in);
         String resourceChoice = "";
-        while (resourceChoice.equals("")) {
+        while (true) {
             System.out.println("What resource do you want?");
             resourceChoice = sc.nextLine().toLowerCase();
+            try {
+                for (ResourceEnum blackListedResource : blacklistedResources)
+                if (blackListedResource.toString().equalsIgnoreCase(resourceChoice)) {
+                    resourceChoice = "blacklisted";
+
+                }
+            }
+            catch (NullPointerException ignored) {}
             switch (resourceChoice) {
                 case "wheat":
                     return WHEAT;
@@ -50,22 +58,17 @@ public enum ResourceEnum {
                     return WOOD;
                 case "help":
                     return NONE;
+                case "blacklisted":
+                    System.out.println("This resource is unavailable to pick. Please choose another resource.");
                 default:
                     System.out.println("Invalid input. Please try again.");
                     resourceChoice = "";
                     break;
             }
         }
-        return NONE;
+        //return NONE;
     }
-    public static ResourceEnum[][] swap (ResourceEnum[][] swap, int row1, int col1, int row2, int col2) {
-        ResourceEnum temp;
-        ResourceEnum[][] swapTarget = swap;
-        temp = swapTarget[row1][col1];
-        swapTarget[row1][col1] = swapTarget[row2][col2];
-        swapTarget[row2][col2] = temp;
-        return swapTarget;
-    }
+
 
 
 }
