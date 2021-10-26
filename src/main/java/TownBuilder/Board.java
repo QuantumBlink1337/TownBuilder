@@ -189,7 +189,83 @@ public class Board {
         }
         while (!validInput);
     }
+    private ResourceEnum factoryOption(ResourceEnum resource, ArrayList<Factory> factoriesOnBoard) {
+        boolean validInput = false;
+        String userInput;
+        do {
+            System.out.println("Which Factory would you like to use?");
+            userInput = sc.nextLine().toLowerCase();
+            for (Factory factory : factoriesOnBoard) {
+                int row = factory.getRow();
+                int col = factory.getCol();
+                if (Utility.coordsToOutput(row, col).equalsIgnoreCase(userInput) && resource == factory.getFactorizedResource()) {
+                    resource = factory.exchangeResource();
+                    validInput = true;
+                    break;
+                }
+                else if (Utility.coordsToOutput(row, col).equalsIgnoreCase(userInput) && resource != factory.getFactorizedResource()) {
+                    System.out.println("The Factory selected does match the type of the resource you're exchanging.");
+                }
+                else if (userInput.equals("exit")) {
+                    validInput = true;
+                }
+                else {
+                    System.out.println("Invalid input.");
+                }
+            }
+        }
+        while (!validInput);
+        return resource;
+    }
+    private ResourceEnum warehouseChoice(ArrayList<Warehouse> warehousesOnBoard, ResourceEnum resource) {
+        boolean validInput = false;
+        String userInput;
+        Warehouse warehouse = null;
+        do {
+            do {
+                System.out.println("Which Warehouse would you like?");
+                for (Warehouse w : warehousesOnBoard) {
+                    System.out.println("Warehouse at: " + Utility.coordsToOutput(w.getRow(), w.getCol()));
+                }
+                userInput = sc.nextLine().toLowerCase();
+                for (Warehouse w : warehousesOnBoard) {
+                    if (Utility.coordsToOutput(w.getRow(), w.getCol()).equalsIgnoreCase(userInput)) {
+                        warehouse = w;
+                        validInput = true;
+                    }
+                }
+            }
+            while (!validInput);
+            validInput = false;
+            System.out.println("What would you like to do with the warehouse selected? Use 'place' to place resources" +
+                    "or 'swap' to swap a resource out.");
+            userInput = sc.nextLine().toLowerCase();
+            if (userInput.equals("place")) {
+                if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
+                    resource = warehouseOption(resource, warehouse, true);
+                    validInput = true;
+
+                }
+                else {
+                    System.out.println("The warehouse is full. You need to swap something instead.");
+                }
+
+            }
+            else if (userInput.equals("swap")) {
+                if (warehouse.getFullness() != Warehouse.getMinFullness()) {
+                    resource = warehouseOption(resource, warehouse, false);
+                    validInput = true;
+                }
+                else {
+                    System.out.println("There's nothing to swap with in the warehouse.");
+                }
+            }
+        }
+        while (!validInput);
+        return resource;
+    }
     private ResourceEnum warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
+
         ResourceEnum turnResource = t;
         //System.out.println(warehouse.getFullness());
         if (mode) {
@@ -219,20 +295,22 @@ public class Board {
         String userCoordinate = "";
         boolean validSpot;
         boolean warehouseExists = false;
-        String warehouseText = "";
+        boolean factoryExists = false;
         ArrayList<Warehouse> warehousesOnBoard = new ArrayList<>();
+        ArrayList<Factory> factoriesOnBoard = new ArrayList<>();
         System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(resource.toString()) +".");
 
         for (Building[] buildingRow : gameBuildingBoard) {
             for (Building building : buildingRow) {
                 if (building instanceof Warehouse) {
                     warehousesOnBoard.add((Warehouse)building);
+                    warehouseExists = true;
+
                 }
-            }
-        }
-        if (warehousesOnBoard.size() > 0) {
-            if (warehousesOnBoard.get(0).getType() == BuildingEnum.WAREHOUSE) {
-                warehouseExists = true;
+                else if (building instanceof Factory) {
+                    factoriesOnBoard.add((Factory) building);
+                    factoryExists = true;
+                }
             }
         }
         do {
@@ -249,6 +327,11 @@ public class Board {
                         System.out.println("Here's what's inside the warehouse at " + Utility.coordsToOutput(warehouse.getRow(), warehouse.getCol())+ ": "+ list[0] + "," + list[1] + "," + list[2]);
                     }
                 }
+                else if (factoryExists) {
+                    for (Factory factory : factoriesOnBoard) {
+                        System.out.println("Type of resource in Factory at " +Utility.coordsToOutput(factory.getRow(), factory.getCol()) + ": " + factory.getFactorizedResource());
+                    }
+                }
                 userCoordinate = sc.nextLine().toLowerCase();
                 if (userCoordinate.equals("help") || userCoordinate.equals("h") || userCoordinate.equals("manual") || userCoordinate.equals("m")) {
                     manual.openManual();
@@ -258,56 +341,15 @@ public class Board {
                     scoring(true);
                     renderBoard();
                 }
-                if (userCoordinate.equals("warehouse") && warehouseExists) {
-                    boolean validInput = false;
-                    String userInput = null;
-                    Warehouse warehouse = null;
-                    do {
-                        do {
-                            System.out.println("Which Warehouse would you like?");
-                            for (Warehouse w : warehousesOnBoard) {
-                                System.out.println("Warehouse at: " + Utility.coordsToOutput(w.getRow(), w.getCol()));
-                            }
-                            userInput = sc.nextLine().toLowerCase();
-                            for (Warehouse w : warehousesOnBoard) {
-                                if (Utility.coordsToOutput(w.getRow(), w.getCol()).equalsIgnoreCase(userInput)) {
-                                    warehouse = w;
-                                    validInput = true;
-                                }
-                            }
-                        }
-                        while (!validInput);
-                        validInput = false;
-                        System.out.println("What would you like to do with the warehouse selected? Use 'place' to place resources" +
-                                "or 'swap' to swap a resource out.");
-                        userInput = sc.nextLine().toLowerCase();
-                        if (userInput.equals("place")) {
-                            if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
-                                resource = warehouseOption(resource, warehouse, true);
-                                if (resource == ResourceEnum.NONE) {
-                                    validSpot = true;
-                                    break;
-
-                                }
-                            }
-                            else {
-                                System.out.println("The warehouse is full. You need to swap something instead.");
-                            }
-
-                        }
-                        else if (userInput.equals("swap")) {
-                            if (warehouse.getFullness() != Warehouse.getMinFullness()) {
-                                resource = warehouseOption(resource, warehouse, false);
-                                validInput = true;
-                            }
-                            else {
-                                System.out.println("There's nothing to swap with in the warehouse.");
-                            }
-                        }
-                    }
-                    while (!validInput);
+                if (userCoordinate.equals("factory") || (userCoordinate.equals("f")) && factoryExists) {
+                   resource = factoryOption(resource, factoriesOnBoard);
                 }
-
+                if (userCoordinate.equals("warehouse") || (userCoordinate.equals("w")) && warehouseExists) {
+                    resource = warehouseChoice(warehousesOnBoard, resource);
+                    if (resource == ResourceEnum.NONE) {
+                        validSpot = true;
+                    }
+                }
                 else if (userCoordinate.length() != 2) {
                     System.out.println("Oops! That's not a coordinate or a command.");
                 }
