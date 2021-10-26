@@ -84,13 +84,13 @@ public class Utility {
         return new Building[]{getBuildingAt(buildingBoard, row-1, col-1), getBuildingAt(buildingBoard, row-1, col+1), getBuildingAt(buildingBoard, row+1, col-1),
                 getBuildingAt(buildingBoard, row+1, col+1)};
     }
-    public static Building[] getBuildingsInRowAndColumn(Building[][] buildingBoard, int row, int col) {
+    public static ArrayList<Building> getBuildingsInRowAndColumn(Building[][] buildingBoard, int row, int col) {
         ArrayList<Building> buildings = new ArrayList<>();
         for (Building[] value : buildingBoard) {
             buildings.add(value[col]);
         }
         Collections.addAll(buildings, buildingBoard[row]);
-        return (Building[]) buildings.toArray();
+        return buildings;
     }
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
