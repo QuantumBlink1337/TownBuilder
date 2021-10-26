@@ -60,9 +60,9 @@ public enum ResourceEnum {
                     return NONE;
                 case "blacklisted":
                     System.out.println("This resource is unavailable to pick. Please choose another resource.");
+                    break;
                 default:
                     System.out.println("Invalid input. Please try again.");
-                    resourceChoice = "";
                     break;
             }
         }
