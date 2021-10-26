@@ -64,7 +64,7 @@ public class Inn implements Building{
 
     @Override
     public int scorer(Building[][] bArray, int scoreIncrement) {
-        Building[] buildingsInRowAndColumn = Utility.getBuildingsInRowAndColumn(bArray, row, col);
+        ArrayList<Building> buildingsInRowAndColumn = Utility.getBuildingsInRowAndColumn(bArray, row, col);
         for (Building building : buildingsInRowAndColumn) {
             if (building.getType() == BuildingEnum.INN) {
                 return 0;
