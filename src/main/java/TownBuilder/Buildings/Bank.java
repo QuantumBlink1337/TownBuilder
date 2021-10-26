@@ -1,10 +1,12 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
+import static TownBuilder.Buildings.BuildingFactory.setbuildingMasterList;
 
 public class Bank implements Building{
     private static final ResourceEnum[][] bankPattern = new ResourceEnum[2][3];
@@ -22,10 +24,16 @@ public class Bank implements Building{
         row = r;
         col = c;
         condition = false;
+        if (playerMade) {
+            setLockedResource();
+        }
     }
     private void setLockedResource() {
-        System.out.println("You must declare a resource to be the Bank's type. Once you do this, you may no longer\nask for it. ");
-
+        System.out.println("You must declare a resource to be the Bank's type.\nOnce you do this, you may no longer ask for it. ");
+        lockedResource = ResourceEnum.resourcePicker(null);
+    }
+    public ResourceEnum getLockedResource() {
+        return lockedResource;
     }
 
     @Override
@@ -74,11 +82,14 @@ public class Bank implements Building{
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        // nothing
     }
 
     @Override
     public void printManualText() {
-
+        System.out.println("The Bank earns four points. When you place it, you must choose a resource. You may no longer\nchoose that resource when it is your turn to pick.");
+        System.out.println("Note: You cannot make more than four banks. The game will refuse to recognize bank resource patterns beyond the fourth one.");
+        System.out.println("Here's what it looks like:");
+        Utility.arrayPrinter(bankPattern);
     }
 }
