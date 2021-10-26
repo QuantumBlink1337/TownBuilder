@@ -135,5 +135,4 @@ public class Warehouse implements Building {
     public void onTurnInterval(Building[][] buildingBoard) {
 
     }
-
 }

@@ -70,7 +70,7 @@ public class Utility {
     }
     public static Building getBuildingAt(Building[][] buildingBoard, int row, int col) {
         if ((row > buildingBoard.length-1 || row < 0) || (col > buildingBoard[row].length-1 || col < 0)) {
-            return BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1);
+            return BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1, false);
         }
         else {
             return buildingBoard[row][col];
