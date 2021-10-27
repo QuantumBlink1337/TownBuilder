@@ -1,6 +1,7 @@
 package TownBuilder;
 
 import TownBuilder.Buildings.*;
+import com.diogonunes.jcolor.Ansi;
 
 import java.awt.*;
 import java.io.IOException;
@@ -133,7 +134,7 @@ public class Manual {
     public void displayBuildings() {
         System.out.println("The buildings in your game are:");
         for (Building gameBuilding : gameBuildings) {
-            System.out.println(gameBuilding.toString());
+            System.out.println(Ansi.colorize(gameBuilding.toString(), Utility.generateColors(gameBuilding, (Resource) null)));
         }
     }
 }
