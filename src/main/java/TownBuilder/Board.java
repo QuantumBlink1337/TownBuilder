@@ -66,7 +66,6 @@ public class Board {
             }
         }
         blacklistedResources = new ArrayList<>();
-        gameBuildingBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.BANK, buildingsForGame, 0, 0, true);
     }
     public int scoring(boolean isMidGameCheck) {
         return scorer.scoring(isMidGameCheck);
@@ -74,9 +73,9 @@ public class Board {
     public boolean gameOver() {
         int i = 0;
         this.updateBoard();
-        for (String[] tileRow : gameBoard) {
-            for (String tile : tileRow) {
-                if (!(tile.equals("[EMPTY!   ]"))) {
+        for (Resource[] resourceRow : gameResourceBoard) {
+            for (Resource resource : resourceRow) {
+                if (resource.getResource() != ResourceEnum.NONE) {
                     i++;
                 }
             }
@@ -291,7 +290,7 @@ public class Board {
         boolean factoryExists = false;
         ArrayList<Warehouse> warehousesOnBoard = new ArrayList<>();
         ArrayList<Factory> factoriesOnBoard = new ArrayList<>();
-        System.out.println("Your resource for this turn is "+Utility.lowerCaseLetters(resource.toString()) +".");
+        System.out.println("Your resource for this turn is "+Ansi.colorize(Utility.lowerCaseLetters(resource.toString()), Utility.generateColors(null, resource)));
 
         for (Building[] buildingRow : gameBuildingBoard) {
             for (Building building : buildingRow) {
@@ -309,7 +308,7 @@ public class Board {
         do {
             validSpot = false;
             while (userCoordinate.length() != 2 && resource != ResourceEnum.NONE) {
-                System.out.println("Where would you like to place your "+ resource+ " resource? Alternatively, to view the game manual type 'help'");
+                System.out.println("Where would you like to place your "+ Ansi.colorize(Utility.lowerCaseLetters(resource.toString()), Utility.generateColors(null, resource))+ " resource? Alternatively, to view the game manual type 'help'");
                 System.out.println("You may also run a tentative score check on your board with 'score'.");
                 if (warehouseExists) {
                     System.out.println("You can use 'warehouse' to access Warehouse controls.");
@@ -373,14 +372,14 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 int boardWhiteSpaceLength = 9;
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED) {
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED && gameResourceBoard[row][col].getResource() != ResourceEnum.TPOST) {
                     gameBoard[row][col] = "[" + Ansi.colorize(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), Utility.generateColors(null, gameResourceBoard[row][col])) + "]";
                 }
                 else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-                    gameBoard[row][col] = "["+ Ansi.colorize(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), Utility.generateColors(gameBuildingBoard[row][col], null)) + "]";
+                    gameBoard[row][col] = "["+ Ansi.colorize(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), Utility.generateColors(gameBuildingBoard[row][col], (Resource) null)) + "]";
                 }
                 else {
-                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
+                    gameBoard[row][col] = "["+Ansi.colorize(Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength), Attribute.WHITE_TEXT())+"]";
                 }
 
             }
