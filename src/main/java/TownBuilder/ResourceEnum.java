@@ -11,6 +11,7 @@ public enum ResourceEnum {
     WOOD (ColorEnum.BROWN),
     WHEAT (ColorEnum.GOLD),
     STONE (ColorEnum.LIGHTGRAY),
+    TPOST (ColorEnum.COLORLESS),
     OBSTRUCTED (ColorEnum.COLORLESS),
     NONE (ColorEnum.COLORLESS);
 
