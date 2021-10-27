@@ -1,7 +1,6 @@
 package TownBuilder;
 
 import TownBuilder.Buildings.BuildingFactory;
-import TownBuilder.Buildings.EmptyBuilding;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
@@ -23,6 +22,32 @@ public class Utility {
             }
         }
     }
+    public static void arrayPrinter(ResourceEnum[][] resourceEnums) {
+        for (ResourceEnum[] ts : resourceEnums) {
+            for (int col = 0; col < ts.length; col++) {
+                if (col == (ts.length - 1)) {
+                    System.out.println("[" + Ansi.colorize(ts[col].toString(), Utility.generateColors(null, ts[col]))+ "]");
+                }
+                else {
+                    System.out.print("[" + Ansi.colorize(ts[col].toString(), Utility.generateColors(null, ts[col])) + "]");
+                }
+            }
+        }
+    }
+    public static ResourceEnum[] mirrorRow (ResourceEnum[] row) {
+        ResourceEnum[] mirroredRow = new ResourceEnum[row.length];
+        for (int i = row.length - 1; i >= 0; i--) {
+            mirroredRow[row.length - 1 - i] = row[i];
+        }
+        return mirroredRow;
+    }
+    public static ResourceEnum[][] mirrorPattern (ResourceEnum[][] array) {
+        ResourceEnum[][] mirrored2DArray = new ResourceEnum[array.length][array[0].length];
+        for (int r = 0; r < array.length; r++) {
+            mirrored2DArray[r] = mirrorRow(array[r]);
+        }
+        return mirrored2DArray;
+    }
     public static <T> void printMembersOfArrayList(ArrayList<T> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             System.out.println(arrayList.get(i));
@@ -39,6 +64,17 @@ public class Utility {
         }
         else if (resource != null){
             return new AnsiFormat(resource.getResource().getColor().getTextColor());
+        }
+        else {
+            throw new NullPointerException();
+        }
+    }
+    public static AnsiFormat generateColors(Building building, ResourceEnum resource) {
+        if (building != null) {
+            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
+        }
+        else if (resource != null){
+            return new AnsiFormat(resource.getColor().getTextColor());
         }
         else {
             throw new NullPointerException();
@@ -95,16 +131,16 @@ public class Utility {
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
-    public static Building boardParser(BuildingEnum buildingEnum, Building[][] bArray) {
-        for (Building[] buildings : bArray) {
-            for (Building building : buildings) {
-                if (buildingEnum == building.getType()) {
-                    return building;
-                }
-            }
-        }
-        return new EmptyBuilding();
-    }
+//    public static Building boardParser(BuildingEnum buildingEnum, Building[][] bArray) {
+//        for (Building[] buildings : bArray) {
+//            for (Building building : buildings) {
+//                if (buildingEnum == building.getType()) {
+//                    return building;
+//                }
+//            }
+//        }
+//        return new EmptyBuilding();
+//    }
     public static int[] inputToCoords(String i) {
         String[] input = i.split("", 2);
         int[] coords = new int[2];
