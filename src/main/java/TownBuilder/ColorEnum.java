@@ -26,7 +26,9 @@ public enum ColorEnum {
     // wood
     BROWN (Attribute.TEXT_COLOR(160, 82, 45)),
     // stone
-    LIGHTGRAY(Attribute.TEXT_COLOR(192, 192, 192));
+    LIGHTGRAY(Attribute.TEXT_COLOR(192, 192, 192)),
+    // empty
+    WHITE(Attribute.WHITE_TEXT());
 
     private final Attribute textColor;
     ColorEnum(Attribute t) {
