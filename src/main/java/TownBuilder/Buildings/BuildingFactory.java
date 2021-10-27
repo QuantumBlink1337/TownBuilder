@@ -10,7 +10,6 @@ public class BuildingFactory {
     private final ArrayList<Resource> validResources = new ArrayList<>();
     private static final HashMap<String, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() {
-
         buildingMasterList.put("blue", new ArrayList<>(Arrays.asList(new Cottage(-1, -1))));
         buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1))));
         buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
@@ -19,7 +18,6 @@ public class BuildingFactory {
         buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
         buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false), new Bank(-1, -1, false), new TradingPost(-1, -1))));
     }
-
     public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade) {
         if (buildingEnum == BuildingEnum.NONE) {
             return new EmptyBuilding();
@@ -156,11 +154,9 @@ public class BuildingFactory {
         }
         return true;
     }
+    // toBeChecked is the resource on the board we're checking, and checker is the resource we're looking for
     private boolean match(Resource toBeChecked, ResourceEnum checker) {
-        if (checker == ResourceEnum.NONE) {
-            return true;
-        }
-        else if (checker == ResourceEnum.TPOST) {
+        if (checker == ResourceEnum.NONE || toBeChecked.getResource() == ResourceEnum.TPOST) {
             return true;
         }
         else if (toBeChecked.getResource() == checker) {
