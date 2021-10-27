@@ -17,7 +17,7 @@ public class Cloister implements Building {
         cloisterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.STONE};
         BuildingFactory.patternBuilder(cloisterArray, cloisterPatternList, 3);
         cloisterArray[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
-        cloisterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.STONE};
+        cloisterArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.BRICK, ResourceEnum.WOOD};
         BuildingFactory.patternBuilder(cloisterArray, cloisterPatternList, 3);
     }
     public Cloister(int r, int c) {
