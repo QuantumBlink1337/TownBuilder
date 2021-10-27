@@ -130,7 +130,7 @@ public class BuildingFactory {
     }
     public boolean detection(int row, int col, Resource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
         for (ResourceEnum[][] resourceEnums : bT) {
-            if (compare(row, col, rArray, resourceEnums)) {
+            if (compare(row, col, rArray, resourceEnums) && validResources.size() > 0) {
                 for (Resource validResource : validResources) {
                     validResource.setScannedBuilding(buildingType);
                 }
@@ -158,6 +158,9 @@ public class BuildingFactory {
     }
     private boolean match(Resource toBeChecked, ResourceEnum checker) {
         if (checker == ResourceEnum.NONE) {
+            return true;
+        }
+        else if (checker == ResourceEnum.TPOST) {
             return true;
         }
         else if (toBeChecked.getResource() == checker) {
@@ -205,7 +208,13 @@ public class BuildingFactory {
             validResource.setResource(ResourceEnum.NONE);
         }
         clearResources(building.getType());
-        rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
+        if (buildingEnum != BuildingEnum.TRDINGPST) {
+            rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
+
+        }
+        else {
+            rArray[coords[0]][coords[1]].setResource(ResourceEnum.TPOST);
+        }
         bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);;
     }
 
