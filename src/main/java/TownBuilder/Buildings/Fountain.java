@@ -15,7 +15,7 @@ public class Fountain implements Building{
 
     static {
         fountainArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.STONE};
-        BuildingFactory.patternBuilder(fountainArray, fountainPatternArray, 3);
+        BuildingFactory.patternBuilder(fountainArray, fountainPatternArray);
         // fountainArray[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WOOD};
         // BuildingFactory.patternBuilder(fountainArray, fountainPatternArray, 3);
 

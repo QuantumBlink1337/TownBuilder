@@ -13,7 +13,7 @@ public class Almshouse implements Building{
     private boolean condition;
     static {
         almshousePattern[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.STONE, ResourceEnum.GLASS};
-        BuildingFactory.patternBuilder(almshousePattern, almshousePatternList, 3);
+        BuildingFactory.patternBuilder(almshousePattern, almshousePatternList);
     }
     public Almshouse(int r, int c) {
         row = r;

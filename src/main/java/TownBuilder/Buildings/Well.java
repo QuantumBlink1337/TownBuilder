@@ -24,7 +24,7 @@ public class Well implements Building {
     static {
         wellArray[0][0] = ResourceEnum.WOOD;
         wellArray[1][0] = ResourceEnum.STONE;
-        patternBuilder(wellArray, wellPatternList, 3);
+        patternBuilder(wellArray, wellPatternList);
         // wellArrayMirror[0][0] = ResourceEnum.STONE;
         // wellArrayMirror[1][0] = ResourceEnum.WOOD;
         // patternBuilder(wellArrayMirror, wellPatternList, 3);

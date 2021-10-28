@@ -19,7 +19,7 @@ public class Bakery implements Building{
     static {
         bakeryArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.WHEAT,  ResourceEnum.NONE};
         bakeryArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.GLASS, ResourceEnum.BRICK};
-        patternBuilder(bakeryArray, bakeryPatternList, 3);
+        patternBuilder(bakeryArray, bakeryPatternList);
     }
     public Bakery(int r, int c) {
         row = r;

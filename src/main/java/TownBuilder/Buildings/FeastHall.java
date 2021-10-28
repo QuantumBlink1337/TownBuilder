@@ -18,7 +18,7 @@ public class FeastHall implements Building{
 
     static {
         feastArray[0] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.BRICK, ResourceEnum.GLASS};
-        patternBuilder(feastArray, feastPatternList, 3);
+        patternBuilder(feastArray, feastPatternList);
     }
     public FeastHall(int r, int c) {
         row = r;

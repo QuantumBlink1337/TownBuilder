@@ -16,7 +16,7 @@ public class Inn implements Building{
 
     static {
         innArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.STONE, ResourceEnum.GLASS};
-        patternBuilder(innArray, innPatternList, 3);
+        patternBuilder(innArray, innPatternList);
     }
     public Inn(int r, int c) {
         row = r;

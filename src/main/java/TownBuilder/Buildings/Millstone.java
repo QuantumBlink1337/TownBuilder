@@ -16,7 +16,7 @@ public class Millstone implements Building{
 
     static {
         millstoneArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.STONE};
-        BuildingFactory.patternBuilder(millstoneArray, millstonePatternArray, 3);
+        BuildingFactory.patternBuilder(millstoneArray, millstonePatternArray);
         // millstoneArray[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WOOD};
         // BuildingFactory.patternBuilder(millstoneArray, millstonePatternArray, 3);
 

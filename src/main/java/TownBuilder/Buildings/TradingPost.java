@@ -17,7 +17,7 @@ public class TradingPost implements Building{
     static {
         tPostPattern[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WOOD, ResourceEnum.NONE};
         tPostPattern[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WOOD, ResourceEnum.BRICK};
-        patternBuilder(tPostPattern, tPostList, 3);
+        patternBuilder(tPostPattern, tPostList);
     }
     public TradingPost(int r, int c) {
         row = r;

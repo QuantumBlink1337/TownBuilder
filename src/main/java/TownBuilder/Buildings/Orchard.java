@@ -15,7 +15,7 @@ public class Orchard implements Building {
     static {
         orchardPattern[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WHEAT};
         orchardPattern[1] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WOOD};
-        BuildingFactory.patternBuilder(orchardPattern, orchardPatternList, 3);
+        BuildingFactory.patternBuilder(orchardPattern, orchardPatternList);
     }
     public Orchard(int r, int c) {
         row = r;

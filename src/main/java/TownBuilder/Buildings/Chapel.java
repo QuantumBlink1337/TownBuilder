@@ -24,7 +24,7 @@ public class Chapel implements Building {
     static {
         templeArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
         templeArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
-        patternBuilder(templeArray, templeList, 3);
+        patternBuilder(templeArray, templeList);
         // templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
         // templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         // patternBuilder(templeArrayMirror, templeList, 3);

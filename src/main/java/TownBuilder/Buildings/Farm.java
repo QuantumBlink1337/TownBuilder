@@ -22,7 +22,7 @@ public class Farm implements Building {
     static {
         farmArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WHEAT};
         farmArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WOOD};
-        patternBuilder(farmArray, farmPatternList, 3);
+        patternBuilder(farmArray, farmPatternList);
     }
 
     public BuildingEnum getType() {

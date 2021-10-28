@@ -24,7 +24,7 @@ public class Tavern implements Building {
     }
     static {
         tavernArray[0] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.BRICK, ResourceEnum.GLASS};
-        patternBuilder(tavernArray, tavernPatternList, 3);
+        patternBuilder(tavernArray, tavernPatternList);
     }
     public BuildingEnum getType() {
         return BuildingEnum.TAVERN;

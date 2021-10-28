@@ -17,7 +17,7 @@ public class Tailor implements Building{
     static {
         tailorArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.WHEAT,  ResourceEnum.NONE};
         tailorArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
-        patternBuilder(tailorArray, tailorPatternList, 3);
+        patternBuilder(tailorArray, tailorPatternList);
     }
     public Tailor(int r, int c) {
         row = r;

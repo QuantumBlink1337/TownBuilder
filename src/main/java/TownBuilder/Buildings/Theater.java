@@ -25,7 +25,7 @@ public class Theater implements Building
     static {
         theaterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.STONE,  ResourceEnum.NONE};
         theaterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.WOOD};
-        patternBuilder(theaterArray, theaterPatternList, 3);
+        patternBuilder(theaterArray, theaterPatternList);
     }
     public Theater() {
         row = -1;

@@ -18,6 +18,7 @@
 *.zip
 *.tar.gz
 *.rar
+*.bin
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -32,4 +33,3 @@ TownBuilder.iml
 /.gradle/7.1/executionHistory/executionHistory.lock
 /.gradle/7.1/fileHashes/fileHashes.lock
 /.build/tmp/compileJava/previous-compilation-data.bin
-build/tmp/compileJava/previous-compilation-data.bin

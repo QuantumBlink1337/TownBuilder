@@ -24,7 +24,7 @@ public class Cottage implements Building {
     static {
         cottageArray[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.WHEAT};
         cottageArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE};
-        patternBuilder(cottageArray, cottagePatternList, 3);
+        patternBuilder(cottageArray, cottagePatternList);
         // cottageArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.BRICK};
         // cottageArrayMirror[1] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.NONE};
         // patternBuilder(cottageArrayMirror, cottagePatternList, 3);

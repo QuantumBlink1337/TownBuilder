@@ -16,7 +16,7 @@ public class Temple implements Building{
     static {
         templeArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
         templeArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.BRICK, ResourceEnum.STONE};
-        BuildingFactory.patternBuilder(templeArray, templePatternList, 3);
+        BuildingFactory.patternBuilder(templeArray, templePatternList);
         // templeArray[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
         // templeArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.BRICK, ResourceEnum.STONE};
         // BuildingFactory.patternBuilder(templeArray, templePatternList, 3);

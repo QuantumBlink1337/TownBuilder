@@ -5,7 +5,6 @@ import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
@@ -20,7 +19,7 @@ public class Market implements Building {
     static {
         marketArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.WOOD,  ResourceEnum.NONE};
         marketArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
-        patternBuilder(marketArray, marketPatternList, 3);
+        patternBuilder(marketArray, marketPatternList);
     }
     public Market(int r, int c) {
         row = r;

@@ -26,7 +26,7 @@ public class Warehouse implements Building {
     static {
         warehouseArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WOOD, ResourceEnum.WHEAT};
         warehouseArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE, ResourceEnum.BRICK};
-        patternBuilder(warehouseArray, warehousePatternList, 3);
+        patternBuilder(warehouseArray, warehousePatternList);
     }
 //    public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
 //        storedResources[0] = a;

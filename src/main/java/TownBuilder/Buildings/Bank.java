@@ -6,7 +6,6 @@ import TownBuilder.Utility;
 import java.util.ArrayList;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
-import static TownBuilder.Buildings.BuildingFactory.setbuildingMasterList;
 
 public class Bank implements Building{
     private static final ResourceEnum[][] bankPattern = new ResourceEnum[2][3];
@@ -18,7 +17,7 @@ public class Bank implements Building{
     static {
         bankPattern[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WHEAT, ResourceEnum.NONE};
         bankPattern[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.BRICK};
-        patternBuilder(bankPattern, bankPatternList, 3);
+        patternBuilder(bankPattern, bankPatternList);
     }
     public Bank(int r, int c, boolean playerMade) {
         row = r;

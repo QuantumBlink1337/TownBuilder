@@ -15,7 +15,7 @@ public class Factory implements Building{
     static {
         factoryPattern[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
         factoryPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE, ResourceEnum.BRICK};
-        BuildingFactory.patternBuilder(factoryPattern, factoryPatternList, 3);
+        BuildingFactory.patternBuilder(factoryPattern, factoryPatternList);
         // factoryPattern[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.WOOD};
         // factoryPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE, ResourceEnum.BRICK};
         // BuildingFactory.patternBuilder(factoryPattern, factoryPatternList, 3);
