@@ -34,19 +34,30 @@ public class Utility {
             }
         }
     }
-    public static ResourceEnum[] mirrorRow (ResourceEnum[] row) {
-        for (int i = row.length - 1; i >= 0; i--) {
-            ResourceEnum temp = row[row.length - 1 - i];
-            row[row.length - 1 - i] = row[i];
-            row[i] = temp;
+    public static ResourceEnum[][] rotatePattern(ResourceEnum[][] a) {
+        final int M = a.length;
+        final int N = a[0].length;
+        ResourceEnum[][] ret = new ResourceEnum[N][M];
+        for (int r = 0; r < M; r++) {
+            for (int c = 0; c < N; c++) {
+                ret[c][M - 1 - r] = a[r][c];
+            }
         }
-        return row;
+        return ret;
     }
-    public static ResourceEnum[][] mirrorPattern (ResourceEnum[][] array) {
-        for (int r = 0; r < array.length; r++) {
-            array[r] = mirrorRow(array[r]);
+    public static ResourceEnum[] mirrorRow(ResourceEnum[] row) {
+        ResourceEnum[] mirroredRow = new ResourceEnum[row.length];
+        for (int i = row.length - 1; i >= 0; i--) {
+            mirroredRow[row.length - 1 - i] = row[i];
         }
-        return array;
+        return mirroredRow;
+    }
+    public static ResourceEnum[][] mirrorPattern(ResourceEnum[][] array) {
+        ResourceEnum[][] mirrored2DArray = new ResourceEnum[array.length][array[0].length];
+        for (int r = 0; r < array.length; r++) {
+            mirrored2DArray[r] = mirrorRow(array[r]);
+        }
+        return mirrored2DArray;
     }
     public static <T> void printMembersOfArrayList(ArrayList<T> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
@@ -56,6 +67,11 @@ public class Utility {
     public static <T> void printMembersof3dArrayList(ArrayList<T[][]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             arrayPrinter(arrayList.get(i));
+            System.out.println("");
+            // after the 4th iteration
+            if (i + 1 == 4) {
+                System.out.println("MIRRORS:\n");
+            }
         }
     }
     public static AnsiFormat generateColors(Building building, Resource resource) {

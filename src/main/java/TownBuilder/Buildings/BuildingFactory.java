@@ -108,24 +108,35 @@ public class BuildingFactory {
             }
         }
     }
+
+    /*
+        Build all possible transformations of the pattern.
+    */
     public static void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
-        if (rotations >= 0) {
-            ResourceEnum[][] rotatedPattern = buildingRotation(pattern);
-            patternList.add(rotatedPattern);
-            patternBuilder(rotatedPattern, patternList, rotations-1);
+        // add the pattern definition
+        patternList.add(pattern);
+
+        // add the 3 rotations
+        ResourceEnum[][] p = pattern;
+        for (int i = 0; i < 3; i++) {
+            p = Utility.rotatePattern(p);
+            patternList.add(p);
         }
-    }
-    protected static ResourceEnum[][] buildingRotation(ResourceEnum[][] a) {
-        final int M = a.length;
-        final int N = a[0].length;
-        ResourceEnum[][] ret = new ResourceEnum[N][M];
-        for (int r = 0; r < M; r++) {
-            for (int c = 0; c < N; c++) {
-                ret[c][M - 1 - r] = a[r][c];
+
+        // mirror, then repeat
+        ResourceEnum[][] mirror = Utility.mirrorPattern(pattern);
+        // if the mirror is different (i.e. the pattern isn't symmetrical) we
+        // have some more transformations to compute
+        if (!Arrays.deepEquals(mirror, pattern)) {
+            patternList.add(mirror);
+            ResourceEnum[][] m = mirror;
+            for (int i = 0; i < 3; i++) {
+                m = Utility.rotatePattern(m);
+                patternList.add(m);
             }
         }
-        return ret;
     }
+
     public boolean detection(int row, int col, Resource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
         for (ResourceEnum[][] resourceEnums : bT) {
             if (compare(row, col, rArray, resourceEnums) && validResources.size() > 0) {

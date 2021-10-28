@@ -13,7 +13,7 @@ public class Chapel implements Building {
     private final int row;
     private final int col;
     private static final ResourceEnum[][] templeArray = new ResourceEnum[2][3];
-    private static final ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
+    // private static final ResourceEnum[][] templeArrayMirror = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> templeList = new ArrayList<>();
 
     public Chapel(int r, int c) {
@@ -25,9 +25,9 @@ public class Chapel implements Building {
         templeArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
         templeArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         patternBuilder(templeArray, templeList, 3);
-        templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
-        templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
-        patternBuilder(templeArrayMirror, templeList, 3);
+        // templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
+        // templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
+        // patternBuilder(templeArrayMirror, templeList, 3);
     }
     public BuildingEnum getType() {
         return BuildingEnum.CHAPEL;

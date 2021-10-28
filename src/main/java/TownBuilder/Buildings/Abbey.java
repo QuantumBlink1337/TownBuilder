@@ -17,9 +17,9 @@ public class Abbey implements Building{
         abbeyPattern[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
         abbeyPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE};
         BuildingFactory.patternBuilder(abbeyPattern, abbeyPatternList, 3);
-        abbeyPattern[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
-        abbeyPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE};
-        BuildingFactory.patternBuilder(abbeyPattern, abbeyPatternList, 3);
+        // abbeyPattern[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
+        // abbeyPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE};
+        // BuildingFactory.patternBuilder(abbeyPattern, abbeyPatternList, 3);
     }
 
     public Abbey(int r, int c) {
