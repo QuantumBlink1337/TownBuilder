@@ -69,7 +69,7 @@ public class Well implements Building {
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return wellPatternList;
     }
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         int score = 0;
         for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
             if (building.getType() == BuildingEnum.COTTAGE) {

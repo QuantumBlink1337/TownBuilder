@@ -67,7 +67,7 @@ public class Abbey implements Building {
     }
 
     @Override
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         for (Building building : adjacentBuildings) {
             if ((building.getType().getColor() == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW || building.getType().getColor() == ColorEnum.BLACK)) {

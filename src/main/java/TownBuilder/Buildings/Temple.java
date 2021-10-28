@@ -66,7 +66,7 @@ public class Temple implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         int cottagesFound = 0;
         for (Building building : adjacentBuildings) {

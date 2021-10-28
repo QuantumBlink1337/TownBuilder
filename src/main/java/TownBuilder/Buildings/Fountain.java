@@ -63,7 +63,7 @@ public class Fountain implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         int score = 0;
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         for (Building building : adjacentBuildings) {

@@ -66,7 +66,7 @@ public class Bakery implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
             if (building.getType().getColor() == ColorEnum.RED || building.getType().getColor() == ColorEnum.BLACK) {
                 return 2;

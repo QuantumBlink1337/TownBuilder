@@ -65,7 +65,7 @@ public class FeastHall implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         int score = 0;
         for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
             if (building.getType().getColor() == ColorEnum.YELLOW) {

@@ -17,7 +17,7 @@ public interface Building {
     String toString();
     boolean isFeedable();
 
-    int scorer(Building[][] bArray, int scoreIncrement);
+    int scorer(Building[][] bArray);
     void onTurnInterval(Building[][] buildingBoard);
     void printManualText();
 

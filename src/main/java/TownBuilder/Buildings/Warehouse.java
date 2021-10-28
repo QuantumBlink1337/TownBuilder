@@ -121,7 +121,7 @@ public class Warehouse implements Building {
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return warehousePatternList;
     }
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         int score = 0;
         for (ResourceEnum resource : storedResources) {
             if (resource != ResourceEnum.NONE) {

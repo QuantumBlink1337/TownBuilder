@@ -66,7 +66,7 @@ public class Farm implements Building {
 
         return farmPatternList;
     }
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         return 0;
     }
 

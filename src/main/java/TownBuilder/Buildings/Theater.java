@@ -72,7 +72,7 @@ public class Theater implements Building
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(theaterArray);
     }
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         int score = 0;
         for (Building building : Utility.getBuildingsInRowAndColumn(bArray, row, col)) {
             score += buildingMatch(building, this);

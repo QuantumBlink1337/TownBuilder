@@ -60,7 +60,7 @@ public class Almshouse implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         int index = 0;
         int score = 0;
         int[] scores = new int[]{-1, 5, -3, 15, -5, 26};

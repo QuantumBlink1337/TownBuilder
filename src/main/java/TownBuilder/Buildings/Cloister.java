@@ -64,7 +64,7 @@ public class Cloister implements Building {
     }
 
     @Override
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         int score = 0;
         for (Building[] buildingRow : bArray) {
             for (Building building : buildingRow) {

@@ -69,7 +69,7 @@ public class Cottage implements Building {
 
         return cottagePatternList;
     }
-    public int scorer(Building[][] bArray, int scoreIncrement) {
+    public int scorer(Building[][] bArray) {
         if (condition) {
             return 3;
         }
