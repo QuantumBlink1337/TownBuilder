@@ -9,7 +9,7 @@ public enum ColorEnum {
     YELLOW (Attribute.BRIGHT_YELLOW_TEXT()),
     BLUE (Attribute.BRIGHT_BLUE_TEXT()),
     GREEN (Attribute.TEXT_COLOR(0, 128, 0)),
-    GRAY (Attribute.TEXT_COLOR(128, 128, 128)),
+    GRAY (Attribute.TEXT_COLOR(115, 115, 115)),
     ORANGE (Attribute.TEXT_COLOR(255, 165, 0)),
     BLACK (Attribute.TEXT_COLOR(95, 95, 95)),
     WHITE(Attribute.TEXT_COLOR(255, 255, 255)),
@@ -25,9 +25,9 @@ public enum ColorEnum {
     // wheat
     GOLD (Attribute.TEXT_COLOR(255, 215, 0)),
     // wood
-    BROWN (Attribute.TEXT_COLOR(160, 82, 45)),
+    BROWN (Attribute.TEXT_COLOR(150, 75, 45)),
     // stone
-    LIGHTGRAY(Attribute.TEXT_COLOR(210, 210, 210));
+    LIGHTGRAY(Attribute.TEXT_COLOR(235, 235, 235));
     // empty
     //WHITE(Attribute.WHITE_TEXT());
 
