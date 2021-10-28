@@ -3,6 +3,7 @@ package TownBuilder.Buildings;
 import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
+import com.diogonunes.jcolor.Ansi;
 
 import java.util.*;
 
@@ -10,7 +11,7 @@ public class BuildingFactory {
     private final ArrayList<Resource> validResources = new ArrayList<>();
     private static final HashMap<String, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() {
-        buildingMasterList.put("blue", new ArrayList<>(Arrays.asList(new Cottage(-1, -1))));
+        buildingMasterList.put("blue", new ArrayList<>(List.of(new Cottage(-1, -1))));
         buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1))));
         buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
         buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
@@ -112,7 +113,7 @@ public class BuildingFactory {
     /*
         Build all possible transformations of the pattern.
     */
-    public static void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList, int rotations) {
+    public static void patternBuilder(ResourceEnum[][] pattern, ArrayList<ResourceEnum[][]> patternList) {
         // add the pattern definition
         patternList.add(pattern);
 
@@ -178,7 +179,7 @@ public class BuildingFactory {
     }
 
 
-    public void placeBuildingOnBoard(Resource[][] rArray, Building[][] bArray, BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere) throws InstantiationException, IllegalAccessException {
+    public void placeBuildingOnBoard(Resource[][] rArray, Building[][] bArray, BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere) {
         Scanner sc = new Scanner((System.in));
         int[] coords = new int[]{-1, -1};
         boolean validInput = false;
@@ -186,7 +187,9 @@ public class BuildingFactory {
 
         do {
             try {
-                System.out.println("Where would you like to place your " + building.toString() + "?");
+                assert building != null;
+
+                System.out.println("Where would you like to place your " + Ansi.colorize(building.toString(), Utility.generateColors(building, (Resource) null)) + "?");
                 if (PlaceBuildingAnywhere) {
                     System.out.println("You can place your building wherever you want, provided there's nothing there already!");
                     coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
@@ -195,7 +198,7 @@ public class BuildingFactory {
                     }
                 }
                 else {
-                    System.out.println("Valid positions for the "+building.toString()+ " are:");
+                    System.out.println("Valid positions for the "+ Ansi.colorize(building.toString(), Utility.generateColors(building, (Resource) null)) + " are:");
                     Utility.displayValidResources(rArray, this);
                     coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
                     if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
