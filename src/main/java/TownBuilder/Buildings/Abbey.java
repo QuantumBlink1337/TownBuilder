@@ -6,12 +6,12 @@ import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
-public class Abbey implements Building{
+public class Abbey implements Building {
     private static final ResourceEnum[][] abbeyPattern = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> abbeyPatternList = new ArrayList<>();
     private boolean condition;
-    private int row;
-    private int col;
+    private final int row;
+    private final int col;
 
     static {
         abbeyPattern[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
