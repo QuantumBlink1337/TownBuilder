@@ -379,7 +379,7 @@ public class Board {
                     gameBoard[row][col] = "["+ Ansi.colorize(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), Utility.generateColors(gameBuildingBoard[row][col], (Resource) null)) + "]";
                 }
                 else {
-                    gameBoard[row][col] = "["+Ansi.colorize(Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength), Attribute.WHITE_TEXT())+"]";
+                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
                 }
 
             }
