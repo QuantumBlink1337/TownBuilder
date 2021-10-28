@@ -12,10 +12,8 @@ public class Tavern implements Building {
     private boolean condition;
     private final int row;
     private final int col;
-    private final String color = "green";
     private static final ResourceEnum[][] tavernArray = new ResourceEnum[1][3];
     private static final ArrayList<ResourceEnum[][]> tavernPatternList = new ArrayList<>();
-    private static final int SCORE_INCREMENT_STARTING_VALUE = 2;
 
     public Tavern(int r, int c) {
         row = r;
@@ -63,7 +61,7 @@ public class Tavern implements Building {
         System.out.print("2 Taverns: 5 Points | ");
         System.out.print("3 Taverns: 9 Points | ");
         System.out.print("4 Taverns: 14 Points | ");
-        System.out.print("5 Taverns: 20 Points");
+        System.out.print("5 Taverns: 20 Points\n");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(tavernArray);
     }
@@ -71,23 +69,28 @@ public class Tavern implements Building {
 
         return tavernPatternList;
     }
-    public int scorer(Building[][] bArray, int scoreIncrement) {
-        if (condition) {
-            return 0;
+    public int scorer(Building[][] bArray) {
+        int index = 0;
+        int score = 0;
+        int[] scores = new int[]{2, 5, 9, 14, 20, 27};
+        for (Building[] buildingRow : bArray) {
+            for (Building building : buildingRow) {
+                if (index > 5) {
+                    break;
+                }
+                if (building.getType() == BuildingEnum.TAVERN && !building.getCondition()) {
+                    building.setCondition(true);
+                    score = scores[index];
+                    index++;
+                }
+            }
         }
-        int score =0;
-        //System.out.println("Adding scoreIncrement " + scoreIncrement + " to score " + score);
-        score += scoreIncrement;
-
         return score;
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        // nothing
     }
 
-    public static int getSCORE_INCREMENT_STARTING_VALUE() {
-        return SCORE_INCREMENT_STARTING_VALUE;
-    }
 }
