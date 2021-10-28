@@ -35,18 +35,18 @@ public class Utility {
         }
     }
     public static ResourceEnum[] mirrorRow (ResourceEnum[] row) {
-        ResourceEnum[] mirroredRow = new ResourceEnum[row.length];
         for (int i = row.length - 1; i >= 0; i--) {
-            mirroredRow[row.length - 1 - i] = row[i];
+            ResourceEnum temp = row[row.length - 1 - i];
+            row[row.length - 1 - i] = row[i];
+            row[i] = temp;
         }
-        return mirroredRow;
+        return row;
     }
     public static ResourceEnum[][] mirrorPattern (ResourceEnum[][] array) {
-        ResourceEnum[][] mirrored2DArray = new ResourceEnum[array.length][array[0].length];
         for (int r = 0; r < array.length; r++) {
-            mirrored2DArray[r] = mirrorRow(array[r]);
+            array[r] = mirrorRow(array[r]);
         }
-        return mirrored2DArray;
+        return array;
     }
     public static <T> void printMembersOfArrayList(ArrayList<T> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
