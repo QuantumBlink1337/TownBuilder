@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Scanner;
 import com.diogonunes.jcolor.*;
 
+@SuppressWarnings("EnhancedSwitchMigration")
 public class Utility {
     private static final Scanner sc = new Scanner(System.in);
     public static <T> void arrayPrinter(T[][] array) {
@@ -60,10 +61,11 @@ public class Utility {
         return mirrored2DArray;
     }
     public static <T> void printMembersOfArrayList(ArrayList<T> arrayList) {
-        for (int i = 0; i < arrayList.size(); i++) {
-            System.out.println(arrayList.get(i));
+        for (T t : arrayList) {
+            System.out.println(t);
         }
     }
+    @SuppressWarnings({"unused", "StringOperationCanBeSimplified"})
     public static <T> void printMembersof3dArrayList(ArrayList<T[][]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             arrayPrinter(arrayList.get(i));
@@ -115,9 +117,7 @@ public class Utility {
     public static String lengthResizer(String t, int length) {
         StringBuilder target = new StringBuilder(t);
         int targetLength = target.length();
-        for (int i = 0; i < length - targetLength; i++) {
-            target.append(" ");
-        }
+        target.append(" ".repeat(Math.max(0, length - targetLength)));
         return target.toString();
     }
     public static Building getBuildingAt(Building[][] buildingBoard, int row, int col) {
@@ -147,16 +147,6 @@ public class Utility {
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
-//    public static Building boardParser(BuildingEnum buildingEnum, Building[][] bArray) {
-//        for (Building[] buildings : bArray) {
-//            for (Building building : buildings) {
-//                if (buildingEnum == building.getType()) {
-//                    return building;
-//                }
-//            }
-//        }
-//        return new EmptyBuilding();
-//    }
     public static int[] inputToCoords(String i) {
         String[] input = i.split("", 2);
         int[] coords = new int[2];
