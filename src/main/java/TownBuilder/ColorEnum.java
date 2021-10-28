@@ -11,7 +11,8 @@ public enum ColorEnum {
     GREEN (Attribute.TEXT_COLOR(0, 128, 0)),
     GRAY (Attribute.TEXT_COLOR(128, 128, 128)),
     ORANGE (Attribute.TEXT_COLOR(255, 165, 0)),
-    BLACK (Attribute.TEXT_COLOR(105, 105, 105)),
+    BLACK (Attribute.TEXT_COLOR(95, 95, 95)),
+    WHITE(Attribute.TEXT_COLOR(255, 255, 255)),
     COLORLESS (Attribute.NONE()),
 
 
@@ -26,9 +27,9 @@ public enum ColorEnum {
     // wood
     BROWN (Attribute.TEXT_COLOR(160, 82, 45)),
     // stone
-    LIGHTGRAY(Attribute.TEXT_COLOR(192, 192, 192)),
+    LIGHTGRAY(Attribute.TEXT_COLOR(210, 210, 210));
     // empty
-    WHITE(Attribute.WHITE_TEXT());
+    //WHITE(Attribute.WHITE_TEXT());
 
     private final Attribute textColor;
     ColorEnum(Attribute t) {

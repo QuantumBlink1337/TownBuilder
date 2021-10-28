@@ -23,10 +23,10 @@ public enum BuildingEnum {
     WELL (ColorEnum.GRAY),
     FOUNTAIN (ColorEnum.GRAY),
     MILLSTONE (ColorEnum.GRAY),
-    WAREHOUSE (ColorEnum.BLACK),
-    FACTORY (ColorEnum.BLACK),
-    BANK (ColorEnum.BLACK),
-    TRDINGPST(ColorEnum.BLACK),
+    WAREHOUSE (ColorEnum.WHITE),
+    FACTORY (ColorEnum.WHITE),
+    BANK (ColorEnum.WHITE),
+    TRDINGPST(ColorEnum.WHITE),
     NONE (ColorEnum.COLORLESS);
 
     private final ColorEnum color;
