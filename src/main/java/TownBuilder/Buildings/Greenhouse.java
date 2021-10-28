@@ -16,9 +16,9 @@ public class Greenhouse implements Building {
         greenhouseArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WOOD};
         greenhouseArray[1] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.GLASS};
         BuildingFactory.patternBuilder(greenhouseArray, greenhousePatternList, 3);
-        greenhouseArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WOOD};
-        greenhouseArray[1] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.WHEAT};
-        BuildingFactory.patternBuilder(greenhouseArray, greenhousePatternList, 3);
+        // greenhouseArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WOOD};
+        // greenhouseArray[1] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.WHEAT};
+        // BuildingFactory.patternBuilder(greenhouseArray, greenhousePatternList, 3);
     }
 
     public Greenhouse(int r, int c) {

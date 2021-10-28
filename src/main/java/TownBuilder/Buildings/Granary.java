@@ -15,9 +15,9 @@ public class Granary implements Building {
         orchardArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WHEAT};
         orchardArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.WOOD};
         BuildingFactory.patternBuilder(orchardArray, orchardPatternList, 3);
-        orchardArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WHEAT};
-        orchardArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.BRICK};
-        BuildingFactory.patternBuilder(orchardArray, orchardPatternList, 3);
+        // orchardArray[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.WHEAT};
+        // orchardArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.BRICK};
+        // BuildingFactory.patternBuilder(orchardArray, orchardPatternList, 3);
 
     }
     public Granary(int r, int c) {
