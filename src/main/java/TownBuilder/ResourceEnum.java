@@ -24,7 +24,7 @@ public enum ResourceEnum {
         return color;
     }
 
-    private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
+    private static final ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
     public static ResourceEnum randomResource() {
         int random = (int) (Math.random() * resourceArray.size());
         ResourceEnum result = resourceArray.get(random);
@@ -34,7 +34,7 @@ public enum ResourceEnum {
     public static ResourceEnum resourcePicker(ResourceEnum[] blacklistedResources) {
         //resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
         Scanner sc = new Scanner(System.in);
-        String resourceChoice = "";
+        String resourceChoice;
         while (true) {
             System.out.println("What resource do you want?");
             resourceChoice = sc.nextLine().toLowerCase();

@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Driver {
 
-    public static void main (String[] args) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+    public static void main (String[] args) throws IOException, URISyntaxException {
         ArrayList<Building> buildingsForGame = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         buildingSelection(buildingsForGame);
@@ -101,7 +101,7 @@ public class Driver {
         }
         System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
     }
-    public static void buildingSelection(ArrayList<Building> buildingsForGame) throws InstantiationException, IllegalAccessException {
+    public static void buildingSelection(ArrayList<Building> buildingsForGame) {
         Scanner sc = new Scanner(System.in);
 
         HashMap<String, ArrayList<Building>> buildingMasterList = BuildingFactory.getBuildingMasterList();
@@ -169,12 +169,12 @@ public class Driver {
             This tells resourcePicker() what instructions to follow
 
      */
-    public static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+    public static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException, URISyntaxException {
         // run code that returns a resource if method was called with resourcePick = true
         if (placeBuilding) {
             board.renderBoard();
             board.buildingPlacer(board.getGameResourceBoard(), board.getGameBuildingBoard(), buildingsForGame);
-            turnActions(board, ResourceEnum.randomResource(), false);
+            turnActions(board, ResourceEnum.randomResource());
             return null;
         }
         if (resourcePick) {
@@ -185,23 +185,21 @@ public class Driver {
             }
             // if isMultiplayer = false, will use singleplayer code in resourcePicker()
             r = board.resourcePicker(isMultiplayerGame); // assigns the return value of resourcePicker()
-            turnActions(board, r, false);
+            turnActions(board, r);
             return r;
         }
         else {
             board.renderBoard();
             System.out.println("It's " + board.getBoardName() + "'s turn to place a resource.");
-            turnActions(board, resource,false );
+            turnActions(board, resource);
         }
         return null;
     }
     /*
         every turn does this, so I decided to split it into its own method. Runs the turn actions for all players.
      */
-    private static void turnActions(Board board, ResourceEnum resource, boolean skipResourcePlacement) throws IOException, URISyntaxException, InstantiationException, IllegalAccessException {
-        if (!skipResourcePlacement) {
-            board.playerTurn(resource);
-        }
+    private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException{
+        board.playerTurn(resource);
         board.detectValidBuilding();
         board.runBuildingTurnAction();
         board.setGameCompletion(board.gameOver());

@@ -89,7 +89,7 @@ public class Board {
             return false;
         }
     }
-    private void placementPrompt(Building building) throws InstantiationException, IllegalAccessException {
+    private void placementPrompt(Building building) {
         System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at the following coordinates:");
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
@@ -100,7 +100,7 @@ public class Board {
             buildingFactory.clearResources(building.getType());
         }
     }
-    public void detectValidBuilding() throws InstantiationException, IllegalAccessException {
+    public void detectValidBuilding() {
         //long initialTime = System.nanoTime();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
@@ -162,7 +162,7 @@ public class Board {
         }
         return turnResource;
     }
-    public void buildingPlacer(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildingArrayList) throws InstantiationException, IllegalAccessException {
+    public void buildingPlacer(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildingArrayList) {
         System.out.println("What building would you like?");
         Scanner sc = new Scanner(System.in);
         boolean validInput = false;
