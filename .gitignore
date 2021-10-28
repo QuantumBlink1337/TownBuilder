@@ -32,3 +32,4 @@ TownBuilder.iml
 /.gradle/7.1/executionHistory/executionHistory.lock
 /.gradle/7.1/fileHashes/fileHashes.lock
 /.build/tmp/compileJava/previous-compilation-data.bin
+build/tmp/compileJava/previous-compilation-data.bin
