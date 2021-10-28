@@ -20,7 +20,6 @@ public class Scorer {
         int totalScore = 0;
         int score;
         int resourcePenalty =0;
-        int scoreIncrement = 0;
         HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
         for (Building value : buildingsForGame) {
             scores.put(value.getType(), 0);
