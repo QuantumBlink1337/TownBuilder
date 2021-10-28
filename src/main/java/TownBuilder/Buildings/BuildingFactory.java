@@ -200,12 +200,13 @@ public class BuildingFactory {
                     coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
                     if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
                         validInput = true;
-                        sc.next();
                     }
                 }
             }
             catch(ArrayIndexOutOfBoundsException ignored) {
                 System.out.println("Invalid input.");
+                sc.next();
+
             }
 
         }
@@ -222,7 +223,7 @@ public class BuildingFactory {
         else {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.TPOST);
         }
-        bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);;
+        bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);
     }
 
 }
