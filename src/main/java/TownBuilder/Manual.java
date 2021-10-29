@@ -17,7 +17,7 @@ public class Manual {
     }
     public static void tutorial() {
         System.out.println("Welcome to TownBuilder! You are the mayor of a town founded deep in the woods. It's up to you to build the town to success!");
-        System.out.println("To do so, you'll be using five resources: Wheat, Glass, Brick, Stone, and Wood. You can place these on the board using coordinates, ");
+        System.out.println("To do so, you'll be using five resources: "+Ansi.colorize(ResourceEnum.WHEAT.toString(), Utility.generateColors(null, ResourceEnum.WHEAT))+", "+Ansi.colorize(ResourceEnum.GLASS.toString(), Utility.generateColors(null, ResourceEnum.GLASS))+", "+Ansi.colorize(ResourceEnum.BRICK.toString(), Utility.generateColors(null, ResourceEnum.BRICK))+", "+Ansi.colorize(ResourceEnum.STONE.toString(), Utility.generateColors(null, ResourceEnum.STONE))+", and "+Ansi.colorize(ResourceEnum.WOOD.toString(), Utility.generateColors(null, ResourceEnum.WOOD))+". You can place these on the board using coordinates, ");
         System.out.println("like a1, or c4. You can create buildings from patterns of resources to earn points. The goal of the game is to earn as many points as possible!");
         System.out.println("When you successfully design a building, the game will let you decide if you'd like to place it or not");
         System.out.println("But be warned! For every resource you leave off the board, you lose a point! It's up to you to design the perfect town.");
