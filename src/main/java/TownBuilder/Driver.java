@@ -104,7 +104,7 @@ public class Driver {
     public static void buildingSelection(ArrayList<Building> buildingsForGame) {
         Scanner sc = new Scanner(System.in);
 
-        HashMap<String, ArrayList<Building>> buildingMasterList = BuildingFactory.getBuildingMasterList();
+        HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = BuildingFactory.getBuildingMasterList();
         String userInput;
         boolean isUserInputValid = false;
         boolean isCustomGame = true;
@@ -124,9 +124,9 @@ public class Driver {
         }
         while (!isUserInputValid);
         if (isCustomGame) {
-            String[] colors = new String[]{"blue", "red", "gray", "orange", "green", "yellow", "black"};
+            ColorEnum[] colors = new ColorEnum[]{ColorEnum.BLUE, ColorEnum.RED, ColorEnum.GRAY, ColorEnum.ORANGE, ColorEnum.GREEN, ColorEnum.YELLOW, ColorEnum.WHITE};
             BuildingFactory.setbuildingMasterList();
-            for (String color : colors) {
+            for (ColorEnum color : colors) {
                 ArrayList<Building> coloredBuildings = buildingMasterList.get(color);
                 isUserInputValid = false;
                 if (coloredBuildings.size() > 1) {

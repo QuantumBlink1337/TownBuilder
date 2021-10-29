@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.ColorEnum;
 import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -9,15 +10,15 @@ import java.util.*;
 
 public class BuildingFactory {
     private final ArrayList<Resource> validResources = new ArrayList<>();
-    private static final HashMap<String, ArrayList<Building>> buildingMasterList = new HashMap<>();
+    private static final HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() {
-        buildingMasterList.put("blue", new ArrayList<>(List.of(new Cottage(-1, -1))));
-        buildingMasterList.put("red", new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1))));
-        buildingMasterList.put("gray", new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
-        buildingMasterList.put("orange", new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
-        buildingMasterList.put("green", new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
-        buildingMasterList.put("yellow", new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
-        buildingMasterList.put("black", new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false), new Bank(-1, -1, false), new TradingPost(-1, -1))));
+        buildingMasterList.put(ColorEnum.BLUE, new ArrayList<>(List.of(new Cottage(-1, -1))));
+        buildingMasterList.put(ColorEnum.RED, new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1))));
+        buildingMasterList.put(ColorEnum.GRAY, new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
+        buildingMasterList.put(ColorEnum.ORANGE, new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
+        buildingMasterList.put(ColorEnum.GREEN, new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
+        buildingMasterList.put(ColorEnum.YELLOW, new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
+        buildingMasterList.put(ColorEnum.WHITE, new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false), new Bank(-1, -1, false), new TradingPost(-1, -1))));
     }
     public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade) {
         if (buildingEnum == BuildingEnum.NONE) {
@@ -98,7 +99,7 @@ public class BuildingFactory {
     public ArrayList<Resource> getValidResources() {
         return validResources;
     }
-    public static HashMap<String, ArrayList<Building>> getBuildingMasterList() {
+    public static HashMap<ColorEnum, ArrayList<Building>> getBuildingMasterList() {
         return buildingMasterList;
     }
 
@@ -188,8 +189,7 @@ public class BuildingFactory {
         do {
             try {
                 assert building != null;
-
-                System.out.println("Where would you like to place your " + Ansi.colorize(building.toString(), Utility.generateColors(building, (Resource) null)) + "?");
+                System.out.println("Where would you like to place your " + Utility.generateColorizedString(building.toString(), buildingEnum) + "?");
                 if (PlaceBuildingAnywhere) {
                     System.out.println("You can place your building wherever you want, provided there's nothing there already!");
                     coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
@@ -198,7 +198,7 @@ public class BuildingFactory {
                     }
                 }
                 else {
-                    System.out.println("Valid positions for the "+ Ansi.colorize(building.toString(), Utility.generateColors(building, (Resource) null)) + " are:");
+                    System.out.println("Valid positions for the "+ Utility.generateColorizedString(building.toString(), buildingEnum)+ " are:");
                     Utility.displayValidResources(rArray, this);
                     coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
                     if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
