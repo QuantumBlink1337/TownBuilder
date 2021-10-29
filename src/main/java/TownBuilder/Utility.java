@@ -27,10 +27,10 @@ public class Utility {
         for (ResourceEnum[] ts : resourceEnums) {
             for (int col = 0; col < ts.length; col++) {
                 if (col == (ts.length - 1)) {
-                    System.out.println("[" + Ansi.colorize(ts[col].toString(), Utility.generateColors(null, ts[col]))+ "]");
+                    System.out.println("[" + Utility.generateColorizedString(ts[col].toString(), ts[col])+ "]");
                 }
                 else {
-                    System.out.print("[" + Ansi.colorize(ts[col].toString(), Utility.generateColors(null, ts[col])) + "]");
+                    System.out.print("[" + Utility.generateColorizedString(ts[col].toString(), ts[col]) + "]");
                 }
             }
         }
@@ -76,28 +76,34 @@ public class Utility {
             }
         }
     }
-    public static AnsiFormat generateColors(Building building, Resource resource) {
-        if (building != null) {
-            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
-        }
-        else if (resource != null){
-            return new AnsiFormat(resource.getResource().getColor().getTextColor());
-        }
-        else {
-            throw new NullPointerException();
-        }
+//    public static AnsiFormat generateColors(Building building, Resource resource) {
+//        if (building != null) {
+//            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
+//        }
+//        else if (resource != null){
+//            return new AnsiFormat(resource.getResource().getColor().getTextColor());
+//        }
+//        else {
+//            throw new NullPointerException();
+//        }
+//    }
+    public static String generateColorizedString(String string, ResourceEnum resource) {
+        return Ansi.colorize(string, new AnsiFormat(resource.getColor().getTextColor()));
     }
-    public static AnsiFormat generateColors(Building building, ResourceEnum resource) {
-        if (building != null) {
-            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
-        }
-        else if (resource != null){
-            return new AnsiFormat(resource.getColor().getTextColor());
-        }
-        else {
-            throw new NullPointerException();
-        }
+    public static String generateColorizedString(String string, BuildingEnum building) {
+        return Ansi.colorize(string, new AnsiFormat(building.getColor().getTextColor(), Attribute.BOLD()));
     }
+//    public static AnsiFormat generateColors(Building building, ResourceEnum resource) {
+//        if (building != null) {
+//            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
+//        }
+//        else if (resource != null){
+//            return new AnsiFormat(resource.getColor().getTextColor());
+//        }
+//        else {
+//            throw new NullPointerException();
+//        }
+//    }
     public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) {
 
         for (int r = 0; r < rArray.length; r++) {
@@ -236,6 +242,7 @@ public class Utility {
         System.out.println("Press any key to continue.");
         sc.nextLine();
     }
+
 
 
 }

@@ -68,7 +68,7 @@ public class Bakery implements Building{
     @Override
     public int scorer(Building[][] bArray) {
         for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
-            if (building.getType().getColor() == ColorEnum.RED || building.getType().getColor() == ColorEnum.BLACK) {
+            if (building.getType().getColor() == ColorEnum.RED || building.getType().getColor() == ColorEnum.WHITE) {
                 return 2;
             }
         }
@@ -82,7 +82,7 @@ public class Bakery implements Building{
 
     @Override
     public void printManualText() {
-        System.out.println("The Bakery provides two points if it's adjacent to a Red or Black building.");
+        System.out.println("The Bakery provides two points if it's adjacent to a Red or White building.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(bakeryArray);
     }

@@ -70,7 +70,7 @@ public class Abbey implements Building {
     public int scorer(Building[][] bArray) {
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         for (Building building : adjacentBuildings) {
-            if ((building.getType().getColor() == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW || building.getType().getColor() == ColorEnum.BLACK)) {
+            if ((building.getType().getColor() == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW || building.getType().getColor() == ColorEnum.WHITE)) {
                 return 0;
             }
         }
@@ -84,7 +84,7 @@ public class Abbey implements Building {
 
     @Override
     public void printManualText() {
-        System.out.println("The Abbey grants 3 points if it's not adjacent to a Green, Yellow, or Black building.");
+        System.out.println("The Abbey grants 3 points if it's not adjacent to a Green, Yellow, or White building.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(abbeyPatternList.get(0));
     }
