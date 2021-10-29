@@ -88,10 +88,10 @@ public class Theater implements Building
     private int buildingMatch(Building toBeChecked, Building scoreTarget) {
         int score = 0;
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);
-        for (int i = 0;  i < buildings.size(); i++) {
-            if (toBeChecked.getType() == buildings.get(i).getType()) {
-                if (!toBeChecked.equals(scoreTarget)) {
-                    buildings.remove(i);
+        for (Building building : buildings) {
+            if (toBeChecked.getType() == building.getType()) {
+                if (!toBeChecked.equals(scoreTarget) && !building.getCondition()) {
+                    building.setCondition(true);
                     score++;
                 }
 
