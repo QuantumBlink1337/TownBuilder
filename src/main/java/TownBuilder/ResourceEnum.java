@@ -6,11 +6,31 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public enum ResourceEnum {
-    GLASS (ColorEnum.TURQUIOSE),
-    BRICK (ColorEnum.ORANGERED),
-    WOOD (ColorEnum.BROWN),
-    WHEAT (ColorEnum.GOLD),
-    STONE (ColorEnum.LIGHTGRAY),
+    GLASS (ColorEnum.TURQUIOSE) {
+        public String toString() {
+            return "Glass";
+        }
+    },
+    BRICK (ColorEnum.ORANGERED) {
+      public String toString() {
+          return "Brick";
+      }
+    },
+    WOOD (ColorEnum.BROWN) {
+        public String toString() {
+            return "Wood";
+        }
+    },
+    WHEAT (ColorEnum.GOLD) {
+        public String toString() {
+            return "Wheat";
+        }
+    },
+    STONE (ColorEnum.LIGHTGRAY) {
+        public String toString() {
+            return "Stone";
+        }
+    },
     TPOST (ColorEnum.COLORLESS),
     OBSTRUCTED (ColorEnum.COLORLESS),
     NONE (ColorEnum.COLORLESS);
