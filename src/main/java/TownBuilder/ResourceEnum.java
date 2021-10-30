@@ -46,9 +46,16 @@ public enum ResourceEnum {
 
     private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
     public static ResourceEnum randomResource() {
-        int random = (int) (Math.random() * resourceArray.size());
-        ResourceEnum result = resourceArray.get(random);
-        resourceArray.remove(random);
+        ResourceEnum result;
+        try {
+            int random = (int) (Math.random() * resourceArray.size());
+            result = resourceArray.get(random);
+            resourceArray.remove(random);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            result = GLASS;
+        }
         return result;
     }
     public static ResourceEnum resourcePicker(ResourceEnum[] blacklistedResources) {
