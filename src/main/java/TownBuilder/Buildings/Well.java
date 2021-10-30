@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -71,9 +72,12 @@ public class Well implements Building {
     }
     public int scorer(Building[][] bArray) {
         int score = 0;
+        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
+            DebugTools.logging("Well Scoring: Searching adjacent buildings for Cottage. Current building: " + DebugTools.buildingInformation(building), 3);
             if (building.getType() == BuildingEnum.COTTAGE) {
                 score++;
+                DebugTools.logging("Well Scoring: Cottage found. Information: " + DebugTools.buildingInformation(building) + "Incrementing score. Current score: "+ score, 2);
             }
         }
         return score;
@@ -81,7 +85,7 @@ public class Well implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        //
     }
 
 }

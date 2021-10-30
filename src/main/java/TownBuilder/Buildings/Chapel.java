@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -67,15 +68,17 @@ public class Chapel implements Building {
     }
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
-
         return templeList;
     }
     public int scorer(Building[][] bArray) {
         int score = 0;
+        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         for (Building[] buildings : bArray) {
             for (Building building : buildings) {
+                DebugTools.logging("Chapel Scoring: Checking " + DebugTools.buildingInformation(building), 3);
                 if (building.getType() == BuildingEnum.COTTAGE && building.getCondition()) {
                     score += 1;
+                    DebugTools.logging("Chapel Scoring: Found " + DebugTools.buildingInformation(building)+ "adding 1 to score. Score: " + score, 2);
                 }
             }
         }

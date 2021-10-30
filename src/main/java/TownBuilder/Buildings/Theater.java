@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
@@ -74,23 +75,32 @@ public class Theater implements Building
     }
     public int scorer(Building[][] bArray) {
         int score = 0;
+
+        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         for (Building building : Utility.getBuildingsInRowAndColumn(bArray, row, col)) {
-            score += buildingMatch(building, this);
+            DebugTools.logging("Theater Scoring: searching buildings in common row/column. Current building: " + DebugTools.buildingInformation(building), 3);
+            if (building.getType() != BuildingEnum.NONE) {
+                score += buildingMatch(building, this);
+            }
         }
         return score;
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        //
     }
 
     private int buildingMatch(Building toBeChecked, Building scoreTarget) {
         int score = 0;
+        DebugTools.logging("Theater Scoring: Sending " + toBeChecked.getType() + " to buildingMatch()", 3);
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);
         for (Building building : buildings) {
+            DebugTools.logging("Theater Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.", 3);
             if (toBeChecked.getType() == building.getType()) {
                 if (!toBeChecked.equals(scoreTarget) && !building.getCondition()) {
+                    DebugTools.logging("Theater Scoring: " + building.getType() + " of master buildings list is the same as " + toBeChecked.getType()  +
+                            "", 2);
                     building.setCondition(true);
                     score++;
                 }

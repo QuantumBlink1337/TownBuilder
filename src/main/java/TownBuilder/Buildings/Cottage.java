@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -70,14 +71,18 @@ public class Cottage implements Building {
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray) {
+        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
+        DebugTools.logging("Cottage Score: checking " + DebugTools.buildingInformation(this), 1);
         if (condition) {
+            DebugTools.logging("Cottage Score: condition is true, returning 3.", 2);
             return 3;
         }
+        DebugTools.logging("Cottage Score: condition is false, returning 0.", 2);
         return 0;
     }
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        // nothing
     }
 
 }

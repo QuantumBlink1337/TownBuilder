@@ -68,7 +68,7 @@ public class Farm implements Building {
         return farmPatternList;
     }
     public int scorer(Building[][] bArray) {
-        DebugTools.logging("Farm scoring protocol triggered. Returning 0.", 1);
+        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         return 0;
     }
 
