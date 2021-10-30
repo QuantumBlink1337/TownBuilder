@@ -90,6 +90,7 @@ public class Tavern implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
+        this.setCondition(false);
         // nothing
     }
 
