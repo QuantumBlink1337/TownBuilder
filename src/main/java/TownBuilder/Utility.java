@@ -11,15 +11,7 @@ import com.diogonunes.jcolor.*;
 
 @SuppressWarnings("EnhancedSwitchMigration")
 public class Utility {
-    private static final int verbose = 0;
-    private static final boolean debug = false;
     private static final Scanner sc = new Scanner(System.in);
-    public static void logging(String string, int verbosity) {
-        if (verbose == verbosity && debug) {
-            System.out.print(Ansi.colorize("DEBUGGING:", Attribute.RED_TEXT(), Attribute.BOLD()));
-            System.out.println(string);
-        }
-    }
     public static <T> void arrayPrinter(T[][] array) {
         for (T[] ts : array) {
             for (int col = 0; col < ts.length; col++) {
