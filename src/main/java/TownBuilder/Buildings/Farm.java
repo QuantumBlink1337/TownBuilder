@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -67,16 +68,21 @@ public class Farm implements Building {
         return farmPatternList;
     }
     public int scorer(Building[][] bArray) {
+        DebugTools.logging("Farm scoring protocol triggered. Returning 0.", 1);
         return 0;
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
+        DebugTools.logging("Farm feeding protocol triggered.", 1);
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
+                DebugTools.logging("Searching for Feedable status - " + DebugTools.buildingInformation(building), 3);
                 if (building.isFeedable() && !building.getCondition() && fed > 0) {
                     building.setCondition(true);
+                    DebugTools.logging("Found a feedable building at " + DebugTools.buildingInformation(building), 2);
                     fed--;
+                    DebugTools.logging("Fed condition of Farm building after increment: " + fed, 2);
                 }
             }
         }
