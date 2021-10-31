@@ -87,8 +87,7 @@ public class Manual {
                 case "placement":
                     System.out.println("Buildings are made by placing resources on your board. Each building has its own unique pattern of ");
                     System.out.println("what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example,");
-                    System.out.println("the Cottage can have 8 different orientations! Note: If a building pattern has NONE as part of it, it just means");
-                    System.out.println("it doesn't matter what's there!");
+                    System.out.println("the Cottage can have 8 different orientations!");
                     Utility.anyKey();
                     userInput = "";
                     break;
@@ -99,7 +98,7 @@ public class Manual {
                     Utility.anyKey();
                     break;
                 case "scoring":
-                    System.out.println("Each building has it's own unique rules on how they accumulate points. (see: building score) ");
+                    System.out.println("Each building has it's own unique rules on how they accumulate points. (see: buildings) ");
                     System.out.println("But remember - for each resource you leave on the board you LOSE a point! It's up to you ");
                     System.out.println("to figure out how to build your town for the most points possible.");
                     userInput = "";
