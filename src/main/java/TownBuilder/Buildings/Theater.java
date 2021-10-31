@@ -83,6 +83,10 @@ public class Theater implements Building
                 score += buildingMatch(building, this);
             }
         }
+        // I don't know why I have to do this but I do apparently
+        for (Building building : buildingsOnBoard) {
+            building.setCondition(false);
+        }
         return score;
     }
 
