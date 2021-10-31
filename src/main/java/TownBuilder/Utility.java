@@ -4,6 +4,7 @@ import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -63,6 +64,13 @@ public class Utility {
     public static <T> void printMembersOfArrayList(ArrayList<T> arrayList) {
         for (T t : arrayList) {
             System.out.println(t);
+        }
+    }
+    public static void printBuildingsInList(ArrayList<Building> buildings) {
+        for (Building building : buildings) {
+            System.out.println(Utility.generateColorizedString(building.toString(), building.getType()));
+            building.printManualText();
+            System.out.println("--------------------------------------------------------");
         }
     }
     @SuppressWarnings({"unused", "StringOperationCanBeSimplified"})
