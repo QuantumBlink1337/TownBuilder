@@ -24,13 +24,24 @@ public class Utility {
         }
     }
     public static void arrayPrinter(ResourceEnum[][] resourceEnums) {
+        int whitespace = 5;
         for (ResourceEnum[] ts : resourceEnums) {
             for (int col = 0; col < ts.length; col++) {
                 if (col == (ts.length - 1)) {
-                    System.out.println("[" + Utility.generateColorizedString(ts[col].toString(), ts[col])+ "]");
+                    if (ts[col] != ResourceEnum.NONE) {
+                        System.out.println("[" + Utility.generateColorizedString(Utility.lengthResizer(ts[col].toString(), whitespace) , ts[col])+ "]");
+                    }
+                    else {
+                        System.out.println("[" + Utility.generateColorizedString(Utility.lengthResizer("", whitespace) , ts[col])+ "]");
+                    }
                 }
                 else {
-                    System.out.print("[" + Utility.generateColorizedString(ts[col].toString(), ts[col]) + "]");
+                    if (ts[col] != ResourceEnum.NONE) {
+                        System.out.print("[" + Utility.generateColorizedString(Utility.lengthResizer(ts[col].toString(), whitespace) , ts[col])+ "]");
+                    }
+                    else {
+                        System.out.print("[" + Utility.generateColorizedString(Utility.lengthResizer("", whitespace) , ts[col])+ "]");
+                    }
                 }
             }
         }
