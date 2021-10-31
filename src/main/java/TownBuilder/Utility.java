@@ -4,7 +4,6 @@ import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -84,38 +83,16 @@ public class Utility {
             }
         }
     }
-//    public static AnsiFormat generateColors(Building building, Resource resource) {
-//        if (building != null) {
-//            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
-//        }
-//        else if (resource != null){
-//            return new AnsiFormat(resource.getResource().getColor().getTextColor());
-//        }
-//        else {
-//            throw new NullPointerException();
-//        }
-//    }
     public static String generateColorizedString(String string, ResourceEnum resource) {
         return Ansi.colorize(string, new AnsiFormat(resource.getColor().getTextColor()));
     }
     public static String generateColorizedString(String string, BuildingEnum building) {
         return Ansi.colorize(string, new AnsiFormat(building.getColor().getTextColor(), Attribute.BOLD()));
     }
-//    public static AnsiFormat generateColors(Building building, ResourceEnum resource) {
-//        if (building != null) {
-//            return new AnsiFormat(building.getType().getColor().getTextColor(), Attribute.BOLD());
-//        }
-//        else if (resource != null){
-//            return new AnsiFormat(resource.getColor().getTextColor());
-//        }
-//        else {
-//            throw new NullPointerException();
-//        }
-//    }
     public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) {
 
         for (int r = 0; r < rArray.length; r++) {
-            for (int c = 0; c < rArray[r].length; c++) {
+            for (int c  = 0; c < rArray[r].length; c++) {
                 for (int i = 0; i < buildingFactory.getValidResources().size(); i++) {
                     if (rArray[r][c] == buildingFactory.getValidResources().get(i) && i != (buildingFactory.getValidResources().size() -1)) {
                         System.out.print(Utility.coordsToOutput(r, c) + ", ");
@@ -233,6 +210,7 @@ public class Utility {
     public static boolean prompt() {
 
         do {
+            System.out.println("Use " + Ansi.colorize("yes (y)", Attribute.GREEN_TEXT()) + " or " + Ansi.colorize("no (n)", Attribute.RED_TEXT()));
             String prompt = sc.nextLine().toLowerCase();
             if (prompt.equals("y") || prompt.equals("yes")) {
                 return true;
