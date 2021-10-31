@@ -133,7 +133,7 @@ public class Driver {
                     do {
                         System.out.println("What " + color + " building would you like for your game?");
                         System.out.println("Available choices include:");
-                        Utility.printMembersOfArrayList(coloredBuildings);
+                        Utility.printBuildingsInList(coloredBuildings);
                         userInput = sc.nextLine().toLowerCase();
                         for (Building coloredBuilding : coloredBuildings) {
                             if (userInput.equals(coloredBuilding.toString().toLowerCase())) {
