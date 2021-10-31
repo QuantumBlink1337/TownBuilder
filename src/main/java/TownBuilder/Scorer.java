@@ -71,6 +71,29 @@ public class Scorer {
         else {
             System.out.println("Total score: " + totalScore);
         }
+        if (!isMidGameCheck) {
+            scoreMessage(totalScore);
+        }
         return totalScore;
+    }
+    private void scoreMessage(int score) {
+        if (score > 37) {
+            System.out.println("Wow! You are a Master Architect. Congratulations!");
+        }
+        else if (score > 31) {
+            System.out.println("Nice work! You are a Town Planner.");
+        }
+        else if (score > 24) {
+            System.out.println("Good work! You are an Engineer.");
+        }
+        else if (score > 18) {
+            System.out.println("You earned the rank of Carpenter.");
+        }
+        else if (score > 9) {
+            System.out.println("You are a Builder's Apprentice.");
+        }
+        else {
+            System.out.println("You are an Aspiring Architect.");
+        }
     }
 }
