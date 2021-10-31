@@ -90,7 +90,7 @@ public class Board {
         }
     }
     private void placementPrompt(Building building) {
-        System.out.println("A valid "+building.toString().toLowerCase() +" construction was found at the following coordinates:");
+        System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
