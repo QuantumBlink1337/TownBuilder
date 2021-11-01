@@ -186,7 +186,13 @@ public class BuildingFactory {
         Scanner sc = new Scanner((System.in));
         int[] coords = new int[]{-1, -1};
         boolean validInput = false;
-        Building building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false);
+        Building building = null;
+        if (buildingEnum.isMonument()) {
+             building = getMonument(buildingEnum, board, -1, -1);
+        }
+        else {
+             building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false);
+        }
         Building[][] bArray = board.getGameBuildingBoard();
         Resource[][] rArray = board.getGameResourceBoard();
 
@@ -230,7 +236,7 @@ public class BuildingFactory {
         else {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.TPOST);
         }
-        if (building instanceof Monument) {
+        if (buildingEnum.isMonument()) {
             bArray[coords[0]][coords[1]] = getMonument(buildingEnum, board, coords[0], coords[1]);
             board.monumentControl((Monument) bArray[coords[0]][coords[1]]);
         }
