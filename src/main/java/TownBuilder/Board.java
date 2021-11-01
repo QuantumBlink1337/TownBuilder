@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Board {
     private final ArrayList<Building> detectableBuildings;
     private final ArrayList<Building> scorableBuildings;
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD));
+    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE));
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
     private final Scorer scorer;
@@ -41,9 +41,9 @@ public class Board {
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
+        generateMonument();
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
-        generateMonument();
         buildArrays();
         updateBoard();
     }
@@ -52,7 +52,7 @@ public class Board {
     }
     private void generateMonument() {
         int randomIndex = (int) (Math.random() * monumentTypes.size());
-        Monument monument = BuildingFactory.getMonument(monumentTypes.get(randomIndex), this, -1, -1);
+        Monument monument = BuildingFactory.getMonument(monumentTypes.get(randomIndex), this, -1, -1, scorableBuildings);
         monumentTypes.remove(randomIndex);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
