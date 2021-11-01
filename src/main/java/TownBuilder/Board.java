@@ -17,6 +17,7 @@ public class Board {
     private final Manual manual;
     private final Scorer scorer;
     private int spResourceSelectionIncrement = 0;
+    private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
@@ -104,7 +105,7 @@ public class Board {
     }
     public void monumentControl(Monument monument) {
         monument.onPlacement();
-        detectableBuildings.removeIf(building -> building instanceof Monument);
+        monumentPlacement = true;
     }
     private void placementPrompt(Building building) {
         System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
@@ -122,8 +123,17 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : detectableBuildings) {
-                    if (buildingFactory.detection(row, col, gameResourceBoard, building.getBuildingPatternsList(), building.getType())) {
-                        placementPrompt(building);
+                    if (building instanceof Monument) {
+                        if (!monumentPlacement) {
+                            if (buildingFactory.detection(row, col, gameResourceBoard, building.getBuildingPatternsList(), building.getType())) {
+                                placementPrompt(building);
+                            }
+                        }
+                    }
+                    else {
+                        if (buildingFactory.detection(row, col, gameResourceBoard, building.getBuildingPatternsList(), building.getType())) {
+                            placementPrompt(building);
+                        }
                     }
                 }
             }
