@@ -102,6 +102,10 @@ public class Board {
             return false;
         }
     }
+    public void monumentControl(Monument monument) {
+        monument.onPlacement();
+        detectableBuildings.removeIf(building -> building instanceof Monument);
+    }
     private void placementPrompt(Building building) {
         System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
@@ -176,9 +180,9 @@ public class Board {
         return turnResource;
     }
     public void buildingPlacer() {
-        buildingPlacer(gameResourceBoard, gameBuildingBoard, detectableBuildings);
+        buildingPlacer(detectableBuildings);
     }
-    public void buildingPlacer(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildingArrayList) {
+    public void buildingPlacer(ArrayList<Building> buildingArrayList) {
         System.out.println("What building would you like?");
         Scanner sc = new Scanner(System.in);
         boolean validInput = false;
