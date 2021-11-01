@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import com.diogonunes.jcolor.*;
 
 public class Board {
-    private final ArrayList<Building> buildingsForGame;
+    private final ArrayList<Building> detectableBuildings;
+    private final ArrayList<Building> scorableBuildings;
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
     private final Scorer scorer;
@@ -35,10 +35,11 @@ public class Board {
         else if (boardName.equals("debug_building")) {
             System.out.println("Debug/testing mode activated. Enabled direct building placement");
         }
-        buildingsForGame = new ArrayList<>(b);
+        detectableBuildings = new ArrayList<>(b);
+        scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
-        manual = new Manual(buildingsForGame);
-        scorer = new Scorer(this, buildingsForGame);
+        manual = new Manual(detectableBuildings);
+        scorer = new Scorer(this, detectableBuildings);
         buildArrays();
         updateBoard();
     }
@@ -94,7 +95,7 @@ public class Board {
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            buildingFactory.placeBuildingOnBoard(gameResourceBoard, gameBuildingBoard, building.getType(), buildingsForGame, false);
+            buildingFactory.placeBuildingOnBoard(gameResourceBoard, gameBuildingBoard, building.getType(), detectableBuildings, false);
         }
         else {
             buildingFactory.clearResources(building.getType());
@@ -104,7 +105,7 @@ public class Board {
         //long initialTime = System.nanoTime();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                for (Building building : buildingsForGame) {
+                for (Building building : detectableBuildings) {
                     if (buildingFactory.detection(row, col, gameResourceBoard, building.getBuildingPatternsList(), building.getType())) {
                         placementPrompt(building);
                     }
@@ -128,7 +129,7 @@ public class Board {
             }
         }
         if (bankCounter > 4) {
-            buildingsForGame.removeIf(building -> building.getType() == BuildingEnum.BANK);
+            detectableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
         }
     }
     public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
@@ -161,6 +162,9 @@ public class Board {
             }
         }
         return turnResource;
+    }
+    public void buildingPlacer() {
+        buildingPlacer(gameResourceBoard, gameBuildingBoard, detectableBuildings);
     }
     public void buildingPlacer(Resource[][] rArray, Building[][] bArray, ArrayList<Building> buildingArrayList) {
         System.out.println("What building would you like?");
