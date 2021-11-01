@@ -3,41 +3,43 @@ package TownBuilder.Buildings;
 import TownBuilder.ColorEnum;
 
 public enum BuildingEnum {
-    FARM (ColorEnum.RED),
-    GRANARY (ColorEnum.RED),
-    GRENHOUSE (ColorEnum.RED),
-    ORCHARD (ColorEnum.RED),
-    CHAPEL (ColorEnum.ORANGE),
-    ABBEY (ColorEnum.ORANGE),
-    CLOISTER (ColorEnum.ORANGE),
-    TEMPLE (ColorEnum.ORANGE),
-    COTTAGE (ColorEnum.BLUE),
-    THEATER (ColorEnum.YELLOW),
-    BAKERY (ColorEnum.YELLOW),
-    MARKET (ColorEnum.YELLOW),
-    TAILOR (ColorEnum.YELLOW),
-    TAVERN (ColorEnum.GREEN),
-    ALMSHOUSE (ColorEnum.GREEN),
-    FEASTHALL (ColorEnum.GREEN),
-    INN (ColorEnum.GREEN),
-    WELL (ColorEnum.GRAY),
-    FOUNTAIN (ColorEnum.GRAY),
-    MILLSTONE (ColorEnum.GRAY),
-    WAREHOUSE (ColorEnum.WHITE),
-    FACTORY (ColorEnum.WHITE),
-    BANK (ColorEnum.WHITE),
-    TRDINGPST(ColorEnum.WHITE),
+    FARM (ColorEnum.RED, false),
+    GRANARY (ColorEnum.RED, false),
+    GRENHOUSE (ColorEnum.RED, false),
+    ORCHARD (ColorEnum.RED, false),
+    CHAPEL (ColorEnum.ORANGE, false),
+    ABBEY (ColorEnum.ORANGE, false),
+    CLOISTER (ColorEnum.ORANGE, false),
+    TEMPLE (ColorEnum.ORANGE, false),
+    COTTAGE (ColorEnum.BLUE ,false),
+    THEATER (ColorEnum.YELLOW,false),
+    BAKERY (ColorEnum.YELLOW,false),
+    MARKET (ColorEnum.YELLOW,false),
+    TAILOR (ColorEnum.YELLOW,false),
+    TAVERN (ColorEnum.GREEN,false),
+    ALMSHOUSE (ColorEnum.GREEN,false),
+    FEASTHALL (ColorEnum.GREEN,false),
+    INN (ColorEnum.GREEN,false),
+    WELL (ColorEnum.GRAY,false),
+    FOUNTAIN (ColorEnum.GRAY,false),
+    MILLSTONE (ColorEnum.GRAY,false),
+    WAREHOUSE (ColorEnum.WHITE,false),
+    FACTORY (ColorEnum.WHITE,false),
+    BANK (ColorEnum.WHITE,false),
+    TRDINGPST(ColorEnum.WHITE,false),
 
-    AGUILD(ColorEnum.PINK),
-
-
+    AGUILD(ColorEnum.PINK, true),
 
 
-    NONE (ColorEnum.COLORLESS);
+
+
+    NONE (ColorEnum.COLORLESS, false);
 
     private final ColorEnum color;
-    BuildingEnum(ColorEnum color) {
+    private final boolean isMonument;
+    BuildingEnum(ColorEnum color, boolean isMonument) {
         this.color = color;
+        this.isMonument = isMonument;
     }
 
     public ColorEnum getColor() {
