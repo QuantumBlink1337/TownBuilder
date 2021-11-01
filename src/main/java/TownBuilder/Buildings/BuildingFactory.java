@@ -1,7 +1,6 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.*;
-import com.diogonunes.jcolor.Ansi;
 
 import java.util.*;
 
@@ -183,11 +182,13 @@ public class BuildingFactory {
     }
 
 
-    public void placeBuildingOnBoard(Resource[][] rArray, Building[][] bArray, BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere) {
+    public void placeBuildingOnBoard(BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere, Board board) {
         Scanner sc = new Scanner((System.in));
         int[] coords = new int[]{-1, -1};
         boolean validInput = false;
         Building building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false);
+        Building[][] bArray = board.getGameBuildingBoard();
+        Resource[][] rArray = board.getGameResourceBoard();
 
         do {
             try {
@@ -229,7 +230,12 @@ public class BuildingFactory {
         else {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.TPOST);
         }
-        bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);
+        if (building instanceof Monument) {
+            bArray[coords[0]][coords[1]] = getMonument(buildingEnum, board, coords[0], coords[1]);
+        }
+        else {
+            bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);
+        }
     }
 
 }
