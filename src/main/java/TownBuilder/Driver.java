@@ -3,7 +3,6 @@ package TownBuilder;
 import TownBuilder.Buildings.*;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,19 +113,17 @@ public class Driver {
         do {
             System.out.println("Welcome to TownBuilder. Would you like to play a default game (recommended for new players), a custom game, or a random game?");
             userInput = sc.nextLine().toLowerCase();
-            if (userInput.equals("default") || userInput.equals("d")) {
-                isUserInputValid = true;
-            }
-            else if (userInput.equals("custom") || userInput.equals("c")) {
-                isUserInputValid = true;
-                isCustomGame = true;
-            }
-            else if (userInput.equals("random") || userInput.equals("r")) {
-                isRandomGame = true;
-                isUserInputValid = true;
-            }
-            else {
-               System.out.println("Invalid input. Please try again with 'custom' or 'default'.");
+            switch (userInput) {
+                case "default", "d" -> isUserInputValid = true;
+                case "custom", "c" -> {
+                    isUserInputValid = true;
+                    isCustomGame = true;
+                }
+                case "random", "r" -> {
+                    isRandomGame = true;
+                    isUserInputValid = true;
+                }
+                default -> System.out.println("Invalid input. Please try again with 'custom' or 'default'.");
             }
         }
         while (!isUserInputValid);
@@ -143,7 +140,7 @@ public class Driver {
                         userInput = sc.nextLine().toLowerCase();
                         for (Building coloredBuilding : coloredBuildings) {
                             if (userInput.equals(coloredBuilding.toString().toLowerCase())) {
-                                buildingsForGame.add(BuildingFactory.getBuilding(coloredBuilding.getType(), null, -1, -1, false));
+                                buildingsForGame.add(BuildingFactory.getBuilding(coloredBuilding.getType(), buildingsForGame, -1, -1, false));
                                 isUserInputValid = true;
                             }
                         }
@@ -162,22 +159,22 @@ public class Driver {
                 if (buildings.size() > 0) {
                     int randomIndex = (int) (Math.random() * buildings.size());
                     Building building = buildings.get(randomIndex);
-                    buildingsForGame.add(BuildingFactory.getBuilding(building.getType(), null, -1, -1, false));
+                    buildingsForGame.add(BuildingFactory.getBuilding(building.getType(), buildingsForGame, -1, -1, false));
                 }
                 else {
-                    buildingsForGame.add(BuildingFactory.getBuilding(buildings.get(0).getType(), null, -1, -1, false));
+                    buildingsForGame.add(BuildingFactory.getBuilding(buildings.get(0).getType(), buildingsForGame, -1, -1, false));
                 }
 
             }
         }
         else {
-            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.COTTAGE, null, -1, -1, false));
-            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.FARM, null, -1, -1, false));
-            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WELL, null, -1, -1, false));
-            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.CHAPEL, null, -1, -1, false));
-            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.TAVERN, null, -1, -1, false));
-            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.THEATER, null, -1, -1, false));
-            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, null, -1, -1, false));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, -1, -1, false));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.FARM, buildingsForGame, -1, -1, false));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WELL, buildingsForGame, -1, -1, false));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.CHAPEL, buildingsForGame, -1, -1, false));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.TAVERN, buildingsForGame, -1, -1, false));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.THEATER, buildingsForGame, -1, -1, false));
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, -1, -1, false));
         }
 
     }
