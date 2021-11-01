@@ -29,6 +29,7 @@ public enum BuildingEnum {
     TRDINGPST(ColorEnum.WHITE,false),
 
     AGUILD(ColorEnum.PINK, true),
+    ARCHIVE(ColorEnum.PINK, true),
 
 
 

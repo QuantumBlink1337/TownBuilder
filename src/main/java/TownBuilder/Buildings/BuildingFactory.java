@@ -92,9 +92,12 @@ public class BuildingFactory {
 
         return null;
     }
-    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col) {
+    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col, ArrayList<Building> masterBuildings) {
         if (buildingEnum == BuildingEnum.AGUILD) {
             return new AGuild(row, col, board);
+        }
+        else if (buildingEnum == BuildingEnum.ARCHIVE) {
+            return new Archive(row, col, board, masterBuildings);
         }
         return null;
     }
@@ -188,7 +191,7 @@ public class BuildingFactory {
         boolean validInput = false;
         Building building = null;
         if (buildingEnum.isMonument()) {
-             building = getMonument(buildingEnum, board, -1, -1);
+             building = getMonument(buildingEnum, board, -1, -1, buildingArrayList);
         }
         else {
              building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false);
@@ -237,7 +240,7 @@ public class BuildingFactory {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.TPOST);
         }
         if (buildingEnum.isMonument()) {
-            bArray[coords[0]][coords[1]] = getMonument(buildingEnum, board, coords[0], coords[1]);
+            bArray[coords[0]][coords[1]] = getMonument(buildingEnum, board, coords[0], coords[1], buildingArrayList);
             board.monumentControl((Monument) bArray[coords[0]][coords[1]]);
         }
         else {
