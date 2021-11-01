@@ -15,6 +15,8 @@ public enum ColorEnum {
     WHITE(Attribute.TEXT_COLOR(255, 255, 255)),
     COLORLESS (Attribute.NONE()),
 
+    PINK(Attribute.TEXT_COLOR(255, 20, 147)),
+
 
     // resources
 
