@@ -45,4 +45,5 @@ public enum BuildingEnum {
     public ColorEnum getColor() {
         return color;
     }
+    public boolean isMonument() {return isMonument;}
 }
