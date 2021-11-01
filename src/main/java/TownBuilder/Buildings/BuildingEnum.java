@@ -27,6 +27,12 @@ public enum BuildingEnum {
     FACTORY (ColorEnum.WHITE),
     BANK (ColorEnum.WHITE),
     TRDINGPST(ColorEnum.WHITE),
+
+    AGUILD(ColorEnum.PINK),
+
+
+
+
     NONE (ColorEnum.COLORLESS);
 
     private final ColorEnum color;
