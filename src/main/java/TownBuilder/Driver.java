@@ -191,7 +191,7 @@ public class Driver {
         // run code that returns a resource if method was called with resourcePick = true
         if (placeBuilding) {
             board.renderBoard();
-            board.buildingPlacer(board.getGameResourceBoard(), board.getGameBuildingBoard(), buildingsForGame);
+            board.buildingPlacer(buildingsForGame);
             turnActions(board, ResourceEnum.randomResource());
             return null;
         }
