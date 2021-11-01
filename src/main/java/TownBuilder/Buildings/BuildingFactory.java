@@ -232,6 +232,7 @@ public class BuildingFactory {
         }
         if (building instanceof Monument) {
             bArray[coords[0]][coords[1]] = getMonument(buildingEnum, board, coords[0], coords[1]);
+            board.monumentControl((Monument) bArray[coords[0]][coords[1]]);
         }
         else {
             bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);
