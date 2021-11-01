@@ -1,9 +1,6 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.ColorEnum;
-import TownBuilder.Resource;
-import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
+import TownBuilder.*;
 import com.diogonunes.jcolor.Ansi;
 
 import java.util.*;
@@ -94,6 +91,12 @@ public class BuildingFactory {
             return new Millstone(row, col);
         }
 
+        return null;
+    }
+    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col) {
+        if (buildingEnum == BuildingEnum.AGUILD) {
+            return new AGuild(row, col, board);
+        }
         return null;
     }
     public ArrayList<Resource> getValidResources() {
