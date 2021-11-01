@@ -76,11 +76,14 @@ public class Utility {
             System.out.println(t);
         }
     }
+    public static void printBuildingInfo(Building building) {
+        System.out.println(Utility.generateColorizedString(building.toString(), building.getType()));
+        building.printManualText();
+        System.out.println("--------------------------------------------------------");
+    }
     public static void printBuildingsInList(ArrayList<Building> buildings) {
         for (Building building : buildings) {
-            System.out.println(Utility.generateColorizedString(building.toString(), building.getType()));
-            building.printManualText();
-            System.out.println("--------------------------------------------------------");
+            printBuildingInfo(building);
         }
     }
     @SuppressWarnings({"unused", "StringOperationCanBeSimplified"})
