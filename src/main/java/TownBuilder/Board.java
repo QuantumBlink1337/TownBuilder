@@ -6,11 +6,13 @@ import TownBuilder.Buildings.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Board {
     private final ArrayList<Building> detectableBuildings;
     private final ArrayList<Building> scorableBuildings;
+    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD));
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
     private final Scorer scorer;
@@ -20,7 +22,7 @@ public class Board {
     private final Resource[][] gameResourceBoard = new Resource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
     private final String[][] gameBoard = new String[4][4];
-    private final String[][] coordinateBoard = new String[4][4];
+    //private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "         b",  "           c", "          d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
     private final BuildingFactory buildingFactory;
@@ -39,12 +41,22 @@ public class Board {
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
         manual = new Manual(detectableBuildings);
-        scorer = new Scorer(this, detectableBuildings);
+        scorer = new Scorer(this, scorableBuildings);
+        generateMonument();
         buildArrays();
         updateBoard();
     }
     public Manual getManual() {
         return manual;
+    }
+    private void generateMonument() {
+        int randomIndex = (int) (Math.random() * monumentTypes.size());
+        Monument monument = BuildingFactory.getMonument(monumentTypes.get(randomIndex), this, -1, -1);
+        monumentTypes.remove(randomIndex);
+        detectableBuildings.add(monument);
+        scorableBuildings.add(monument);
+        System.out.print(boardName + ", your Monument is ");
+        Utility.printBuildingInfo(monument);
     }
     private void buildArrays() {
         //System.out.println("Building resource array");
@@ -61,11 +73,11 @@ public class Board {
             }
         }
 
-        for (int row = 0; row < coordinateBoard.length; row++) {
-            for (int col = 0; col < coordinateBoard[row].length; col++) {
-                coordinateBoard[row][col] = "[Row: " + row + " Col: " + col + "]";
-            }
-        }
+//        for (int row = 0; row < coordinateBoard.length; row++) {
+//            for (int col = 0; col < coordinateBoard[row].length; col++) {
+//                coordinateBoard[row][col] = "[Row: " + row + " Col: " + col + "]";
+//            }
+//        }
         blacklistedResources = new ArrayList<>();
     }
     public int scoring(boolean isMidGameCheck) {
@@ -95,7 +107,7 @@ public class Board {
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            buildingFactory.placeBuildingOnBoard(gameResourceBoard, gameBuildingBoard, building.getType(), detectableBuildings, false);
+            buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, false,this);
         }
         else {
             buildingFactory.clearResources(building.getType());
@@ -129,7 +141,7 @@ public class Board {
             }
         }
         if (bankCounter > 4) {
-            detectableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
+            scorableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
         }
     }
     public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
@@ -174,7 +186,7 @@ public class Board {
             String userInput = sc.nextLine().toLowerCase();
             for (Building building : buildingArrayList) {
                 if (userInput.equalsIgnoreCase(building.toString())) {
-                    buildingFactory.placeBuildingOnBoard(rArray, bArray, building.getType(), buildingArrayList, true);
+                    buildingFactory.placeBuildingOnBoard(building.getType(), buildingArrayList, true, this);
                     validInput = true;
                 }
             }
