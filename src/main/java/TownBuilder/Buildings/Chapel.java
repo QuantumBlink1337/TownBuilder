@@ -80,6 +80,10 @@ public class Chapel implements Building {
                     score += 1;
                     DebugTools.logging("Chapel Scoring: Found " + DebugTools.buildingInformation(building)+ "adding 1 to score. Score: " + score, 2);
                 }
+                else if (building.getType() == BuildingEnum.BARRETT && building.getCondition()) {
+                    score+=2;
+                    DebugTools.logging("Chapel Scoring: Found " + DebugTools.buildingInformation(building)+ "adding 1 to score. Score: " + score, 2);
+                }
             }
         }
         return score;

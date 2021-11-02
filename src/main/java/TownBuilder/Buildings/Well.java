@@ -79,6 +79,11 @@ public class Well implements Building {
                 score++;
                 DebugTools.logging("Well Scoring: Cottage found. Information: " + DebugTools.buildingInformation(building) + "Incrementing score. Current score: "+ score, 2);
             }
+            else if (building.getType() == BuildingEnum.BARRETT) {
+                score+=2;
+                DebugTools.logging("Well Scoring: Barrett Castle found. Information: " + DebugTools.buildingInformation(building) + "Incrementing score. Current score: "+ score, 2);
+
+            }
         }
         return score;
     }
