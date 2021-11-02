@@ -38,8 +38,10 @@ public class Manual {
 
         String userInput = "";
         while (!userInput.equals("exit")) {
-            System.out.println("Welcome to the TownBuilder Manual. What would you like to learn about? You can read the rules of the game using 'rules', see building info with 'buildings', ");
-            System.out.println("or 'exit' to leave the manual. You can also use 'internet' to download a copy of the manual to your computer.");
+            System.out.println("Welcome to the TownBuilder Manual. What would you like to learn about?\nAvailable options:");
+            System.out.println("'rules': Learn about the rules of the game\n'buildings': See scoring and resource pattern entries for buildings in your game\n'exit': Leave Menu");
+//            System.out.println("Welcome to the TownBuilder Manual. What would you like to learn about? You can read the rules of the game using 'rules', see building info with 'buildings', ");
+//            System.out.println("or 'exit' to leave the manual. You can also use 'internet' to download a copy of the manual to your computer.");
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
                 case "rules":
@@ -80,8 +82,10 @@ public class Manual {
     public void displayRules() {
         String userInput = "";
         while (!userInput.equals("exit")) {
-            System.out.println("What rules would you like to read? Type 'placement' for building rules, 'objective' to view the goal of the game, ");
-            System.out.println("'scoring' to view how points are earned, 'tutorial' to reread the opening text, or 'exit' to leave the manual.");
+            System.out.println("What rules would you like to read? Available options:");
+            System.out.println("'placement': Building Rules\n'objective': Goal of the Game\n'scoring': How points are earned\n'tutorial': Reread opening text\n'exit': Exit menu");
+//            System.out.println("What rules would you like to read? Type 'placement' for building rules, 'objective' to view the goal of the game, ");
+//            System.out.println("'scoring' to view how points are earned, 'tutorial' to reread the opening text, or 'exit' to leave the manual.");
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
                 case "placement":
