@@ -11,6 +11,9 @@ import java.util.Scanner;
 
 public class Board {
     private final ArrayList<Building> detectableBuildings;
+
+
+
     private final ArrayList<Building> scorableBuildings;
     private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE));
     private ArrayList<ResourceEnum> blacklistedResources;
@@ -80,6 +83,13 @@ public class Board {
 //            }
 //        }
         blacklistedResources = new ArrayList<>();
+    }
+    public ArrayList<Building> getDetectableBuildings() {
+        return detectableBuildings;
+    }
+
+    public ArrayList<Building> getScorableBuildings() {
+        return scorableBuildings;
     }
     public int scoring(boolean isMidGameCheck) {
         return scorer.scoring(isMidGameCheck);
