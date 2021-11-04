@@ -55,7 +55,8 @@ public class Scorer {
         }
         totalScore -= resourcePenalty;
         for (int i = 0; i < scores.size(); i++) {
-            System.out.println("Score contribution of "+buildingsForGame.get(i).toString() + ": " +scores.get(buildingsForGame.get(i).getType()));
+
+            System.out.println("Score contribution of "+ Utility.generateColorizedString(buildingsForGame.get(i).toString(), buildingsForGame.get(i).getType())+ ": " +scores.get(buildingsForGame.get(i).getType()));
 
         }
         System.out.println("Resource penalty: -" + resourcePenalty);

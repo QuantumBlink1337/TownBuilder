@@ -11,6 +11,14 @@ import com.diogonunes.jcolor.*;
 
 @SuppressWarnings("EnhancedSwitchMigration")
 public class Utility {
+    public static boolean isColor() {
+        return color;
+    }
+
+    public static void setColor(boolean color) {
+        Utility.color = color;
+    }
+
     private static boolean color = true;
     private static final Scanner sc = new Scanner(System.in);
     public static <T> void arrayPrinter(T[][] array) {
@@ -236,7 +244,7 @@ public class Utility {
     }
     public static boolean prompt() {
         do {
-            System.out.println("Use " + Ansi.colorize("yes (y)", Attribute.GREEN_TEXT()) + " or " + Ansi.colorize("no (n)", Attribute.RED_TEXT()));
+            System.out.println("Use " + Utility.generateColorizedString("yes (y)", Attribute.GREEN_TEXT()) + " or " + Utility.generateColorizedString("no (n)", Attribute.RED_TEXT()));
             String prompt = sc.nextLine().toLowerCase();
             if (prompt.equals("y") || prompt.equals("yes")) {
                 return true;

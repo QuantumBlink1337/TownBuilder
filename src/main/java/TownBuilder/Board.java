@@ -60,6 +60,7 @@ public class Board {
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
         System.out.print(boardName + ", your Monument is ");
+        assert monument != null;
         Utility.printBuildingInfo(monument);
     }
     private void buildArrays() {

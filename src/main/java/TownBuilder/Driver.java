@@ -109,6 +109,7 @@ public class Driver {
         boolean isUserInputValid = false;
         boolean isCustomGame = false;
         boolean isRandomGame = false;
+        //Utility.setColor(false);
         ColorEnum[] colors = new ColorEnum[]{ColorEnum.BLUE, ColorEnum.RED, ColorEnum.GRAY, ColorEnum.ORANGE, ColorEnum.GREEN, ColorEnum.YELLOW, ColorEnum.WHITE};
         do {
             System.out.println("Welcome to TownBuilder. Would you like to play a default game (recommended for new players), a custom game, or a random game?");
