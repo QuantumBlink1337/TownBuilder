@@ -16,23 +16,34 @@ public class Theater implements Building
     private ArrayList<Building> buildingsOnBoard;
     private static final ResourceEnum[][] theaterArray = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> theaterPatternList= new ArrayList<>();
-
+    private static final BuildingEnum[] buildingExceptions = new BuildingEnum[]{BuildingEnum.BARRETT};
+    static {
+        theaterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.STONE,  ResourceEnum.NONE};
+        theaterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.WOOD};
+        patternBuilder(theaterArray, theaterPatternList);
+    }
     public Theater(ArrayList<Building> b, int r, int c) {
         row = r;
         col = c;
         buildingsOnBoard = new ArrayList<>(b);
         condition = false;
     }
-    static {
-        theaterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.STONE,  ResourceEnum.NONE};
-        theaterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.WOOD};
-        patternBuilder(theaterArray, theaterPatternList);
-    }
     public Theater() {
         row = -1;
         col = 1;
     }
-
+    /*
+        If the enum is in the blacklist list, return true. Otherwise,
+        return false.
+     */
+    private static boolean checkBlacklist(BuildingEnum buildingEnum) {
+        for (BuildingEnum blacklistedEnum : buildingExceptions) {
+            if (blacklistedEnum == buildingEnum) {
+                return true;
+            }
+        }
+        return false;
+    }
     public BuildingEnum getType() {
         return BuildingEnum.THEATER;
     }
@@ -100,13 +111,15 @@ public class Theater implements Building
         int score = 0;
         DebugTools.logging("Theater Scoring: Sending " + toBeChecked.getType() + " to buildingMatch()", 3);
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);
+        DebugTools.printMembersOfArrayList(buildings, 3, "Theater Scoring: Members of master buildings:");
         for (Building building : buildings) {
             DebugTools.logging("Theater Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.", 3);
             if (toBeChecked.getType() == BuildingEnum.BARRETT && !buildings.get(0).getCondition()) {
+                DebugTools.logging("Theater scoring: Barrett Castle detected. Cottage is false, setting it to true.", 2);
                 buildings.get(0).setCondition(true);
                 score++;
             }
-            else if (toBeChecked.getType() == building.getType()) {
+            else if (toBeChecked.getType() == building.getType() && !checkBlacklist(toBeChecked.getType())) {
                 if (!toBeChecked.equals(scoreTarget) && !building.getCondition()) {
                     DebugTools.logging("Theater Scoring: " + building.getType() + " of master buildings list is the same as " + toBeChecked.getType()  +
                             "", 2);
