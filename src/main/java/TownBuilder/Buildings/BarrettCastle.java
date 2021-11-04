@@ -1,10 +1,10 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.Board;
+import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BarrettCastle implements Monument{
@@ -86,6 +86,8 @@ public class BarrettCastle implements Monument{
 
     @Override
     public void onPlacement() {
-        board.getScorableBuildings().remove(this);
+        DebugTools.logging("Barrett Castle: Removed from Scorable List", 2);
+        board.getScorableBuildings().remove(board.getScorableBuildings().size()-1);
+        DebugTools.printMembersOfArrayList(board.getScorableBuildings(), 3, "Barrett Castle: Showing members of scorable buildings");
     }
 }
