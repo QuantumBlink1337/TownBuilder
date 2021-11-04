@@ -11,6 +11,7 @@ import com.diogonunes.jcolor.*;
 
 @SuppressWarnings("EnhancedSwitchMigration")
 public class Utility {
+    private static boolean color = true;
     private static final Scanner sc = new Scanner(System.in);
     public static <T> void arrayPrinter(T[][] array) {
         for (T[] ts : array) {
@@ -98,10 +99,22 @@ public class Utility {
         }
     }
     public static String generateColorizedString(String string, ResourceEnum resource) {
-        return Ansi.colorize(string, new AnsiFormat(resource.getColor().getTextColor()));
+        if (color) {
+            return Ansi.colorize(string, new AnsiFormat(resource.getColor().getTextColor()));
+        }
+        return string;
     }
     public static String generateColorizedString(String string, BuildingEnum building) {
-        return Ansi.colorize(string, new AnsiFormat(building.getColor().getTextColor(), Attribute.BOLD()));
+        if (color) {
+            return Ansi.colorize(string, new AnsiFormat(building.getColor().getTextColor(), Attribute.BOLD()));
+        }
+        return string;
+    }
+    public static String generateColorizedString(String string, Attribute c) {
+        if (color) {
+            return Ansi.colorize(string, c);
+        }
+        return string;
     }
     public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) {
 
@@ -222,7 +235,6 @@ public class Utility {
         return col+row;
     }
     public static boolean prompt() {
-
         do {
             System.out.println("Use " + Ansi.colorize("yes (y)", Attribute.GREEN_TEXT()) + " or " + Ansi.colorize("no (n)", Attribute.RED_TEXT()));
             String prompt = sc.nextLine().toLowerCase();
@@ -242,7 +254,4 @@ public class Utility {
         System.out.println("Press any key to continue.");
         sc.nextLine();
     }
-
-
-
 }
