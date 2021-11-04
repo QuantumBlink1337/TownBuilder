@@ -2,7 +2,10 @@ package TownBuilder;
 
 import TownBuilder.Buildings.Building;
 import com.diogonunes.jcolor.Ansi;
+import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
+
+import java.util.ArrayList;
 
 
 public class DebugTools {
@@ -16,11 +19,21 @@ public class DebugTools {
 
      */
     private static final int verbose = 3;
+    private static final AnsiFormat textColor = new AnsiFormat(Attribute.RED_TEXT(), Attribute.BOLD());
 
     public static void logging(String string, int verbosity) {
         if (verbose >= verbosity) {
-            System.out.print(Ansi.colorize("DEBUGGING: ", Attribute.RED_TEXT(), Attribute.BOLD()));
+            System.out.print(Ansi.colorize("DEBUGGING: ", textColor));
             System.out.println(string);
+        }
+    }
+    public static <T> void printMembersOfArrayList(ArrayList<T> arrayList, int verbosity, String optionalMessage) {
+        if (verbose >= verbosity) {
+            if (optionalMessage != null) {
+                logging(optionalMessage, verbosity);
+            }
+            System.out.println(Ansi.colorize("DEBUGGING: ", textColor));
+            Utility.printMembersOfArrayList(arrayList);
         }
     }
     public static String buildingInformation(Building building) {
