@@ -78,6 +78,7 @@ public class Theater implements Building
 
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         for (Building building : Utility.getBuildingsInRowAndColumn(bArray, row, col)) {
+
             DebugTools.logging("Theater Scoring: searching buildings in common row/column. Current building: " + DebugTools.buildingInformation(building), 3);
             if (building.getType() != BuildingEnum.NONE) {
                 score += buildingMatch(building, this);
@@ -101,7 +102,11 @@ public class Theater implements Building
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);
         for (Building building : buildings) {
             DebugTools.logging("Theater Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.", 3);
-            if (toBeChecked.getType() == building.getType()) {
+            if (toBeChecked.getType() == BuildingEnum.BARRETT && !buildings.get(0).getCondition()) {
+                buildings.get(0).setCondition(true);
+                score++;
+            }
+            else if (toBeChecked.getType() == building.getType()) {
                 if (!toBeChecked.equals(scoreTarget) && !building.getCondition()) {
                     DebugTools.logging("Theater Scoring: " + building.getType() + " of master buildings list is the same as " + toBeChecked.getType()  +
                             "", 2);
