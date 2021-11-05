@@ -1,7 +1,8 @@
 package TownBuilder.Tests;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import TownBuilder.*;
 import TownBuilder.Buildings.*;
 
 public class PatternBuilderTest {
