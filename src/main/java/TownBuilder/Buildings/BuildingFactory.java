@@ -132,19 +132,21 @@ public class BuildingFactory {
         // add the 3 rotations
         ResourceEnum[][] p = pattern;
         for (int i = 0; i < 3; i++) {
-            p = Utility.rotatePattern(p);
+            p = Utility.rotate90(p);
             patternList.add(p);
         }
 
-        // mirror, then repeat
-        ResourceEnum[][] mirror = Utility.mirrorPattern(pattern);
-        // if the mirror is different (i.e. the pattern isn't symmetrical) we
-        // have some more transformations to compute
-        if (!Arrays.deepEquals(mirror, pattern)) {
-            patternList.add(mirror);
-            ResourceEnum[][] m = mirror;
+        // if the pattern isn't symmetrical, we have more transformations to compute
+        ResourceEnum[][] vertMirror = Utility.vertMirror(pattern);
+        boolean isVertSymmetric = Arrays.deepEquals(pattern, vertMirror);
+        ResourceEnum[][] rotatedPattern = Utility.rotate90(pattern);
+        boolean isHorizSymmetric = Arrays.deepEquals(rotatedPattern, Utility.vertMirror(rotatedPattern));
+        boolean isSymmetric = isVertSymmetric || isHorizSymmetric;
+        if (!isSymmetric) {
+            patternList.add(vertMirror);
+            ResourceEnum[][] m = vertMirror;
             for (int i = 0; i < 3; i++) {
-                m = Utility.rotatePattern(m);
+                m = Utility.rotate90(m);
                 patternList.add(m);
             }
         }

@@ -55,7 +55,10 @@ public class Utility {
             }
         }
     }
-    public static ResourceEnum[][] rotatePattern(ResourceEnum[][] a) {
+    /*
+        Rotate pattern 90 degrees to the right.
+    */
+    public static ResourceEnum[][] rotate90(ResourceEnum[][] a) {
         final int M = a.length;
         final int N = a[0].length;
         ResourceEnum[][] ret = new ResourceEnum[N][M];
@@ -66,17 +69,20 @@ public class Utility {
         }
         return ret;
     }
-    public static ResourceEnum[] mirrorRow(ResourceEnum[] row) {
+    public static ResourceEnum[] reverseRow(ResourceEnum[] row) {
         ResourceEnum[] mirroredRow = new ResourceEnum[row.length];
         for (int i = row.length - 1; i >= 0; i--) {
             mirroredRow[row.length - 1 - i] = row[i];
         }
         return mirroredRow;
     }
-    public static ResourceEnum[][] mirrorPattern(ResourceEnum[][] array) {
+    /*
+        Vertically mirror pattern.
+    */
+    public static ResourceEnum[][] vertMirror(ResourceEnum[][] array) {
         ResourceEnum[][] mirrored2DArray = new ResourceEnum[array.length][array[0].length];
         for (int r = 0; r < array.length; r++) {
-            mirrored2DArray[r] = mirrorRow(array[r]);
+            mirrored2DArray[r] = reverseRow(array[r]);
         }
         return mirrored2DArray;
     }
