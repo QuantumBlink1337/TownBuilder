@@ -102,6 +102,9 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.BARRETT) {
             return new BarrettCastle(row, col, board);
         }
+        else if (buildingEnum == BuildingEnum.CATERINA) {
+            return new Caterina(row, col, board);
+        }
         return null;
     }
     public ArrayList<Resource> getValidResources() {

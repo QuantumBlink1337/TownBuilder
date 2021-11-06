@@ -15,7 +15,9 @@ public class Board {
 
 
     private final ArrayList<Building> scorableBuildings;
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE));
+    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA));
+    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.CATERINA));
+
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
     private final Scorer scorer;
