@@ -5,7 +5,16 @@ import TownBuilder.ResourceEnum;
 import java.util.ArrayList;
 
 public class EmptyBuilding implements Building {
-    public EmptyBuilding() {}
+    private final int row;
+    private final int col;
+    public EmptyBuilding() {
+        row = -1;
+        col = -1;
+    }
+    public EmptyBuilding(int r, int c) {
+        row = r;
+        col = c;
+    }
     @Override
     public BuildingEnum getType() {
         return BuildingEnum.NONE;
@@ -24,12 +33,12 @@ public class EmptyBuilding implements Building {
 
     @Override
     public int getRow() {
-        return -1;
+        return row;
     }
 
     @Override
     public int getCol() {
-        return -1;
+        return col;
     }
 
     @Override

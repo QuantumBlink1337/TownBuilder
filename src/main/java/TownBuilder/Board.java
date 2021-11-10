@@ -75,7 +75,7 @@ public class Board {
         }
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
-                gameBuildingBoard[row][col] = new EmptyBuilding();
+                gameBuildingBoard[row][col] = new EmptyBuilding(row, col);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
