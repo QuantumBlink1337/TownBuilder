@@ -142,10 +142,10 @@ public class Utility {
             for (int c  = 0; c < rArray[r].length; c++) {
                 for (int i = 0; i < buildingFactory.getValidResources().size(); i++) {
                     if (rArray[r][c] == buildingFactory.getValidResources().get(i) && i != (buildingFactory.getValidResources().size() -1)) {
-                        System.out.print(Utility.coordsToOutput(r, c) + ", ");
+                        System.out.print(Utility.MachineIndexesToHumanCoords(r, c) + ", ");
                     }
                     else if (rArray[r][c] == buildingFactory.getValidResources().get(i)) {
-                        System.out.println(Utility.coordsToOutput(r, c));
+                        System.out.println(Utility.MachineIndexesToHumanCoords(r, c));
                     }
                 }
 
@@ -256,7 +256,7 @@ public class Utility {
     }
     // converts machine indexes into human understandable coordinates
     // example: 2, 3 == 'c4'
-    public static String coordsToOutput(int r, int c) {
+    public static String MachineIndexesToHumanCoords(int r, int c) {
         String row = "";
         String col = "";
         switch (r) {

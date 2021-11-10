@@ -233,12 +233,12 @@ public class Board {
             for (Factory factory : factoriesOnBoard) {
                 int row = factory.getRow();
                 int col = factory.getCol();
-                if (Utility.coordsToOutput(row, col).equalsIgnoreCase(userInput) && resource == factory.getFactorizedResource()) {
+                if (Utility.MachineIndexesToHumanCoords(row, col).equalsIgnoreCase(userInput) && resource == factory.getFactorizedResource()) {
                     resource = factory.exchangeResource();
                     validInput = true;
                     break;
                 }
-                else if (Utility.coordsToOutput(row, col).equalsIgnoreCase(userInput) && resource != factory.getFactorizedResource()) {
+                else if (Utility.MachineIndexesToHumanCoords(row, col).equalsIgnoreCase(userInput) && resource != factory.getFactorizedResource()) {
                     System.out.println("The Factory selected does match the type of the resource you're exchanging.");
                 }
                 else if (userInput.equals("exit")) {
@@ -260,11 +260,11 @@ public class Board {
             do {
                 System.out.println("Which Warehouse would you like?");
                 for (Warehouse w : warehousesOnBoard) {
-                    System.out.println("Warehouse at: " + Utility.coordsToOutput(w.getRow(), w.getCol()));
+                    System.out.println("Warehouse at: " + Utility.MachineIndexesToHumanCoords(w.getRow(), w.getCol()));
                 }
                 userInput = sc.nextLine().toLowerCase();
                 for (Warehouse w : warehousesOnBoard) {
-                    if (Utility.coordsToOutput(w.getRow(), w.getCol()).equalsIgnoreCase(userInput)) {
+                    if (Utility.MachineIndexesToHumanCoords(w.getRow(), w.getCol()).equalsIgnoreCase(userInput)) {
                         warehouse = w;
                         validInput = true;
                     }
@@ -360,12 +360,12 @@ public class Board {
                 if (warehouseExists) {
                     for (Warehouse warehouse : warehousesOnBoard) {
                         ResourceEnum[] list = warehouse.getStoredResources();
-                        System.out.println("Here's what's inside the warehouse at " + Utility.coordsToOutput(warehouse.getRow(), warehouse.getCol())+ ": "+ list[0] + "," + list[1] + "," + list[2]);
+                        System.out.println("Here's what's inside the warehouse at " + Utility.MachineIndexesToHumanCoords(warehouse.getRow(), warehouse.getCol())+ ": "+ list[0] + "," + list[1] + "," + list[2]);
                     }
                 }
                 else if (factoryExists) {
                     for (Factory factory : factoriesOnBoard) {
-                        System.out.println("Type of resource in Factory at " +Utility.coordsToOutput(factory.getRow(), factory.getCol()) + ": " + factory.getFactorizedResource());
+                        System.out.println("Type of resource in Factory at " +Utility.MachineIndexesToHumanCoords(factory.getRow(), factory.getCol()) + ": " + factory.getFactorizedResource());
                     }
                 }
                 userCoordinate = sc.nextLine().toLowerCase();
