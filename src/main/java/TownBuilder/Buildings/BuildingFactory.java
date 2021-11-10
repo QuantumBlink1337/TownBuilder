@@ -9,7 +9,7 @@ public class BuildingFactory {
     private static final HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() {
         buildingMasterList.put(ColorEnum.BLUE, new ArrayList<>(List.of(new Cottage(-1, -1))));
-        buildingMasterList.put(ColorEnum.RED, new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1))));
+        buildingMasterList.put(ColorEnum.RED, new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1), new Greenhouse(-1, -1))));
         buildingMasterList.put(ColorEnum.GRAY, new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
         buildingMasterList.put(ColorEnum.ORANGE, new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put(ColorEnum.GREEN, new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
@@ -43,6 +43,9 @@ public class BuildingFactory {
         }
         else if(buildingEnum == BuildingEnum.ORCHARD) {
             return new Orchard(row, col);
+        }
+        else if(buildingEnum == BuildingEnum.GRENHOUSE) {
+            return new Greenhouse(row, col);
         }
         else if (buildingEnum == BuildingEnum.TAVERN) {
             return new Tavern(row, col);
