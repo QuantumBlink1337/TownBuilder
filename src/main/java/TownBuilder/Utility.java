@@ -11,6 +11,10 @@ import com.diogonunes.jcolor.*;
 
 @SuppressWarnings("EnhancedSwitchMigration")
 public class Utility {
+    // variable to control whether colorized strings can be generated.
+    // intended to be triggered upon running in a terminal environment
+    // lacking RGB color support
+    private static boolean color = true;
     public static boolean isColor() {
         return color;
     }
@@ -19,8 +23,8 @@ public class Utility {
         Utility.color = color;
     }
 
-    private static boolean color = true;
     private static final Scanner sc = new Scanner(System.in);
+    // (potentially obsolete)
     public static <T> void arrayPrinter(T[][] array) {
         for (T[] ts : array) {
             for (int col = 0; col < ts.length; col++) {
@@ -86,11 +90,13 @@ public class Utility {
         }
         return mirrored2DArray;
     }
+    // prints each element in a generic ArrayList
     public static <T> void printMembersOfArrayList(ArrayList<T> arrayList) {
         for (T t : arrayList) {
             System.out.println(t);
         }
     }
+
     public static void printBuildingInfo(Building building) {
         System.out.println(Utility.generateColorizedString(building.toString(), building.getType()));
         building.printManualText();
@@ -176,10 +182,43 @@ public class Utility {
         Collections.addAll(buildings, buildingBoard[row]);
         return buildings;
     }
+    public static int instancesOfBuilding(Building[] buildings, BuildingEnum type) {
+        int sum = 0;
+        for (Building building : buildings) {
+            if (building.getType() == type) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+    public static boolean searchForBuilding(Building[] buildings, BuildingEnum type) {
+        for (Building building : buildings) {
+            if (building.getType() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+    // accepts String keyword. returns true if keyword based logic is found
+    public static boolean searchForBuilding(Building[] buildings, String k) {
+        String keyword = k.toLowerCase();
+        // searching for buildings that are unfed and can be fed. returns true if we find one.
+        if (keyword.equals("unfed")) {
+            for (Building building : buildings) {
+                if (building.isFeedable() && !building.getCondition()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
-    public static int[] inputToCoords(String i) {
+    // converts a human coordinate input to machine readable indexes
+    // example: 'a4' becomes [0, 3]
+    public static int[] humanCoordsToMachineIndexes(String i) {
         String[] input = i.split("", 2);
         int[] coords = new int[2];
         switch (input[0]) {
@@ -215,6 +254,8 @@ public class Utility {
         }
         return coords;
     }
+    // converts machine indexes into human understandable coordinates
+    // example: 2, 3 == 'c4'
     public static String coordsToOutput(int r, int c) {
         String row = "";
         String col = "";
@@ -248,6 +289,7 @@ public class Utility {
         }
         return col+row;
     }
+    // prompts the user for a yes or no response. returns true if yes, returns false if no.
     public static boolean prompt() {
         do {
             System.out.println("Use " + Utility.generateColorizedString("yes (y)", Attribute.GREEN_TEXT()) + " or " + Utility.generateColorizedString("no (n)", Attribute.RED_TEXT()));
@@ -264,6 +306,7 @@ public class Utility {
         }
         while(true);
     }
+    // simple prompt for any key.
     public static void anyKey() {
         System.out.println("Press any key to continue.");
         sc.nextLine();

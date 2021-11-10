@@ -391,7 +391,7 @@ public class Board {
                 }
             }
 
-                int[] coords = Utility.inputToCoords(userCoordinate);
+                int[] coords = Utility.humanCoordsToMachineIndexes(userCoordinate);
                 //System.out.println("Row: " + row + "Col: " + col);
                 if (validSpot) {
                     break;

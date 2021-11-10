@@ -213,7 +213,7 @@ public class BuildingFactory {
                 System.out.println("Where would you like to place your " + Utility.generateColorizedString(building.toString(), buildingEnum) + "?");
                 if (PlaceBuildingAnywhere) {
                     System.out.println("You can place your building wherever you want, provided there's nothing there already!");
-                    coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
+                    coords = Utility.humanCoordsToMachineIndexes(sc.nextLine().toLowerCase());
                     if (rArray[coords[0]][coords[1]].getResource() == ResourceEnum.NONE && bArray[coords[0]][coords[1]].getType() == BuildingEnum.NONE) {
                         validInput = true;
                     }
@@ -221,7 +221,7 @@ public class BuildingFactory {
                 else {
                     System.out.println("Valid positions for the "+ Utility.generateColorizedString(building.toString(), buildingEnum)+ " are:");
                     Utility.displayValidResources(rArray, this);
-                    coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
+                    coords = Utility.humanCoordsToMachineIndexes(sc.nextLine().toLowerCase());
                     if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
                         validInput = true;
                     }
