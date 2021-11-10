@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -66,23 +67,30 @@ public class Greenhouse implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
+        DebugTools.logging("Beginning Greenhouse Turn Interval", 1);
         for (Building building : contiguousCheck(buildingBoard)) {
+            DebugTools.logging("Feeding " + DebugTools.buildingInformation(building), 3);
             building.setCondition(true);
         }
     }
     private ArrayList<Building> contiguousCheck(Building[][] buildingBoard) {
+        DebugTools.logging("Beginning Contiguous Group check.", 1);
         ArrayList<Building> contiguousBuildings = new ArrayList<>();
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
+                DebugTools.logging("Searching " + DebugTools.buildingInformation(building), 3);
                 Building[] adjacentBuildings = Utility.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
                 if (!Utility.searchForBuilding(adjacentBuildings, "unfed")) {
-                    return contiguousBuildings;
+                    DebugTools.logging("Given building has no adjacent unfed buildings. It is not connected. Returning list", 3);
+                    //return contiguousBuildings;
                 }
                 else {
+                    DebugTools.logging("Given building has at least one adjacent unfed buildings. Continuing", 3);
                     contiguousBuildings.add(building);
                 }
             }
         }
+        contiguousBuildings.removeIf(building -> (!building.isFeedable()));
         return contiguousBuildings;
     }
     @Override
