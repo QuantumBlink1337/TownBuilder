@@ -9,16 +9,12 @@ public class Greenhouse implements Building {
     private final int row;
     private final int col;
     private boolean condition;
-    private final String color = "red";
     private static final ResourceEnum[][] greenhouseArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> greenhousePatternList = new ArrayList<>();
     static {
         greenhouseArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WOOD};
         greenhouseArray[1] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.GLASS};
         BuildingFactory.patternBuilder(greenhouseArray, greenhousePatternList);
-        // greenhouseArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WOOD};
-        // greenhouseArray[1] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.WHEAT};
-        // BuildingFactory.patternBuilder(greenhouseArray, greenhousePatternList, 3);
     }
 
     public Greenhouse(int r, int c) {
@@ -70,42 +66,28 @@ public class Greenhouse implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
-
-
-
-
-
+        for (Building building : contiguousCheck(buildingBoard)) {
+            building.setCondition(true);
+        }
     }
-    private void contiguousCheck(int row, int col, Building[][] buildingBoard, ArrayList<Building> feedableBuildings) {
-            for (int r = 0; r < buildingBoard.length; r++) {
-                for (int c = 0; c < buildingBoard[r].length; c++) {
-                    if (buildingBoard[r][c].isFeedable() && !buildingBoard[row][col].getCondition()) {
-                        try {
-                            if (buildingBoard[r+1][c].isFeedable() && !buildingBoard[r+1][c].getCondition()) {
-
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException ignored){}
-                        try {
-                            if (buildingBoard[r][c+1].isFeedable() && !buildingBoard[r][c+1].getCondition()) {
-
-                            }
-                        }
-                        catch (ArrayIndexOutOfBoundsException ignored) {}
-                    }
+    private ArrayList<Building> contiguousCheck(Building[][] buildingBoard) {
+        ArrayList<Building> contiguousBuildings = new ArrayList<>();
+        for (Building[] buildingRow : buildingBoard) {
+            for (Building building : buildingRow) {
+                Building[] adjacentBuildings = Utility.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
+                if (!Utility.searchForBuilding(adjacentBuildings, "unfed")) {
+                    return contiguousBuildings;
+                }
+                else {
+                    contiguousBuildings.add(building);
                 }
             }
-
-
-
-
-
-
+        }
+        return contiguousBuildings;
     }
     @Override
     public void printManualText() {
-        System.out.println("The Greenhouse feeds any contiguous group of buildings on the board.");
+        System.out.println("The Greenhouse feeds a contiguous group of feedable buildings on the board.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(greenhousePatternList.get(0));
     }
