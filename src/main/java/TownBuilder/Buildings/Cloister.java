@@ -17,9 +17,6 @@ public class Cloister implements Building {
         cloisterArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
         cloisterArray[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.STONE};
         BuildingFactory.patternBuilder(cloisterArray, cloisterPatternList);
-        // cloisterArray[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
-        // cloisterArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.BRICK, ResourceEnum.WOOD};
-        // BuildingFactory.patternBuilder(cloisterArray, cloisterPatternList, 3);
     }
     public Cloister(int r, int c) {
         row = r;
@@ -66,12 +63,8 @@ public class Cloister implements Building {
 
     @Override
     public int scorer(Building[][] bArray) {
-        int score = 0;
-        Building[] buildingsInCorner = BoardTraverser.getBuildingsInCorner(bArray);
-        score += BoardTraverser.instancesOfBuilding(buildingsInCorner, BuildingEnum.CLOISTER);
-        return score;
+        return BoardTraverser.instancesOfBuilding(BoardTraverser.getBuildingsInCorner(bArray), BuildingEnum.CLOISTER);
     }
-
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
