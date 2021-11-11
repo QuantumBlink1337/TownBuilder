@@ -65,10 +65,7 @@ public class BarrettCastle implements Monument{
     @Override
     public int scorer(Building[][] bArray) {
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
-        if (condition) {
-            return 5;
-        }
-        return 0;
+        return condition ? 5 : 0;
     }
 
     @Override
