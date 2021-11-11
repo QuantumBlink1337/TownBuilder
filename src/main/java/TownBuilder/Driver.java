@@ -33,9 +33,16 @@ public class Driver {
         while (playerCount <= 0 || playerCount > 6); // prompts until program gets integer 0 < x <= 6
         for (int i= 0; i < playerCount; i++) {
             // generates a new Board object for each player
-            Board temp = new Board(buildingsForGame);
-            boardArrayList.add(temp);
+            if (playerCount <= 1) {
+                Board temp = new Board(buildingsForGame, true);
+                boardArrayList.add(temp);
             }
+            else {
+                Board temp = new Board(buildingsForGame, false);
+                boardArrayList.add(temp);
+            }
+
+        }
         Manual.tutorial();
         boardArrayList.get(0).getManual().displayBuildings();
         ResourceEnum resource = null;
@@ -203,7 +210,7 @@ public class Driver {
                 System.out.println("It's "+ board.getBoardName() + "'s turn to DECIDE the resource!");
             }
             // if isMultiplayer = false, will use singleplayer code in resourcePicker()
-            r = board.resourcePicker(isMultiplayerGame); // assigns the return value of resourcePicker()
+            r = board.resourcePicker(); // assigns the return value of resourcePicker()
             turnActions(board, r);
             return r;
         }
