@@ -231,8 +231,6 @@ public class Utility {
         }
         return false;
     }
-
-
     public static boolean searchForBuilding(Building[] buildings, Function<Building, Boolean> function) {
         for (Building building : buildings) {
             if (function.apply(building)) {

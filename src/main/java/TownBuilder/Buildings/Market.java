@@ -72,24 +72,15 @@ public class Market implements Building {
         ArrayList<Building> rowsandcolumns = (ArrayList<Building>) Arrays.asList(Utility.getBuildingsInRowAndColumn(bArray, row, col));
         ArrayList<Building> buildingsInRow = (ArrayList<Building>) rowsandcolumns.subList(0, rowsandcolumns.size()/2);
         ArrayList<Building> buildingsInColumn = (ArrayList<Building>) rowsandcolumns.subList(rowsandcolumns.size()/2, rowsandcolumns.size());
-        int yellowBuildingInRow = 0;
-        int yellowBuildingInColumn = 0;
-        for (Building building : buildingsInRow) {
-            if (building.getType().getColor() == ColorEnum.YELLOW) {
-                yellowBuildingInRow++;
-            }
-        }
-        for (Building building : buildingsInColumn) {
-            if (building.getType().getColor() == ColorEnum.YELLOW) {
-                yellowBuildingInColumn++;
-            }
-        }
-        return (Math.max(yellowBuildingInColumn, yellowBuildingInRow));
+        return (Math.max(Utility.instancesOfBuilding(buildingsInRow.toArray(new Building[]{}), ColorEnum.YELLOW), Utility.instancesOfBuilding(buildingsInColumn.toArray(new Building[]{}), ColorEnum.YELLOW)));
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-
+        System.out.println("The Market earns points for each other Yellow building in a row or column, whichever has more.");
+        System.out.println("For example, if you have 2 Yellow buildings in the same row as your original, but 3 in the Column, then your\nbuilding is worth 3 points.");
+        System.out.println("Here's what it looks like:");
+        Utility.arrayPrinter(marketArray);
     }
 
     @Override

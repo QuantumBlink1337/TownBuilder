@@ -76,18 +76,6 @@ public class Well implements Building {
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         score += Utility.instancesOfBuilding(adjacentBuildings, BuildingEnum.COTTAGE);
         score += 2 * Utility.instancesOfBuilding(adjacentBuildings, BuildingEnum.BARRETT);
-//        for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
-//            DebugTools.logging("Well Scoring: Searching adjacent buildings for Cottage. Current building: " + DebugTools.buildingInformation(building), 3);
-//            if (building.getType() == BuildingEnum.COTTAGE) {
-//                score++;
-//                DebugTools.logging("Well Scoring: Cottage found. Information: " + DebugTools.buildingInformation(building) + "Incrementing score. Current score: "+ score, 2);
-//            }
-//            else if (building.getType() == BuildingEnum.BARRETT) {
-//                score+=2;
-//                DebugTools.logging("Well Scoring: Barrett Castle found. Information: " + DebugTools.buildingInformation(building) + "Incrementing score. Current score: "+ score, 2);
-//
-//            }
-//        }
         return score;
     }
 
