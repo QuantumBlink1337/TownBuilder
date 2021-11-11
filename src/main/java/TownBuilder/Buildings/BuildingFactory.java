@@ -92,7 +92,9 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.MILLSTONE) {
             return new Millstone(row, col);
         }
-
+        else if (buildingEnum == BuildingEnum.SHED) {
+            return new Shed(row, col);
+        }
         return null;
     }
     public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col, ArrayList<Building> masterBuildings) {

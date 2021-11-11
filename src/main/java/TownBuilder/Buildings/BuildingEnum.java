@@ -23,6 +23,7 @@ public enum BuildingEnum {
     WELL (ColorEnum.GRAY,false),
     FOUNTAIN (ColorEnum.GRAY,false),
     MILLSTONE (ColorEnum.GRAY,false),
+    SHED(ColorEnum.GRAY, false),
     WAREHOUSE (ColorEnum.WHITE,false),
     FACTORY (ColorEnum.WHITE,false),
     BANK (ColorEnum.WHITE,false),

@@ -16,8 +16,8 @@ public class Board {
 
 
     private final ArrayList<Building> scorableBuildings;
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA));
-    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.CATERINA));
+    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
+    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
 
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
@@ -141,7 +141,12 @@ public class Board {
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, false,this);
+            if (building.getType() == BuildingEnum.SHED) {
+                buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, true,this);
+            }
+            else {
+                buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, false,this);
+            }
         }
         else {
             buildingFactory.clearResources(building.getType());
