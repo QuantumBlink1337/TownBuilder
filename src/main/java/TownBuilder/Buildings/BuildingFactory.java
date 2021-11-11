@@ -103,7 +103,7 @@ public class BuildingFactory {
             return new Archive(row, col, board, masterBuildings);
         }
         else if (buildingEnum == BuildingEnum.BARRETT) {
-            return new BarrettCastle(row, col, board);
+            return new BarrettCastle(row, col);
         }
         else if (buildingEnum == BuildingEnum.CATERINA) {
             return new Caterina(row, col, board);

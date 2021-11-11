@@ -1,6 +1,5 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.Board;
 import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -13,18 +12,16 @@ public class BarrettCastle implements Monument{
     private final int row;
     private final int col;
     private boolean condition;
-    private final Board board;
 
     static {
         pattern[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.WOOD};
         pattern[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.GLASS, ResourceEnum.BRICK};
         BuildingFactory.patternBuilder(pattern, patternList);
     }
-    public BarrettCastle(int r, int c, Board b) {
+    public BarrettCastle(int r, int c) {
         row = r;
         col = c;
         condition = false;
-        board = b;
     }
     public String toString() {
         return "Barrett Castle";
