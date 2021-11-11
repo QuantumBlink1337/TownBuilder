@@ -65,10 +65,7 @@ public class Fountain implements Building{
 
     @Override
     public int scorer(Building[][] bArray) {
-        int score = 0;
-        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(bArray, row, col);
-        score += 2 * BoardTraverser.instancesOfBuilding(adjacentBuildings, BuildingEnum.FOUNTAIN);
-        return score;
+        return 2 * BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), BuildingEnum.FOUNTAIN);
     }
 
     @Override
