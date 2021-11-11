@@ -26,9 +26,6 @@ public class Cottage implements Building {
         cottageArray[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.WHEAT};
         cottageArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE};
         patternBuilder(cottageArray, cottagePatternList);
-        // cottageArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.BRICK};
-        // cottageArrayMirror[1] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.NONE};
-        // patternBuilder(cottageArrayMirror, cottagePatternList, 3);
     }
     public BuildingEnum getType() {
         return BuildingEnum.COTTAGE;
@@ -71,14 +68,15 @@ public class Cottage implements Building {
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray) {
-        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
-        DebugTools.logging("Cottage Score: checking " + DebugTools.buildingInformation(this), 1);
-        if (condition) {
-            DebugTools.logging("Cottage Score: condition is true, returning 3.", 2);
-            return 3;
-        }
-        DebugTools.logging("Cottage Score: condition is false, returning 0.", 2);
-        return 0;
+//        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
+//        DebugTools.logging("Cottage Score: checking " + DebugTools.buildingInformation(this), 1);
+//        if (condition) {
+//            DebugTools.logging("Cottage Score: condition is true, returning 3.", 2);
+//            return 3;
+//        }
+//        DebugTools.logging("Cottage Score: condition is false, returning 0.", 2);
+
+        return condition ? 3 : 0;
     }
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
