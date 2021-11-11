@@ -182,6 +182,10 @@ public class Utility {
         Collections.addAll(buildings, buildingBoard[row]);
         return buildings;
     }
+    public static Building[] getBuildingsInCorner(Building[][] buildingBoard) {
+        return new Building[]{getBuildingAt(buildingBoard, 0, 0), getBuildingAt(buildingBoard, 0, buildingBoard[0].length -1), getBuildingAt(buildingBoard, buildingBoard.length -1 , 0),
+                getBuildingAt(buildingBoard, buildingBoard.length -1, buildingBoard[0].length -1)};
+    }
     public static int instancesOfBuilding(Building[] buildings, BuildingEnum type) {
         int sum = 0;
         for (Building building : buildings) {
@@ -191,9 +195,26 @@ public class Utility {
         }
         return sum;
     }
+    public static int instanceOfBuilding(Building[] buildings, ColorEnum color) {
+        int sum = 0;
+        for (Building building : buildings) {
+            if (building.getType().getColor() == color) {
+                sum++;
+            }
+        }
+        return sum;
+    }
     public static boolean searchForBuilding(Building[] buildings, BuildingEnum type) {
         for (Building building : buildings) {
             if (building.getType() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean searchForBuilding(Building[] buildings, ColorEnum color) {
+        for (Building building : buildings) {
+            if (building.getType().getColor() == color) {
                 return true;
             }
         }
