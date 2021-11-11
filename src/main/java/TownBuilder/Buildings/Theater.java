@@ -4,6 +4,8 @@ import TownBuilder.BoardTraverser;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
+import com.diogonunes.jcolor.Attribute;
+
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
 
@@ -121,10 +123,11 @@ public class Theater implements Building
                     score++;
                 }
             }
-            else if (BuildingBeingChecked.getType() == building.getType()) {
+            else if (BuildingBeingChecked.getType() == building.getType() && !building.getCondition()) {
                 DebugTools.logging("Theater Scoring: " + building.getType() + " of master buildings list is the same as " + BuildingBeingChecked.getType()  +
                         "", 2);
                 building.setCondition(true);
+                DebugTools.logging(Utility.generateColorizedString("INCREASING SCORE.", Attribute.RED_BACK()), 3);
                 score++;
 
             }
