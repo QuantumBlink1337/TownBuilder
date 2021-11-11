@@ -230,19 +230,7 @@ public class Utility {
         return false;
     }
 
-    // accepts String keyword. returns true if keyword based logic is found
-    public static boolean searchForBuilding(Building[] buildings, String k) {
-        String keyword = k.toLowerCase();
-        // searching for buildings that are unfed and can be fed. returns true if we find one.
-        if (keyword.equals("unfed")) {
-            for (Building building : buildings) {
-                if (building.isFeedable() && !building.getCondition()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
     public static boolean searchForBuilding(Building[] buildings, interactionLayer bF) {
         for (Building building : buildings) {
             if (bF.myMethod(building)) {
