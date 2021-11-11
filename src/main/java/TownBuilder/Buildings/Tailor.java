@@ -1,9 +1,11 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
@@ -68,18 +70,9 @@ public class Tailor implements Building{
     @Override
     public int scorer(Building[][] bArray) {
         int score = 1;
-        for (Building[] buildingRow : bArray) {
-            for (Building building : buildingRow) {
-                int r = building.getRow();
-                int c = building.getCol();
-                if (building.getType() == BuildingEnum.TAILOR && !building.equals(this)) {
-                    if ((r == 0 && c == 0) || (r == 0 && c == bArray[r].length -1) || (r == bArray.length -1 && c == 0) || (r == bArray.length -1 && c == bArray[r].length -1)) {
-                        score+=1;
-                    }
-                }
-            }
-        }
-
+        ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(Utility.getBuildingsInCorner(bArray)));
+        buildings.removeIf(building -> building.getRow() == row && building.getCol() == col);
+        score+=Utility.instancesOfBuilding(buildings.toArray(new Building[]{}), ColorEnum.YELLOW);
         return score;
     }
 
