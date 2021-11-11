@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -63,7 +64,7 @@ public class Abbey implements Building {
 
     @Override
     public int scorer(Building[][] bArray) {
-        Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
+        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(bArray, row, col);
         for (Building building : adjacentBuildings) {
             //Utility.logging("Scoring for "+ Abbey.class.toString() + ". Building " + building.getType() " "+ ,);
             if ((building.getType().getColor() == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW || building.getType().getColor() == ColorEnum.WHITE)) {

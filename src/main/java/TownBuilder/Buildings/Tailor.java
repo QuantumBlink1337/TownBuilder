@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -70,9 +71,9 @@ public class Tailor implements Building{
     @Override
     public int scorer(Building[][] bArray) {
         int score = 1;
-        ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(Utility.getBuildingsInCorner(bArray)));
+        ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(BoardTraverser.getBuildingsInCorner(bArray)));
         buildings.removeIf(building -> building.getRow() == row && building.getCol() == col);
-        score+=Utility.instancesOfBuilding(buildings.toArray(new Building[]{}), ColorEnum.YELLOW);
+        score+= BoardTraverser.instancesOfBuilding(buildings.toArray(new Building[]{}), ColorEnum.YELLOW);
         return score;
     }
 

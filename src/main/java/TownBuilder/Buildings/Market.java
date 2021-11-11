@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -69,10 +70,10 @@ public class Market implements Building {
 
     @Override
     public int scorer(Building[][] bArray) {
-        ArrayList<Building> rowsandcolumns = (ArrayList<Building>) Arrays.asList(Utility.getBuildingsInRowAndColumn(bArray, row, col));
+        ArrayList<Building> rowsandcolumns = (ArrayList<Building>) Arrays.asList(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col));
         ArrayList<Building> buildingsInRow = (ArrayList<Building>) rowsandcolumns.subList(0, rowsandcolumns.size()/2);
         ArrayList<Building> buildingsInColumn = (ArrayList<Building>) rowsandcolumns.subList(rowsandcolumns.size()/2, rowsandcolumns.size());
-        return (Math.max(Utility.instancesOfBuilding(buildingsInRow.toArray(new Building[]{}), ColorEnum.YELLOW), Utility.instancesOfBuilding(buildingsInColumn.toArray(new Building[]{}), ColorEnum.YELLOW)));
+        return (Math.max(BoardTraverser.instancesOfBuilding(buildingsInRow.toArray(new Building[]{}), ColorEnum.YELLOW), BoardTraverser.instancesOfBuilding(buildingsInColumn.toArray(new Building[]{}), ColorEnum.YELLOW)));
     }
 
     @Override

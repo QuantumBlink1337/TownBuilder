@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -79,8 +80,8 @@ public class Greenhouse implements Building {
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
                 DebugTools.logging("Searching " + DebugTools.buildingInformation(building), 3);
-                Building[] adjacentBuildings = Utility.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
-                if (Utility.searchForBuilding(adjacentBuildings, BuildingFactory::determineFeedStatus)) {
+                Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
+                if (BoardTraverser.searchForBuilding(adjacentBuildings, BuildingFactory::determineFeedStatus)) {
                     DebugTools.logging("Given building has at least one adjacent unfed buildings. Continuing", 3);
                     contiguousBuildings.add(building);
                 }

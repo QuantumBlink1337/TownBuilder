@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -88,7 +89,7 @@ public class Theater implements Building
         int score = 0;
 
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
-        for (Building building : Utility.getBuildingsInRowAndColumn(bArray, row, col)) {
+        for (Building building : BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col)) {
 
             DebugTools.logging("Theater Scoring: searching buildings in common row/column. Current building: " + DebugTools.buildingInformation(building), 3);
             if (building.getType() != BuildingEnum.NONE) {

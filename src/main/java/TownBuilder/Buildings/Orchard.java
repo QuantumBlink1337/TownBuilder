@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -68,7 +69,7 @@ public class Orchard implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-        Building[] buildingsInRowAndColumn = Utility.getBuildingsInRowAndColumn(buildingBoard, row, col);
+        Building[] buildingsInRowAndColumn = BoardTraverser.getBuildingsInRowAndColumn(buildingBoard, row, col);
         Utility.feedBuildings(buildingsInRowAndColumn);
     }
 

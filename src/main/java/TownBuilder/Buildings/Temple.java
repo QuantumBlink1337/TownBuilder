@@ -1,6 +1,6 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.ColorEnum;
+import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -67,9 +67,9 @@ public class Temple implements Building{
 
     @Override
     public int scorer(Building[][] bArray) {
-        Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
+        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(bArray, row, col);
         int cottagesFound = 0;
-        cottagesFound += Utility.instancesOfBuilding(adjacentBuildings, BuildingEnum.COTTAGE);
+        cottagesFound += BoardTraverser.instancesOfBuilding(adjacentBuildings, BuildingEnum.COTTAGE);
         if (cottagesFound > 1) {
             return 4;
         }

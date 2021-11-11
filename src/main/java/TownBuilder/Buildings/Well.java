@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -73,9 +74,9 @@ public class Well implements Building {
     public int scorer(Building[][] bArray) {
         int score = 0;
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
-        Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
-        score += Utility.instancesOfBuilding(adjacentBuildings, BuildingEnum.COTTAGE);
-        score += 2 * Utility.instancesOfBuilding(adjacentBuildings, BuildingEnum.BARRETT);
+        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(bArray, row, col);
+        score += BoardTraverser.instancesOfBuilding(adjacentBuildings, BuildingEnum.COTTAGE);
+        score += 2 * BoardTraverser.instancesOfBuilding(adjacentBuildings, BuildingEnum.BARRETT);
         return score;
     }
 

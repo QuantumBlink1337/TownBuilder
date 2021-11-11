@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -65,8 +66,8 @@ public class Fountain implements Building{
     @Override
     public int scorer(Building[][] bArray) {
         int score = 0;
-        Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
-        score += 2 * Utility.instancesOfBuilding(adjacentBuildings, BuildingEnum.FOUNTAIN);
+        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(bArray, row, col);
+        score += 2 * BoardTraverser.instancesOfBuilding(adjacentBuildings, BuildingEnum.FOUNTAIN);
         return score;
     }
 

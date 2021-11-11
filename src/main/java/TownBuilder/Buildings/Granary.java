@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -70,8 +71,8 @@ public class Granary implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-        Building[] adjacentBuildings = Utility.getAdjacentBuildings(buildingBoard, row, col);
-        Building[] diagonalBuildings = Utility.getDiagonalBuildings(buildingBoard, row, col);
+        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(buildingBoard, row, col);
+        Building[] diagonalBuildings = BoardTraverser.getDiagonalBuildings(buildingBoard, row, col);
         Utility.feedBuildings(adjacentBuildings);
         Utility.feedBuildings(diagonalBuildings);
     }

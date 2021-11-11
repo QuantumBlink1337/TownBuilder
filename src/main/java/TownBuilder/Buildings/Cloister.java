@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -66,8 +67,8 @@ public class Cloister implements Building {
     @Override
     public int scorer(Building[][] bArray) {
         int score = 0;
-        Building[] buildingsInCorner = Utility.getBuildingsInCorner(bArray);
-        score += Utility.instancesOfBuilding(buildingsInCorner, BuildingEnum.CLOISTER);
+        Building[] buildingsInCorner = BoardTraverser.getBuildingsInCorner(bArray);
+        score += BoardTraverser.instancesOfBuilding(buildingsInCorner, BuildingEnum.CLOISTER);
         return score;
     }
 

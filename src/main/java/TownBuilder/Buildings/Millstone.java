@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -65,7 +66,7 @@ public class Millstone implements Building{
 
     @Override
     public int scorer(Building[][] bArray) {
-        return Utility.searchForBuilding(Utility.getAdjacentBuildings(bArray, row, col), ColorEnum.RED, ColorEnum.YELLOW) ? 2 : 0;
+        return BoardTraverser.searchForBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), ColorEnum.RED, ColorEnum.YELLOW) ? 2 : 0;
     }
 
     @Override
