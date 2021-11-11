@@ -80,17 +80,16 @@ public class Greenhouse implements Building {
             for (Building building : buildingRow) {
                 DebugTools.logging("Searching " + DebugTools.buildingInformation(building), 3);
                 Building[] adjacentBuildings = Utility.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
-                if (!Utility.searchForBuilding(adjacentBuildings, "unfed")) {
-                    DebugTools.logging("Given building has no adjacent unfed buildings. It is not connected. Returning list", 3);
-                    //return contiguousBuildings;
-                }
-                else {
+                if (Utility.searchForBuilding(adjacentBuildings, BuildingFactory::determineFeedStatus)) {
                     DebugTools.logging("Given building has at least one adjacent unfed buildings. Continuing", 3);
                     contiguousBuildings.add(building);
                 }
+                else {
+                    DebugTools.logging("Given building has no adjacent unfed buildings. It is not connected. Returning list", 3);
+                }
             }
         }
-        contiguousBuildings.removeIf(building -> (!building.isFeedable()));
+        contiguousBuildings.removeIf(building -> !BuildingFactory.determineFeedStatus(building));
         return contiguousBuildings;
     }
     @Override
