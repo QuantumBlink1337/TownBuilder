@@ -39,23 +39,23 @@ public class Manual {
         String userInput = "";
         while (!userInput.equals("exit")) {
             System.out.println("Welcome to the TownBuilder Manual. What would you like to learn about?\nAvailable options:");
-            System.out.println("'rules': Learn about the rules of the game\n'buildings': See scoring and resource pattern entries for buildings in your game\n'exit': Leave Menu");
+            System.out.println("'rules (1) (r)': Learn about the rules of the game\n'buildings (2) (b)': See scoring and resource pattern entries for buildings in your game\n'exit (e) (3)': Leave Menu");
 //            System.out.println("Welcome to the TownBuilder Manual. What would you like to learn about? You can read the rules of the game using 'rules', see building info with 'buildings', ");
 //            System.out.println("or 'exit' to leave the manual. You can also use 'internet' to download a copy of the manual to your computer.");
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
-                case "rules":
+                case "rules", "1", "r":
                     displayRules();
                     userInput = "";
                     break;
-                case "buildings":
+                case "buildings", "b", "2":
                     displayBuildingRules();
                     userInput = "";
                     break;
                 case "internet":
                     openManualOnInternet();
                     break;
-                case "exit":
+                case "exit", "e", "3":
                     break;
                 default:
                     System.out.println("Oops! That wasn't a valid command. Please try again.");
@@ -82,37 +82,37 @@ public class Manual {
     public void displayRules() {
         String userInput = "";
         while (!userInput.equals("exit")) {
-            System.out.println("What rules would you like to read? Available options:");
-            System.out.println("'placement': Building Rules\n'objective': Goal of the Game\n'scoring': How points are earned\n'tutorial': Reread opening text\n'exit': Exit menu");
+            System.out.println("What rules would you like to read? Available options: (Alternative shorthand available in parenthesis)");
+            System.out.println("'placement (p) (1)': Building Rules\n'objective (o) (2)': Goal of the Game\n'scoring (s) (3)': How points are earned\n'tutorial (t) (4)': Reread opening text\n'exit (e) (5)': Exit menu");
 //            System.out.println("What rules would you like to read? Type 'placement' for building rules, 'objective' to view the goal of the game, ");
 //            System.out.println("'scoring' to view how points are earned, 'tutorial' to reread the opening text, or 'exit' to leave the manual.");
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
-                case "placement":
+                case "placement", "p", "1":
                     System.out.println("Buildings are made by placing resources on your board. Each building has its own unique pattern of ");
                     System.out.println("what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example,");
                     System.out.println("the Cottage can have 8 different orientations!");
                     Utility.anyKey();
                     userInput = "";
                     break;
-                case "objective":
+                case "objective", "o", "2":
                     System.out.println("The goal of TownBuilder is to construct as many buildings as possible to earn points.");
                     System.out.println("The game ends when you have nowhere else to place a resource or building. Planning is key!");
                     userInput = "";
                     Utility.anyKey();
                     break;
-                case "scoring":
+                case "scoring", "s", "3":
                     System.out.println("Each building has it's own unique rules on how they accumulate points. (see: buildings) ");
                     System.out.println("But remember - for each resource you leave on the board you LOSE a point! It's up to you ");
                     System.out.println("to figure out how to build your town for the most points possible.");
                     userInput = "";
                     Utility.anyKey();
                     break;
-                case "tutorial":
+                case "tutorial", "t", "4":
                     userInput = "";
                     tutorial();
                     break;
-                case "exit":
+                case "exit", "e", "5":
                     break;
                 default:
                     System.out.println("Oops! That wasn't a valid command. Please try again.");
@@ -123,8 +123,8 @@ public class Manual {
     }
     private void displayBuildingRules() {
         String userInput = "";
-        while (!userInput.equals("exit")) {
-            System.out.println("What building would you like to learn about? Or type 'exit' to go back.");
+        while (!userInput.equals("exit") && !userInput.equals("e") && !userInput.equals("1")) {
+            System.out.println("What building would you like to learn about? Or type 'exit (e) (1)' to go back.");
             displayBuildings();
             userInput = sc.nextLine().toLowerCase();
             for (Building gameBuilding : gameBuildings) {
