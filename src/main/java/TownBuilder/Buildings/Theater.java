@@ -92,7 +92,7 @@ public class Theater implements Building
 
             DebugTools.logging("Theater Scoring: searching buildings in common row/column. Current building: " + DebugTools.buildingInformation(building), 3);
             if (building.getType() != BuildingEnum.NONE) {
-                score += buildingMatch(building, this);
+                score += buildingMatch(building);
             }
         }
         // I don't know why I have to do this but I do apparently
@@ -106,26 +106,25 @@ public class Theater implements Building
     public void onTurnInterval(Building[][] buildingBoard) {
         //
     }
-
-    private int buildingMatch(Building toBeChecked, Building scoreTarget) {
+    private int buildingMatch(Building BuildingBeingChecked) {
         int score = 0;
-        DebugTools.logging("Theater Scoring: Sending " + toBeChecked.getType() + " to buildingMatch()", 3);
+        DebugTools.logging("Theater Scoring: Sending " + BuildingBeingChecked.getType() + " to buildingMatch()", 3);
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);
         DebugTools.printMembersOfArrayList(buildings, 3, "Theater Scoring: Members of master buildings:");
         for (Building building : buildings) {
             DebugTools.logging("Theater Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.", 3);
-            if (toBeChecked.getType() == BuildingEnum.BARRETT && !buildings.get(0).getCondition()) {
-                DebugTools.logging("Theater scoring: Barrett Castle detected. Cottage is false, setting it to true.", 2);
-                buildings.get(0).setCondition(true);
-                score++;
-            }
-            else if (toBeChecked.getType() == building.getType() && !checkBlacklist(toBeChecked.getType())) {
-                if (!toBeChecked.equals(scoreTarget) && !building.getCondition()) {
-                    DebugTools.logging("Theater Scoring: " + building.getType() + " of master buildings list is the same as " + toBeChecked.getType()  +
-                            "", 2);
-                    building.setCondition(true);
+            if (checkBlacklist(BuildingBeingChecked.getType())) {
+                if (BuildingBeingChecked.getType() == BuildingEnum.BARRETT && !buildings.get(0).getCondition()) {
+                    DebugTools.logging("Theater scoring: Barrett Castle detected. Cottage is false, setting it to true.", 2);
+                    buildings.get(0).setCondition(true);
                     score++;
                 }
+            }
+            else if (BuildingBeingChecked.getType() == building.getType()) {
+                DebugTools.logging("Theater Scoring: " + building.getType() + " of master buildings list is the same as " + BuildingBeingChecked.getType()  +
+                        "", 2);
+                building.setCondition(true);
+                score++;
 
             }
         }
