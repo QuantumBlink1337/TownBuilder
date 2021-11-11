@@ -54,6 +54,24 @@ public class BoardTraverser {
         }
         return sum;
     }
+    public static int filteredInstancesOfBuilding(Building[] buildings, Function<Building, Boolean> func, BuildingEnum... t) {
+        int sum = 0;
+        for (Building building : buildings) {
+            for (BuildingEnum type : t) {
+                if (building.getType() == type && func.apply(building)) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
+    public static int filteredInstancesOfBuilding(Building[][] buildings, Function<Building, Boolean> func, BuildingEnum... t) {
+        int sum = 0;
+        for (Building[] buildingRow : buildings) {
+            sum+=filteredInstancesOfBuilding(buildingRow,func, t);
+        }
+        return sum;
+    }
 
     public static int instancesOfBuilding(Building[] buildings, ColorEnum ...c) {
         int sum = 0;
