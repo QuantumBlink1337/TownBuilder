@@ -65,7 +65,7 @@ public class Board {
     public Manual getManual() {
         return manual;
     }
-    public boolean isCanBeMasterBuilder() {
+    public boolean CanBeMasterBuilder() {
         return canBeMasterBuilder;
     }
     public void setCanBeMasterBuilder(boolean canBeMasterBuilder) {
