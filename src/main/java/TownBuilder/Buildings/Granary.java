@@ -72,16 +72,8 @@ public class Granary implements Building {
     public void onTurnInterval(Building[][] buildingBoard) {
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(buildingBoard, row, col);
         Building[] diagonalBuildings = Utility.getDiagonalBuildings(buildingBoard, row, col);
-        for (Building building : adjacentBuildings) {
-            if (building.isFeedable() && !building.getCondition()) {
-                building.setCondition(true);
-            }
-        }
-        for (Building building : diagonalBuildings) {
-            if (building.isFeedable() && !building.getCondition()) {
-                building.setCondition(true);
-            }
-        }
+        Utility.feedBuildings(adjacentBuildings);
+        Utility.feedBuildings(diagonalBuildings);
     }
 
     @Override
