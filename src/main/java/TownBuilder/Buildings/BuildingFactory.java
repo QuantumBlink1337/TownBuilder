@@ -9,7 +9,7 @@ public class BuildingFactory {
     private static final HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() {
         buildingMasterList.put(ColorEnum.BLUE, new ArrayList<>(List.of(new Cottage(-1, -1))));
-        buildingMasterList.put(ColorEnum.RED, new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1))));
+        buildingMasterList.put(ColorEnum.RED, new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1), new Greenhouse(-1, -1))));
         buildingMasterList.put(ColorEnum.GRAY, new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
         buildingMasterList.put(ColorEnum.ORANGE, new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put(ColorEnum.GREEN, new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
@@ -43,6 +43,9 @@ public class BuildingFactory {
         }
         else if(buildingEnum == BuildingEnum.ORCHARD) {
             return new Orchard(row, col);
+        }
+        else if(buildingEnum == BuildingEnum.GRENHOUSE) {
+            return new Greenhouse(row, col);
         }
         else if (buildingEnum == BuildingEnum.TAVERN) {
             return new Tavern(row, col);
@@ -101,6 +104,9 @@ public class BuildingFactory {
         }
         else if (buildingEnum == BuildingEnum.BARRETT) {
             return new BarrettCastle(row, col, board);
+        }
+        else if (buildingEnum == BuildingEnum.CATERINA) {
+            return new Caterina(row, col, board);
         }
         return null;
     }
@@ -210,7 +216,7 @@ public class BuildingFactory {
                 System.out.println("Where would you like to place your " + Utility.generateColorizedString(building.toString(), buildingEnum) + "?");
                 if (PlaceBuildingAnywhere) {
                     System.out.println("You can place your building wherever you want, provided there's nothing there already!");
-                    coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
+                    coords = Utility.humanCoordsToMachineIndexes(sc.nextLine().toLowerCase());
                     if (rArray[coords[0]][coords[1]].getResource() == ResourceEnum.NONE && bArray[coords[0]][coords[1]].getType() == BuildingEnum.NONE) {
                         validInput = true;
                     }
@@ -218,7 +224,7 @@ public class BuildingFactory {
                 else {
                     System.out.println("Valid positions for the "+ Utility.generateColorizedString(building.toString(), buildingEnum)+ " are:");
                     Utility.displayValidResources(rArray, this);
-                    coords = Utility.inputToCoords(sc.nextLine().toLowerCase());
+                    coords = Utility.humanCoordsToMachineIndexes(sc.nextLine().toLowerCase());
                     if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
                         validInput = true;
                     }

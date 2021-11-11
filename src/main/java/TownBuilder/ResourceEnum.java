@@ -52,7 +52,7 @@ public enum ResourceEnum {
             result = resourceArray.get(random);
             resourceArray.remove(random);
         }
-        catch (ArrayIndexOutOfBoundsException e) {
+        catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             result = GLASS;
         }
