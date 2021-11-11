@@ -65,12 +65,7 @@ public class Millstone implements Building{
 
     @Override
     public int scorer(Building[][] bArray) {
-        for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
-            if (building.getType().getColor()  == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW) {
-                return 2;
-            }
-        }
-        return 0;
+        return Utility.searchForBuilding(Utility.getAdjacentBuildings(bArray, row, col), ColorEnum.RED, ColorEnum.YELLOW) ? 2 : 0;
     }
 
     @Override
