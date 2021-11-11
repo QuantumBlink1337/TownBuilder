@@ -17,17 +17,12 @@ public class Abbey implements Building {
         abbeyPattern[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
         abbeyPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE};
         BuildingFactory.patternBuilder(abbeyPattern, abbeyPatternList);
-        // abbeyPattern[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
-        // abbeyPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE};
-        // BuildingFactory.patternBuilder(abbeyPattern, abbeyPatternList, 3);
     }
-
     public Abbey(int r, int c) {
         row = r;
         col = c;
         condition = false;
     }
-
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return abbeyPatternList;
@@ -70,6 +65,7 @@ public class Abbey implements Building {
     public int scorer(Building[][] bArray) {
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
         for (Building building : adjacentBuildings) {
+            //Utility.logging("Scoring for "+ Abbey.class.toString() + ". Building " + building.getType() " "+ ,);
             if ((building.getType().getColor() == ColorEnum.RED|| building.getType().getColor() == ColorEnum.YELLOW || building.getType().getColor() == ColorEnum.WHITE)) {
                 return 0;
             }
