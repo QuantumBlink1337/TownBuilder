@@ -67,10 +67,7 @@ public class FeastHall implements Building{
 
     @Override
     public int scorer(Building[][] bArray) {
-        int score = 0;
-        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(bArray, row, col);
-        score += BoardTraverser.instancesOfBuilding(adjacentBuildings, ColorEnum.YELLOW);
-        return score;
+        return BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), ColorEnum.YELLOW);
     }
 
     @Override
