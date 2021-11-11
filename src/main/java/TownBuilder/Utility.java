@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Scanner;
 import com.diogonunes.jcolor.*;
 
-@SuppressWarnings("EnhancedSwitchMigration")
+@SuppressWarnings({"EnhancedSwitchMigration", "unused"})
 public class Utility {
     // variable to control whether colorized strings can be generated.
     // intended to be triggered upon running in a terminal environment
@@ -212,6 +212,7 @@ public class Utility {
         }
         return false;
     }
+    @SuppressWarnings("unused")
     public static boolean searchForBuilding(Building[] buildings, ColorEnum color) {
         for (Building building : buildings) {
             if (building.getType().getColor() == color) {
@@ -234,15 +235,12 @@ public class Utility {
         }
         return false;
     }
-    public static boolean feedBuildings(Building[] buildings) {
-        boolean successfulFeed = false;
+    public static void feedBuildings(Building[] buildings) {
         for (Building building : buildings) {
             if (building.isFeedable() && !building.getCondition()) {
                 building.setCondition(true);
-                successfulFeed = true;
             }
         }
-        return successfulFeed;
     }
 
     public static String lowerCaseLetters(String word) {
