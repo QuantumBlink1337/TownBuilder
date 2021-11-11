@@ -186,37 +186,45 @@ public class Utility {
         return new Building[]{getBuildingAt(buildingBoard, 0, 0), getBuildingAt(buildingBoard, 0, buildingBoard[0].length -1), getBuildingAt(buildingBoard, buildingBoard.length -1 , 0),
                 getBuildingAt(buildingBoard, buildingBoard.length -1, buildingBoard[0].length -1)};
     }
-    public static int instancesOfBuilding(Building[] buildings, BuildingEnum type) {
+    public static int instancesOfBuilding(Building[] buildings, BuildingEnum ...t) {
         int sum = 0;
         for (Building building : buildings) {
-            if (building.getType() == type) {
-                sum++;
+            for (BuildingEnum type : t) {
+                if (building.getType() == type) {
+                    sum++;
+                }
             }
         }
         return sum;
     }
-    public static int instancesOfBuilding(Building[] buildings, ColorEnum color) {
+    public static int instancesOfBuilding(Building[] buildings, ColorEnum ...c) {
         int sum = 0;
         for (Building building : buildings) {
-            if (building.getType().getColor() == color) {
-                sum++;
+            for (ColorEnum color : c) {
+                if (building.getType().getColor() == color) {
+                    sum++;
+                }
             }
         }
         return sum;
     }
-    public static boolean searchForBuilding(Building[] buildings, BuildingEnum type) {
+    public static boolean searchForBuilding(Building[] buildings, BuildingEnum ...t) {
         for (Building building : buildings) {
-            if (building.getType() == type) {
-                return true;
+            for (BuildingEnum type : t) {
+                if (building.getType() == type) {
+                    return true;
+                }
             }
         }
         return false;
     }
     @SuppressWarnings("unused")
-    public static boolean searchForBuilding(Building[] buildings, ColorEnum color) {
+    public static boolean searchForBuilding(Building[] buildings, ColorEnum ...c) {
         for (Building building : buildings) {
-            if (building.getType().getColor() == color) {
-                return true;
+            for (ColorEnum color : c) {
+                if (building.getType().getColor() == color) {
+                    return true;
+                }
             }
         }
         return false;
@@ -231,6 +239,14 @@ public class Utility {
                 if (building.isFeedable() && !building.getCondition()) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+    public static boolean searchForBuilding(Building[] buildings, interactionLayer bF) {
+        for (Building building : buildings) {
+            if (bF.myMethod(building)) {
+                return true;
             }
         }
         return false;
@@ -340,5 +356,8 @@ public class Utility {
     public static void anyKey() {
         System.out.println("Press any key to continue.");
         sc.nextLine();
+    }
+    public interface interactionLayer {
+        boolean myMethod(Building building);
     }
 }
