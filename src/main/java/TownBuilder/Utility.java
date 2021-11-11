@@ -182,6 +182,7 @@ public class Utility {
             buildings.add(value[col]);
         }
         Collections.addAll(buildings, buildingBoard[row]);
+        buildings.removeIf(building -> building.getRow() == row && building.getCol() == col);
         return buildings.toArray(new Building[]{});
     }
     public static Building[] getBuildingsInCorner(Building[][] buildingBoard) {
