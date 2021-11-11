@@ -220,6 +220,7 @@ public class Utility {
         }
         return false;
     }
+
     // accepts String keyword. returns true if keyword based logic is found
     public static boolean searchForBuilding(Building[] buildings, String k) {
         String keyword = k.toLowerCase();
@@ -232,6 +233,16 @@ public class Utility {
             }
         }
         return false;
+    }
+    public static boolean feedBuildings(Building[] buildings) {
+        boolean successfulFeed = false;
+        for (Building building : buildings) {
+            if (building.isFeedable() && !building.getCondition()) {
+                building.setCondition(true);
+                successfulFeed = true;
+            }
+        }
+        return successfulFeed;
     }
 
     public static String lowerCaseLetters(String word) {
