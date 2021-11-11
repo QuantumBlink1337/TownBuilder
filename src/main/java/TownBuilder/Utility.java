@@ -7,6 +7,8 @@ import TownBuilder.Buildings.BuildingEnum;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.function.Function;
+
 import com.diogonunes.jcolor.*;
 
 @SuppressWarnings({"EnhancedSwitchMigration", "unused"})
@@ -231,9 +233,9 @@ public class Utility {
     }
 
 
-    public static boolean searchForBuilding(Building[] buildings, interactionLayer bF) {
+    public static boolean searchForBuilding(Building[] buildings, Function<Building, Boolean> function) {
         for (Building building : buildings) {
-            if (bF.myMethod(building)) {
+            if (function.apply(building)) {
                 return true;
             }
         }
@@ -344,8 +346,5 @@ public class Utility {
     public static void anyKey() {
         System.out.println("Press any key to continue.");
         sc.nextLine();
-    }
-    public interface interactionLayer {
-        boolean myMethod(Building building);
     }
 }
