@@ -67,6 +67,7 @@ public class Bakery implements Building{
 
     @Override
     public int scorer(Building[][] bArray) {
+        // didn't rewrite this using searchForBuilding because that'd make this O(n^2) when this is already O(n)
         for (Building building : Utility.getAdjacentBuildings(bArray, row, col)) {
             if (building.getType().getColor() == ColorEnum.RED || building.getType().getColor() == ColorEnum.WHITE) {
                 return 2;
