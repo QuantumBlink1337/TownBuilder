@@ -64,7 +64,6 @@ public class Farm implements Building {
         Utility.arrayPrinter(farmArray);
     }
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
-
         return farmPatternList;
     }
     public int scorer(Building[][] bArray) {
@@ -78,8 +77,8 @@ public class Farm implements Building {
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
                 DebugTools.logging("Searching for Feedable status - " + DebugTools.buildingInformation(building), 3);
-                if (building.isFeedable() && !building.getCondition() && fed > 0) {
-                    building.setCondition(true);
+                if (BuildingFactory.determineFeedStatus(building) && fed > 0) {
+                    Utility.feedBuildings(building);
                     DebugTools.logging("Found a feedable building at " + DebugTools.buildingInformation(building), 2);
                     fed--;
                     DebugTools.logging("Fed condition of Farm building after increment: " + fed, 2);
