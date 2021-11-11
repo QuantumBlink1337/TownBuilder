@@ -68,14 +68,10 @@ public class Orchard implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
-        for (int r = 0; r < buildingBoard.length; r++) {
-            if (buildingBoard[r][col].isFeedable() && !getCondition()) {
-                buildingBoard[r][col].setCondition(true);
-            }
-        }
-        for (int c = 0; c < buildingBoard[row].length; c++) {
-            if (buildingBoard[row][c].isFeedable() && !getCondition()) {
-                buildingBoard[row][c].setCondition(true);
+        ArrayList<Building> buildingsInRowAndColumn = Utility.getBuildingsInRowAndColumn(buildingBoard, row, col);
+        for (Building building : buildingsInRowAndColumn) {
+            if (building.isFeedable() && !building.getCondition()) {
+                building.setCondition(true);
             }
         }
     }
