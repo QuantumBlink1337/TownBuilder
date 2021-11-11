@@ -103,7 +103,7 @@ public class BuildingFactory {
             return new Archive(row, col, board, masterBuildings);
         }
         else if (buildingEnum == BuildingEnum.BARRETT) {
-            return new BarrettCastle(row, col, board);
+            return new BarrettCastle(row, col);
         }
         else if (buildingEnum == BuildingEnum.CATERINA) {
             return new Caterina(row, col, board);
@@ -155,9 +155,9 @@ public class BuildingFactory {
         }
     }
 
-    public boolean detection(int row, int col, Resource[][] rArray, ArrayList<ResourceEnum[][]> bT, BuildingEnum buildingType) {
-        for (ResourceEnum[][] resourceEnums : bT) {
-            if (compare(row, col, rArray, resourceEnums) && validResources.size() > 0) {
+    public boolean detection(int row, int col, Resource[][] rArray, ArrayList<ResourceEnum[][]> buildingPatterns, BuildingEnum buildingType) {
+        for (ResourceEnum[][] buildingPattern : buildingPatterns) {
+            if (compare(row, col, rArray, buildingPattern) && validResources.size() > 0) {
                 for (Resource validResource : validResources) {
                     validResource.setScannedBuilding(buildingType);
                 }
@@ -183,13 +183,12 @@ public class BuildingFactory {
         }
         return true;
     }
-    // toBeChecked is the resource on the board we're checking, and checker is the resource we're looking for
-    private boolean match(Resource toBeChecked, ResourceEnum checker) {
-        if (checker == ResourceEnum.NONE || toBeChecked.getResource() == ResourceEnum.TPOST) {
+    private boolean match(Resource resourceOnBoard, ResourceEnum resourceInPattern) {
+        if (resourceInPattern == ResourceEnum.NONE || resourceOnBoard.getResource() == ResourceEnum.TPOST) {
             return true;
         }
-        else if (toBeChecked.getResource() == checker) {
-            validResources.add(toBeChecked);
+        else if (resourceOnBoard.getResource() == resourceInPattern) {
+            validResources.add(resourceOnBoard);
             return true;
         }
         return false;
@@ -200,7 +199,7 @@ public class BuildingFactory {
         Scanner sc = new Scanner((System.in));
         int[] coords = new int[]{-1, -1};
         boolean validInput = false;
-        Building building = null;
+        Building building;
         if (buildingEnum.isMonument()) {
              building = getMonument(buildingEnum, board, -1, -1, buildingArrayList);
         }
@@ -212,7 +211,6 @@ public class BuildingFactory {
 
         do {
             try {
-                assert building != null;
                 System.out.println("Where would you like to place your " + Utility.generateColorizedString(building.toString(), buildingEnum) + "?");
                 if (PlaceBuildingAnywhere) {
                     System.out.println("You can place your building wherever you want, provided there's nothing there already!");

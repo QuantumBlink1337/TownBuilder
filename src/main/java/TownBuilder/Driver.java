@@ -157,7 +157,7 @@ public class Driver {
             BuildingFactory.setbuildingMasterList();
             for (ColorEnum color : colors) {
                 ArrayList<Building> buildings = buildingMasterList.get(color);
-                if (buildings.size() > 0) {
+                if (buildings.size() > 1) {
                     int randomIndex = (int) (Math.random() * buildings.size());
                     Building building = buildings.get(randomIndex);
                     buildingsForGame.add(BuildingFactory.getBuilding(building.getType(), buildingsForGame, -1, -1, false));

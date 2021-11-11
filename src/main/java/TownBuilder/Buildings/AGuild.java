@@ -12,7 +12,9 @@ public class AGuild implements Monument{
     private final int row;
     private final int col;
     private final Board board;
+    private final int MAX_BUILDING_PLACEMENTS = 2;
     private boolean condition;
+
 
     static {
         pattern[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
@@ -84,7 +86,7 @@ public class AGuild implements Monument{
 
     @Override
     public void onPlacement() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < MAX_BUILDING_PLACEMENTS; i++) {
             board.buildingPlacer();
         }
     }

@@ -66,18 +66,8 @@ public class Cloister implements Building {
     @Override
     public int scorer(Building[][] bArray) {
         int score = 0;
-        for (Building[] buildingRow : bArray) {
-            for (Building building : buildingRow) {
-                int r = building.getRow();
-                int c = building.getCol();
-                if (building.getType() == BuildingEnum.CLOISTER) {
-                    if ((r == 0 && c == 0) || (r == 0 && c == bArray[r].length -1) || (r == bArray.length -1 && c == 0) || (r == bArray.length -1 && c == bArray[r].length -1)) {
-                        score+=1;
-                    }
-                }
-            }
-        }
-
+        Building[] buildingsInCorner = Utility.getBuildingsInCorner(bArray);
+        score += Utility.instancesOfBuilding(buildingsInCorner, BuildingEnum.CLOISTER);
         return score;
     }
 
@@ -88,7 +78,7 @@ public class Cloister implements Building {
 
     @Override
     public void printManualText() {
-        System.out.println("The Cloister earns 1 point for every Yellow building in a corner of your board.");
+        System.out.println("The Cloister earns 1 point for every Orange building in a corner of your board.");
         System.out.println("Note: a Cloister not in a corner still earns points, but it doesn't contribute to other Cloisters.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(cloisterPatternList.get(0));

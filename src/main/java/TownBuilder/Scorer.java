@@ -25,22 +25,17 @@ public class Scorer {
         for (Building value : buildingsForGame) {
             scores.put(value.getType(), 0);
         }
-        ArrayList<Building> chapels = new ArrayList<>();
         for (int r = 0; r < board.getGameBuildingBoard().length; r++) {
             for (int c = 0; c < board.getGameBuildingBoard()[r].length; c++) {
                 Building building = board.getGameBuildingBoard()[r][c];
                 if (building.getType() != BuildingEnum.NONE) {
                     //System.out.println("A building was found at " + Utility.coordsToOutput(r, c) + ". Scoring it.");
-                    if (building.getType() == BuildingEnum.CHAPEL) {
-                        chapels.add(building);
-                    }
-                    else {
                         score = building.scorer(board.getGameBuildingBoard());
                         scores.put(building.getType(), scores.get(building.getType())+score);
                         //System.out.println("Score of "+gameBuildingBoard[r][c] + " at " + Utility.coordsToOutput(r, c) + " : "+ score);
                         totalScore += score;
                         //System.out.println("Total score now: "+totalScore);
-                    }
+
                 }
                 else if (board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.NONE && board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.OBSTRUCTED &&
                 board.getGameBuildingBoard()[r][c].getType() == BuildingEnum.CATERINA) {
@@ -48,11 +43,6 @@ public class Scorer {
                     resourcePenalty++;
                 }
             }
-        }
-        for (Building chapel : chapels) {
-            score = chapel.scorer(board.getGameBuildingBoard());
-            totalScore += score;
-            scores.put(chapel.getType(), score);
         }
         totalScore -= resourcePenalty;
         for (int i = 0; i < scores.size(); i++) {

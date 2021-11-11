@@ -66,11 +66,7 @@ public class Fountain implements Building{
     public int scorer(Building[][] bArray) {
         int score = 0;
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
-        for (Building building : adjacentBuildings) {
-            if (building.getType() == BuildingEnum.FOUNTAIN) {
-                score+=2;
-            }
-        }
+        score += 2 * Utility.instancesOfBuilding(adjacentBuildings, BuildingEnum.FOUNTAIN);
         return score;
     }
 
