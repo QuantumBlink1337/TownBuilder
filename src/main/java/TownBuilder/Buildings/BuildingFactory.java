@@ -110,6 +110,9 @@ public class BuildingFactory {
         }
         return null;
     }
+    public static boolean getCondition(Building building) {
+        return building.getCondition();
+    }
     public static boolean determineFeedStatus(Building building) {
         return building.isFeedable() && !building.getCondition();
     }
