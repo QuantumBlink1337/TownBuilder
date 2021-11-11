@@ -10,7 +10,7 @@ import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
 
 public class Well implements Building {
-    private final boolean condition;
+    private boolean condition;
     private final int row;
     private final int col;
     private final String color = "gray";
@@ -40,7 +40,7 @@ public class Well implements Building {
 
     @Override
     public void setCondition(boolean condition) {
-
+        this.condition = condition;
     }
 
     @Override
@@ -72,12 +72,9 @@ public class Well implements Building {
         return wellPatternList;
     }
     public int scorer(Building[][] bArray) {
-        int score = 0;
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
-        Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(bArray, row, col);
-        score += BoardTraverser.instancesOfBuilding(adjacentBuildings, BuildingEnum.COTTAGE);
-        score += 2 * BoardTraverser.instancesOfBuilding(adjacentBuildings, BuildingEnum.BARRETT);
-        return score;
+        return BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), BuildingEnum.COTTAGE) + (2*BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), BuildingEnum.BARRETT));
+
     }
 
     @Override
