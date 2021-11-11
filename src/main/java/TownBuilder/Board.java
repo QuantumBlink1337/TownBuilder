@@ -23,8 +23,13 @@ public class Board {
     private final Manual manual;
     private final Scorer scorer;
     private int spResourceSelectionIncrement = 0;
+
+
+
+    private boolean canBeMasterBuilder = true;
     private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
+    private boolean isSingleplayer;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
@@ -35,7 +40,8 @@ public class Board {
     private final BuildingFactory buildingFactory;
     private final Scanner sc = new Scanner(System.in);
 
-    public Board(ArrayList<Building> b) {
+    public Board(ArrayList<Building> b, boolean ISP) {
+        isSingleplayer = ISP;
         System.out.println("What's your name?");
         boardName = sc.nextLine();
         if (boardName.equals("debug")) {
@@ -43,6 +49,9 @@ public class Board {
         }
         else if (boardName.equals("debug_building")) {
             System.out.println("Debug/testing mode activated. Enabled direct building placement");
+        }
+        if (ISP) {
+            monumentTypes.removeIf(m -> m == BuildingEnum.IRONWEED);
         }
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
@@ -55,6 +64,12 @@ public class Board {
     }
     public Manual getManual() {
         return manual;
+    }
+    public boolean isCanBeMasterBuilder() {
+        return canBeMasterBuilder;
+    }
+    public void setCanBeMasterBuilder(boolean canBeMasterBuilder) {
+        this.canBeMasterBuilder = canBeMasterBuilder;
     }
     private void generateMonument() {
         int randomIndex = (int) (Math.random() * monumentTypes.size());
@@ -172,9 +187,9 @@ public class Board {
             scorableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
         }
     }
-    public ResourceEnum resourcePicker(boolean isMultiplayerGame) throws IOException, URISyntaxException {
+    public ResourceEnum resourcePicker() throws IOException, URISyntaxException {
         ResourceEnum turnResource;
-        if (isMultiplayerGame) {
+        if (!isSingleplayer) {
             do {
                 turnResource = ResourceEnum.resourcePicker(blacklistedResources.toArray(ResourceEnum[]::new));
                 if (turnResource == ResourceEnum.NONE) {
