@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -71,6 +72,8 @@ public class Chapel implements Building {
         return templeList;
     }
     public int scorer(Building[][] bArray) {
+
+        // decided not to simplify this because the runtime would be greater since we do different things depending on what is found
         int score = 0;
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         for (Building[] buildings : bArray) {
