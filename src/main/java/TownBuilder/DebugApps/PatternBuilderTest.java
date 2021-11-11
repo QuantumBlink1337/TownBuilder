@@ -1,4 +1,4 @@
-package TownBuilder.Tests;
+package TownBuilder.DebugApps;
 
 
 import java.util.ArrayList;
