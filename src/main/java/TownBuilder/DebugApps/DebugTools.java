@@ -1,6 +1,7 @@
-package TownBuilder;
+package TownBuilder.DebugApps;
 
 import TownBuilder.Buildings.Building;
+import TownBuilder.Utility;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;

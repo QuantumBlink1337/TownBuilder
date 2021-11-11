@@ -1,6 +1,6 @@
 package TownBuilder.Buildings;
 
-import TownBuilder.DebugTools;
+import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 

@@ -2,6 +2,7 @@ package TownBuilder;
 
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.DebugApps.DebugTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
