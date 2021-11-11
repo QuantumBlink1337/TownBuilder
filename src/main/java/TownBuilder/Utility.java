@@ -161,13 +161,14 @@ public class Utility {
         return target.toString();
     }
 
-    public static void feedBuildings(Building[] buildings) {
-        for (Building building : buildings) {
+    public static void feedBuildings(Building ...b) {
+        for (Building building : b) {
             if (building.isFeedable() && !building.getCondition()) {
                 building.setCondition(true);
             }
         }
     }
+
 
     public static String lowerCaseLetters(String word) {
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
