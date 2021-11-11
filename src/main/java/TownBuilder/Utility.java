@@ -195,7 +195,7 @@ public class Utility {
         }
         return sum;
     }
-    public static int instanceOfBuilding(Building[] buildings, ColorEnum color) {
+    public static int instancesOfBuilding(Building[] buildings, ColorEnum color) {
         int sum = 0;
         for (Building building : buildings) {
             if (building.getType().getColor() == color) {

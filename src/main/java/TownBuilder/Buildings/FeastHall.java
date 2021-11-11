@@ -68,7 +68,7 @@ public class FeastHall implements Building{
     public int scorer(Building[][] bArray) {
         int score = 0;
         Building[] adjacentBuildings = Utility.getAdjacentBuildings(bArray, row, col);
-        score += Utility.instanceOfBuilding(adjacentBuildings, ColorEnum.YELLOW);
+        score += Utility.instancesOfBuilding(adjacentBuildings, ColorEnum.YELLOW);
         return score;
     }
 
