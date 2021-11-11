@@ -174,13 +174,13 @@ public class Utility {
         return new Building[]{getBuildingAt(buildingBoard, row-1, col-1), getBuildingAt(buildingBoard, row-1, col+1), getBuildingAt(buildingBoard, row+1, col-1),
                 getBuildingAt(buildingBoard, row+1, col+1)};
     }
-    public static ArrayList<Building> getBuildingsInRowAndColumn(Building[][] buildingBoard, int row, int col) {
+    public static Building[] getBuildingsInRowAndColumn(Building[][] buildingBoard, int row, int col) {
         ArrayList<Building> buildings = new ArrayList<>();
         for (Building[] value : buildingBoard) {
             buildings.add(value[col]);
         }
         Collections.addAll(buildings, buildingBoard[row]);
-        return buildings;
+        return buildings.toArray(new Building[]{});
     }
     public static Building[] getBuildingsInCorner(Building[][] buildingBoard) {
         return new Building[]{getBuildingAt(buildingBoard, 0, 0), getBuildingAt(buildingBoard, 0, buildingBoard[0].length -1), getBuildingAt(buildingBoard, buildingBoard.length -1 , 0),

@@ -5,6 +5,7 @@ import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
@@ -68,7 +69,7 @@ public class Market implements Building {
 
     @Override
     public int scorer(Building[][] bArray) {
-        ArrayList<Building> rowsandcolumns =Utility.getBuildingsInRowAndColumn(bArray, row, col);
+        ArrayList<Building> rowsandcolumns = (ArrayList<Building>) Arrays.asList(Utility.getBuildingsInRowAndColumn(bArray, row, col));
         ArrayList<Building> buildingsInRow = (ArrayList<Building>) rowsandcolumns.subList(0, rowsandcolumns.size()/2);
         ArrayList<Building> buildingsInColumn = (ArrayList<Building>) rowsandcolumns.subList(rowsandcolumns.size()/2, rowsandcolumns.size());
         int yellowBuildingInRow = 0;
