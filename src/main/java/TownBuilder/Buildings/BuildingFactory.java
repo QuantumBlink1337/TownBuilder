@@ -110,6 +110,9 @@ public class BuildingFactory {
         }
         return null;
     }
+    public static boolean determineFeedStatus(Building building) {
+        return building.isFeedable() && !building.getCondition();
+    }
     public ArrayList<Resource> getValidResources() {
         return validResources;
     }
