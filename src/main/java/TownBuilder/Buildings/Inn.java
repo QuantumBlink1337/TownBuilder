@@ -1,5 +1,6 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -64,11 +65,7 @@ public class Inn implements Building{
 
     @Override
     public int scorer(Building[][] bArray) {
-        Building[] buildingsInRowAndColumn = Utility.getBuildingsInRowAndColumn(bArray, row, col);
-        if (Utility.searchForBuilding(buildingsInRowAndColumn, BuildingEnum.INN)) {
-            return 0;
-        }
-        return 3;
+        return BoardTraverser.searchForBuilding(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col), BuildingEnum.INN) ? 0 : 3;
     }
 
     @Override
