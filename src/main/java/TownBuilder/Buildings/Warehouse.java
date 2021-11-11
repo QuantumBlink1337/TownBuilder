@@ -11,7 +11,6 @@ public class Warehouse implements Building {
     private int fullness = 0;
     private final int row;
     private final int col;
-    private final String color = "black";
     private final ResourceEnum[] storedResources = new ResourceEnum[] {ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.NONE};
     private static final ResourceEnum[][] warehouseArray = new ResourceEnum[2][3];
     private static final ArrayList<ResourceEnum[][]> warehousePatternList = new ArrayList<>();
