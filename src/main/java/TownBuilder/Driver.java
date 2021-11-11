@@ -203,7 +203,7 @@ public class Driver {
             turnActions(board, ResourceEnum.randomResource());
             return null;
         }
-        if (resourcePick) {
+        if (resourcePick && board.CanBeMasterBuilder()) {
             ResourceEnum r;
             board.renderBoard();
             if (isMultiplayerGame) {
