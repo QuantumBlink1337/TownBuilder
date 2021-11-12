@@ -5,9 +5,13 @@ import TownBuilder.Buildings.BuildingEnum;
 public class Resource {
     private ResourceEnum resource;
     private BuildingEnum scannedBuilding;
-    public Resource(ResourceEnum r) {
-        resource = r;
+    private final int row;
+    private final int col;
+    public Resource(ResourceEnum resource, int r, int c) {
+        resource = resource;
         scannedBuilding = BuildingEnum.NONE;
+        row = r;
+        col = c;
     }
 
     public ResourceEnum getResource() {

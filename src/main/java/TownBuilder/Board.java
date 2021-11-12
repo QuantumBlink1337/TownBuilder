@@ -29,7 +29,7 @@ public class Board {
     private boolean canBeMasterBuilder = true;
     private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
-    private boolean isSingleplayer;
+    private final boolean isSingleplayer;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
@@ -85,7 +85,7 @@ public class Board {
         //System.out.println("Building resource array");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                gameResourceBoard[row][col] = new Resource(ResourceEnum.NONE);
+                gameResourceBoard[row][col] = new Resource(ResourceEnum.NONE, row,col);
                 //System.out.println(gameResourceBoard[row][col]);
             }
         }
@@ -141,12 +141,7 @@ public class Board {
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
-            if (building.getType() == BuildingEnum.SHED) {
-                buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, true,this);
-            }
-            else {
-                buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, false,this);
-            }
+            buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED,this);
         }
         else {
             buildingFactory.clearResources(building.getType());
