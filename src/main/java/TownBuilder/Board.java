@@ -16,8 +16,8 @@ public class Board {
 
 
     private final ArrayList<Building> scorableBuildings;
-    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
+    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
+    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
 
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
@@ -194,6 +194,9 @@ public class Board {
     }
     public ResourceEnum resourcePicker() throws IOException, URISyntaxException {
         ResourceEnum turnResource;
+        if (boardName.equalsIgnoreCase("debug")) {
+            return ResourceEnum.resourcePicker(null);
+        }
         if (!isSingleplayer) {
             do {
                 turnResource = ResourceEnum.resourcePicker(blacklistedResources.toArray(ResourceEnum[]::new));
