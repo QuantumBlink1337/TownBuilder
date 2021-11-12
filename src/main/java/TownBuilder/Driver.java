@@ -48,7 +48,13 @@ public class Driver {
         ResourceEnum resource = null;
         // if there's only one player, use default singleplayer code
         if (playerCount < 2) {
-            Board board = boardArrayList.get(0);
+            Board board;
+            if (boardArrayList.get(0).CanBeMasterBuilder()) {
+                board = boardArrayList.get(0);
+            }
+            else {
+                board = boardArrayList.get(1);
+            }
             Manual.townHallNote();
             while (!board.isGameCompletion()) { // this loop continues until the player has no empty slots in board
                 board.setGameCompletion(board.gameOver());
@@ -61,7 +67,6 @@ public class Driver {
                         resource = turnExecution(board, resource, false, false, true, buildingsForGame);
                     }
                     else {
-                        System.out.println("Normal turn");
                         resource = turnExecution(board, resource, true, false, false, buildingsForGame);
                     }
                 }
@@ -203,7 +208,7 @@ public class Driver {
             turnActions(board, ResourceEnum.randomResource());
             return null;
         }
-        if (resourcePick && board.CanBeMasterBuilder()) {
+        if (resourcePick) {
             ResourceEnum r;
             board.renderBoard();
             if (isMultiplayerGame) {
