@@ -139,20 +139,20 @@ public class Utility {
         return string;
     }
     public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) {
-
-        for (int r = 0; r < rArray.length; r++) {
-            for (int c  = 0; c < rArray[r].length; c++) {
-                for (int i = 0; i < buildingFactory.getValidResources().size(); i++) {
-                    if (rArray[r][c] == buildingFactory.getValidResources().get(i) && i != (buildingFactory.getValidResources().size() -1)) {
-                        System.out.print(Utility.MachineIndexesToHumanCoords(r, c) + ", ");
-                    }
-                    else if (rArray[r][c] == buildingFactory.getValidResources().get(i)) {
-                        System.out.println(Utility.MachineIndexesToHumanCoords(r, c));
-                    }
-                }
-
+        for (int i = 0; i < buildingFactory.getValidResources().size(); i++) {
+            Resource resource = buildingFactory.getValidResources().get(i);
+            int r = resource.getRow();
+            int c = resource.getCol();
+            if (i != (buildingFactory.getValidResources().size() -1)) {
+                System.out.print(Utility.MachineIndexesToHumanCoords(r, c) + ", ");
+            }
+            else {
+                System.out.println(Utility.MachineIndexesToHumanCoords(r, c));
             }
         }
+
+
+
     }
     public static String lengthResizer(String t, int length) {
         StringBuilder target = new StringBuilder(t);
