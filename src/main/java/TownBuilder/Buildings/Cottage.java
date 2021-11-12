@@ -10,7 +10,6 @@ public class Cottage implements Building {
     private boolean condition;
     private final int row;
     private final int col;
-    private final String color = "blue";
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> cottagePatternList = new ArrayList<>();
@@ -67,14 +66,6 @@ public class Cottage implements Building {
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray) {
-//        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
-//        DebugTools.logging("Cottage Score: checking " + DebugTools.buildingInformation(this), 1);
-//        if (condition) {
-//            DebugTools.logging("Cottage Score: condition is true, returning 3.", 2);
-//            return 3;
-//        }
-//        DebugTools.logging("Cottage Score: condition is false, returning 0.", 2);
-
         return condition ? 3 : 0;
     }
     @Override
