@@ -10,7 +10,7 @@ public class BuildingFactory {
     public static void setbuildingMasterList() {
         buildingMasterList.put(ColorEnum.BLUE, new ArrayList<>(List.of(new Cottage(-1, -1))));
         buildingMasterList.put(ColorEnum.RED, new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1), new Greenhouse(-1, -1))));
-        buildingMasterList.put(ColorEnum.GRAY, new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1))));
+        buildingMasterList.put(ColorEnum.GRAY, new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1), new Shed(-1, -1))));
         buildingMasterList.put(ColorEnum.ORANGE, new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put(ColorEnum.GREEN, new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
         buildingMasterList.put(ColorEnum.YELLOW, new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
