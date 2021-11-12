@@ -8,7 +8,7 @@ public class Resource {
     private final int row;
     private final int col;
     public Resource(ResourceEnum resource, int r, int c) {
-        resource = resource;
+        this.resource = resource;
         scannedBuilding = BuildingEnum.NONE;
         row = r;
         col = c;
