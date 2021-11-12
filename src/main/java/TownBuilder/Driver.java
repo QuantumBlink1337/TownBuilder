@@ -49,12 +49,8 @@ public class Driver {
         // if there's only one player, use default singleplayer code
         if (playerCount < 2) {
             Board board;
-            if (boardArrayList.get(0).CanBeMasterBuilder()) {
-                board = boardArrayList.get(0);
-            }
-            else {
-                board = boardArrayList.get(1);
-            }
+
+            board = boardArrayList.get(0);
             Manual.townHallNote();
             while (!board.isGameCompletion()) { // this loop continues until the player has no empty slots in board
                 board.setGameCompletion(board.gameOver());
@@ -82,7 +78,14 @@ public class Driver {
                     list temporarily. the remaining players execute their turns based on the assignment of resource. then, the first board
                     is added back to the end.
                  */
-                Board pickResourceBoard = boardArrayList.get(0); // grabs first index
+                Board pickResourceBoard;
+
+                if (boardArrayList.get(0).CanBeMasterBuilder()) {
+                    pickResourceBoard = boardArrayList.get(0);
+                }
+                else {
+                    pickResourceBoard = boardArrayList.get(1);
+                }
                 resource = turnExecution(pickResourceBoard, resource, true, true, false,buildingsForGame );
                 boardArrayList.remove(pickResourceBoard); // removes from board
                 // if board is game complete, score them
