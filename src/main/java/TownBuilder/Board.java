@@ -144,7 +144,7 @@ public class Board {
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED,this);
         }
         else {
-            buildingFactory.clearResources(building.getType());
+            buildingFactory.clearValidResourcesWithFlag(building.getType());
         }
     }
     public void detectValidBuilding() {

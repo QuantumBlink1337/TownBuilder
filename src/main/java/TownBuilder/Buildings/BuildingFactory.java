@@ -128,7 +128,7 @@ public class BuildingFactory {
         return buildingMasterList;
     }
 
-    public void clearResources(BuildingEnum building) {
+    public void clearValidResourcesWithFlag(BuildingEnum building) {
         for (int i = 0; i < validResources.size(); i++) {
             if (validResources.get(i).getScannedBuilding() == building) {
                 validResources.remove(i);
@@ -251,7 +251,7 @@ public class BuildingFactory {
         for (Resource validResource : validResources) {
             validResource.setResource(ResourceEnum.NONE);
         }
-        clearResources(building.getType());
+        clearValidResourcesWithFlag(building.getType());
         if (buildingEnum != BuildingEnum.TRDINGPST) {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
 
