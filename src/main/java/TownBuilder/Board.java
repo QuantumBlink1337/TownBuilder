@@ -16,8 +16,8 @@ public class Board {
 
 
     private final ArrayList<Building> scorableBuildings;
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
-    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
+    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
+    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD));
 
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
@@ -37,6 +37,9 @@ public class Board {
     //private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "         b",  "           c", "          d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
+
+
+
     private final BuildingFactory buildingFactory;
     private final Scanner sc = new Scanner(System.in);
 
@@ -64,6 +67,9 @@ public class Board {
     }
     public Manual getManual() {
         return manual;
+    }
+    public BuildingFactory getBuildingFactory() {
+        return buildingFactory;
     }
     public boolean CanBeMasterBuilder() {
         return canBeMasterBuilder;
@@ -222,9 +228,9 @@ public class Board {
         return turnResource;
     }
     public void buildingPlacer() {
-        buildingPlacer(detectableBuildings);
+        buildingPlacer(detectableBuildings, true);
     }
-    public void buildingPlacer(ArrayList<Building> buildingArrayList) {
+    public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeBuildingOnBoard) {
         System.out.println("What building would you like?");
         Scanner sc = new Scanner(System.in);
         boolean validInput = false;
@@ -232,16 +238,16 @@ public class Board {
             String userInput = sc.nextLine().toLowerCase();
             for (Building building : buildingArrayList) {
                 if (userInput.equalsIgnoreCase(building.toString())) {
-                    buildingFactory.placeBuildingOnBoard(building.getType(), buildingArrayList, true, this);
-                    validInput = true;
+                    if (placeBuildingOnBoard) {
+                        buildingFactory.placeBuildingOnBoard(building.getType(), buildingArrayList, true, this);
+                    }
+                    return building.getType();
                 }
             }
-            if (!validInput) {
-                System.out.println("Invalid input.");
-            }
+            System.out.println("Invalid input.");
 
         }
-        while (!validInput);
+        while (true);
     }
     private ResourceEnum factoryOption(ResourceEnum resource, ArrayList<Factory> factoriesOnBoard) {
         boolean validInput = false;
