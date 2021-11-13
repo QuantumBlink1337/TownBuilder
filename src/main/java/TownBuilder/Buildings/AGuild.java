@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.Board;
+import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -86,8 +87,22 @@ public class AGuild implements Monument{
 
     @Override
     public void onPlacement() {
-        for (int i = 0; i < MAX_BUILDING_PLACEMENTS; i++) {
-            board.buildingPlacer();
+        System.out.println("You may replace up to 2 buildings on your board.\nNote, you do not have to, but you may not choose to come back to this.");
+        if (Utility.prompt()) {
+            board.getBuildingFactory().placeBuildingOnBoard(flagOverturnedResources(board.buildingPlacer(board.getDetectableBuildings(),false)), board.getDetectableBuildings(), false, board);
+
         }
+    }
+    private BuildingEnum flagOverturnedResources(BuildingEnum buildingEnum) {
+        ArrayList<Resource> validResources = board.getBuildingFactory().getValidResources();
+        for (Resource[] resourceRow : board.getGameResourceBoard()) {
+            for (Resource resource : resourceRow) {
+                if (resource.getResource() == ResourceEnum.OBSTRUCTED && board.getGameBuildingBoard()[resource.getRow()][resource.getCol()] != this) {
+                    resource.setScannedBuilding(buildingEnum);
+                    validResources.add(resource);
+                }
+            }
+        }
+        return buildingEnum;
     }
 }
