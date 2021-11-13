@@ -5,6 +5,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Archive implements Monument{
@@ -68,7 +69,7 @@ public class Archive implements Monument{
     }
 
     @Override
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         int score = 0;
         for (Building[] buildingRow : bArray) {
             for (Building building : buildingRow) {
@@ -80,7 +81,7 @@ public class Archive implements Monument{
         }
         return score;
     }
-    private int buildingMatch(Building comparisonBuilding) {
+    private int buildingMatch(Building comparisonBuilding) throws IOException {
         int score = 0;
         DebugTools.logging("Archive Scoring: Sending " + comparisonBuilding.getType() + " to buildingMatch()", 3);
         ArrayList<Building> buildings = new ArrayList<>(masterBuildings);

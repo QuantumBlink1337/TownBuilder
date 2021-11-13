@@ -4,6 +4,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 public class Farm implements Building {
@@ -66,13 +67,13 @@ public class Farm implements Building {
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return farmPatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         return 0;
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard) {
+    public void onTurnInterval(Building[][] buildingBoard) throws IOException {
         DebugTools.logging("Farm feeding protocol triggered.", 1);
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {

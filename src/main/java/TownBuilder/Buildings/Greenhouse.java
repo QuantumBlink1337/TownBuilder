@@ -5,6 +5,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Greenhouse implements Building {
@@ -67,14 +68,14 @@ public class Greenhouse implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard) {
+    public void onTurnInterval(Building[][] buildingBoard) throws IOException {
         DebugTools.logging("Beginning Greenhouse Turn Interval", 1);
         for (Building building : contiguousCheck(buildingBoard)) {
             DebugTools.logging("Feeding " + DebugTools.buildingInformation(building), 3);
             building.setCondition(true);
         }
     }
-    private ArrayList<Building> contiguousCheck(Building[][] buildingBoard) {
+    private ArrayList<Building> contiguousCheck(Building[][] buildingBoard) throws IOException {
         DebugTools.logging("Beginning Contiguous Group check.", 1);
         ArrayList<Building> contiguousBuildings = new ArrayList<>();
         for (Building[] buildingRow : buildingBoard) {

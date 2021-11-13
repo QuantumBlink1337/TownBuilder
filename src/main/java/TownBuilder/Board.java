@@ -116,7 +116,7 @@ public class Board {
     public ArrayList<Building> getScorableBuildings() {
         return scorableBuildings;
     }
-    public int scoring(boolean isMidGameCheck) {
+    public int scoring(boolean isMidGameCheck) throws IOException {
         return scorer.scoring(isMidGameCheck);
     }
     public boolean gameOver() {
@@ -175,7 +175,7 @@ public class Board {
         }
         //System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
     }
-    public void runBuildingTurnAction() {
+    public void runBuildingTurnAction() throws IOException {
         int bankCounter = 0;
         for (Building[] buildings : gameBuildingBoard) {
             for (Building building : buildings) {

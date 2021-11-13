@@ -4,6 +4,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
@@ -70,7 +71,7 @@ public class Chapel implements Building {
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return templeList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
 
         // decided not to simplify this because the runtime would be greater since we do different things depending on what is found
         int score = 0;

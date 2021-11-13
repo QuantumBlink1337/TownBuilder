@@ -1,12 +1,8 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.Board;
-import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
-import com.sun.jna.platform.win32.GL;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Caterina implements Monument{

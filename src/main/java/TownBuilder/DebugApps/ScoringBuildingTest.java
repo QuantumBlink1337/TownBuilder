@@ -3,11 +3,12 @@ package TownBuilder.DebugApps;
 import TownBuilder.Board;
 import TownBuilder.Buildings.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ScoringBuildingTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DebugTools.logging("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE AUTOMATED SCORING SYSTEM.", 1);
         ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Farm(-1, -1), new Well(-1, -1), new Chapel(-1, -1), new Theater(), new Tavern(-1, -1), new Warehouse(-1, -1)));
 

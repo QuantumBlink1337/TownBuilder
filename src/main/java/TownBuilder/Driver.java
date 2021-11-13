@@ -1,6 +1,7 @@
 package TownBuilder;
 
 import TownBuilder.Buildings.*;
+import TownBuilder.DebugApps.DebugTools;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class Driver {
 
     public static void main (String[] args) throws IOException, URISyntaxException {
+        DebugTools.initFile();
         ArrayList<Building> buildingsForGame = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         buildingSelection(buildingsForGame);

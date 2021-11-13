@@ -4,6 +4,7 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.DebugApps.DebugTools;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +18,7 @@ public class Scorer {
 
 
     }
-    public int scoring(boolean isMidGameCheck) {
+    public int scoring(boolean isMidGameCheck) throws IOException {
         int totalScore = 0;
         int score;
         int resourcePenalty =0;

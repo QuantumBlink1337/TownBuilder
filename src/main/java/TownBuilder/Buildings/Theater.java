@@ -9,6 +9,7 @@ import com.diogonunes.jcolor.Attribute;
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Theater implements Building
@@ -87,7 +88,7 @@ public class Theater implements Building
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(theaterArray);
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         int score = 0;
 
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
@@ -109,7 +110,7 @@ public class Theater implements Building
     public void onTurnInterval(Building[][] buildingBoard) {
         //
     }
-    private int buildingMatch(Building BuildingBeingChecked) {
+    private int buildingMatch(Building BuildingBeingChecked) throws IOException {
         int score = 0;
         DebugTools.logging("Theater Scoring: Sending " + BuildingBeingChecked.getType() + " to buildingMatch()", 3);
         ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);

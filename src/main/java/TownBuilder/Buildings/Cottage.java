@@ -11,7 +11,6 @@ public class Cottage implements Building {
     private final int row;
     private final int col;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
-    private static final ResourceEnum[][] cottageArrayMirror = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> cottagePatternList = new ArrayList<>();
 
 

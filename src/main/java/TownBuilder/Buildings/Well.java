@@ -5,6 +5,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
@@ -71,7 +72,7 @@ public class Well implements Building {
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return wellPatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
         return BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), BuildingEnum.COTTAGE) + (2*BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), BuildingEnum.BARRETT));
 

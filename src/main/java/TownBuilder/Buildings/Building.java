@@ -2,6 +2,7 @@ package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface Building {
@@ -17,8 +18,8 @@ public interface Building {
     String toString();
     boolean isFeedable();
 
-    int scorer(Building[][] bArray);
-    void onTurnInterval(Building[][] buildingBoard);
+    int scorer(Building[][] bArray) throws IOException;
+    void onTurnInterval(Building[][] buildingBoard) throws IOException;
     void printManualText();
 
 }
