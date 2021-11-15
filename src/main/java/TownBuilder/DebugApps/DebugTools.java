@@ -55,8 +55,14 @@ public class DebugTools {
             System.out.print(Ansi.colorize("DEBUGGING: ", textColor));
             System.out.println(string);
         }
-        bufferedWriter.write(string);
-        bufferedWriter.newLine();
+        try {
+            bufferedWriter.write(string);
+            bufferedWriter.newLine();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
     public static <T> String createStringOfObjectsInArray(T[] array) {
