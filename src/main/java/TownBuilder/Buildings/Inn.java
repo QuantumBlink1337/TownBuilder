@@ -4,6 +4,7 @@ import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
@@ -64,7 +65,7 @@ public class Inn implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         return BoardTraverser.searchForBuilding(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col), BuildingEnum.INN) ? 0 : 3;
     }
 

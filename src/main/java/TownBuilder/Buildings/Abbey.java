@@ -5,6 +5,7 @@ import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Abbey implements Building {
@@ -63,7 +64,7 @@ public class Abbey implements Building {
     }
 
     @Override
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         return BoardTraverser.searchForBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), ColorEnum.RED, ColorEnum.YELLOW, ColorEnum.WHITE) ? 0 : 3;
     }
 

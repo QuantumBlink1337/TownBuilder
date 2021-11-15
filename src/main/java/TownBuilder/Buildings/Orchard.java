@@ -4,6 +4,7 @@ import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Orchard implements Building {
@@ -68,7 +69,7 @@ public class Orchard implements Building {
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard) {
+    public void onTurnInterval(Building[][] buildingBoard) throws IOException {
         Building[] buildingsInRowAndColumn = BoardTraverser.getBuildingsInRowAndColumn(buildingBoard, row, col);
         Utility.feedBuildings(buildingsInRowAndColumn);
     }

@@ -4,6 +4,7 @@ import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Temple implements Building{
@@ -62,7 +63,7 @@ public class Temple implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         return BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), BuildingEnum.COTTAGE) > 1 ? 4 : 0;
     }
 

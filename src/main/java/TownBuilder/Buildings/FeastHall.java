@@ -5,6 +5,7 @@ import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
@@ -66,7 +67,7 @@ public class FeastHall implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         return BoardTraverser.instancesOfBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), ColorEnum.YELLOW);
     }
 

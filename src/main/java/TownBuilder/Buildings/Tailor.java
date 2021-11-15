@@ -5,6 +5,7 @@ import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -69,7 +70,7 @@ public class Tailor implements Building{
     }
 
     @Override
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(BoardTraverser.getBuildingsInCorner(bArray)));
         buildings.removeIf(building -> building.getRow() == row && building.getCol() == col);
         return 1+BoardTraverser.instancesOfBuilding(buildings.toArray(new Building[]{}), ColorEnum.YELLOW);
