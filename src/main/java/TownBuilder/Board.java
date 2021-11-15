@@ -2,6 +2,7 @@ package TownBuilder;
 
 
 import TownBuilder.Buildings.*;
+import TownBuilder.DebugApps.DebugTools;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,12 +13,9 @@ import java.util.Scanner;
 @SuppressWarnings("unused")
 public class Board {
     private final ArrayList<Building> detectableBuildings;
-
-
-
     private final ArrayList<Building> scorableBuildings;
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
-    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD));
+    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
+    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD));
 
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
@@ -43,7 +41,7 @@ public class Board {
     private final BuildingFactory buildingFactory;
     private final Scanner sc = new Scanner(System.in);
 
-    public Board(ArrayList<Building> b, boolean ISP) {
+    public Board(ArrayList<Building> b, boolean ISP) throws IOException {
         isSingleplayer = ISP;
         System.out.println("What's your name?");
         boardName = sc.nextLine();
@@ -84,35 +82,28 @@ public class Board {
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
         System.out.print(boardName + ", your Monument is ");
-        assert monument != null;
-        Utility.printBuildingInfo(monument);
+        if (monument != null) {
+            Utility.printBuildingInfo(monument);
+        }
     }
-    private void buildArrays() {
-        //System.out.println("Building resource array");
+    private void buildArrays() throws IOException {
+        DebugTools.logging("Initializing Resource Board.", 3);
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 gameResourceBoard[row][col] = new Resource(ResourceEnum.NONE, row,col);
-                //System.out.println(gameResourceBoard[row][col]);
             }
         }
+        DebugTools.logging("Initializing Building Board.", 3);
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
                 gameBuildingBoard[row][col] = new EmptyBuilding(row, col);
-                //System.out.println(gameResourceBoard[row][col]);
             }
         }
-
-//        for (int row = 0; row < coordinateBoard.length; row++) {
-//            for (int col = 0; col < coordinateBoard[row].length; col++) {
-//                coordinateBoard[row][col] = "[Row: " + row + " Col: " + col + "]";
-//            }
-//        }
         blacklistedResources = new ArrayList<>();
     }
     public ArrayList<Building> getDetectableBuildings() {
         return detectableBuildings;
     }
-
     public ArrayList<Building> getScorableBuildings() {
         return scorableBuildings;
     }
