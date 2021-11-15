@@ -1,6 +1,7 @@
 package TownBuilder.DebugApps;
 
 import TownBuilder.Buildings.Building;
+import TownBuilder.Resource;
 import TownBuilder.Utility;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.AnsiFormat;
@@ -79,5 +80,8 @@ public class DebugTools {
     }
     public static String buildingInformation(Building building) {
         return building.getType() + " at row: " + building.getRow() + " and column: " + building.getCol() + " Condition: " + building.getCondition();
+    }
+    public static String resourceInformation(Resource resource) {
+        return resource.getResource() + " at row " + resource.getRow() + "and column: " + resource.getCol() +". Flagged building: " + resource.getScannedBuilding();
     }
 }
