@@ -26,7 +26,12 @@ public class DebugTools {
      */
     private static final File log = new File("latest.log");
     private static BufferedWriter bufferedWriter = null;
-    private static final int verbose = 0;
+
+    public static void setVerbose(int verbose) {
+        DebugTools.verbose = verbose;
+    }
+
+    private static int verbose = 0;
     private static final AnsiFormat textColor = new AnsiFormat(Attribute.RED_TEXT(), Attribute.BOLD());
     static {
         initFile();
