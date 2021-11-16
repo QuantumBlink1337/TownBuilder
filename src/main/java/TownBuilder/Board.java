@@ -129,11 +129,11 @@ public class Board {
             return false;
         }
     }
-    public void monumentControl(Monument monument) {
+    public void monumentControl(Monument monument) throws IOException {
         monument.onPlacement();
         monumentPlacement = true;
     }
-    private void placementPrompt(Building building) {
+    private void placementPrompt(Building building) throws IOException {
         System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
@@ -144,7 +144,7 @@ public class Board {
             buildingFactory.clearValidResourcesWithFlag(building.getType());
         }
     }
-    public void detectValidBuilding() {
+    public void detectValidBuilding() throws IOException {
         //long initialTime = System.nanoTime();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
@@ -218,10 +218,10 @@ public class Board {
         }
         return turnResource;
     }
-    public void buildingPlacer() {
+    public void buildingPlacer() throws IOException {
         buildingPlacer(detectableBuildings, true);
     }
-    public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeBuildingOnBoard) {
+    public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeBuildingOnBoard) throws IOException {
         System.out.println("What building would you like?");
         Scanner sc = new Scanner(System.in);
         boolean validInput = false;
