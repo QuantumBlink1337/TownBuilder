@@ -67,7 +67,7 @@ public class Cottage implements Building {
         return cottagePatternList;
     }
     public int scorer(Building[][] bArray) throws IOException {
-        DebugTools.logging("[COTTAGE] - SCORING: Beginning scoring protocol. Condition: " + condition);
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol. Condition: " + condition);
         return condition ? 3 : 0;
     }
     @Override

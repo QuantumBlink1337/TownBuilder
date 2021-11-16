@@ -68,21 +68,21 @@ public class Farm implements Building {
         return farmPatternList;
     }
     public int scorer(Building[][] bArray) throws IOException {
-        DebugTools.logging("[FARM] - SCORING: Beginning scoring protocol. Returning 0.");
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol. Returning 0.");
         return 0;
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
-        DebugTools.logging("Farm feeding protocol triggered.");
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - FEEDING: Beginning feed protocol.");
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
-                DebugTools.logging("Searching for Feedable status - " + DebugTools.buildingInformation(building));
+                DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - FEEDING: Searching for feedable status - " + DebugTools.buildingInformation(building));
                 if (BuildingFactory.determineFeedStatus(building) && fed > 0) {
                     Utility.feedBuildings(building);
-                    DebugTools.logging("Found a feedable building at " + DebugTools.buildingInformation(building));
+                    DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - FEEDING: Found a feedable building at " + DebugTools.buildingInformation(building));
                     fed--;
-                    DebugTools.logging("Fed condition of Farm building after increment: " + fed);
+                    DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - FEEDING: Fed condition of Farm building after increment: " + fed);
                 }
             }
         }

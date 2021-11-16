@@ -72,17 +72,18 @@ public class Chapel implements Building {
 
         // decided not to simplify this because the runtime would be greater since we do different things depending on what is found
         int score = 0;
-        DebugTools.logging("[CHAPEL] - SCORING: Beginning scoring protocol.");
+
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
         for (Building[] buildings : bArray) {
             for (Building building : buildings) {
-                DebugTools.logging("[CHAPEL] - SCORING: Checking " + DebugTools.buildingInformation(building));
+                DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Checking " + DebugTools.buildingInformation(building));
                 if (building.getType() == BuildingEnum.COTTAGE && building.getCondition()) {
                     score += 1;
-                    DebugTools.logging("[CHAPEL] - SCORING: Found " + DebugTools.buildingInformation(building)+ " adding 1 to score. Score: " + score);
+                    DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Found " + DebugTools.buildingInformation(building)+ " adding 1 to score. Score: " + score);
                 }
                 else if (building.getType() == BuildingEnum.BARRETT && building.getCondition()) {
                     score+=2;
-                    DebugTools.logging("[CHAPEL] - SCORING: Found " + DebugTools.buildingInformation(building)+ " adding 2 to score. Score: " + score);
+                    DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Found " + DebugTools.buildingInformation(building)+ " adding 2 to score. Score: " + score);
                 }
             }
         }

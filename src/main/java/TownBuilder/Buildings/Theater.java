@@ -90,7 +90,7 @@ public class Theater implements Building
     public int scorer(Building[][] bArray) throws IOException {
         int score = 0;
 
-        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()));
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
         score += BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col), this::checkBlacklist, buildingsOnBoard);
 
         // I don't know why I have to do this but I do apparently
