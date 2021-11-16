@@ -40,13 +40,13 @@ public class Theater implements Building
         If the enum is in the blacklist list, return true. Otherwise,
         return false.
      */
-    private static boolean checkBlacklist(BuildingEnum buildingEnum) {
+    private BuildingEnum checkBlacklist(BuildingEnum buildingEnum) {
         for (BuildingEnum blacklistedEnum : buildingExceptions) {
             if (blacklistedEnum == buildingEnum) {
-                return true;
+                return buildingEnum;
             }
         }
-        return false;
+        return BuildingEnum.NONE;
     }
     public BuildingEnum getType() {
         return BuildingEnum.THEATER;
@@ -92,13 +92,8 @@ public class Theater implements Building
         int score = 0;
 
         DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
-        for (Building building : BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col)) {
+        score += BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col), this::checkBlacklist, buildingsOnBoard);
 
-            DebugTools.logging("Theater Scoring: searching buildings in common row/column. Current building: " + DebugTools.buildingInformation(building), 3);
-            if (building.getType() != BuildingEnum.NONE) {
-                score += buildingMatch(building);
-            }
-        }
         // I don't know why I have to do this but I do apparently
         for (Building building : buildingsOnBoard) {
             building.setCondition(false);
@@ -110,31 +105,5 @@ public class Theater implements Building
     public void onTurnInterval(Building[][] buildingBoard) {
         //
     }
-    private int buildingMatch(Building BuildingBeingChecked) throws IOException {
-        int score = 0;
-        DebugTools.logging("Theater Scoring: Sending " + BuildingBeingChecked.getType() + " to buildingMatch()", 3);
-        ArrayList<Building> buildings = new ArrayList<>(buildingsOnBoard);
-        DebugTools.printMembersOfArrayList(buildings, 3, "Theater Scoring: Members of master buildings:");
-        for (Building building : buildings) {
-            DebugTools.logging("Theater Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.", 3);
-            if (checkBlacklist(BuildingBeingChecked.getType())) {
-                if (BuildingBeingChecked.getType() == BuildingEnum.BARRETT && !buildings.get(0).getCondition()) {
-                    DebugTools.logging("Theater scoring: Barrett Castle detected. Cottage is false, setting it to true.", 2);
-                    buildings.get(0).setCondition(true);
-                    score++;
-                }
-            }
-            else if (BuildingBeingChecked.getType() == building.getType() && !building.getCondition()) {
-                DebugTools.logging("Theater Scoring: " + building.getType() + " of master buildings list is the same as " + BuildingBeingChecked.getType()  +
-                        "", 2);
-                building.setCondition(true);
-                DebugTools.logging(Utility.generateColorizedString("INCREASING SCORE.", Attribute.RED_BACK()), 3);
-                score++;
-
-            }
-        }
-        return score;
-    }
-
 }
 
