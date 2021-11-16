@@ -115,6 +115,9 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.IRONWEED) {
             return new FortIronweed(row, col, board);
         }
+        else if (buildingEnum == BuildingEnum.GROVEUNI) {
+            return new GroveUni(row, col, board);
+        }
         return null;
     }
     public static boolean getCondition(Building building) {
