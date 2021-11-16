@@ -152,4 +152,30 @@ public class BoardTraverser{
 
         return false;
     }
+    public static int findUniqueBuildingsInGivenList(Building[] buildingsToCheck, Function<BuildingEnum, BuildingEnum> customCondition, ArrayList<Building> masterBuildings) throws IOException {
+        int score = 0;
+        ArrayList<Building> buildings = new ArrayList<>(masterBuildings);
+        for (Building BuildingBeingChecked : buildingsToCheck) {
+            DebugTools.logging("Find Uniques: Checking " + DebugTools.buildingInformation(BuildingBeingChecked), 3);
+            if (BuildingBeingChecked.getType() != BuildingEnum.NONE) {
+                DebugTools.logging("Building is not empty. Checking it.", 3);
+                for (Building building : buildings) {
+                    DebugTools.logging("Checking master building: " + DebugTools.buildingInformation(building), 3);
+                    if (customCondition.apply(BuildingBeingChecked.getType()) == BuildingEnum.BARRETT && !buildings.get(0).getCondition()) {
+                        DebugTools.logging("Custom condition satisfied and building is unique. Incrementing score.", 2);
+                        buildings.get(0).setCondition(true);
+                        score++;
+                    }
+                    else if (BuildingBeingChecked.getType() == building.getType() && !building.getCondition()) {
+                        building.setCondition(true);
+                        DebugTools.logging("Building is unique. Incrementing score.", 2);
+
+                        score++;
+
+                    }
+                }
+            }
+        }
+        return score;
+    }
 }
