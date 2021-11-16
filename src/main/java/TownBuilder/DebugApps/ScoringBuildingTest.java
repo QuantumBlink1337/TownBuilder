@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class ScoringBuildingTest {
     public static void main(String[] args) throws IOException {
-        DebugTools.logging("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE AUTOMATED SCORING SYSTEM.", 1);
+        DebugTools.logging("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE AUTOMATED SCORING SYSTEM.");
         ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Farm(-1, -1), new Well(-1, -1), new Chapel(-1, -1), new Theater(), new Tavern(-1, -1), new Warehouse(-1, -1)));
 
         Board board = new Board(masterBuildings, true);
@@ -38,7 +38,7 @@ public class ScoringBuildingTest {
         board.scoring(false);
 
 
-        DebugTools.logging("MOVING TO SECOND SET OF BUILDING TESTS.", 1);
+        DebugTools.logging("MOVING TO SECOND SET OF BUILDING TESTS.");
 
         masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
         board = new Board(masterBuildings, true);

@@ -4,7 +4,6 @@ import TownBuilder.BoardTraverser;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
-import com.diogonunes.jcolor.Attribute;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
@@ -91,7 +90,7 @@ public class Theater implements Building
     public int scorer(Building[][] bArray) throws IOException {
         int score = 0;
 
-        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
+        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()));
         score += BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col), this::checkBlacklist, buildingsOnBoard);
 
         // I don't know why I have to do this but I do apparently

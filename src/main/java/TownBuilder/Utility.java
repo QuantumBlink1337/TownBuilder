@@ -6,9 +6,7 @@ import TownBuilder.Buildings.BuildingEnum;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
-import java.util.function.Function;
 
 import TownBuilder.DebugApps.DebugTools;
 import com.diogonunes.jcolor.*;
@@ -145,7 +143,7 @@ public class Utility {
             Resource resource = buildingFactory.getValidResources().get(i);
             int r = resource.getRow();
             int c = resource.getCol();
-            DebugTools.logging("Displaying resource: " + DebugTools.resourceInformation(resource), 3);
+            DebugTools.logging("Displaying resource: " + DebugTools.resourceInformation(resource));
             if (i != (buildingFactory.getValidResources().size() -1)) {
                 System.out.print(Utility.MachineIndexesToHumanCoords(r, c) + ", ");
             }

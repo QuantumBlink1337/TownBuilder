@@ -87,13 +87,13 @@ public class Board {
         }
     }
     private void buildArrays() throws IOException {
-        DebugTools.logging("Initializing Resource Board.", 3);
+        DebugTools.logging("Initializing Resource Board.");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 gameResourceBoard[row][col] = new Resource(ResourceEnum.NONE, row,col);
             }
         }
-        DebugTools.logging("Initializing Building Board.", 3);
+        DebugTools.logging("Initializing Building Board.");
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
                 gameBuildingBoard[row][col] = new EmptyBuilding(row, col);

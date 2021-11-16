@@ -134,11 +134,11 @@ public class BuildingFactory {
     }
 
     public void clearValidResourcesWithFlag(BuildingEnum building) throws IOException {
-        DebugTools.logging("Clearing valid resources that have flag: " + building, 1);
+        DebugTools.logging("Clearing valid resources that have flag: " + building);
         for (int i = validResources.size()-1; i > 0; i--) {
-            DebugTools.logging("Checking resource: " + DebugTools.resourceInformation(validResources.get(i)), 3);
+            DebugTools.logging("Checking resource: " + DebugTools.resourceInformation(validResources.get(i)));
             if (validResources.get(i).getScannedBuilding() == building) {
-                DebugTools.logging("Current resource matches flag. Removing from validResources.", 2);
+                DebugTools.logging("Current resource matches flag. Removing from validResources.");
                 validResources.remove(i);
             }
         }

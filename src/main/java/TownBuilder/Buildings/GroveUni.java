@@ -68,7 +68,7 @@ public class GroveUni implements Monument{
 
     @Override
     public int scorer(Building[][] bArray) throws IOException {
-        DebugTools.logging("GROVE UNIVERSITY SCORING: Returning 3", 1);
+        DebugTools.logging("GROVE UNIVERSITY SCORING: Returning 3");
         return 3;
     }
 
@@ -86,7 +86,7 @@ public class GroveUni implements Monument{
 
     @Override
     public void onPlacement() throws IOException {
-        DebugTools.logging("GROVE UNIVERSITY: Placing building", 1);
+        DebugTools.logging("GROVE UNIVERSITY: Placing building");
         board.buildingPlacer();
     }
 }

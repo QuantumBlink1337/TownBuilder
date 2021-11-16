@@ -68,21 +68,21 @@ public class Farm implements Building {
         return farmPatternList;
     }
     public int scorer(Building[][] bArray) throws IOException {
-        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
+        DebugTools.logging("[FARM] - SCORING: Beginning scoring protocol. Returning 0.");
         return 0;
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
-        DebugTools.logging("Farm feeding protocol triggered.", 1);
+        DebugTools.logging("Farm feeding protocol triggered.");
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
-                DebugTools.logging("Searching for Feedable status - " + DebugTools.buildingInformation(building), 3);
+                DebugTools.logging("Searching for Feedable status - " + DebugTools.buildingInformation(building));
                 if (BuildingFactory.determineFeedStatus(building) && fed > 0) {
                     Utility.feedBuildings(building);
-                    DebugTools.logging("Found a feedable building at " + DebugTools.buildingInformation(building), 2);
+                    DebugTools.logging("Found a feedable building at " + DebugTools.buildingInformation(building));
                     fed--;
-                    DebugTools.logging("Fed condition of Farm building after increment: " + fed, 2);
+                    DebugTools.logging("Fed condition of Farm building after increment: " + fed);
                 }
             }
         }
