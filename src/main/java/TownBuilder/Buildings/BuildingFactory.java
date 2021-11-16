@@ -1,7 +1,9 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.*;
+import TownBuilder.DebugApps.DebugTools;
 
+import java.io.IOException;
 import java.util.*;
 
 public class BuildingFactory {
@@ -128,9 +130,12 @@ public class BuildingFactory {
         return buildingMasterList;
     }
 
-    public void clearValidResourcesWithFlag(BuildingEnum building) {
-        for (int i = 0; i < validResources.size(); i++) {
+    public void clearValidResourcesWithFlag(BuildingEnum building) throws IOException {
+        DebugTools.logging("Clearing valid resources that have flag: " + building, 1);
+        for (int i = validResources.size()-1; i > 0; i--) {
+            DebugTools.logging("Checking resource: " + DebugTools.resourceInformation(validResources.get(i)), 3);
             if (validResources.get(i).getScannedBuilding() == building) {
+                DebugTools.logging("Current resource matches flag. Removing from validResources.", 2);
                 validResources.remove(i);
             }
         }
@@ -206,7 +211,7 @@ public class BuildingFactory {
     }
 
 
-    public void placeBuildingOnBoard(BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere, Board board) {
+    public void placeBuildingOnBoard(BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere, Board board) throws IOException {
         Scanner sc = new Scanner((System.in));
         int[] coords = new int[]{-1, -1};
         boolean validInput = false;
