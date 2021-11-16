@@ -5,6 +5,7 @@ import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AGuild implements Monument{
@@ -86,15 +87,17 @@ public class AGuild implements Monument{
     }
 
     @Override
-    public void onPlacement() {
+    public void onPlacement() throws IOException {
         System.out.println("You may replace up to 2 buildings on your board.\nNote, you do not have to, but you may not choose to come back to this.");
         if (Utility.prompt()) {
             board.getBuildingFactory().placeBuildingOnBoard(flagOverturnedResources(board.buildingPlacer(board.getDetectableBuildings(),false)), board.getDetectableBuildings(), false, board);
 
         }
     }
-    private BuildingEnum flagOverturnedResources(BuildingEnum buildingEnum) {
+    private BuildingEnum flagOverturnedResources(BuildingEnum buildingEnum) throws IOException {
         ArrayList<Resource> validResources = board.getBuildingFactory().getValidResources();
+        board.getBuildingFactory().clearValidResourcesWithFlag(buildingEnum);
+        board.getBuildingFactory().clearValidResourcesWithFlag(this.getType());
         for (Resource[] resourceRow : board.getGameResourceBoard()) {
             for (Resource resource : resourceRow) {
                 if (resource.getResource() == ResourceEnum.OBSTRUCTED && board.getGameBuildingBoard()[resource.getRow()][resource.getCol()] != this) {
