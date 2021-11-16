@@ -24,9 +24,9 @@ public class DebugTools {
         each level of verbosity supersedes the next (e.g. verbosity of 2 also includes 1)
 
      */
-    private static final File log = new File("log.txt");
+    private static final File log = new File("latest.log");
     private static BufferedWriter bufferedWriter = null;
-    private static final int verbose = 3;
+    private static final int verbose = 0;
     private static final AnsiFormat textColor = new AnsiFormat(Attribute.RED_TEXT(), Attribute.BOLD());
     static {
         initFile();
@@ -44,7 +44,7 @@ public class DebugTools {
             e.printStackTrace();
         }
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter("log.txt"));
+            bufferedWriter = new BufferedWriter(new FileWriter("latest.log"));
         } catch (IOException e) {
             e.printStackTrace();
         }
