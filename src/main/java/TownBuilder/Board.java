@@ -98,7 +98,7 @@ public class Board {
     public void setCanBeMasterBuilder(boolean canBeMasterBuilder) {
         this.canBeMasterBuilder = canBeMasterBuilder;
     }
-    private void generateMonument() {
+    private void generateMonument() throws IOException {
         int randomIndex = (int) (Math.random() * monumentTypes.size());
         Monument monument = BuildingFactory.getMonument(monumentTypes.get(randomIndex), this, -1, -1, scorableBuildings);
         monumentTypes.remove(randomIndex);

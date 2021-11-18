@@ -100,7 +100,7 @@ public class BuildingFactory {
         }
         return null;
     }
-    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col, ArrayList<Building> masterBuildings) {
+    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col, ArrayList<Building> masterBuildings) throws IOException {
         if (buildingEnum == BuildingEnum.AGUILD) {
             return new AGuild(row, col, board);
         }
@@ -121,6 +121,9 @@ public class BuildingFactory {
         }
         else if (buildingEnum == BuildingEnum.MANDRAS) {
             return new MandrasPalace(row, col, board);
+        }
+        else if(buildingEnum == BuildingEnum.SHRINE) {
+            return new Shrine(row, col, board);
         }
         return null;
     }
