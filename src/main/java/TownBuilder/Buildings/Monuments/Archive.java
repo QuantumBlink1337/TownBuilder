@@ -5,7 +5,6 @@ import TownBuilder.BoardTraverser;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
-import TownBuilder.Buildings.Monument;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
