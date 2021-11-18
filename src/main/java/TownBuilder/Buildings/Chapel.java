@@ -27,9 +27,6 @@ public class Chapel implements Building {
         templeArray[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.GLASS};
         templeArray[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
         patternBuilder(templeArray, templeList);
-        // templeArrayMirror[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.NONE, ResourceEnum.NONE};
-        // templeArrayMirror[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS, ResourceEnum.STONE};
-        // patternBuilder(templeArrayMirror, templeList, 3);
     }
     public BuildingEnum getType() {
         return BuildingEnum.CHAPEL;
@@ -75,17 +72,18 @@ public class Chapel implements Building {
 
         // decided not to simplify this because the runtime would be greater since we do different things depending on what is found
         int score = 0;
-        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()), 1);
+
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
         for (Building[] buildings : bArray) {
             for (Building building : buildings) {
-                DebugTools.logging("Chapel Scoring: Checking " + DebugTools.buildingInformation(building), 3);
+                DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Checking " + DebugTools.buildingInformation(building));
                 if (building.getType() == BuildingEnum.COTTAGE && building.getCondition()) {
                     score += 1;
-                    DebugTools.logging("Chapel Scoring: Found " + DebugTools.buildingInformation(building)+ "adding 1 to score. Score: " + score, 2);
+                    DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Found " + DebugTools.buildingInformation(building)+ " adding 1 to score. Score: " + score);
                 }
                 else if (building.getType() == BuildingEnum.BARRETT && building.getCondition()) {
                     score+=2;
-                    DebugTools.logging("Chapel Scoring: Found " + DebugTools.buildingInformation(building)+ "adding 1 to score. Score: " + score, 2);
+                    DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Found " + DebugTools.buildingInformation(building)+ " adding 2 to score. Score: " + score);
                 }
             }
         }

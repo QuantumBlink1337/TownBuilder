@@ -1,5 +1,7 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.Board;
+import TownBuilder.BoardTraverser;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -7,27 +9,28 @@ import TownBuilder.Utility;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BarrettCastle implements Monument{
-    private static final ResourceEnum[][] pattern = new ResourceEnum[2][4];
+public class MandrasPalace implements Monument{
+    private static final ResourceEnum[][] pattern = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> patternList = new ArrayList<>();
     private final int row;
     private final int col;
+    private final Board board;
     private boolean condition;
-
     static {
-        pattern[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.WOOD};
-        pattern[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.GLASS, ResourceEnum.BRICK};
+        pattern[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.GLASS};
+        pattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.WOOD};
         BuildingFactory.patternBuilder(pattern, patternList);
     }
-    public BarrettCastle(int r, int c) {
+    public MandrasPalace(int r, int c, Board b) {
         row = r;
         col = c;
+        board = b;
         condition = false;
     }
+    @Override
     public String toString() {
-        return "Barrett Castle";
+        return "Mandras Palace";
     }
-
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return patternList;
@@ -35,7 +38,7 @@ public class BarrettCastle implements Monument{
 
     @Override
     public BuildingEnum getType() {
-        return BuildingEnum.BARRETT;
+        return BuildingEnum.MANDRAS;
     }
 
     @Override
@@ -60,30 +63,29 @@ public class BarrettCastle implements Monument{
 
     @Override
     public boolean isFeedable() {
-        return true;
+        return false;
     }
 
     @Override
     public int scorer(Building[][] bArray) throws IOException {
-        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()));
-        return condition ? 5 : 0;
+        DebugTools.logging("["+ Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
+        return BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getAdjacentBuildings(bArray,row, col), null, board.getScorableBuildings());
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard) {
-        //
+    public void onTurnInterval(Building[][] buildingBoard) throws IOException {
+        // nothing
     }
 
     @Override
     public void printManualText() {
-        System.out.println("Five points if fed. Barrett Castle counts as two Blue buildings\nfor scoring purposes.");
+        System.out.println("2 points for each unique adjacent building.");
+        System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(pattern);
     }
 
     @Override
-    public void onPlacement() {
-       // DebugTools.logging("Barrett Castle: Removed from Scorable List", 2);
-        //board.getScorableBuildings().remove(board.getScorableBuildings().size()-1);
-        //DebugTools.printMembersOfArrayList(board.getScorableBuildings(), 3, "Barrett Castle: Showing members of scorable buildings");
+    public void onPlacement() throws IOException {
+        // nothing
     }
 }

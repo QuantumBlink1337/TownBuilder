@@ -55,14 +55,11 @@ public class DebugTools {
         }
     }
 
-    public static void logging(String string, int verbosity) throws IOException {
-        if (verbose >= verbosity) {
-            System.out.print(Ansi.colorize("DEBUGGING: ", textColor));
-            System.out.println(string);
-        }
+    public static void logging(String string) throws IOException {
         try {
             bufferedWriter.write(string);
             bufferedWriter.newLine();
+            bufferedWriter.flush();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -83,7 +80,7 @@ public class DebugTools {
     public static <T> void printMembersOfArrayList(ArrayList<T> arrayList, int verbosity, String optionalMessage) throws IOException {
         if (verbose >= verbosity) {
             if (optionalMessage != null) {
-                logging(optionalMessage, verbosity);
+                logging(optionalMessage);
             }
             System.out.println(Ansi.colorize("DEBUGGING: ", textColor));
             Utility.printMembersOfArrayList(arrayList);

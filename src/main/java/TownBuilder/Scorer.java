@@ -23,7 +23,7 @@ public class Scorer {
         int score;
         int resourcePenalty =0;
         HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
-        DebugTools.logging("Scoring check: buildingsForGame size: " + buildingsForGame.size(), 3);
+        DebugTools.logging("Scoring check: buildingsForGame size: " + buildingsForGame.size());
         for (Building value : buildingsForGame) {
             scores.put(value.getType(), 0);
         }

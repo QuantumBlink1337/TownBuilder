@@ -1,8 +1,10 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
@@ -64,7 +66,8 @@ public class Cottage implements Building {
 
         return cottagePatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol. Condition: " + condition);
         return condition ? 3 : 0;
     }
     @Override

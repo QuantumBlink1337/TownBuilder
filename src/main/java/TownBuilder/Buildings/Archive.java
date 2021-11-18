@@ -74,7 +74,7 @@ public class Archive implements Monument{
         for (Building[] buildingRow : bArray) {
             for (Building building : buildingRow) {
                 if(building.getType() != BuildingEnum.NONE) {
-                    DebugTools.logging("Archive Scoring: searching buildings in board Current building: " + DebugTools.buildingInformation(building), 3);
+                    DebugTools.logging("Archive Scoring: searching buildings in board Current building: " + DebugTools.buildingInformation(building));
                     score += buildingMatch(building);
                 }
             }
@@ -83,15 +83,15 @@ public class Archive implements Monument{
     }
     private int buildingMatch(Building comparisonBuilding) throws IOException {
         int score = 0;
-        DebugTools.logging("Archive Scoring: Sending " + comparisonBuilding.getType() + " to buildingMatch()", 3);
+        DebugTools.logging("Archive Scoring: Sending " + comparisonBuilding.getType() + " to buildingMatch()");
         ArrayList<Building> buildings = new ArrayList<>(masterBuildings);
-        DebugTools.logging("Archive Scoring: Size of buildings:"+buildings.size(), 3);
+        DebugTools.logging("Archive Scoring: Size of buildings:"+buildings.size());
         for (Building building : buildings) {
-            DebugTools.logging("Archive Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.", 3);
+            DebugTools.logging("Archive Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.");
             if (comparisonBuilding.getType() == building.getType()) {
                 if (!comparisonBuilding.equals(this) && !building.getCondition()) {
                     DebugTools.logging("Archive Scoring: " + building.getType() + " of master buildings list is the same as " + comparisonBuilding.getType()  +
-                            "", 2);
+                            "");
                     building.setCondition(true);
                     score++;
                 }

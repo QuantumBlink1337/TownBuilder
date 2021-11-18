@@ -14,8 +14,11 @@ import java.util.Scanner;
 public class Board {
     private final ArrayList<Building> detectableBuildings;
     private final ArrayList<Building> scorableBuildings;
-    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED));
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD));
+
+
+
+    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED, BuildingEnum.GROVEUNI));
+    private static ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.GROVEUNI));
 
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
@@ -41,6 +44,9 @@ public class Board {
     private final BuildingFactory buildingFactory;
     private final Scanner sc = new Scanner(System.in);
 
+
+
+
     public Board(ArrayList<Building> b, boolean ISP) throws IOException {
         isSingleplayer = ISP;
         System.out.println("What's your name?");
@@ -62,6 +68,23 @@ public class Board {
         scorer = new Scorer(this, scorableBuildings);
         buildArrays();
         updateBoard();
+    }
+    public Board(ArrayList<Building> b, BuildingEnum mo) throws IOException {
+        boardName = "DEBUG";
+        isSingleplayer = true;
+        detectableBuildings = new ArrayList<>(b);
+        scorableBuildings = new ArrayList<>(b);
+        buildingFactory = new BuildingFactory();
+        Monument monument = BuildingFactory.getMonument(mo,this, -1, -1, scorableBuildings);
+        detectableBuildings.add(monument);
+        scorableBuildings.add(monument);
+        manual = new Manual(detectableBuildings);
+        scorer = new Scorer(this, scorableBuildings);
+        buildArrays();
+        updateBoard();
+
+
+
     }
     public Manual getManual() {
         return manual;
@@ -87,13 +110,13 @@ public class Board {
         }
     }
     private void buildArrays() throws IOException {
-        DebugTools.logging("Initializing Resource Board.", 3);
+        DebugTools.logging("Initializing Resource Board.");
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 gameResourceBoard[row][col] = new Resource(ResourceEnum.NONE, row,col);
             }
         }
-        DebugTools.logging("Initializing Building Board.", 3);
+        DebugTools.logging("Initializing Building Board.");
         for (int row = 0; row < gameBuildingBoard.length; row++) {
             for (int col = 0; col < gameBuildingBoard[row].length; col++) {
                 gameBuildingBoard[row][col] = new EmptyBuilding(row, col);

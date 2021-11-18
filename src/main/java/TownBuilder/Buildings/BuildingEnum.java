@@ -34,6 +34,8 @@ public enum BuildingEnum {
     BARRETT(ColorEnum.PINK, true),
     CATERINA(ColorEnum.PINK, true),
     IRONWEED(ColorEnum.PINK, true),
+    GROVEUNI(ColorEnum.PINK, true),
+    MANDRAS(ColorEnum.PINK, true),
 
 
 

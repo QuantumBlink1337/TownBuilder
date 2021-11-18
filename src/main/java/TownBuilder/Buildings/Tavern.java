@@ -1,9 +1,11 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
@@ -69,16 +71,19 @@ public class Tavern implements Building {
 
         return tavernPatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         int index = 0;
         int score = 0;
         int[] scores = new int[]{2, 5, 9, 14, 20, 27};
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
         for (Building[] buildingRow : bArray) {
             for (Building building : buildingRow) {
+                DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Checking building: " + DebugTools.buildingInformation(building));
                 if (index > 5) {
                     break;
                 }
                 if (building.getType() == BuildingEnum.TAVERN && !building.getCondition()) {
+                    DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Building is a Tavern and condition is false. Setting condition to true. Score: " + score);
                     building.setCondition(true);
                     score = scores[index];
                     index++;

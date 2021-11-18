@@ -69,25 +69,25 @@ public class Greenhouse implements Building {
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
-        DebugTools.logging("Beginning Greenhouse Turn Interval", 1);
+        DebugTools.logging("Beginning Greenhouse Turn Interval");
         for (Building building : contiguousCheck(buildingBoard)) {
-            DebugTools.logging("Feeding " + DebugTools.buildingInformation(building), 3);
+            DebugTools.logging("Feeding " + DebugTools.buildingInformation(building));
             building.setCondition(true);
         }
     }
     private ArrayList<Building> contiguousCheck(Building[][] buildingBoard) throws IOException {
-        DebugTools.logging("Beginning Contiguous Group check.", 1);
+        DebugTools.logging("Beginning Contiguous Group check.");
         ArrayList<Building> contiguousBuildings = new ArrayList<>();
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
-                DebugTools.logging("Searching " + DebugTools.buildingInformation(building), 3);
+                DebugTools.logging("Searching " + DebugTools.buildingInformation(building));
                 Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
                 if (BoardTraverser.searchForBuilding(adjacentBuildings, BuildingFactory::determineFeedStatus)) {
-                    DebugTools.logging("Given building has at least one adjacent unfed buildings. Continuing", 3);
+                    DebugTools.logging("Given building has at least one adjacent unfed buildings. Continuing");
                     contiguousBuildings.add(building);
                 }
                 else {
-                    DebugTools.logging("Given building has no adjacent unfed buildings. It is not connected. Returning list", 3);
+                    DebugTools.logging("Given building has no adjacent unfed buildings. It is not connected. Returning list");
                 }
             }
         }

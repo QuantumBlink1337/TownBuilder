@@ -1,9 +1,11 @@
 package TownBuilder.Buildings;
 
+import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Warehouse implements Building {
@@ -120,11 +122,15 @@ public class Warehouse implements Building {
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return warehousePatternList;
     }
-    public int scorer(Building[][] bArray) {
+    public int scorer(Building[][] bArray) throws IOException {
         int score = 0;
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
         for (ResourceEnum resource : storedResources) {
+            DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Checking resource:.");
+
             if (resource != ResourceEnum.NONE) {
                 score--;
+                DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Found a resource. Score: " + score);
             }
         }
         return score;
