@@ -73,7 +73,7 @@ public class MandrasPalace implements Monument {
     @Override
     public int scorer(Building[][] bArray) throws IOException {
         DebugTools.logging("["+ Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
-        return BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getAdjacentBuildings(bArray,row, col), null, board.getScorableBuildings());
+        return 2 * BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getAdjacentBuildings(bArray,row, col), null, board.getScorableBuildings());
     }
 
     @Override
