@@ -1,6 +1,7 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.*;
+import TownBuilder.Buildings.Monuments.*;
 import TownBuilder.DebugApps.DebugTools;
 
 import java.io.IOException;
