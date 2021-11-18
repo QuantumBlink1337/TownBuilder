@@ -54,6 +54,7 @@ public class DebugTools {
         try {
             bufferedWriter.write(string);
             bufferedWriter.newLine();
+            bufferedWriter.flush();
         }
         catch (IOException e) {
             e.printStackTrace();
