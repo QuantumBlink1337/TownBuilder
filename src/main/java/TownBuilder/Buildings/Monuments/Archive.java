@@ -1,6 +1,10 @@
-package TownBuilder.Buildings;
+package TownBuilder.Buildings.Monuments;
 
 import TownBuilder.Board;
+import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.BuildingFactory;
+import TownBuilder.Buildings.Monument;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
@@ -8,7 +12,7 @@ import TownBuilder.Utility;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Archive implements Monument{
+public class Archive implements Monument {
     private static final ResourceEnum[][] pattern = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> patternList = new ArrayList<>();
     private final int row;

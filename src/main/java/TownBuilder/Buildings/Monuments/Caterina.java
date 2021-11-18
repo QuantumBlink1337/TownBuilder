@@ -1,35 +1,34 @@
-package TownBuilder.Buildings;
+package TownBuilder.Buildings.Monuments;
 
 import TownBuilder.Board;
-import TownBuilder.BoardTraverser;
-import TownBuilder.DebugApps.DebugTools;
+import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.BuildingFactory;
+import TownBuilder.Buildings.Monument;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class MandrasPalace implements Monument{
+public class Caterina implements Monument {
     private static final ResourceEnum[][] pattern = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> patternList = new ArrayList<>();
     private final int row;
     private final int col;
-    private final Board board;
     private boolean condition;
+    private Board board;
     static {
-        pattern[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.GLASS};
-        pattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.WOOD};
+        pattern[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.WHEAT};
+        pattern[1] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.GLASS};
         BuildingFactory.patternBuilder(pattern, patternList);
     }
-    public MandrasPalace(int r, int c, Board b) {
+    public Caterina(int r, int c, Board b) {
         row = r;
         col = c;
         board = b;
-        condition = false;
     }
     @Override
     public String toString() {
-        return "Mandras Palace";
+        return "Cathedral of Caterina";
     }
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
@@ -38,7 +37,7 @@ public class MandrasPalace implements Monument{
 
     @Override
     public BuildingEnum getType() {
-        return BuildingEnum.MANDRAS;
+        return BuildingEnum.CATERINA;
     }
 
     @Override
@@ -67,25 +66,24 @@ public class MandrasPalace implements Monument{
     }
 
     @Override
-    public int scorer(Building[][] bArray) throws IOException {
-        DebugTools.logging("["+ Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
-        return BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getAdjacentBuildings(bArray,row, col), null, board.getScorableBuildings());
+    public int scorer(Building[][] bArray) {
+        return 2;
     }
 
     @Override
-    public void onTurnInterval(Building[][] buildingBoard) throws IOException {
+    public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
     }
 
     @Override
     public void printManualText() {
-        System.out.println("2 points for each unique adjacent building.");
+        System.out.println("The Cathedral of Caterina is worth 2 points. Tiles with resources\non them are worth 0 points instead of -1.");
         System.out.println("Here's what it looks like:");
         Utility.arrayPrinter(pattern);
     }
 
     @Override
-    public void onPlacement() throws IOException {
+    public void onPlacement() {
         // nothing
     }
 }

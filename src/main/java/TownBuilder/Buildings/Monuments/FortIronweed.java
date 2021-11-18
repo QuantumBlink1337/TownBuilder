@@ -1,6 +1,10 @@
-package TownBuilder.Buildings;
+package TownBuilder.Buildings.Monuments;
 
 import TownBuilder.Board;
+import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.BuildingFactory;
+import TownBuilder.Buildings.Monument;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
