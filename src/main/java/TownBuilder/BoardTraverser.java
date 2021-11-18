@@ -161,21 +161,28 @@ public class BoardTraverser{
                 DebugTools.logging("Building is not empty. Checking it.");
                 for (Building building : buildings) {
                     DebugTools.logging("Checking master building: " + DebugTools.buildingInformation(building));
-                    if (customCondition.apply(BuildingBeingChecked.getType()) == BuildingEnum.BARRETT && !buildings.get(0).getCondition()) {
-                        DebugTools.logging("Custom condition satisfied and building is unique. Incrementing score.");
-                        buildings.get(0).setCondition(true);
-                        score++;
+                    if (customCondition != null) {
+                        DebugTools.logging("Custom Condition is not null");
+                        if (applyCondition(customCondition, BuildingBeingChecked, buildings)) {
+                            DebugTools.logging("Custom condition satisfied and building is unique. Incrementing score.");
+                            buildings.get(0).setCondition(true);
+                            score++;
+                        }
                     }
-                    else if (BuildingBeingChecked.getType() == building.getType() && !building.getCondition()) {
+                    if (BuildingBeingChecked.getType() == building.getType() && !building.getCondition()) {
                         building.setCondition(true);
                         DebugTools.logging("Building is unique. Incrementing score.");
-
                         score++;
-
+                    }
+                    else {
+                        DebugTools.logging("No matches found. Moving on.");
                     }
                 }
             }
         }
         return score;
+    }
+    private static boolean applyCondition(Function<BuildingEnum, BuildingEnum> condition, Building buildingBeingChecked, ArrayList<Building> masterBuildings) {
+        return condition.apply(buildingBeingChecked.getType()) == BuildingEnum.BARRETT && !masterBuildings.get(0).getCondition();
     }
 }
