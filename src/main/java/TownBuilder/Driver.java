@@ -2,6 +2,7 @@ package TownBuilder;
 
 import TownBuilder.Buildings.*;
 import TownBuilder.DebugApps.DebugTools;
+import com.diogonunes.jcolor.Attribute;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,6 +17,7 @@ public class Driver {
         DebugTools.initFile();
         ArrayList<Building> buildingsForGame = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
+        colorPrintingDetermination();
         buildingSelection(buildingsForGame);
         int playerCount;
         ArrayList<Board> boardArrayList = new ArrayList<>();
@@ -126,10 +128,10 @@ public class Driver {
         boolean isUserInputValid = false;
         boolean isCustomGame = false;
         boolean isRandomGame = false;
-        //Utility.setColor(false);
         ColorEnum[] colors = new ColorEnum[]{ColorEnum.BLUE, ColorEnum.RED, ColorEnum.GRAY, ColorEnum.ORANGE, ColorEnum.GREEN, ColorEnum.YELLOW, ColorEnum.WHITE};
         do {
-            System.out.println("Welcome to TownBuilder. Would you like to play a default game (recommended for new players), a custom game, or a random game?");
+            System.out.println("Welcome to TownBuilder. Would you like to play a "+Utility.generateColorizedString("default", Attribute.CYAN_TEXT())+" game (recommended for new players), " +
+                    "a "+Utility.generateColorizedString("custom", Attribute.MAGENTA_TEXT()) +" game, or a "+ Utility.generateColorizedString("random", Attribute.BRIGHT_YELLOW_TEXT()) +" game?");
             userInput = sc.nextLine().toLowerCase();
             switch (userInput) {
                 case "default", "d" -> isUserInputValid = true;
@@ -239,5 +241,9 @@ public class Driver {
         board.detectValidBuilding();
         board.runBuildingTurnAction();
         board.setGameCompletion(board.gameOver());
+    }
+    private static void colorPrintingDetermination() {
+        System.out.println("Are you playing on a Windows terminal? (Powershell or Command Line)");
+        Utility.setColor(!Utility.prompt());
     }
 }
