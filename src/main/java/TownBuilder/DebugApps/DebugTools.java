@@ -87,7 +87,14 @@ public class DebugTools {
         }
     }
     public static String buildingInformation(Building building) {
-        return building.getType() + " at row: " + building.getRow() + " and column: " + building.getCol() + " Condition: " + building.getCondition();
+        if (building.getRow() != -1 && building.getCol() != -1) {
+            return building.getType() + " at row: " + building.getRow() + " and column: " + building.getCol() + " Condition: " + building.getCondition();
+        }
+        else {
+            return building.getType() +" [MASTER BUILDING INSTANCE] Condition: " + building.getCondition();
+
+        }
+
     }
     public static String resourceInformation(Resource resource) {
         return resource.getResource() + " at row " + resource.getRow() + "and column: " + resource.getCol() +". Flagged building: " + resource.getScannedBuilding();
