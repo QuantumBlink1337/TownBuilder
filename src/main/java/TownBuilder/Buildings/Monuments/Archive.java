@@ -1,6 +1,7 @@
 package TownBuilder.Buildings.Monuments;
 
 import TownBuilder.Board;
+import TownBuilder.BoardTraverser;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
@@ -74,36 +75,10 @@ public class Archive implements Monument {
 
     @Override
     public int scorer(Building[][] bArray) throws IOException {
-        int score = 0;
-        for (Building[] buildingRow : bArray) {
-            for (Building building : buildingRow) {
-                if(building.getType() != BuildingEnum.NONE) {
-                    DebugTools.logging("Archive Scoring: searching buildings in board Current building: " + DebugTools.buildingInformation(building));
-                    score += buildingMatch(building);
-                }
-            }
-        }
-        return score;
+        DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
+        return BoardTraverser.findUniqueBuildingsInGivenList(bArray, null, masterBuildings);
     }
-    private int buildingMatch(Building comparisonBuilding) throws IOException {
-        int score = 0;
-        DebugTools.logging("Archive Scoring: Sending " + comparisonBuilding.getType() + " to buildingMatch()");
-        ArrayList<Building> buildings = new ArrayList<>(masterBuildings);
-        DebugTools.logging("Archive Scoring: Size of buildings:"+buildings.size());
-        for (Building building : buildings) {
-            DebugTools.logging("Archive Scoring: Checking " + DebugTools.buildingInformation(building) + " of master buildings list.");
-            if (comparisonBuilding.getType() == building.getType()) {
-                if (!comparisonBuilding.equals(this) && !building.getCondition()) {
-                    DebugTools.logging("Archive Scoring: " + building.getType() + " of master buildings list is the same as " + comparisonBuilding.getType()  +
-                            "");
-                    building.setCondition(true);
-                    score++;
-                }
 
-            }
-        }
-        return score;
-    }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
