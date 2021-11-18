@@ -22,6 +22,7 @@ public class Scorer {
         int totalScore = 0;
         int score;
         int resourcePenalty =0;
+        boolean caterina = false;
         HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
         DebugTools.logging("Scoring check: buildingsForGame size: " + buildingsForGame.size());
         for (Building value : buildingsForGame) {
@@ -39,8 +40,11 @@ public class Scorer {
                         //System.out.println("Total score now: "+totalScore);
 
                 }
-                else if (board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.NONE && board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.OBSTRUCTED &&
-                board.getGameBuildingBoard()[r][c].getType() == BuildingEnum.CATERINA) {
+                if (building.getType() == BuildingEnum.CATERINA) {
+                    resourcePenalty = 0;
+                    caterina = true;
+                }
+                else if (board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.NONE && board.getGameResourceBoard()[r][c].getResource() != ResourceEnum.OBSTRUCTED && !caterina) {
                     //System.out.println("Resource found. Decrementing. Resource: "+board.getGameResourceBoard()[r][c].getResource());
                     resourcePenalty++;
                 }
