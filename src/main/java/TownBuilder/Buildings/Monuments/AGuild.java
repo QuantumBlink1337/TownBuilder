@@ -18,7 +18,7 @@ public class AGuild implements Monument {
     private final int row;
     private final int col;
     private final Board board;
-    private final int MAX_BUILDING_PLACEMENTS = 2;
+    private int MAX_BUILDING_PLACEMENTS = 2;
     private boolean condition;
 
 
@@ -93,10 +93,14 @@ public class AGuild implements Monument {
     @Override
     public void onPlacement() throws IOException {
         System.out.println("You may replace up to 2 buildings on your board.\nNote, you do not have to, but you may not choose to come back to this.");
-        if (Utility.prompt()) {
-            board.getBuildingFactory().placeBuildingOnBoard(flagOverturnedResources(board.buildingPlacer(board.getDetectableBuildings(),false)), board.getDetectableBuildings(), false, board);
-
+        while (MAX_BUILDING_PLACEMENTS > 1) {
+            if (Utility.prompt()) {
+                board.getBuildingFactory().placeBuildingOnBoard(flagOverturnedResources(board.buildingPlacer(board.getDetectableBuildings(),false)), board.getDetectableBuildings(), false, board);
+                System.out.println("Continue?");
+            }
+            MAX_BUILDING_PLACEMENTS--;
         }
+
     }
     private BuildingEnum flagOverturnedResources(BuildingEnum buildingEnum) throws IOException {
         ArrayList<Resource> validResources = board.getBuildingFactory().getValidResources();
