@@ -182,6 +182,13 @@ public class BoardTraverser{
         }
         return score;
     }
+    public static int findUniqueBuildingsInGivenList(Building[][] buildingsToCheck, Function<BuildingEnum, BuildingEnum> customCondition, ArrayList<Building> masterBuildings) throws IOException {
+        int sum = 0;
+        for (Building[] row : buildingsToCheck) {
+            sum += findUniqueBuildingsInGivenList(row, customCondition, masterBuildings);
+        }
+        return sum;
+    }
     private static boolean applyCondition(Function<BuildingEnum, BuildingEnum> condition, Building buildingBeingChecked, ArrayList<Building> masterBuildings) {
         return condition.apply(buildingBeingChecked.getType()) == BuildingEnum.BARRETT && !masterBuildings.get(0).getCondition();
     }
