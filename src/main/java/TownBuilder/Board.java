@@ -47,6 +47,9 @@ public class Board {
 
 
     private final BuildingFactory buildingFactory;
+
+
+
     private final PlayerManager playerManager;
     private final Scanner sc = new Scanner(System.in);
 
@@ -99,6 +102,9 @@ public class Board {
     }
     public void setLastBuiltBuilding(BuildingEnum lastBuiltBuilding) {
         this.lastBuiltBuilding = lastBuiltBuilding;
+    }
+    public PlayerManager getPlayerManager() {
+        return playerManager;
     }
     public Manual getManual() {
         return manual;
