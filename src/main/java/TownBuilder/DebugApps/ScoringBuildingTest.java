@@ -13,7 +13,7 @@ public class ScoringBuildingTest {
     public static void main(String[] args) throws IOException {
         DebugTools.logging("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE AUTOMATED SCORING SYSTEM.");
         ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Farm(-1, -1), new Well(-1, -1), new Chapel(-1, -1), new Theater(), new Tavern(-1, -1), new Warehouse(-1, -1)));
-        Board board = new Board(masterBuildings, BuildingEnum.BARRETT);
+        Board board = new Board(masterBuildings, BuildingEnum.BARRETT, null);
         Building[][] bBoard = board.getGameBuildingBoard();
         Resource[][] rBoard = board.getGameResourceBoard();
         bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, masterBuildings, 0, 0, false);
@@ -44,7 +44,7 @@ public class ScoringBuildingTest {
         DebugTools.logging("MOVING TO SECOND SET OF BUILDING TESTS.");
 
         masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
-        board = new Board(masterBuildings, BuildingEnum.MANDRAS);
+        board = new Board(masterBuildings, BuildingEnum.MANDRAS, null);
         bBoard = board.getGameBuildingBoard();
         bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 0, 0, false);
         bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
@@ -70,7 +70,7 @@ public class ScoringBuildingTest {
         board.scoring(false);
 
         masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
-        board = new Board(masterBuildings, BuildingEnum.MANDRAS);
+        board = new Board(masterBuildings, BuildingEnum.MANDRAS, null);
         bBoard = board.getGameBuildingBoard();
         rBoard = board.getGameResourceBoard();
         rBoard[0][0] = new Resource(ResourceEnum.GLASS, 0, 0);
@@ -97,7 +97,7 @@ public class ScoringBuildingTest {
         board.scoring(false);
 
         masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
-        board = new Board(masterBuildings, BuildingEnum.CATERINA);
+        board = new Board(masterBuildings, BuildingEnum.CATERINA, null);
         bBoard = board.getGameBuildingBoard();
         rBoard = board.getGameResourceBoard();
         rBoard[0][0] = new Resource(ResourceEnum.GLASS, 0, 0);

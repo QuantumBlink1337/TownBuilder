@@ -18,8 +18,8 @@ public class Board {
 
 
 
-    private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED, BuildingEnum.GROVEUNI));
-    //private static ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.GROVEUNI));
+    //private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED, BuildingEnum.GROVEUNI, BuildingEnum.OPALEYE));
+    private static ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.OPALEYE, BuildingEnum.AGUILD));
 
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
@@ -68,7 +68,7 @@ public class Board {
             System.out.println("Debug/testing mode activated. Enabled direct building placement");
         }
         if (ISP) {
-            monumentTypes.removeIf(m -> m == BuildingEnum.IRONWEED);
+            monumentTypes.removeIf(m -> m == BuildingEnum.IRONWEED || m == BuildingEnum.OPALEYE);
         }
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);

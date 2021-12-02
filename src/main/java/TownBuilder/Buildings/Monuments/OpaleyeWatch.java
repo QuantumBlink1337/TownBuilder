@@ -88,7 +88,7 @@ public class OpaleyeWatch implements Monument{
     public void onPlacement() throws IOException {
         System.out.println("Choose three buildings to track.");
         for (int i = 0; i < 3; i++) {
-            chosenBuildings.set(i, board.buildingPlacer(board.getScorableBuildings(), false));
+            chosenBuildings.add(board.buildingPlacer(board.getScorableBuildings(), false));
         }
     }
 
