@@ -2,6 +2,7 @@ package TownBuilder;
 
 import TownBuilder.Buildings.*;
 import TownBuilder.DebugApps.DebugTools;
+import TownBuilder.DebugApps.GameManager;
 import com.diogonunes.jcolor.Attribute;
 
 import java.io.IOException;
@@ -49,75 +50,12 @@ public class Driver {
         }
         Manual.tutorial();
         boardArrayList.get(0).getManual().displayBuildings();
-        ResourceEnum resource = null;
+        GameManager gameManager = new GameManager(boardArrayList, buildingsForGame);
         // if there's only one player, use default singleplayer code
-        if (playerCount < 2) {
-            Board board;
-
-            board = boardArrayList.get(0);
-            Manual.townHallNote();
-            while (!board.isGameCompletion()) { // this loop continues until the player has no empty slots in board
-                board.setGameCompletion(board.gameOver());
-                if (!board.isGameCompletion()) {
-                    if (board.getBoardName().equals("debug")) {
-                        resource = turnExecution(board, resource, true, true, false,buildingsForGame );
-                    }
-                    else if (board.getBoardName().equals("debug_building")) {
-                        System.out.println("Building debug");
-                        resource = turnExecution(board, resource, false, false, true, buildingsForGame);
-                    }
-                    else {
-                        resource = turnExecution(board, resource, true, false, false, buildingsForGame);
-                    }
-                }
-            }
-            // when loop exits, immediately perform the final score check
-            board.scoring(false);
+        do {
+            gameManager.manageTurn();
         }
-        else {
-            do {
-                /*
-                    multiplayer functions by using an ArrayList of Board objects. the first player is the first Board.
-                    the first index of the ArrayList is used to pick the resource and they play their turn, and then are removed from the
-                    list temporarily. the remaining players execute their turns based on the assignment of resource. then, the first board
-                    is added back to the end.
-                 */
-                Board pickResourceBoard;
-
-                if (boardArrayList.get(0).CanBeMasterBuilder()) {
-                    pickResourceBoard = boardArrayList.get(0);
-                }
-                else {
-                    pickResourceBoard = boardArrayList.get(1);
-                }
-                resource = turnExecution(pickResourceBoard, resource, true, true, false,buildingsForGame );
-                boardArrayList.remove(pickResourceBoard); // removes from board
-                // if board is game complete, score them
-                if (pickResourceBoard.isGameCompletion()) {
-                    int score = pickResourceBoard.scoring(false);
-                    System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+score);
-                }
-                // loop for remaining players
-                for (int p = 0; p < boardArrayList.size(); p++) {
-                    Board temp = boardArrayList.get(p); // saves current board to temporary variable
-                    if (!temp.isGameCompletion())  {
-                        turnExecution(temp, resource, false, true,false, buildingsForGame);
-                        if (temp.isGameCompletion()) {
-                            int score = pickResourceBoard.scoring(false);
-                            System.out.println(temp.getBoardName() + "'s final score: "+score);
-                            // if game is complete, remove them permanently from board list
-                            boardArrayList.remove(temp);
-                        }
-                    }
-                }
-                // the board that was removed won't be added back if it's game complete
-                if (!pickResourceBoard.isGameCompletion()) {
-                    boardArrayList.add(pickResourceBoard);
-                }
-            }
-            // continue while there are still boards that are playable
-            while (boardArrayList.size() != 0);
-        }
+        while(!gameManager.gameActive());
         System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
     }
     public static void buildingSelection(ArrayList<Building> buildingsForGame) {
@@ -197,50 +135,6 @@ public class Driver {
             buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, -1, -1, false));
         }
 
-    }
-    /*
-        This method faciliates the actions of each turn and includes code for use in both multiplayer and singleplayer applications.
-
-        @params
-        Set resourcePick to true if you're intending to allow the user to pick the resource (singleplayer and multiplayer first board)
-        Set isMultiplayerGame to true if you're using a multiplayer game, otherwise false for singleplayer
-            This tells resourcePicker() what instructions to follow
-
-     */
-    public static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException, URISyntaxException {
-        // run code that returns a resource if method was called with resourcePick = true
-        if (placeBuilding) {
-            board.renderBoard();
-            board.buildingPlacer(buildingsForGame, true);
-            turnActions(board, ResourceEnum.randomResource());
-            return null;
-        }
-        if (resourcePick) {
-            ResourceEnum r;
-            board.renderBoard();
-            if (isMultiplayerGame) {
-                System.out.println("It's "+ board.getBoardName() + "'s turn to DECIDE the resource!");
-            }
-            // if isMultiplayer = false, will use singleplayer code in resourcePicker()
-            r = board.resourcePicker(); // assigns the return value of resourcePicker()
-            turnActions(board, r);
-            return r;
-        }
-        else {
-            board.renderBoard();
-            System.out.println("It's " + board.getBoardName() + "'s turn to place a resource.");
-            turnActions(board, resource);
-        }
-        return null;
-    }
-    /*
-        every turn does this, so I decided to split it into its own method. Runs the turn actions for all players.
-     */
-    private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException{
-        board.playerTurn(resource);
-        board.detectValidBuilding();
-        board.runBuildingTurnAction();
-        board.setGameCompletion(board.gameOver());
     }
     private static void colorPrintingDetermination() {
         System.out.println("Are you playing on a Windows terminal? (Powershell or Command Line)");
