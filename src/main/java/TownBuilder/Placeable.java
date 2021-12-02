@@ -1,6 +1,6 @@
 package TownBuilder;
 
-public interface TownObject {
+public interface Placeable {
     int getRow();
     int getCol();
     String toString();

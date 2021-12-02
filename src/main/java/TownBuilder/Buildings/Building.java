@@ -1,12 +1,12 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.TownObject;
+import TownBuilder.Placeable;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public interface Building extends TownObject {
+public interface Building extends Placeable {
 
 
     ArrayList<ResourceEnum[][]> getBuildingPatternsList();

@@ -2,7 +2,7 @@ package TownBuilder;
 
 import TownBuilder.Buildings.BuildingEnum;
 
-public class Resource implements TownObject {
+public class Resource implements Placeable {
     private ResourceEnum resource;
     private BuildingEnum scannedBuilding;
     private final int row;
