@@ -59,38 +59,46 @@ public class PlayerManager {
         multiplayerModifiableBoards = new ArrayList<>(boards);
     }
     public boolean gameActive() throws IOException {
-        int disabledPlayers = 0;
+        int finishedPlayers = 0;
         for (Board board : boards) {
-            disabledPlayers += board.gameOver() ? 1 : 0;
+            finishedPlayers += board.gameOver() ? 1 : 0;
         }
-        return disabledPlayers != boards.size();
+        return finishedPlayers != boards.size();
     }
     public ArrayList<Board> getBoards() {
         return boards;
     }
-    public Board[] getAdjacentBoards(Board b) {
+    public Board[] getAdjacentBoards(Board b) throws IOException {
         Board[] adjacentBoards = new Board[2];
+        DebugTools.logging("[GET_ADJACENT_BOARDS] - Starting process.");
         if (isSingleplayer) {
-            return null;
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - This was called from a singleplayer game. THIS WILL RESULT IN AN EXCEPTION.");
+            throw new NullPointerException();
         }
         int index = 0;
         for (int i = 0; i < boards.size(); i++) {
             if (b == boards.get(i)) {
+                DebugTools.logging("[GET_ADJACENT_BOARDS] - Found the given Board in the list with an index of " +i);
                 index = i;
                 break;
             }
         }
         if (index-1 < 0) {
             adjacentBoards[0] = boards.get(boards.size()-1);
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board doesn't exist. Wrapping to the last Board in the list.");
         }
         else {
             adjacentBoards[0] = boards.get(index-1);
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board grabbed.");
         }
         if (index+1 > boards.size() - 1) {
             adjacentBoards[1] = boards.get(0);
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Right Bound Board doesn't exist. Wrapping to the first Board in the list.");
         }
         else {
             adjacentBoards[1] = boards.get(index+1);
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Right Bound Board grabbed.");
+
         }
         return adjacentBoards;
     }
