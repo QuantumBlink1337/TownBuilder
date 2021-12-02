@@ -63,7 +63,7 @@ public class PlayerManager {
         for (Board board : boards) {
             disabledPlayers += board.gameOver() ? 1 : 0;
         }
-        return disabledPlayers == boards.size();
+        return disabledPlayers != boards.size();
     }
     public ArrayList<Board> getBoards() {
         return boards;

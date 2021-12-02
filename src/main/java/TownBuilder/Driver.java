@@ -18,7 +18,7 @@ public class Driver {
         do {
             playerManager.manageTurn();
         }
-        while(!playerManager.gameActive());
+        while(playerManager.gameActive());
         System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
     }
     private static void colorPrintingDetermination() {
