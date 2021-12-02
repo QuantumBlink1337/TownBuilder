@@ -1,27 +1,62 @@
-package TownBuilder.DebugApps;
+package TownBuilder;
 
-import TownBuilder.Board;
 import TownBuilder.Buildings.Building;
-import TownBuilder.Manual;
-import TownBuilder.ResourceEnum;
+import TownBuilder.DebugApps.DebugTools;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-public class GameManager {
+public class PlayerManager {
 
 
-    private ArrayList<Board> boards;
+
+
+    private final ArrayList<Board> boards = new ArrayList<>();
     private ArrayList<Board> multiplayerModifyableBoards;
-    private ArrayList<Building> masterBuildings;
+    private final ArrayList<Building> masterBuildings;
     private boolean isSingleplayer;
 
-    public GameManager(ArrayList<Board> b, ArrayList<Building> masterBuildings) {
+    public PlayerManager(ArrayList<Building> masterBuildings) throws IOException {
         this.masterBuildings = masterBuildings;
-        boards = b;
-        isSingleplayer = (boards.size() > 1);
-        ArrayList<Board> multiplayerModifyableBoards = new ArrayList<>(boards);
+        DebugTools.logging("[PLAYER_MANAGER_INIT]");
+    }
+    public void determineNumberOfBoards() throws IOException {
+        int playerCount = 0;
+        DebugTools.logging("[PLAYER_MANAGER] - Determining number of boards");
+        Scanner sc = new Scanner(System.in);
+
+        do {
+            // gets input from user on how many players they want
+            try {
+                System.out.println("How many players would you like? You can have up to 6.");
+                playerCount = sc.nextInt();
+            }
+            catch (InputMismatchException e) {
+                System.out.println("That's not a number!");
+                sc.next();
+            }
+        }
+        while (playerCount <= 0 || playerCount > 6); // prompts until program gets integer 0 < x <= 6
+        DebugTools.logging("[PLAYER_MANAGER] - User specified " + playerCount + " boards.");
+
+        for (int i= 0; i < playerCount; i++) {
+            // generates a new Board object for each player
+            if (playerCount <= 1) {
+                Board temp = new Board(masterBuildings, true);
+                DebugTools.logging("[PLAYER_MANAGER] - Generated new singleplayer Board " + temp.getBoardName());
+                boards.add(temp);
+            }
+            else {
+                Board temp = new Board(masterBuildings, false);
+                DebugTools.logging("[PLAYER_MANAGER] - Generated new multiplayer Board " + temp.getBoardName());
+                boards.add(temp);
+            }
+        }
+        isSingleplayer = !(boards.size() > 1);
+        multiplayerModifyableBoards = new ArrayList<>(boards);
     }
     public boolean gameActive() throws IOException {
         int disabledPlayers = 0;
@@ -61,6 +96,7 @@ public class GameManager {
     }
     public void manageTurn() throws IOException, URISyntaxException {
         ResourceEnum resource = null;
+        DebugTools.logging("[MANAGE_TURN] - Beginning turn management process. Is Singleplayer? : " + isSingleplayer);
         if (isSingleplayer) {
             Board board;
             board = boards.get(0);
@@ -99,16 +135,23 @@ public class GameManager {
             else {
                 pickResourceBoard = multiplayerModifyableBoards.get(1);
             }
+            DebugTools.logging("[MULTIPLAYER_TURN] - Stored Board " +pickResourceBoard.getBoardName());
+
             resource = turnExecution(pickResourceBoard, resource, true, true, false,masterBuildings );
             multiplayerModifyableBoards.remove(pickResourceBoard); // removes from board
+            DebugTools.logging("[MULTIPLAYER_TURN] - Removed Board " +pickResourceBoard.getBoardName() + " from multiplayer boards TEMPORARILY");
+
             // if board is game complete, score them
             if (pickResourceBoard.isGameCompletion()) {
+                DebugTools.logging("[MULTIPLAYER_TURN] - Scored Board " +pickResourceBoard.getBoardName());
                 int score = pickResourceBoard.scoring(false);
                 System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+score);
             }
             // loop for remaining players
             for (int p = 0; p < multiplayerModifyableBoards.size(); p++) {
                 Board temp = multiplayerModifyableBoards.get(p); // saves current board to temporary variable
+                DebugTools.logging("[MULTIPLAYER_TURN] - Stored Board " +temp.getBoardName() + " to temporary variable");
+
                 if (!temp.isGameCompletion())  {
                     turnExecution(temp, resource, false, true,false, masterBuildings);
                     if (temp.isGameCompletion()) {
