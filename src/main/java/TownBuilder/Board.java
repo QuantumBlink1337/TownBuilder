@@ -31,6 +31,10 @@ public class Board {
     private boolean canBeMasterBuilder = true;
     private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
+
+
+
+    private BuildingEnum lastBuiltBuilding;
     private final boolean isSingleplayer;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
@@ -86,6 +90,12 @@ public class Board {
 
 
 
+    }
+    public BuildingEnum getLastBuiltBuilding() {
+        return lastBuiltBuilding;
+    }
+    public void setLastBuiltBuilding(BuildingEnum lastBuiltBuilding) {
+        this.lastBuiltBuilding = lastBuiltBuilding;
     }
     public Manual getManual() {
         return manual;
