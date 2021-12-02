@@ -125,6 +125,9 @@ public class BuildingFactory {
         else if(buildingEnum == BuildingEnum.SHRINE) {
             return new Shrine(row, col, board);
         }
+        else if(buildingEnum == BuildingEnum.OPALEYE) {
+            return new OpaleyeWatch(row, col, board);
+        }
         return null;
     }
     public static boolean getCondition(Building building) {
