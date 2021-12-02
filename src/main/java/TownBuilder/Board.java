@@ -47,13 +47,15 @@ public class Board {
 
 
     private final BuildingFactory buildingFactory;
+    private final PlayerManager playerManager;
     private final Scanner sc = new Scanner(System.in);
 
 
 
 
-    public Board(ArrayList<Building> b, boolean ISP) throws IOException {
+    public Board(ArrayList<Building> b, boolean ISP, PlayerManager pM) throws IOException {
         isSingleplayer = ISP;
+        playerManager = pM;
         System.out.println("What's your name?");
         boardName = sc.nextLine();
         if (boardName.equals("debug")) {
@@ -74,7 +76,8 @@ public class Board {
         buildArrays();
         updateBoard();
     }
-    public Board(ArrayList<Building> b, BuildingEnum mo) throws IOException {
+    public Board(ArrayList<Building> b, BuildingEnum mo, PlayerManager playerManager) throws IOException {
+        this.playerManager = playerManager;
         boardName = "DEBUG";
         isSingleplayer = true;
         detectableBuildings = new ArrayList<>(b);

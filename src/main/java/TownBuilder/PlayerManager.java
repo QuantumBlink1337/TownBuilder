@@ -46,11 +46,11 @@ public class PlayerManager {
             // generates a new Board object for each player
             Board temp;
             if (playerCount <= 1) {
-                temp = new Board(masterBuildings, true);
+                temp = new Board(masterBuildings, true, this);
                 DebugTools.logging("[PLAYER_MANAGER] - Generated new singleplayer Board " + temp.getBoardName());
             }
             else {
-                temp = new Board(masterBuildings, false);
+                temp = new Board(masterBuildings, false, this);
                 DebugTools.logging("[PLAYER_MANAGER] - Generated new multiplayer Board " + temp.getBoardName());
             }
             boards.add(temp);
