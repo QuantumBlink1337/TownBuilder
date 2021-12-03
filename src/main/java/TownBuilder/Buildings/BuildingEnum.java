@@ -38,6 +38,7 @@ public enum BuildingEnum {
     MANDRAS(ColorEnum.PINK, true),
     SHRINE(ColorEnum.PINK, true),
     OPALEYE(ColorEnum.PINK, true),
+    SILVAFRM(ColorEnum.PINK, true),
 
 
 

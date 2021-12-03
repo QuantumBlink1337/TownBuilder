@@ -128,6 +128,9 @@ public class BuildingFactory {
         else if(buildingEnum == BuildingEnum.OPALEYE) {
             return new OpaleyeWatch(row, col, board);
         }
+        else if(buildingEnum == BuildingEnum.SILVAFRM) {
+            return new SilvaForum(row, col, board);
+        }
         return null;
     }
     public static boolean getCondition(Building building) {
