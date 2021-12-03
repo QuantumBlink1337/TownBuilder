@@ -85,19 +85,19 @@ public class PlayerManager {
         }
         if (index-1 < 0) {
             adjacentBoards[0] = boards.get(boards.size()-1);
-            DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board doesn't exist. Wrapping to the last Board in the list.");
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board doesn't exist. Wrapping to the last Board in the list - " + adjacentBoards[0].getBoardName());
         }
         else {
             adjacentBoards[0] = boards.get(index-1);
-            DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board grabbed.");
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board grabbed - " + adjacentBoards[0].getBoardName());
         }
         if (index+1 > boards.size() - 1) {
             adjacentBoards[1] = boards.get(0);
-            DebugTools.logging("[GET_ADJACENT_BOARDS] - Right Bound Board doesn't exist. Wrapping to the first Board in the list.");
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Right Bound Board doesn't exist. Wrapping to the first Board in the list - " + adjacentBoards[1].getBoardName());
         }
         else {
             adjacentBoards[1] = boards.get(index+1);
-            DebugTools.logging("[GET_ADJACENT_BOARDS] - Right Bound Board grabbed.");
+            DebugTools.logging("[GET_ADJACENT_BOARDS] - Right Bound Board grabbed - " + adjacentBoards[1].getBoardName());
 
         }
         return adjacentBoards;
