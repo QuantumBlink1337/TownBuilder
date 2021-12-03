@@ -244,6 +244,7 @@ public class BuildingFactory {
                 if (PlaceBuildingAnywhere) {
                     System.out.println("You can place your building wherever you want, provided there's nothing there already!");
                     coords = Utility.humanCoordsToMachineIndexes(sc.nextLine().toLowerCase());
+                    DebugTools.logging("[PLACE_BUILDING_ON_BOARD] - Coords: " + coords[0] + coords[1]);
                     if (rArray[coords[0]][coords[1]].getResource() == ResourceEnum.NONE && bArray[coords[0]][coords[1]].getType() == BuildingEnum.NONE) {
                         validInput = true;
                     }
