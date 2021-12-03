@@ -78,6 +78,6 @@ public class Inn implements Building{
     public void printManualText() {
         System.out.println("The Inn earns 3 points as long as there is no other Inn in the same row and column.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(innArray);
+        Utility.printFormattedResourcePattern(innArray);
     }
 }

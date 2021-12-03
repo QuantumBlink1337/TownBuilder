@@ -87,6 +87,6 @@ public class Market implements Building {
         System.out.println("The Market earns points for each other Yellow building in a row or column, whichever has more.");
         System.out.println("For example, if you have 2 Yellow buildings in the same row as your original, but 3 in the Column, then your\nbuilding is worth 3 points.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(marketArray);
+        Utility.printFormattedResourcePattern(marketArray);
     }
 }

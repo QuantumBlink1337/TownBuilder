@@ -89,6 +89,6 @@ public class Bank implements Building{
         System.out.println("The Bank earns four points. When you place it, you must choose a resource. You may no longer\nchoose that resource when it is your turn to pick.");
         System.out.println("Note: You cannot make more than four banks. The game will refuse to recognize bank resource patterns beyond the fourth one.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(bankPattern);
+        Utility.printFormattedResourcePattern(bankPattern);
     }
 }

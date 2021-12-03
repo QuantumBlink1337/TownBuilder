@@ -83,7 +83,7 @@ public class FortIronweed implements Monument {
     public void printManualText() {
         System.out.println("Earns 7 points. You may not choose a resource for the rest of the game,\n unless you are the only player left.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(pattern);
+        Utility.printFormattedResourcePattern(pattern);
 
     }
 

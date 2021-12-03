@@ -77,6 +77,6 @@ public class Abbey implements Building {
     public void printManualText() {
         System.out.println("The Abbey grants 3 points if it's not adjacent to a Green, Yellow, or White building.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(abbeyPatternList.get(0));
+        Utility.printFormattedResourcePattern(abbeyPatternList.get(0));
     }
 }

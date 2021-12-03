@@ -5,7 +5,9 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 import TownBuilder.DebugApps.DebugTools;
@@ -38,7 +40,7 @@ public class Utility {
             }
         }
     }
-    public static void arrayPrinter(ResourceEnum[][] resourceEnums) {
+    public static void printFormattedResourcePattern(ResourceEnum[][] resourceEnums) {
         int whitespace = 5;
         for (ResourceEnum[] ts : resourceEnums) {
             for (int col = 0; col < ts.length; col++) {
@@ -268,5 +270,13 @@ public class Utility {
     public static void anyKey() {
         System.out.println("Press any key to continue.");
         sc.nextLine();
+    }
+    public static ArrayList<BuildingEnum> convertBuildingListToEnumList(Collection<Building> buildingCollection) {
+        ArrayList<BuildingEnum> buildingEnums = new ArrayList<>();
+
+        for (Building building : buildingCollection) {
+            buildingEnums.add(building.getType());
+        }
+        return buildingEnums;
     }
 }

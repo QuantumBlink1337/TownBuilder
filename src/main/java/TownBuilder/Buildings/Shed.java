@@ -56,7 +56,7 @@ public class Shed implements Building {
 
     public void printManualText() {
         System.out.println("Grants one point. May be placed on any empty square on your board.");
-        Utility.arrayPrinter(pattern);
+        Utility.printFormattedResourcePattern(pattern);
     }
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return patternList;

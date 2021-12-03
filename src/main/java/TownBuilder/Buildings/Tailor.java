@@ -86,6 +86,6 @@ public class Tailor implements Building{
         System.out.println("The Tailor is worth one point. The Tailor also earns one point per Tailor in a corner.");
         System.out.println("Note: the Tailor is always worth one point, even if not in a corner.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(tailorArray);
+        Utility.printFormattedResourcePattern(tailorArray);
     }
 }

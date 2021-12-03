@@ -84,7 +84,7 @@ public class GroveUni implements Monument {
     public void printManualText() {
         System.out.println("Earns 3 points. On placement, immediately place a building of your choice\n on an empty square on your board.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(pattern);
+        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

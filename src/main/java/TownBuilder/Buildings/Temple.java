@@ -76,7 +76,7 @@ public class Temple implements Building{
     public void printManualText() {
         System.out.println("The Temple earns 4 points if it's adjacent to two fed Cottages.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(getBuildingPatternsList().get(0));
+        Utility.printFormattedResourcePattern(getBuildingPatternsList().get(0));
     }
 
 

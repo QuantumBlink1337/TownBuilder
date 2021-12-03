@@ -62,7 +62,7 @@ public class Farm implements Building {
     public void printManualText() {
         System.out.println("The Farm feeds up to four buildings on the board.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(farmArray);
+        Utility.printFormattedResourcePattern(farmArray);
     }
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return farmPatternList;

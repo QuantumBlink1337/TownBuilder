@@ -78,7 +78,7 @@ public class Caterina implements Monument {
     public void printManualText() {
         System.out.println("The Cathedral of Caterina is worth 2 points. Tiles with resources\non them are worth 0 points instead of -1.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(pattern);
+        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

@@ -80,7 +80,7 @@ public class BarrettCastle implements Monument {
     @Override
     public void printManualText() {
         System.out.println("Five points if fed. Barrett Castle counts as two Blue buildings\nfor scoring purposes.");
-        Utility.arrayPrinter(pattern);
+        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override
