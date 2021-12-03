@@ -4,6 +4,7 @@ import TownBuilder.Board;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
+import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 
@@ -67,12 +68,17 @@ public class OpaleyeWatch implements Monument{
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
+        DebugTools.logging("[MONUMENT_OPALEYE] - Beginning turn interval process.");
         Board[] adjacentBoards = board.getPlayerManager().getAdjacentBoards(board);
-        for (Board board : adjacentBoards) {
-            if (board.getLastBuiltBuilding() == chosenBuildings.get(0) || board.getLastBuiltBuilding() == chosenBuildings.get(1) ||board.getLastBuiltBuilding() == chosenBuildings.get(2)) {
-                board.getBuildingFactory().placeBuildingOnBoard(board.getLastBuiltBuilding(), board.getDetectableBuildings(), true, board);
-                chosenBuildings.remove(board.getLastBuiltBuilding());
-                break;
+        for (Board adjacentBoard : adjacentBoards) {
+            DebugTools.logging("[MONUMENT_OPALEYE] - Board " + adjacentBoard.getBoardName() + " last placed building was: " + adjacentBoard.getLastBuiltBuilding());
+            for (BuildingEnum buildingEnum : chosenBuildings) {
+                if (adjacentBoard.getLastBuiltBuilding() == buildingEnum)  {
+                    System.out.println("Someone next to you built a " + buildingEnum.toString() + " which is on your Opaleye's Watch monument.");
+                    board.getBuildingFactory().placeBuildingOnBoard(adjacentBoard.getLastBuiltBuilding(), board.getDetectableBuildings(), true, board);
+                    chosenBuildings.remove(adjacentBoard.getLastBuiltBuilding());
+                    break;
+                }
             }
         }
     }
@@ -81,14 +87,18 @@ public class OpaleyeWatch implements Monument{
     public void printManualText() {
         System.out.println("Upon placement, declare three different buildings.\nWhenever a player to your left or right constructs one of those buildings,\nplace that building on an empty spot on your board and remove it from Opaleye's Watch.");
         System.out.println("Here's what it looks like:");
-        Utility.arrayPrinter(pattern);
+        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override
     public void onPlacement() throws IOException {
         System.out.println("Choose three buildings to track.");
+        ArrayList<Building> uniqueBuildings = new ArrayList<>(board.getScorableBuildings());
+
         for (int i = 0; i < 3; i++) {
-            chosenBuildings.add(board.buildingPlacer(board.getScorableBuildings(), false));
+            BuildingEnum type = board.buildingPlacer(uniqueBuildings, false);
+            chosenBuildings.add(type);
+            uniqueBuildings.removeIf(m -> m.getType() == type);
         }
     }
 
