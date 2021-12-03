@@ -181,6 +181,7 @@ public class Board {
         Utility.displayValidResources(gameResourceBoard, buildingFactory);
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
+            lastBuiltBuilding = building.getType();
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED,this);
         }
         else {
