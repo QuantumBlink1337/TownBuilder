@@ -4,10 +4,9 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.DebugApps.DebugTools;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class PlayerManager {
 
@@ -23,6 +22,13 @@ public class PlayerManager {
     public PlayerManager(ArrayList<Building> masterBuildings) throws IOException {
         this.masterBuildings = masterBuildings;
         DebugTools.logging("[PLAYER_MANAGER_INIT]");
+    }
+    public PlayerManager(ArrayList<Building> masterBuildings, Board... b) throws IOException {
+        DebugTools.logging("[DEBUG_PLAYER_MANAGER_INIT]");
+
+        this.masterBuildings = masterBuildings;
+        boards.addAll(List.of(b));
+        multiplayerModifiableBoards = new ArrayList<>(boards);
     }
     public void determineNumberOfBoards() throws IOException {
         int playerCount = 0;
