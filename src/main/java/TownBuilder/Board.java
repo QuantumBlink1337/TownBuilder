@@ -25,31 +25,20 @@ public class Board {
     private final Manual manual;
     private final Scorer scorer;
     private int spResourceSelectionIncrement = 0;
-
-
-
+    private int boardFinishPlace = 0;
     private boolean canBeMasterBuilder = true;
     private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
-
-
-
     private BuildingEnum lastBuiltBuilding;
     private final boolean isSingleplayer;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
     private final String[][] gameBoard = new String[4][4];
-    //private final String[][] coordinateBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "         b",  "           c", "          d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
 
-
-
     private final BuildingFactory buildingFactory;
-
-
-
     private final PlayerManager playerManager;
     private final Scanner sc = new Scanner(System.in);
 
@@ -102,6 +91,12 @@ public class Board {
     }
     public void setLastBuiltBuilding(BuildingEnum lastBuiltBuilding) {
         this.lastBuiltBuilding = lastBuiltBuilding;
+    }
+    public void setBoardFinishPlace(int place) {
+        boardFinishPlace = place;
+    }
+    public int getBoardFinishPlace() {
+        return boardFinishPlace;
     }
     public PlayerManager getPlayerManager() {
         return playerManager;
