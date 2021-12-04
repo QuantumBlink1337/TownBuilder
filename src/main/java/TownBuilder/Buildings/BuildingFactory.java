@@ -137,6 +137,9 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.SKYBATHS) {
             return new SkyBaths(row, col ,board);
         }
+        else if (buildingEnum == BuildingEnum.OBELISK) {
+            return new Obelisk(row, col, board);
+        }
         return null;
     }
     public static boolean getCondition(Building building) {
