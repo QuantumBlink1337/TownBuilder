@@ -11,6 +11,8 @@ import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SilvaForum implements Monument{
     private static final ResourceEnum[][] pattern = new ResourceEnum[2][4];
@@ -69,28 +71,43 @@ public class SilvaForum implements Monument{
         for (BuildingEnum buildingEnum : Utility.convertBuildingListToEnumList(board.getScorableBuildings())) {
             int currentFound = contiguousCheck(bArray, buildingEnum);
             if (currentFound > maxFound) {
+                DebugTools.logging("[SILVA_SCORING] - currentFound is larger than maxFound for enum . " + buildingEnum +" Changing value to " + currentFound);
                 maxFound = currentFound;
+            }
+            else {
+                DebugTools.logging("[SILVA_SCORING] - currentFound is not larger than maxFound. Current value: " + currentFound);
             }
         }
         return score+maxFound;
     }
     private int contiguousCheck(Building[][] buildingBoard, BuildingEnum buildingEnum) throws IOException {
-        DebugTools.logging("Beginning Contiguous Group check.");
-        int found = 0;
+        DebugTools.logging("[SILVA_CONTIGUOUS_CHECK] - Beginning Contiguous Group check.");
+        DebugTools.logging("[SILVA_CONTIGUOUS_CHECK] - SEARCHING FOR " + buildingEnum);
+        ArrayList<Building> foundBuildings = new ArrayList<>();
         for (Building[] buildingRow : buildingBoard) {
             for (Building building : buildingRow) {
-                DebugTools.logging("Searching " + DebugTools.buildingInformation(building));
-                Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
-                if (BoardTraverser.searchForBuilding(adjacentBuildings, buildingEnum)) {
-                    DebugTools.logging("Given building has at least one adjacent building of the same type. Continuing");
-                    found++;
-                }
-                else {
-                    DebugTools.logging("Given building has no adjacent buildings of the same type. It is not connected. Returning list");
+                if (building.getType() == buildingEnum) {
+                    DebugTools.logging("[SILVA_CONTIGUOUS_CHECK] - Searching " + DebugTools.buildingInformation(building));
+                    Building[] adjacentBuildings = BoardTraverser.getAdjacentBuildings(buildingBoard, building.getRow(), building.getCol());
+                    if (BoardTraverser.searchForBuilding(adjacentBuildings, buildingEnum)) {
+                        DebugTools.logging("[SILVA_CONTIGUOUS_CHECK] - Given building has at least one adjacent building of the same type. Continuing");
+                        foundBuildings.add(building);
+                    } else {
+                        DebugTools.logging("[SILVA_CONTIGUOUS_CHECK] - Given building has no adjacent buildings of the same type. It is not connected.");
+                        foundBuildings.clear();
+                    }
                 }
             }
         }
-        return found;
+        Set<Building> hash = new HashSet<>(foundBuildings);
+        System.out.println(buildingEnum);
+        for (Building building : foundBuildings) {
+            System.out.println(DebugTools.buildingInformation(building));
+        }
+        foundBuildings = new ArrayList<>(hash);
+
+        return foundBuildings.size();
+
     }
 
     @Override
