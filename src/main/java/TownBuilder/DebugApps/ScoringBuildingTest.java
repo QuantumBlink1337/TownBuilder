@@ -1,18 +1,16 @@
 package TownBuilder.DebugApps;
 
-import TownBuilder.Board;
+import TownBuilder.*;
 import TownBuilder.Buildings.*;
-import TownBuilder.Resource;
-import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 import com.diogonunes.jcolor.Attribute;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ScoringBuildingTest {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         DebugTools.logging("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE AUTOMATED SCORING SYSTEM.");
         Utility.setColor(true);
         System.out.println(Utility.generateColorizedString("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE MULTIPLAYER SYSTEM.", Attribute.RED_TEXT()));
@@ -128,12 +126,13 @@ public class ScoringBuildingTest {
 //        board.scoring(false);
 
         masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
-        board = new Board(masterBuildings, BuildingEnum.SILVAFRM, null);
+        board = new Board(masterBuildings, BuildingEnum.STARLOOM, null);
+        PlayerManager playerManager = new PlayerManager(masterBuildings, board);
         bBoard = board.getGameBuildingBoard();
         bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 0, 0, false);
         bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
         bBoard[0][2] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 2, false);
-        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.SILVAFRM, board, 0, 3, board.getScorableBuildings());
+        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.STARLOOM, board, 0, 3, board.getScorableBuildings());
 
         bBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 1, 0, false);
         bBoard[1][1] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 1, 1, false);
@@ -149,8 +148,11 @@ public class ScoringBuildingTest {
         bBoard[3][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 3, 1, false);
         bBoard[3][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 3, 2, false);
         bBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 3, 3, false);
-        board.renderBoard();
+        board.updateBoard();
         board.runBuildingTurnAction();
-        board.scoring(false);
+        playerManager.manageTurn();
+//        board.renderBoard();
+//        board.runBuildingTurnAction();
+//        board.scoring(false);
     }
 }

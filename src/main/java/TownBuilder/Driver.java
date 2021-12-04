@@ -9,7 +9,6 @@ public class Driver {
     public static void main (String[] args) throws IOException, URISyntaxException {
         GameInitializer gameInitializer = new GameInitializer();
         DebugTools.initFile();
-        colorPrintingDetermination();
         gameInitializer.buildingSelection();
         PlayerManager playerManager = new PlayerManager(gameInitializer.getBuildingsForGame());
         playerManager.determineNumberOfBoards();

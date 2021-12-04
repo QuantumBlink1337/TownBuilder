@@ -17,7 +17,8 @@ public class Utility {
     // variable to control whether colorized strings can be generated.
     // intended to be triggered upon running in a terminal environment
     // lacking RGB color support
-    private static boolean color = false;
+
+    private static boolean color = !System.getProperty("os.name").contains("Windows");
     public static boolean isColor() {
         return color;
     }
