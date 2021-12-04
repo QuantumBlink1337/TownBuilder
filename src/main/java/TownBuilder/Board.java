@@ -29,6 +29,10 @@ public class Board {
     private boolean canBeMasterBuilder = true;
     private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
+
+
+
+    private boolean placeAnywhere = false;
     private BuildingEnum lastBuiltBuilding;
     private final boolean isSingleplayer;
     private final String boardName;
@@ -113,6 +117,12 @@ public class Board {
     public void setCanBeMasterBuilder(boolean canBeMasterBuilder) {
         this.canBeMasterBuilder = canBeMasterBuilder;
     }
+    public boolean isPlaceAnywhere() {
+        return placeAnywhere;
+    }
+    public void setPlaceAnywhere(boolean placeAnywhere) {
+        this.placeAnywhere = placeAnywhere;
+    }
     private void generateMonument() throws IOException {
         int randomIndex = (int) (Math.random() * monumentTypes.size());
         Monument monument = BuildingFactory.getMonument(monumentTypes.get(randomIndex), this, -1, -1, scorableBuildings);
@@ -183,14 +193,14 @@ public class Board {
         System.out.println("Place it this turn?");
         if (Utility.prompt()) {
             lastBuiltBuilding = building.getType();
-            buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED,this);
+            buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
         }
         else {
             buildingFactory.clearValidResourcesWithFlag(building.getType());
         }
     }
     public void detectValidBuilding() throws IOException {
-        //long initialTime = System.nanoTime();
+        //long initialTime = System.nanoTime();a
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : detectableBuildings) {
