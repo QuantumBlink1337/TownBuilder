@@ -131,6 +131,9 @@ public class BuildingFactory {
         else if(buildingEnum == BuildingEnum.SILVAFRM) {
             return new SilvaForum(row, col, board);
         }
+        else if(buildingEnum == BuildingEnum.STARLOOM) {
+            return new Starloom(row, col, board);
+        }
         return null;
     }
     public static boolean getCondition(Building building) {

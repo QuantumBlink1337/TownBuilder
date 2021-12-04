@@ -5,6 +5,7 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.ResourceEnum;
+import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ public class Starloom implements Monument{
         pattern[0] = new ResourceEnum[]{ResourceEnum.GLASS, ResourceEnum.GLASS};
         pattern[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.WHEAT};
         BuildingFactory.patternBuilder(pattern, patternList);
+    }
+    public String toString() {
+        return "The Starloom";
     }
     public Starloom(int r, int c, Board b) {
         row = r;
@@ -54,31 +58,50 @@ public class Starloom implements Monument{
 
     @Override
     public int scorer(Building[][] bArray) throws IOException {
-        return 0;
+        switch (board.getBoardFinishPlace()) {
+            case 1 -> {
+                return 6;
+            }
+            case 2 -> {
+                return 3;
+            }
+            case 3 -> {
+                return 2;
+            }
+            default -> {
+                return 0;
+            }
+        }
     }
 
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
-
+        //
     }
 
     @Override
     public void printManualText() {
-
+        System.out.println("Grants points based on when you finish your board:");
+        System.out.print("1st: 6 Points | ");
+        System.out.print("2nd: 3 Points | ");
+        System.out.print("3rd: 2 Points | ");
+        System.out.print("4th+: 0 Points\n");
+        System.out.println("Here's what it looks like:");
+        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override
     public void onPlacement() throws IOException {
-
+        //
     }
 
     @Override
     public int getRow() {
-        return 0;
+        return row;
     }
 
     @Override
     public int getCol() {
-        return 0;
+        return col;
     }
 }
