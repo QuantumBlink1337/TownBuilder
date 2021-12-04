@@ -40,6 +40,7 @@ public enum BuildingEnum {
     OPALEYE(ColorEnum.PINK, true),
     SILVAFRM(ColorEnum.PINK, true),
     STARLOOM(ColorEnum.PINK, true),
+    SKYBATHS(ColorEnum.PINK, true),
 
 
 
