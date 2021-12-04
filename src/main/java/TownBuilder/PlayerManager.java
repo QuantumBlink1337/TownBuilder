@@ -18,6 +18,7 @@ public class PlayerManager {
     private ArrayList<Board> multiplayerModifiableBoards;
     private final ArrayList<Building> masterBuildings;
     private boolean isSingleplayer;
+    private int boardFinishPlace = 1;
 
     public PlayerManager(ArrayList<Building> masterBuildings) throws IOException {
         this.masterBuildings = masterBuildings;
@@ -64,6 +65,16 @@ public class PlayerManager {
             finishedPlayers += board.gameOver() ? 1 : 0;
         }
         return finishedPlayers != boards.size();
+    }
+    public boolean boardComplete(Board board) {
+        if (board.isGameCompletion()) {
+            if (board.getBoardFinishPlace() == 0) {
+                board.setBoardFinishPlace(boardFinishPlace);
+                boardFinishPlace++;
+            }
+            return true;
+        }
+        return false;
     }
     public ArrayList<Board> getBoards() {
         return boards;
@@ -122,7 +133,7 @@ public class PlayerManager {
                     turnExecution(board, null, true, false, false, masterBuildings);
                 }
             }
-            if (board.isGameCompletion()) {
+            if (boardComplete(board)) {
                 board.scoring(false);
             }
 
@@ -150,7 +161,7 @@ public class PlayerManager {
             DebugTools.logging("[MULTIPLAYER_TURN] - Removed Board " +pickResourceBoard.getBoardName() + " from multiplayer boards TEMPORARILY");
 
             // if board is game complete, score them
-            if (pickResourceBoard.isGameCompletion()) {
+            if (boardComplete(pickResourceBoard)) {
                 DebugTools.logging("[MULTIPLAYER_TURN] - Scored Board " +pickResourceBoard.getBoardName());
                 int score = pickResourceBoard.scoring(false);
                 System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+score);
@@ -160,9 +171,9 @@ public class PlayerManager {
                 Board temp = multiplayerModifiableBoards.get(p); // saves current board to temporary variable
                 DebugTools.logging("[MULTIPLAYER_TURN] - Stored Board " +temp.getBoardName() + " to temporary variable");
 
-                if (!temp.isGameCompletion())  {
+                if (!boardComplete(temp))  {
                     turnExecution(temp, resource, false, true,false, masterBuildings);
-                    if (temp.isGameCompletion()) {
+                    if (boardComplete(temp)) {
                         int score = pickResourceBoard.scoring(false);
                         System.out.println(temp.getBoardName() + "'s final score: "+score);
                         // if game is complete, remove them permanently from board list
@@ -171,7 +182,7 @@ public class PlayerManager {
                 }
             }
             // the board that was removed won't be added back if it's game complete
-            if (!pickResourceBoard.isGameCompletion()) {
+            if (!boardComplete(pickResourceBoard)) {
                 multiplayerModifiableBoards.add(pickResourceBoard);
             }
         }
