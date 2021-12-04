@@ -4,53 +4,37 @@ import TownBuilder.ColorEnum;
 
 import javax.swing.*;
 
-public class TileUI extends JButton {
+public class TileButton extends JButton {
 
 
     JButton tile = new JButton();
-    int[] coords;
+    final int[] coords = new int[2];
     String text;
     ColorEnum color;
-    public TileUI(int r, int c, ColorEnum co, String t) {
+    public TileButton(int r, int c, ColorEnum co, String t) {
         coords[0] = r;
         coords[1] = c;
         color = co;
         text = t;
         tile.setText(text);
+        setBorder(BorderFactory.createBevelBorder(2));
     }
-    public TileUI(int r, int c) {
+    public TileButton(int r, int c) {
         coords[0] = r;
         coords[1] = c;
         color = ColorEnum.COLORLESS;
         text = "EMPTY!";
         tile.setText(text);
-    }
-    public JButton getTile() {
-        return tile;
-    }
 
-    public void setTile(JButton tile) {
-        this.tile = tile;
     }
-
     public int[] getCoords() {
         return coords;
-    }
-
-    public void setCoords(int[] coords) {
-        this.coords = coords;
     }
     public int getRow() {
         return coords[0];
     }
     public int getCol() {
         return coords[1];
-    }
-    public void setRow(int r) {
-        coords[0] = r;
-    }
-    public void setCol(int c) {
-        coords[1] = c;
     }
 
     @Override
