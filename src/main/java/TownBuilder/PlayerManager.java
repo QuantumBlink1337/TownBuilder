@@ -29,6 +29,7 @@ public class PlayerManager {
         this.masterBuildings = masterBuildings;
         boards.addAll(List.of(b));
         multiplayerModifiableBoards = new ArrayList<>(boards);
+        isSingleplayer = boards.size() < 2;
     }
     public void determineNumberOfBoards() throws IOException {
         int playerCount = 0;
@@ -129,13 +130,18 @@ public class PlayerManager {
             board.setGameCompletion(board.gameOver());
             if (!board.isGameCompletion()) {
                 if (board.getBoardName().equals("debug")) {
+                    DebugTools.logging("[MANAGE_TURN] - Debug Singleplayer turnExecution");
                     turnExecution(board, null, true, true, false, masterBuildings);
                 }
                 else if (board.getBoardName().equals("debug_building")) {
                     System.out.println("Building debug");
+                    DebugTools.logging("[MANAGE_TURN] - Debug Building Singleplayer turnExecution");
+
                     turnExecution(board, null, false, false, true, masterBuildings);
                 }
                 else {
+                    DebugTools.logging("[MANAGE_TURN] -  Singleplayer turnExecution");
+
                     turnExecution(board, null, true, false, false, masterBuildings);
                 }
             }
