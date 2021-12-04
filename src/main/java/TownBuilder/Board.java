@@ -151,13 +151,19 @@ public class Board {
     public boolean gameOver() throws IOException {
         int i = 0;
         this.updateBoard();
-        for (Resource[] resourceRow : gameResourceBoard) {
-            for (Resource resource : resourceRow) {
-                if (resource.getResource() != ResourceEnum.NONE) {
+        for (int r = 0; r < gameResourceBoard.length; r++) {
+            for (int c = 0; c < gameResourceBoard[r].length; c++) {
+                if (gameResourceBoard[r][c].getResource() != ResourceEnum.NONE || gameBuildingBoard[r][c].getType() != BuildingEnum.NONE) {
                     i++;
                 }
             }
         }
+//        for (Resource[] resourceRow : gameResourceBoard) {
+//            for (Resource resource : resourceRow) {
+//                if (resource.getResource() != ResourceEnum.NONE) {
+//                }
+//            }
+//        }
         if (i >= (gameResourceBoard.length * gameResourceBoard.length))  {
             System.out.println("=====GAME OVER=====");
             System.out.println("     "+boardName+"     ");
