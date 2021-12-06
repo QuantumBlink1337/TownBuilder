@@ -10,12 +10,13 @@ public class BoardUILayer extends JFrame {
         GridBagConstraints tileLayoutConstraints = new GridBagConstraints();
         JPanel tilePanel = new JPanel(tileLayout);
         JPanel infoPanel = new JPanel();
+        private final JLabel errorLabel = new JLabel();
         TileButton[][] tileAccessMatrix = new TileButton[4][4];
         public BoardUILayer() {
             setSize(1000, 1000);
             buildBoardTiles();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
-            infoPanel.add(new JLabel("Test"));
+            infoPanel.add(errorLabel);
             masterUIPanel.add(tilePanel,BorderLayout.CENTER);
             masterUIPanel.add(infoPanel, BorderLayout.SOUTH);
             this.add(masterUIPanel);
@@ -30,12 +31,41 @@ public class BoardUILayer extends JFrame {
                     tileLayoutConstraints.ipady = 100;
                     tileLayoutConstraints.gridx = r;
                     tileLayoutConstraints.gridy = c;
+                    temp.addActionListener(temp);
                     tilePanel.add(temp, tileLayoutConstraints);
                 }
             }
         }
-        public void updateBoardTiles() {
+        public TileButton listenForResourcePlacement(String string) {
+            TileButton button = null;
+            while (button == null) {
+                for (TileButton[] tileButtons : tileAccessMatrix) {
+                    for (TileButton tileButton : tileButtons) {
+                        if (tileButton.isClicked()) {
+                            button = tileButton;
+                        }
+                    }
+                }
+            }
+            button.setClicked(false);
+            return button;
+        }
+        public void failedResourcePlacement(int error) {
+            switch (error) {
+                case 1:
+                    errorLabel.setText("A resource is already on that tile!");
+                    break;
+                case 2:
+                    errorLabel.setText("A building is already on that tile!");
+                    break;
+                default:
+                    errorLabel.setText("Failed resource placement");
+                    break;
 
+            }
+        }
+        public void clearErrorLabel() {
+            errorLabel.setText("");
         }
 
 }
