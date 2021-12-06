@@ -3,14 +3,20 @@ package TownBuilder.UI;
 import TownBuilder.ColorEnum;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TileButton extends JButton {
+public class TileButton extends JButton implements ActionListener {
 
 
-    JButton tile = new JButton();
-    final int[] coords = new int[2];
-    String text;
-    ColorEnum color;
+    private final JButton tile = new JButton();
+    private final int[] coords = new int[2];
+    private String text;
+    private ColorEnum color;
+
+
+
+    private boolean clicked = false;
     public TileButton(int r, int c, ColorEnum co, String t) {
         coords[0] = r;
         coords[1] = c;
@@ -36,6 +42,13 @@ public class TileButton extends JButton {
     public int getCol() {
         return coords[1];
     }
+    public boolean isClicked() {
+        return clicked;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
+    }
 
     @Override
     public String getText() {
@@ -55,4 +68,8 @@ public class TileButton extends JButton {
         this.color = color;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.clicked = true;
+    }
 }
