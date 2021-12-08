@@ -10,16 +10,16 @@ public class BoardUILayer extends JFrame {
         GridBagConstraints tileLayoutConstraints = new GridBagConstraints();
         JPanel tilePanel = new JPanel(tileLayout);
         JPanel infoPanel = new JPanel();
+        JPanel selectionPanel = new JPanel(tileLayout);
         private final JLabel errorLabel = new JLabel();
         TileButton[][] tileAccessMatrix = new TileButton[4][4];
         public BoardUILayer() {
-            setSize(1000, 1000);
+            setSize(1920, 1080);
             buildBoardTiles();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
             infoPanel.add(errorLabel);
-            masterUIPanel.add(tilePanel,BorderLayout.CENTER);
-            masterUIPanel.add(infoPanel, BorderLayout.SOUTH);
-            this.add(masterUIPanel);
+            //masterUIPanel.add(infoPanel, BorderLayout.SOUTH);
+            this.add(tilePanel, BorderLayout.CENTER);
 
         }
         private void buildBoardTiles() {
@@ -27,8 +27,8 @@ public class BoardUILayer extends JFrame {
                 for (int c = 0; c < tileAccessMatrix[r].length; c++) {
                     TileButton temp = new TileButton(r, c);
                     tileAccessMatrix[r][c] = temp;
-                    tileLayoutConstraints.ipadx = 100;
-                    tileLayoutConstraints.ipady = 100;
+                    tileLayoutConstraints.ipadx = 72;
+                    tileLayoutConstraints.ipady = 72;
                     tileLayoutConstraints.gridx = r;
                     tileLayoutConstraints.gridy = c;
                     temp.addActionListener(temp);
@@ -36,7 +36,7 @@ public class BoardUILayer extends JFrame {
                 }
             }
         }
-        public TileButton listenForResourcePlacement(String string) {
+        public int[] listenForTilePress() {
             TileButton button = null;
             while (button == null) {
                 for (TileButton[] tileButtons : tileAccessMatrix) {
@@ -48,20 +48,23 @@ public class BoardUILayer extends JFrame {
                 }
             }
             button.setClicked(false);
-            return button;
+            return new int[]{button.getRow(), button.getCol()};
+        }
+        public void triggerResourcePlacementPrompt() {
+            final JLabel resourceTextLabel = new JLabel("What resource would you like?");
+            tileLayoutConstraints.ipadx = 0;
+            tileLayoutConstraints.ipady = 400;
+            tileLayoutConstraints.gridx = 50;
+            tileLayoutConstraints.gridy = 50;
+            selectionPanel.add(resourceTextLabel, tileLayoutConstraints);
+            this.add(selectionPanel, BorderLayout.SOUTH);
+
         }
         public void failedResourcePlacement(int error) {
             switch (error) {
-                case 1:
-                    errorLabel.setText("A resource is already on that tile!");
-                    break;
-                case 2:
-                    errorLabel.setText("A building is already on that tile!");
-                    break;
-                default:
-                    errorLabel.setText("Failed resource placement");
-                    break;
-
+                case 1 -> errorLabel.setText("A resource is already on that tile!");
+                case 2 -> errorLabel.setText("A building is already on that tile!");
+                default -> errorLabel.setText("Failed resource placement");
             }
         }
         public void clearErrorLabel() {
