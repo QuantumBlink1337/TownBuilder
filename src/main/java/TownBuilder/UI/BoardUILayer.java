@@ -1,40 +1,37 @@
 package TownBuilder.UI;
+import net.miginfocom.swing.MigLayout;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class BoardUILayer extends JFrame {
 
 
-        JPanel masterUIPanel = new JPanel(new BorderLayout());
-        GridBagLayout tileLayout = new GridBagLayout();
-        GridBagConstraints tileLayoutConstraints = new GridBagConstraints();
-        JPanel tilePanel = new JPanel(tileLayout);
-        JPanel infoPanel = new JPanel();
-        JPanel selectionPanel = new JPanel(tileLayout);
-        private final JLabel errorLabel = new JLabel();
+        JPanel mainPanel = new JPanel(new MigLayout("","[center][right][left][c]","[top][center][b]"));
+        private final JPanel turnPanel = createTurnPanel();
+        private final JPanel resourceLabelPanel = createResourceLabelPanel();
+
         TileButton[][] tileAccessMatrix = new TileButton[4][4];
         public BoardUILayer() {
             setSize(1920, 1080);
             buildBoardTiles();
-            infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
-            infoPanel.add(errorLabel);
-            //masterUIPanel.add(infoPanel, BorderLayout.SOUTH);
-            this.add(tilePanel, BorderLayout.CENTER);
+            mainPanel.add(turnPanel, "dock north");
+            mainPanel.add(resourceLabelPanel, "dock south");
+            add(mainPanel);
 
         }
         private void buildBoardTiles() {
+            JPanel tilePanel = new JPanel(new GridLayout(4, 4, 2, 0));
             for (int r = 0; r < tileAccessMatrix.length; r++) {
                 for (int c = 0; c < tileAccessMatrix[r].length; c++) {
                     TileButton temp = new TileButton(r, c);
                     tileAccessMatrix[r][c] = temp;
-                    tileLayoutConstraints.ipadx = 72;
-                    tileLayoutConstraints.ipady = 72;
-                    tileLayoutConstraints.gridx = r;
-                    tileLayoutConstraints.gridy = c;
                     temp.addActionListener(temp);
-                    tilePanel.add(temp, tileLayoutConstraints);
+                    temp.setPreferredSize(new Dimension(75, 75));
+                    tilePanel.add(temp);
                 }
             }
+            mainPanel.add(tilePanel, "dock center");
         }
         public int[] listenForTilePress() {
             TileButton button = null;
@@ -50,25 +47,41 @@ public class BoardUILayer extends JFrame {
             button.setClicked(false);
             return new int[]{button.getRow(), button.getCol()};
         }
-        public void triggerResourcePlacementPrompt() {
-            final JLabel resourceTextLabel = new JLabel("What resource would you like?");
-            tileLayoutConstraints.ipadx = 0;
-            tileLayoutConstraints.ipady = 400;
-            tileLayoutConstraints.gridx = 50;
-            tileLayoutConstraints.gridy = 50;
-            selectionPanel.add(resourceTextLabel, tileLayoutConstraints);
-            this.add(selectionPanel, BorderLayout.SOUTH);
+    private JPanel createResourceLabelPanel() {
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        }
-        public void failedResourcePlacement(int error) {
-            switch (error) {
-                case 1 -> errorLabel.setText("A resource is already on that tile!");
-                case 2 -> errorLabel.setText("A building is already on that tile!");
-                default -> errorLabel.setText("Failed resource placement");
-            }
-        }
-        public void clearErrorLabel() {
-            errorLabel.setText("");
-        }
+        Font font = panel.getFont().deriveFont(Font.BOLD, 36f);
+
+        JLabel label = new JLabel("Select a Resource");
+        label.setFont(font);
+        panel.add(label);
+
+        return panel;
+    }
+        private JPanel createTurnPanel() {
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        Font font = panel.getFont().deriveFont(Font.BOLD, 36f);
+
+        JLabel playerLabel = new JLabel("Player's Turn");
+        playerLabel.setFont(font);
+        panel.add(playerLabel);
+
+        return panel;
+    }
+
+//        public void failedResourcePlacement(int error) {
+//            selectionPanel.setVisible(false);
+//            switch (error) {
+//                case 1 -> errorLabel.setText("A resource is already on that tile!");
+//                case 2 -> errorLabel.setText("A building is already on that tile!");
+//                default -> errorLabel.setText("Failed resource placement");
+//            }
+//        }
+//        public void clearErrorLabel() {
+//            errorLabel.setText("");
+//        }
 
 }
