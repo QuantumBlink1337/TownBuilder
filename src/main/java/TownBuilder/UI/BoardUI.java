@@ -4,36 +4,39 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 
-public class BoardUILayer extends JFrame {
+public class BoardUI extends JFrame {
 
 
         JPanel mainPanel = new JPanel(new MigLayout("","[center][right][left][c]","[top][center][b]"));
         private final JPanel turnPanel = createTurnPanel();
         private final JPanel resourceLabelPanel = createResourceLabelPanel();
+        private final JPanel resourceButtonPanel = createResourceButtonPanel();
+
+        //private final JPanel manualPanel =;
 
         TileButton[][] tileAccessMatrix = new TileButton[4][4];
-        public BoardUILayer() {
+        public BoardUI() {
             setSize(1920, 1080);
-            buildBoardTiles();
+            mainPanel.add(resourceButtonPanel, "dock center");
             mainPanel.add(turnPanel, "dock north");
             mainPanel.add(resourceLabelPanel, "dock south");
             add(mainPanel);
 
         }
-        private void buildBoardTiles() {
+        private JPanel createResourceButtonPanel() {
             JPanel tilePanel = new JPanel(new GridLayout(4, 4, 2, 0));
             for (int r = 0; r < tileAccessMatrix.length; r++) {
                 for (int c = 0; c < tileAccessMatrix[r].length; c++) {
                     TileButton temp = new TileButton(r, c);
                     tileAccessMatrix[r][c] = temp;
                     temp.addActionListener(temp);
-                    temp.setPreferredSize(new Dimension(75, 75));
+                    temp.setPreferredSize(new Dimension(50, 50));
                     tilePanel.add(temp);
                 }
             }
-            mainPanel.add(tilePanel, "dock center");
+            return tilePanel;
         }
-        public int[] listenForTilePress() {
+        public int[] ClickedButtonCoordinates() {
             TileButton button = null;
             while (button == null) {
                 for (TileButton[] tileButtons : tileAccessMatrix) {
