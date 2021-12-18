@@ -21,6 +21,9 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     // https://mvnrepository.com/artifact/com.diogonunes/JColor
     implementation 'com.diogonunes:JColor:5.2.0'
+    // https://mvnrepository.com/artifact/com.miglayout/miglayout-swing
+    implementation group: 'com.miglayout', name: 'miglayout-swing', version: '5.0'
+
 
 }
 
