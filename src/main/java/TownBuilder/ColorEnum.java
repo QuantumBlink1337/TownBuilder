@@ -9,7 +9,7 @@ public enum ColorEnum {
     // buildings
     RED (new Color(255, 0, 0)),
     YELLOW (new Color(255, 255, 0)),
-    BLUE (new Color(0, 0, 255)),
+    BLUE (new Color(54, 90, 175)),
     GREEN (new Color(0, 128, 0)),
     GRAY (new Color(115, 115, 115)),
     ORANGE (new Color(255, 165, 0)),
