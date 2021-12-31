@@ -100,7 +100,8 @@ public class ManualUI extends JPanel {
         for (Building building : buildingsForGame) {
             JPanel panel = initializeIndividualBuildingView(building);
             JButton button = new JButton(building.toString());
-            Font font = manualBuildingSelectionPanel.getFont().deriveFont(25f);
+            button.setBackground(building.getType().getColor().getOverallColor());
+            Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 25f);
             button.setFont(font);
             button.setPreferredSize(new Dimension(364, 10));
             button.addActionListener(e -> {
@@ -127,6 +128,9 @@ public class ManualUI extends JPanel {
         JTextArea textArea = new JTextArea(building.getManualEntry());
         JLabel explanationLabel = new JLabel("Here's what it does:");
         JLabel matrixLabel = new JLabel("Here's what it looks like:");
+        JLabel buildingLabel = new JLabel(building.toString());
+        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
         matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
         matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
         explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
@@ -147,6 +151,7 @@ public class ManualUI extends JPanel {
         });
 
         panel.setPreferredSize(new Dimension(380, 200));
+        panel.add(buildingLabel, "dock center, wrap");
         panel.add(explanationLabel, "dock center, wrap");
         panel.add(textArea, "dock center, wrap");
         panel.add(matrixLabel, "dock center, wrap");
@@ -161,7 +166,11 @@ public class ManualUI extends JPanel {
             for (int r = 0; r < buildingPattern.length; r++) {
                 for (int c = 0; c < buildingPattern[r].length; c++) {
                     JButton temp = new JButton(buildingPattern[r][c].toString());
+                    temp.setBackground(buildingPattern[r][c].getColor().getOverallColor());
                     temp.setPreferredSize(new Dimension(200, 20));
+                    if (temp.getText().equals("NONE")) {
+                        temp.setVisible(false);
+                    }
                     tilePanel.add(temp);
                 }
             }
