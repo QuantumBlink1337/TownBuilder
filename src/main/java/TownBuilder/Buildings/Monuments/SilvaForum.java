@@ -123,6 +123,11 @@ public class SilvaForum implements Monument{
     }
 
     @Override
+    public String getManualEntry() {
+        return "+1 Point. Grants points equal to the size of the largest group of unique contiguous buildings.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
 
     }

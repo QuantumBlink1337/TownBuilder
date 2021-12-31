@@ -75,6 +75,11 @@ public class Obelisk implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "You may place all future buildings on any empty square on your board.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
         board.setPlaceAnywhere(true);
     }

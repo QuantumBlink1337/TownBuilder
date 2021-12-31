@@ -83,6 +83,11 @@ public class Rodina implements Monument{
     }
 
     @Override
+    public String getManualEntry() {
+        return "3 Points for each unfed cottage.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
 
     }

@@ -80,4 +80,9 @@ public class Fountain implements Building{
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(fountainPatternArray.get(0));
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Fountain grants 2 points for each adjacent Fountain.";
+    }
 }

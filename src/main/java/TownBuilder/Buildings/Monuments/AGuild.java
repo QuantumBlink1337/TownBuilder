@@ -90,6 +90,11 @@ public class AGuild implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "The Architect's Guild is worth one point. \nWhen built, you may replace two buildings on your board with a building of your choice.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
         System.out.println("You may replace up to 2 buildings on your board.\nNote, you do not have to, but you may not choose to come back to this.");
         while (MAX_BUILDING_PLACEMENTS > 1) {

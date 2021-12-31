@@ -82,4 +82,9 @@ public class FeastHall implements Building{
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(feastArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Feast Hall earns one point per Yellow building adjacent to it.";
+    }
 }

@@ -92,6 +92,11 @@ public class Archive implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "The Archive of the Second Age earns 1 point for each unique building\n(not including itself) on the board.";
+    }
+
+    @Override
     public void onPlacement() {
         // nothing
     }

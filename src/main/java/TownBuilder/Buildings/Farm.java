@@ -64,6 +64,12 @@ public class Farm implements Building {
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(farmArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Farm feeds up to four buildings on the board.";
+    }
+
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return farmPatternList;
     }

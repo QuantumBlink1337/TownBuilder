@@ -91,6 +91,11 @@ public class OpaleyeWatch implements Monument{
     }
 
     @Override
+    public String getManualEntry() {
+        return "Upon placement, declare three different buildings. Whenever a player to your left or right constructs one of those buildings, place that building on an empty spot on your board and remove it from Opaleye's Watch.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
         System.out.println("Choose three buildings to track.");
         ArrayList<Building> uniqueBuildings = new ArrayList<>(board.getScorableBuildings());

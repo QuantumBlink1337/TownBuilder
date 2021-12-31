@@ -89,4 +89,9 @@ public class Market implements Building {
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(marketArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Market earns points for each other Yellow building in a row or column, whichever has more.";
+    }
 }

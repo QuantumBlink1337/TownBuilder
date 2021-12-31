@@ -84,6 +84,11 @@ public class BarrettCastle implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "Five points if fed. Barrett Castle counts as two Blue buildings for scoring purposes.";
+    }
+
+    @Override
     public void onPlacement() {
        // DebugTools.logging("Barrett Castle: Removed from Scorable List", 2);
         //board.getScorableBuildings().remove(board.getScorableBuildings().size()-1);

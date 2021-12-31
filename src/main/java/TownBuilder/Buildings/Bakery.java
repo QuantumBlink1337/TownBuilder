@@ -79,8 +79,14 @@ public class Bakery implements Building{
 
     @Override
     public void printManualText() {
-        System.out.println("The Bakery provides two points if it's adjacent to a Red or White building.");
+        System.out.println(getManualEntry());
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(bakeryArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Bakery provides two points if it's adjacent to a Red or White building.";
+    }
+
 }

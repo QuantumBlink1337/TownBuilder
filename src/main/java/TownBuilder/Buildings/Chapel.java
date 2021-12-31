@@ -64,6 +64,12 @@ public class Chapel implements Building {
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(templeArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Chapel grants one point for each fed Cottage.";
+    }
+
     @Override
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return templeList;

@@ -87,6 +87,12 @@ public class Theater implements Building
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(theaterArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Theater grants one point for each unique building in it's row and column.";
+    }
+
     public int scorer(Building[][] bArray) throws IOException {
         int score = 0;
 

@@ -12,7 +12,6 @@ public class Orchard implements Building {
     private static final ArrayList<ResourceEnum[][]> orchardPatternList = new ArrayList<>();
     private final int row;
     private final int col;
-    private final String color = "red";
     private boolean condition;
     static {
         orchardPattern[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WHEAT};
@@ -79,5 +78,10 @@ public class Orchard implements Building {
         System.out.println("The Orchard feeds any building in its row or column.");
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(orchardPatternList.get(0));
+    }
+
+    @Override
+    public String getManualEntry() {
+        return "The Orchard feeds any building in its row or column.";
     }
 }

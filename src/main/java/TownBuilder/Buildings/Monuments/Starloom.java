@@ -91,6 +91,11 @@ public class Starloom implements Monument{
     }
 
     @Override
+    public String getManualEntry() {
+        return "Grants points based on when you finish your board:\n1st: 6 Points |\n2nd: 3 Points |\n3rd: 2 Points |\n4th+: 0 Points\n";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
         //
     }

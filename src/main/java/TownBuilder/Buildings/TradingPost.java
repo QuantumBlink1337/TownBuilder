@@ -80,4 +80,9 @@ public class TradingPost implements Building{
         Utility.printFormattedResourcePattern(tPostPattern);
     }
 
+    @Override
+    public String getManualEntry() {
+        return "The Trading Post earns one point. The Trading Post acts as any resource when constructing a building.";
+    }
+
 }

@@ -79,5 +79,10 @@ public class Temple implements Building{
         Utility.printFormattedResourcePattern(getBuildingPatternsList().get(0));
     }
 
+    @Override
+    public String getManualEntry() {
+        return "The Temple earns 4 points if it's adjacent to two fed Cottages.";
+    }
+
 
 }

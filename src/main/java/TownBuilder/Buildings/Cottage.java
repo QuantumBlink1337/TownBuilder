@@ -62,6 +62,11 @@ public class Cottage implements Building {
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(cottageArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Cottage grants three points when it is fed.";
+    }
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
 
         return cottagePatternList;

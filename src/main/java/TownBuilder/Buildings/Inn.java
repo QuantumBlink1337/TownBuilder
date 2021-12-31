@@ -80,4 +80,9 @@ public class Inn implements Building{
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(innArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Inn earns 3 points as long as there is no other Inn in the same row and column.";
+    }
 }

@@ -58,6 +58,12 @@ public class Shed implements Building {
         System.out.println("Grants one point. May be placed on any empty square on your board.");
         Utility.printFormattedResourcePattern(pattern);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "Grants one point. May be placed on any empty square on your board.";
+    }
+
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return patternList;
     }

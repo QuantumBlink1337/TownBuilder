@@ -88,6 +88,11 @@ public class MandrasPalace implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "2 points for each unique adjacent building.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
         // nothing
     }

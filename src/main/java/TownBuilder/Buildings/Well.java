@@ -14,9 +14,7 @@ public class Well implements Building {
     private boolean condition;
     private final int row;
     private final int col;
-    private final String color = "gray";
     private static final ResourceEnum[][] wellArray = new ResourceEnum[2][1];
-    private static final ResourceEnum[][] wellArrayMirror = new ResourceEnum[2][1];
     private static final ArrayList<ResourceEnum[][]> wellPatternList = new ArrayList<>();
 
     public Well(int r, int c) {
@@ -28,9 +26,6 @@ public class Well implements Building {
         wellArray[0][0] = ResourceEnum.WOOD;
         wellArray[1][0] = ResourceEnum.STONE;
         patternBuilder(wellArray, wellPatternList);
-        // wellArrayMirror[0][0] = ResourceEnum.STONE;
-        // wellArrayMirror[1][0] = ResourceEnum.WOOD;
-        // patternBuilder(wellArrayMirror, wellPatternList, 3);
     }
     public BuildingEnum getType() {
         return BuildingEnum.WELL;
@@ -69,6 +64,12 @@ public class Well implements Building {
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(wellArray);
     }
+
+    @Override
+    public String getManualEntry() {
+        return "The Well grants one point for each adjacent Cottage.\nNote: these Cottages do not need to be fed. Note: diagonals do not count.";
+    }
+
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return wellPatternList;
     }

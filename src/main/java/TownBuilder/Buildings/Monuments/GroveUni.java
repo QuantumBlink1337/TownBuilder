@@ -88,6 +88,11 @@ public class GroveUni implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "Earns 3 points. On placement, immediately place a building of your choice on an empty square on your board.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
         DebugTools.logging("GROVE UNIVERSITY: Placing building");
         board.buildingPlacer();

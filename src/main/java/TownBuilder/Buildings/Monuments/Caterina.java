@@ -82,6 +82,11 @@ public class Caterina implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "The Cathedral of Caterina is worth 2 points. Tiles with resources on them are worth 0 points instead of -1.";
+    }
+
+    @Override
     public void onPlacement() {
         // nothing
     }

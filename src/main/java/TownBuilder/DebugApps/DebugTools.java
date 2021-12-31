@@ -64,8 +64,6 @@ public class DebugTools {
         catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
     public static <T> String createStringOfObjectsInArray(T[] array) {
         String string = "";

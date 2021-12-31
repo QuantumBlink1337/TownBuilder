@@ -93,6 +93,11 @@ public class Shrine implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "Grants points based on how many buildings were on your board when you built Shrine of the Elder Tree.\n1: 1 Points |\n2: 2 Points |\n3: 3 Points |\n4: 4 Points |\n5: 5 Points |\n6: 8 Points\nNote: If this is the 7th or more building you've built, it still only earns 8 points.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
         for (Building[] buildings : board.getGameBuildingBoard()) {
             for (Building building : buildings) {

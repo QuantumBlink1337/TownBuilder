@@ -88,6 +88,11 @@ public class FortIronweed implements Monument {
     }
 
     @Override
+    public String getManualEntry() {
+        return "Earns 7 points. You may not choose a resource for the rest of the game, unless you are the only player left.";
+    }
+
+    @Override
     public void onPlacement() {
         board.setCanBeMasterBuilder(false);
     }

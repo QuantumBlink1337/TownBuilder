@@ -70,4 +70,9 @@ public class EmptyBuilding implements Building {
     public void printManualText() {
 
     }
+
+    @Override
+    public String getManualEntry() {
+        return null;
+    }
 }

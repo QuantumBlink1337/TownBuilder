@@ -78,6 +78,11 @@ public class SkyBaths implements Monument{
     }
 
     @Override
+    public String getManualEntry() {
+        return "2 Points for each building type your board is missing.";
+    }
+
+    @Override
     public void onPlacement() throws IOException {
 
     }

@@ -80,8 +80,13 @@ public class Granary implements Building {
 
     @Override
     public void printManualText() {
-        System.out.println("The Orchard feeds the tiles adjacent and diagonal to itself!");
+        System.out.println("The Granary feeds the tiles adjacent and diagonal to itself!");
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(orchardPatternList.get(0));
+    }
+
+    @Override
+    public String getManualEntry() {
+        return "The Granary feeds the tiles adjacent and diagonal to itself.";
     }
 }
