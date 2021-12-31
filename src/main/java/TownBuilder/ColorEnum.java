@@ -2,44 +2,42 @@ package TownBuilder;
 
 import com.diogonunes.jcolor.Attribute;
 
+import java.awt.*;
+
 public enum ColorEnum {
 
     // buildings
-    RED (Attribute.BRIGHT_RED_TEXT()),
-    YELLOW (Attribute.BRIGHT_YELLOW_TEXT()),
-    BLUE (Attribute.BRIGHT_BLUE_TEXT()),
-    GREEN (Attribute.TEXT_COLOR(0, 128, 0)),
-    GRAY (Attribute.TEXT_COLOR(115, 115, 115)),
-    ORANGE (Attribute.TEXT_COLOR(255, 165, 0)),
-    BLACK (Attribute.TEXT_COLOR(95, 95, 95)),
-    WHITE(Attribute.TEXT_COLOR(255, 255, 255)),
-    COLORLESS (Attribute.NONE()),
-
-    PINK(Attribute.TEXT_COLOR(255, 20, 147)),
-
+    RED (new Color(255, 0, 0)),
+    YELLOW (new Color(255, 255, 0)),
+    BLUE (new Color(0, 0, 255)),
+    GREEN (new Color(0, 128, 0)),
+    GRAY (new Color(115, 115, 115)),
+    ORANGE (new Color(255, 165, 0)),
+    WHITE(new Color(255, 255, 255)),
+    COLORLESS (new Color(255, 255, 255, 1)),
+    PINK(new Color(255, 20, 147)),
 
     // resources
 
     // glass
-    TURQUIOSE (Attribute.TEXT_COLOR(0, 206, 209)),
+    TURQUIOSE (new Color(0, 206, 209)),
     // brick
-    ORANGERED (Attribute.TEXT_COLOR(255, 69, 0)),
+    ORANGERED (new Color(255, 69, 0)),
     // wheat
-    GOLD (Attribute.TEXT_COLOR(255, 215, 0)),
+    GOLD (new Color(255, 215, 0)),
     // wood
-    BROWN (Attribute.TEXT_COLOR(150, 75, 45)),
+    BROWN (new Color(150, 75, 45)),
     // stone
-    LIGHTGRAY(Attribute.TEXT_COLOR(235, 235, 235));
+    LIGHTGRAY(new Color(235, 235, 235));
     // empty
-    //WHITE(Attribute.WHITE_TEXT());
 
-    private final Attribute textColor;
-    ColorEnum(Attribute t) {
-        this.textColor = t;
+    private final Color color;
+
+    ColorEnum(Color c) {
+        this.color = c;
+
     }
-    public Attribute getTextColor() {
-        return textColor;
-    }
+    public Color getOverallColor() { return color;}
 
 
 }
