@@ -1,5 +1,6 @@
 package TownBuilder.UI;
 
+import TownBuilder.Buildings.Building;
 import TownBuilder.DebugApps.DebugTools;
 import net.miginfocom.swing.MigLayout;
 
@@ -12,16 +13,20 @@ import java.util.Arrays;
 
 public class ManualUI extends JPanel {
     final int RULES_CONSTANT = 3;
-    //HashMap<String, String> rules = new HashMap<>(RULES_CONSTANT);
     ArrayList<ArrayList<String>> rules = new ArrayList<>(RULES_CONSTANT);
+    ArrayList<Building> buildingsForGame;
     JPanel mainManualPanel;
     JButton manualRuleAccessButton;
     JButton manualBuildingAccessButton;
     JPanel manualMenuPanel;
     JPanel manualRulesPanel;
 
+    JPanel manualBuildingSelectionPanel;
 
-    public ManualUI() {
+
+
+    public ManualUI(ArrayList<Building> buildingsForGame) {
+        this.buildingsForGame = buildingsForGame;
         add(createMainManualPanel());
     }
 
@@ -39,6 +44,7 @@ public class ManualUI extends JPanel {
         mainPanel.setBorder(BorderFactory.createLineBorder(Color.red));
         manualMenuPanel = createManualMenuPanel();
         manualRulesPanel = initializeRulesMenu();
+        initializeBuildingMenu();
         mainPanel.add(manualMenuPanel, " wrap");
         System.out.println(label.getPreferredSize().width);
         label.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -56,7 +62,7 @@ public class ManualUI extends JPanel {
         panel.add(manualRuleAccessButton, "dock center, wrap");
         panel.add(manualBuildingAccessButton, "dock center, wrap");
         manualMenuPanel = panel;
-        panel.setBorder(BorderFactory.createLineBorder(Color.blue));
+        //panel.setBorder(BorderFactory.createLineBorder(Color.blue));
         panel.setPreferredSize(new Dimension(380, 40));
         return panel;
     }
@@ -76,8 +82,62 @@ public class ManualUI extends JPanel {
         Font font = this.getFont().deriveFont(36f);
         manualBuildingAccessButton.setFont(font);
         manualBuildingAccessButton.setPreferredSize(BoardUI.ButtonSize());
-        //manualBuildingAccessButton.addActionListener(e -> manualMenuPanel.setVisible(false));
+        manualBuildingAccessButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainManualPanel.remove(manualMenuPanel);
+                mainManualPanel.add(manualBuildingSelectionPanel);
+                mainManualPanel.updateUI();
+            }
+        });
     }
+    private void initializeBuildingMenu() {
+        manualBuildingSelectionPanel = new JPanel(new MigLayout());
+        for (Building building : buildingsForGame) {
+            // JPanel panel
+            JButton button = new JButton(building.toString());
+            Font font = manualBuildingSelectionPanel.getFont().deriveFont(25f);
+            button.setFont(font);
+            button.setPreferredSize(new Dimension(364, 10));
+            button.addActionListener(e -> {
+                mainManualPanel.remove(manualBuildingSelectionPanel);
+                //mainManualPanel.add(panel);
+                mainManualPanel.updateUI();
+            });
+            manualBuildingSelectionPanel.add(button, "wrap");
+        }
+        JButton exitButton = new JButton();
+        exitButton.setText("EXIT");
+        exitButton.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 30f));
+        exitButton.setPreferredSize(new Dimension(364, 10));
+        exitButton.addActionListener(e -> {
+            mainManualPanel.remove(manualBuildingSelectionPanel);
+            mainManualPanel.add(manualMenuPanel);
+            mainManualPanel.updateUI();
+        });
+        manualBuildingSelectionPanel.add(exitButton);
+    }
+    private void initializeIndividualBuildingView(Building building) {
+        JPanel panel = new JPanel(new MigLayout());
+        JButton exitButton = new JButton();
+        exitButton.setText("EXIT");
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        exitButton.setPreferredSize(BoardUI.BUTTON_SIZE);
+        exitButton.addActionListener(e -> {
+            mainManualPanel.remove(panel);
+            mainManualPanel.add(manualBuildingSelectionPanel);
+            mainManualPanel.updateUI();
+
+        });
+
+        panel.setPreferredSize(new Dimension(380, 200));
+        panel.add(exitButton, "dock center");
+    }
+
+
+
+
+
     private void initializeRules() {
         rules.add(new ArrayList<>(Arrays.asList("Objective", "The goal of TownBuilder is to construct as many buildings as possible to earn points. The game ends when you have nowhere else to place a resource or building. Planning is key!")));
         rules.add(new ArrayList<>(Arrays.asList("Placement", "Buildings are made by placing resources on your board. Each building has its own unique pattern of what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example, the Cottage can have 8 different orientations!")));
@@ -86,12 +146,14 @@ public class ManualUI extends JPanel {
     }
     private JPanel initializeRulesMenu() {
         JPanel panel = new JPanel(new MigLayout());
+        //panel.setBorder(BorderFactory.createLineBorder(Color.blue));
         initializeRules();
         for (ArrayList<String> rules : rules) {
             JPanel individualRulePanel = initializeRulePage(rules.get(1));
+            //individualRulePanel.setBorder(BorderFactory.createLineBorder(Color.blue));
             JButton button = new JButton(rules.get(0));
             Font font = individualRulePanel.getFont().deriveFont(25f);
-            button.setPreferredSize(new Dimension(360, 10));
+            button.setPreferredSize(new Dimension(364, 10));
             button.setFont(font);
             individualRulePanel.setVisible(true);
             button.addActionListener(new ActionListener() {
@@ -107,7 +169,6 @@ public class ManualUI extends JPanel {
         }
         JButton exitButton = new JButton("EXIT");
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
-        //exitButton.setPreferredSize(BoardUI.BUTTON_SIZE);
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualRulesPanel);
             mainManualPanel.add(manualMenuPanel);

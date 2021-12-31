@@ -1,4 +1,5 @@
 package TownBuilder.UI;
+import TownBuilder.Buildings.Building;
 import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
 
@@ -20,7 +21,7 @@ public class BoardUI extends JFrame {
     final JPanel resourceButtonPanel = createResourceButtonPanel();
     final JPanel resourceSelectionPanel = createResourceSelectionButtonPanel();
     final JPanel resourcePromptTextPanel = createResourceTextPanel();
-    final ManualUI manualPanel = new ManualUI();
+    final ManualUI manualPanel;
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
 
     public static Dimension ButtonSize() {
@@ -30,13 +31,10 @@ public class BoardUI extends JFrame {
 
     private final int PLAYER_SELECTION_ROW_CONSTANT = 7;
 
-    public BoardUI() {
+    public BoardUI(ArrayList<Building> buildingsForGame) {
         setSize(1920, 1080);
-//        mainPanel.add(turnPanel, "span 1 1, dock center, gapleft 800");
-//        mainPanel.add(manualPanel, "span 3 5, dock center, wrap");
-//        mainPanel.add(resourcePromptTextPanel, "span 1 2, dock center, wrap");
-//        mainPanel.add(resourceButtonPanel, "span 2 2, dock center, wrap");
 
+        manualPanel = new ManualUI(buildingsForGame);
 
         mainPanel.add(resourceButtonPanel, "dock center, w 800!,h 800!");
         mainPanel.add(manualPanel, "dock east, gapright 30");
