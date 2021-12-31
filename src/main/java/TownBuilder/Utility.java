@@ -4,6 +4,7 @@ import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -124,13 +125,13 @@ public class Utility {
     }
     public static String generateColorizedString(String string, ResourceEnum resource) {
         if (color) {
-            return Ansi.colorize(string, new AnsiFormat(resource.getColor().getTextColor()));
+            return Ansi.colorize(string, new AnsiFormat(generateAttributeFromColor(resource.getColor().getOverallColor())));
         }
         return string;
     }
     public static String generateColorizedString(String string, BuildingEnum building) {
         if (color) {
-            return Ansi.colorize(string, new AnsiFormat(building.getColor().getTextColor(), Attribute.BOLD()));
+            return Ansi.colorize(string, new AnsiFormat(generateAttributeFromColor(building.getColor().getOverallColor()), Attribute.BOLD()));
         }
         return string;
     }
@@ -139,6 +140,12 @@ public class Utility {
             return Ansi.colorize(string, c);
         }
         return string;
+    }
+    public static Attribute generateAttributeFromColor(Color color) {
+        int r = color.getRed();
+        int g = color.getGreen();
+        int b = color.getBlue();
+        return Attribute.TEXT_COLOR(r, g, b);
     }
     public static void displayValidResources(Resource[][] rArray, BuildingFactory buildingFactory) throws IOException {
         for (int i = 0; i < buildingFactory.getValidResources().size(); i++) {
