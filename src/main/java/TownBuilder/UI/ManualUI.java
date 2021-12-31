@@ -1,7 +1,7 @@
 package TownBuilder.UI;
 
 import TownBuilder.Buildings.Building;
-import TownBuilder.DebugApps.DebugTools;
+import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -93,22 +93,26 @@ public class ManualUI extends JPanel {
     }
     private void initializeBuildingMenu() {
         manualBuildingSelectionPanel = new JPanel(new MigLayout());
+        JLabel label = new JLabel("Buildings");
+        label.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 30f));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        manualBuildingSelectionPanel.add(label, "dock center, wrap");
         for (Building building : buildingsForGame) {
-            // JPanel panel
+            JPanel panel = initializeIndividualBuildingView(building);
             JButton button = new JButton(building.toString());
             Font font = manualBuildingSelectionPanel.getFont().deriveFont(25f);
             button.setFont(font);
             button.setPreferredSize(new Dimension(364, 10));
             button.addActionListener(e -> {
                 mainManualPanel.remove(manualBuildingSelectionPanel);
-                //mainManualPanel.add(panel);
+                mainManualPanel.add(panel);
                 mainManualPanel.updateUI();
             });
             manualBuildingSelectionPanel.add(button, "wrap");
         }
         JButton exitButton = new JButton();
         exitButton.setText("EXIT");
-        exitButton.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 30f));
+        exitButton.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 22f));
         exitButton.setPreferredSize(new Dimension(364, 10));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualBuildingSelectionPanel);
@@ -117,9 +121,21 @@ public class ManualUI extends JPanel {
         });
         manualBuildingSelectionPanel.add(exitButton);
     }
-    private void initializeIndividualBuildingView(Building building) {
+    private JPanel initializeIndividualBuildingView(Building building) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton();
+        JTextArea textArea = new JTextArea(building.getManualEntry());
+        JLabel explanationLabel = new JLabel("Here's what it does:");
+        JLabel matrixLabel = new JLabel("Here's what it looks like:");
+        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setFont(panel.getFont().deriveFont(20f));
+        textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         exitButton.setText("EXIT");
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         exitButton.setPreferredSize(BoardUI.BUTTON_SIZE);
@@ -131,12 +147,26 @@ public class ManualUI extends JPanel {
         });
 
         panel.setPreferredSize(new Dimension(380, 200));
+        panel.add(explanationLabel, "dock center, wrap");
+        panel.add(textArea, "dock center, wrap");
+        panel.add(matrixLabel, "dock center, wrap");
+        panel.add(initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center");
+        return panel;
+
     }
-
-
-
-
+    private JPanel initializeBuildingMatrix(Building building) {
+        ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
+        JPanel tilePanel = new JPanel(new GridLayout(buildingPattern.length, 4, 2, 0));
+            for (int r = 0; r < buildingPattern.length; r++) {
+                for (int c = 0; c < buildingPattern[r].length; c++) {
+                    JButton temp = new JButton(buildingPattern[r][c].toString());
+                    temp.setPreferredSize(new Dimension(200, 20));
+                    tilePanel.add(temp);
+                }
+            }
+            return tilePanel;
+    }
 
     private void initializeRules() {
         rules.add(new ArrayList<>(Arrays.asList("Objective", "The goal of TownBuilder is to construct as many buildings as possible to earn points. The game ends when you have nowhere else to place a resource or building. Planning is key!")));
