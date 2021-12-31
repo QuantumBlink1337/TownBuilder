@@ -1,11 +1,11 @@
 package TownBuilder.DebugApps;
 
-import TownBuilder.UI.BoardUILayer;
+import TownBuilder.UI.BoardUI;
 
 
 public class UITest {
     public static void main(String[] args) {
-        BoardUILayer layer = new BoardUILayer();
+        BoardUI layer = new BoardUI();
         layer.setVisible(true);
 //        TileUI buttonTest = new TileUI(1, 2);
 //        buttonTest.setBounds(50, 50, 100, 100);
@@ -13,7 +13,7 @@ public class UITest {
 
         //layer.triggerResourcePlacementPrompt();
 
-        layer.listenForTilePress();
+        layer.ClickedButtonCoordinates();
 //        layer.clearErrorLabel();
 //        layer.failedResourcePlacement(1);
     }
