@@ -15,33 +15,40 @@ public class BoardUI extends JFrame {
 
 
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
+    private final String playerName;
+    private String selectedResourceForTurn;
+    private volatile int[] selectedCoords;
+    
+    private boolean inputReceived;
     JLabel turnResourceText;
-    final JPanel turnPanel = createTurnPanel();
-    final JPanel resourceLabelPanel = createResourceLabelPanel();
-    final JPanel resourceButtonPanel = createResourceButtonPanel();
-    final JPanel resourceSelectionPanel = createResourceSelectionButtonPanel();
-    final JPanel resourcePromptTextPanel = createResourceTextPanel();
+    final JPanel turnPanel;
+    final JPanel boardMatrixPanel;
+    final JPanel resourceSelectionPanel;
+    final JPanel resourcePromptTextPanel;
     final ManualUI manualPanel;
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
 
     public static Dimension ButtonSize() {
         return BUTTON_SIZE;
-
     }
 
     private final int PLAYER_SELECTION_ROW_CONSTANT = 7;
 
-    public BoardUI(ArrayList<Building> buildingsForGame) {
+    public BoardUI(String playerName, ArrayList<Building> buildingsForGame) {
+        this.playerName = playerName;
         setSize(1920, 1080);
-
         manualPanel = new ManualUI(buildingsForGame);
-
-        mainPanel.add(resourceButtonPanel, "dock center, w 800!,h 800!");
+        turnPanel = createTurnPanel();
+        boardMatrixPanel = createBoardMatrix();
+        resourceSelectionPanel = createResourceSelectionButtonPanel();
+        resourcePromptTextPanel = createResourceTextPanel();
+        resourcePromptTextPanel.setVisible(false);
+        mainPanel.add(boardMatrixPanel, "dock center, w 800!,h 800!");
         mainPanel.add(manualPanel, "dock east, gapright 30");
         mainPanel.add(turnPanel, "dock north");
         mainPanel.add(resourcePromptTextPanel, "dock north");
         mainPanel.add(resourceSelectionPanel, " w 1000!, h 100!, dock south, align center");
-        mainPanel.add(resourceLabelPanel, "dock south");
+        //mainPanel.add(resourceLabelPanel, "dock south");
 
         add(mainPanel);
 
@@ -49,47 +56,43 @@ public class BoardUI extends JFrame {
     public TileButton[][] getTileAccessMatrix() {
         return tileAccessMatrix;
     }
-    private JPanel createResourceButtonPanel() {
+
+    public int[] getSelectedCoords() {
+        return selectedCoords;
+    }
+
+    private JPanel createBoardMatrix() {
         JPanel tilePanel = new JPanel(new GridLayout(4, 4, 2, 0));
         for (int r = 0; r < tileAccessMatrix.length; r++) {
             for (int c = 0; c < tileAccessMatrix[r].length; c++) {
                 TileButton temp = new TileButton(r, c);
                 tileAccessMatrix[r][c] = temp;
-                temp.addActionListener(temp);
                 temp.setPreferredSize(BUTTON_SIZE);
                 tilePanel.add(temp);
+                temp.addActionListener(e -> {
+                        inputReceived = true;
+                        selectedCoords = temp.getCoords();
+                });
             }
         }
         return tilePanel;
     }
-    public int[] ClickedButtonCoordinates() {
-        TileButton button = null;
-        while (button == null) {
-            for (TileButton[] tileButtons : tileAccessMatrix) {
-                for (TileButton tileButton : tileButtons) {
-                    if (tileButton.isClicked()) {
-                        button = tileButton;
-                    }
-                }
-            }
+    public int[] getUserInputOfBoard() {
+        selectedCoords = null;
+        while (selectedCoords == null) {
+            Thread.onSpinWait();
         }
-        button.setClicked(false);
-        return new int[]{button.getRow(), button.getCol()};
+        return selectedCoords;
     }
-    private JPanel createResourceLabelPanel() {
-        JPanel panel = new JPanel(new FlowLayout());
-        //panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        Font font = panel.getFont().deriveFont(Font.BOLD, 36f);
-        JLabel label = new JLabel("Select a Resource");
-        label.setFont(font);
-        panel.add(label);
-        return panel;
-    }
+
+
+
     private JPanel createTurnPanel() {
         JPanel panel = new JPanel(new FlowLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         Font font = panel.getFont().deriveFont(Font.BOLD, 42f);
-        JLabel playerLabel = new JLabel("Player's Turn");
+        System.out.println(playerName);
+        JLabel playerLabel = new JLabel(playerName+"'s Turn");
         playerLabel.setFont(font);
         panel.add(playerLabel);
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -98,37 +101,51 @@ public class BoardUI extends JFrame {
     private JPanel createResourceTextPanel() {
         JPanel panel = new JPanel(new FlowLayout());
         Font font = panel.getFont().deriveFont(Font.BOLD, 30f);
-        turnResourceText = new JLabel("Your resource for this turn is Glass.");
+        turnResourceText = new JLabel("Your resource for this turn is "+ selectedResourceForTurn+ ".");
+        JLabel label = new JLabel("Where would you like to place it?");
+        label.setFont(font);
         turnResourceText.setFont(font);
-        panel.add(turnResourceText);
+        panel.add(turnResourceText, "wrap");
+        panel.add(label, "wrap");
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
     private JPanel createResourceSelectionButtonPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 5, 20, 0));
+        JPanel panel = new JPanel(new MigLayout());
+        JPanel selectionPanel = new JPanel(new GridLayout(1, 5, 20, 0));
+        Font font = panel.getFont().deriveFont(Font.BOLD, 36f);
+        JLabel label = new JLabel("Select a Resource");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setFont(font);
+        panel.add(label, "dock center, wrap");
         ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
         for (int i = 0; i < 5; i++) {
-            TileButton button = new TileButton(5, -1);
-            button.addActionListener(button);
+            JButton button = new JButton();
+            button.setBackground(resourceArray.get(i).getColor().getOverallColor());
+            button.addActionListener(e -> {
+                selectedResourceForTurn = button.getText();
+                updateResourceTextLabel();
+                mainPanel.remove(panel);
+                resourcePromptTextPanel.setVisible(true);
+                mainPanel.updateUI();
+            });
             button.setText(resourceArray.get(i).toString());
+            button.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
             button.setPreferredSize(new Dimension(200,50));
-            panel.add(button);
+            selectionPanel.add(button);
         }
+        panel.add(selectionPanel);
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
+    private void updateResourceTextLabel() {
+        turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ".");
+    }
+    public void setSelectedResourceForTurn(String string) {
+        selectedResourceForTurn = string;
+    }
 
 
-//        public void failedResourcePlacement(int error) {
-//            selectionPanel.setVisible(false);
-//            switch (error) {
-//                case 1 -> errorLabel.setText("A resource is already on that tile!");
-//                case 2 -> errorLabel.setText("A building is already on that tile!");
-//                default -> errorLabel.setText("Failed resource placement");
-//            }
-//        }
-//        public void clearErrorLabel() {
-//            errorLabel.setText("");
-//        }
+
 
 }
