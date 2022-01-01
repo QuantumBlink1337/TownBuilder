@@ -1,12 +1,10 @@
 package TownBuilder;
-
-import com.diogonunes.jcolor.Attribute;
-
 import java.awt.*;
 
 public enum ColorEnum {
 
-    // buildings
+    // BUILDING COLORS
+
     RED (new Color(255, 0, 0)),
     YELLOW (new Color(255, 255, 0)),
     BLUE (new Color(54, 90, 175)),
@@ -14,10 +12,10 @@ public enum ColorEnum {
     GRAY (new Color(115, 115, 115)),
     ORANGE (new Color(255, 165, 0)),
     WHITE(new Color(255, 255, 255)),
-    COLORLESS (new Color(255, 255, 255, 1)),
     PINK(new Color(255, 20, 147)),
+    COLORLESS (new Color(255, 255, 255, 1)),
 
-    // resources
+    // RESOURCE COLORS
 
     // glass
     TURQUIOSE (new Color(0, 206, 209)),
