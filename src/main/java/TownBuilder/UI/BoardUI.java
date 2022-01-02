@@ -11,12 +11,8 @@ import java.util.Arrays;
 public class BoardUI extends JFrame {
 
     final JPanel mainPanel = new JPanel(new MigLayout("","[center][right][left][c]","[top][center][b]"));
-
-
-
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
-
     public ResourceEnum getSelectedResourceForTurn() {
         return selectedResourceForTurn;
     }
@@ -24,13 +20,15 @@ public class BoardUI extends JFrame {
     private ResourceEnum selectedResourceForTurn;
     private volatile int[] selectedCoords;
     
-    private boolean inputReceived;
+    private boolean isYes;
     JLabel turnResourceText;
+    JLabel yesOrNoText;
     final JPanel boardHeader;
     final JPanel boardMatrixPanel;
     final JPanel resourceSelectionPanel;
     final JPanel resourcePromptTextPanel;
     final JPanel activeBuildingPanel;
+    final JPanel YesOrNoPanel;
     final ManualUI manualPanel;
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
 
@@ -49,15 +47,25 @@ public class BoardUI extends JFrame {
         resourceSelectionPanel = createResourceSelectionButtonPanel();
         resourcePromptTextPanel = createResourceTextPanel();
         activeBuildingPanel = createActiveBuildingPanel();
+        YesOrNoPanel = createYesNoPrompt();
         resourcePromptTextPanel.setVisible(false);
+        YesOrNoPanel.setVisible(false);
+        yesOrNoText.setText("TEST");
+
 
         JPanel interactionPanel = new JPanel(new MigLayout());
         JPanel gamePanel = new JPanel(new MigLayout());
+        JPanel userPromptPanel = new JPanel();
+
 
         gamePanel.add(boardHeader, "wrap");
         gamePanel.add(resourcePromptTextPanel, "wrap, align center");
         gamePanel.add(boardMatrixPanel, "wrap, align center, w 1000!, h 1000!");
-        gamePanel.add(resourceSelectionPanel, "align center");
+        gamePanel.add(userPromptPanel, "align center");
+        userPromptPanel.add(resourceSelectionPanel);
+        userPromptPanel.add(YesOrNoPanel);
+
+
         interactionPanel.add(manualPanel, "Wrap, h 550!");
         interactionPanel.add(activeBuildingPanel);
         mainPanel.add(gamePanel);
@@ -95,7 +103,6 @@ public class BoardUI extends JFrame {
                 temp.setPreferredSize(BUTTON_SIZE);
                 tilePanel.add(temp);
                 temp.addActionListener(e -> {
-                        inputReceived = true;
                         selectedCoords = temp.getCoords();
                 });
             }
@@ -103,16 +110,17 @@ public class BoardUI extends JFrame {
         tilePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         return tilePanel;
     }
-    public int[] getUserInputOfBoard() {
+    public int[] promptUserInputOfBoard() {
         selectedCoords = null;
         while (selectedCoords == null) {
             Thread.onSpinWait();
         }
         return selectedCoords;
     }
-    public ResourceEnum getUserResourceSelection() {
+    public ResourceEnum promptUserResourceSelection() {
         selectedResourceForTurn = null;
         resourceSelectionPanel.setVisible(true);
+        resourcePromptTextPanel.setVisible(false);
         while (selectedResourceForTurn == null) {
             Thread.onSpinWait();
         }
@@ -120,6 +128,7 @@ public class BoardUI extends JFrame {
         resourceSelectionPanel.setVisible(false);
         return selectedResourceForTurn;
     }
+
 
 
 
@@ -173,6 +182,7 @@ public class BoardUI extends JFrame {
         }
         panel.add(selectionPanel);
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel.setVisible(false);
         return panel;
     }
     private JPanel createActiveBuildingPanel() {
@@ -183,10 +193,39 @@ public class BoardUI extends JFrame {
         panel.add(label, "wrap");
         return panel;
     }
+    private JPanel createYesNoPrompt() {
+        JPanel panel = new JPanel(new MigLayout());
+        panel.setBorder(BorderFactory.createLineBorder(Color.red));
+        JButton yesButton = new JButton("Yes");
+        JButton noButton = new JButton("No");
+        yesOrNoText = new JLabel();
+        yesOrNoText.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        yesOrNoText.setHorizontalAlignment(SwingConstants.CENTER);
+        Dimension dimension = new Dimension(500, 125);
+        Font font = panel.getFont().deriveFont(Font.BOLD, 20f);
+        yesButton.setFont(font);
+        yesButton.setBackground(new Color(35, 138, 35));
+        yesButton.setPreferredSize(dimension);
+        noButton.setFont(font);
+        noButton.setBackground(new Color(183, 19, 19));
+        noButton.setPreferredSize(dimension);
+        yesButton.addActionListener(e -> isYes = true);
+        noButton.addActionListener(e -> isYes = false);
+        panel.add(yesOrNoText, "wrap, align center, span 2 1");
+        panel.add(yesButton);
+        panel.add(noButton);
+
+
+
+        return panel;
+
+    }
 
     public void setSelectedResourceForTurn(ResourceEnum resource) {
         selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ".");
+        resourcePromptTextPanel.setVisible(true);
+
     }
 
 
