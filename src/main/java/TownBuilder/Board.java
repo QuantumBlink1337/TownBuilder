@@ -433,7 +433,26 @@ public class Board {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 accessMatrix[row][col].setResourceEnum(gameResourceBoard[row][col].getResource());
+                accessMatrix[row][col].setBuildingEnum(gameBuildingBoard[row][col].getType());
                 accessMatrix[row][col].updateButton();
+            }
+        }
+        for (int row = 0; row < gameResourceBoard.length; row++) {
+            for (int col = 0; col < gameResourceBoard[row].length; col++) {
+                int boardWhiteSpaceLength = 9;
+                DebugTools.logging("[UPDATE_BOARD] - Checking row: " + row + " col: "+col);
+                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED && gameResourceBoard[row][col].getResource() != ResourceEnum.TPOST) {
+                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.resourceInformation(gameResourceBoard[row][col]) + " NONEMPTY RESOURCE. Updating it");
+                    gameBoard[row][col] = "[" + Utility.generateColorizedString(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), gameResourceBoard[row][col].getResource()) + "]";
+                }
+                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
+                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.buildingInformation(gameBuildingBoard[row][col]) + " NONEMPTY BUILDING. Updating it");
+                    gameBoard[row][col] = "["+ Utility.generateColorizedString(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), gameBuildingBoard[row][col].getType())+ "]";
+                }
+                else {
+                    DebugTools.logging("[UPDATE_BOARD] - Nothing here. Updating with empty tile");
+                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
+                }
 
             }
         }
