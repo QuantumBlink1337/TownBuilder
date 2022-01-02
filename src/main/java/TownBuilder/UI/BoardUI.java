@@ -5,6 +5,8 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,10 +19,11 @@ public class BoardUI extends JFrame {
         return selectedResourceForTurn;
     }
 
-    private ResourceEnum selectedResourceForTurn;
+    private volatile ResourceEnum selectedResourceForTurn;
     private volatile int[] selectedCoords;
     
     private boolean isYes;
+    private volatile boolean clicked = false;
     JLabel turnResourceText;
     JLabel yesOrNoText;
     final JPanel boardHeader;
@@ -30,6 +33,9 @@ public class BoardUI extends JFrame {
     final JPanel activeBuildingPanel;
     final JPanel YesOrNoPanel;
     final ManualUI manualPanel;
+    JPanel interactionPanel = new JPanel(new MigLayout());
+    JPanel gamePanel = new JPanel(new MigLayout());
+    JPanel userPromptPanel = new JPanel();
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
 
     public static Dimension ButtonSize() {
@@ -53,9 +59,7 @@ public class BoardUI extends JFrame {
         yesOrNoText.setText("TEST");
 
 
-        JPanel interactionPanel = new JPanel(new MigLayout());
-        JPanel gamePanel = new JPanel(new MigLayout());
-        JPanel userPromptPanel = new JPanel();
+
 
 
         gamePanel.add(boardHeader, "wrap");
@@ -127,6 +131,20 @@ public class BoardUI extends JFrame {
 
         resourceSelectionPanel.setVisible(false);
         return selectedResourceForTurn;
+    }
+    public boolean promptYesNoPrompt(String labelText) {
+        System.out.println("prompt");
+        yesOrNoText.setText(labelText);
+        resourcePromptTextPanel.setVisible(false);
+        userPromptPanel.removeAll();
+        userPromptPanel.add(YesOrNoPanel);
+        YesOrNoPanel.setVisible(true);
+        clicked = false;
+        while (!clicked) {
+            Thread.onSpinWait();
+        }
+        YesOrNoPanel.setVisible(false);
+        return isYes;
     }
 
 
@@ -209,8 +227,14 @@ public class BoardUI extends JFrame {
         noButton.setFont(font);
         noButton.setBackground(new Color(183, 19, 19));
         noButton.setPreferredSize(dimension);
-        yesButton.addActionListener(e -> isYes = true);
-        noButton.addActionListener(e -> isYes = false);
+        yesButton.addActionListener(e -> {
+            isYes = true;
+            clicked = true;
+        });
+        noButton.addActionListener(e -> {
+            isYes = false;
+            clicked = true;
+        });
         panel.add(yesOrNoText, "wrap, align center, span 2 1");
         panel.add(yesButton);
         panel.add(noButton);

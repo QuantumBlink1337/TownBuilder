@@ -180,12 +180,6 @@ public class Board {
                 }
             }
         }
-//        for (Resource[] resourceRow : gameResourceBoard) {
-//            for (Resource resource : resourceRow) {
-//                if (resource.getResource() != ResourceEnum.NONE) {
-//                }
-//            }
-//        }
         if (i >= (gameResourceBoard.length * gameResourceBoard.length))  {
             System.out.println("=====GAME OVER=====");
             System.out.println("     "+boardName+"     ");
@@ -200,10 +194,10 @@ public class Board {
         monumentPlacement = true;
     }
     private void placementPrompt(Building building) throws IOException {
-        System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
-        Utility.displayValidResources(gameResourceBoard, buildingFactory);
-        System.out.println("Place it this turn?");
-        if (Utility.prompt()) {
+        //System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
+       ;
+        //Utility.displayValidResources(gameResourceBoard, buildingFactory);
+        if (boardUI.promptYesNoPrompt("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found. Place it this turn?")) {
             lastBuiltBuilding = building.getType();
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
         }
@@ -427,6 +421,7 @@ public class Board {
         System.out.println(Arrays.toString(coords));
         System.out.println(resource);
         gameResourceBoard[coords[0]][coords[1]].setResource(resource);
+        updateBoard();
 
     }
     public void updateBoard() throws IOException {
