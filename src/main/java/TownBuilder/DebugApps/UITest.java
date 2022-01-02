@@ -1,21 +1,31 @@
 package TownBuilder.DebugApps;
 
+import TownBuilder.Board;
+import TownBuilder.Buildings.*;
+import TownBuilder.Buildings.Monuments.Starloom;
 import TownBuilder.UI.BoardUI;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class UITest {
-    public static void main(String[] args) {
-        BoardUI layer = new BoardUI();
-        layer.setVisible(true);
-//        TileUI buttonTest = new TileUI(1, 2);
-//        buttonTest.setBounds(50, 50, 100, 100);
-//        layer.add(buttonTest);
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
 
-        //layer.triggerResourcePlacementPrompt();
+        Board board = new Board(masterBuildings, BuildingEnum.STARLOOM, null);
+        board.playerTurn(board.getBoardUI().getUserResourceSelection());
+        board.updateBoard();
 
-        layer.ClickedButtonCoordinates();
-//        layer.clearErrorLabel();
-//        layer.failedResourcePlacement(1);
+
+
+
+
+
+
+
     }
 }
 //import java.awt.BorderLayout;
