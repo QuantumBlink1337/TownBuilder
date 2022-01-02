@@ -16,8 +16,12 @@ public class UITest {
         ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
 
         Board board = new Board(masterBuildings, BuildingEnum.STARLOOM, null);
-        board.playerTurn(board.getBoardUI().getUserResourceSelection());
-        board.updateBoard();
+
+        while (!board.gameOver()) {
+            board.playerTurn(board.resourcePicker());
+            board.updateBoard();
+        }
+
 
 
 
