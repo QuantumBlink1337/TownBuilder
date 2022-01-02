@@ -48,7 +48,7 @@ public class TileButton extends JButton {
 
     public void updateButton() {
         if (resourceEnum != ResourceEnum.NONE) {
-            text = resourceEnum.toString();
+            setText(text = resourceEnum.toString());
             setBackground(resourceEnum.getColor().getOverallColor());
         }
     }
