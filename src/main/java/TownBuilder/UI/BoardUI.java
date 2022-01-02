@@ -16,7 +16,12 @@ public class BoardUI extends JFrame {
 
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
-    private String selectedResourceForTurn;
+
+    public ResourceEnum getSelectedResourceForTurn() {
+        return selectedResourceForTurn;
+    }
+
+    private ResourceEnum selectedResourceForTurn;
     private volatile int[] selectedCoords;
     
     private boolean inputReceived;
@@ -105,6 +110,16 @@ public class BoardUI extends JFrame {
         }
         return selectedCoords;
     }
+    public ResourceEnum getUserResourceSelection() {
+        selectedResourceForTurn = null;
+        resourceSelectionPanel.setVisible(true);
+        while (selectedResourceForTurn == null) {
+            Thread.onSpinWait();
+        }
+
+        resourceSelectionPanel.setVisible(false);
+        return selectedResourceForTurn;
+    }
 
 
 
@@ -142,10 +157,11 @@ public class BoardUI extends JFrame {
         panel.add(label, "dock center, wrap");
         ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
         for (int i = 0; i < 5; i++) {
-            JButton button = new JButton();
+            TileButton button = new TileButton(-1, -1);
             button.setBackground(resourceArray.get(i).getColor().getOverallColor());
+            button.setResourceEnum(resourceArray.get(i));
             button.addActionListener(e -> {
-                setSelectedResourceForTurn(button.getText());
+                setSelectedResourceForTurn(button.getResourceEnum());
                 mainPanel.remove(panel);
                 resourcePromptTextPanel.setVisible(true);
                 mainPanel.updateUI();
@@ -168,8 +184,8 @@ public class BoardUI extends JFrame {
         return panel;
     }
 
-    public void setSelectedResourceForTurn(String string) {
-        selectedResourceForTurn = string;
+    public void setSelectedResourceForTurn(ResourceEnum resource) {
+        selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ".");
     }
 
