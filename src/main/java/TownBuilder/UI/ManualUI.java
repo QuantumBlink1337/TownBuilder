@@ -162,18 +162,18 @@ public class ManualUI extends JPanel {
     }
     private JPanel initializeBuildingMatrix(Building building) {
         ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
-        JPanel tilePanel = new JPanel(new GridLayout(buildingPattern.length, 4, 2, 0));
-            for (int r = 0; r < buildingPattern.length; r++) {
-                for (int c = 0; c < buildingPattern[r].length; c++) {
-                    JButton temp = new JButton(buildingPattern[r][c].toString());
-                    temp.setBackground(buildingPattern[r][c].getColor().getOverallColor());
-                    temp.setPreferredSize(new Dimension(200, 20));
-                    if (temp.getText().equals("NONE")) {
-                        temp.setVisible(false);
-                    }
-                    tilePanel.add(temp);
+        JPanel tilePanel = new JPanel(new GridLayout(Math.max(2, buildingPattern.length), Math.max(2, buildingPattern[buildingPattern.length-1].length), 2, 0));
+        for (ResourceEnum[] resourceEnums : buildingPattern) {
+            for (ResourceEnum resourceEnum : resourceEnums) {
+                JButton temp = new JButton(resourceEnum.toString());
+                temp.setBackground(resourceEnum.getColor().getOverallColor());
+                temp.setPreferredSize(new Dimension(150, 150));
+                if (temp.getText().equals("NONE")) {
+                    temp.setVisible(false);
                 }
+                tilePanel.add(temp);
             }
+        }
             return tilePanel;
     }
 
@@ -195,13 +195,10 @@ public class ManualUI extends JPanel {
             button.setPreferredSize(new Dimension(364, 10));
             button.setFont(font);
             individualRulePanel.setVisible(true);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    mainManualPanel.remove(manualRulesPanel);
-                    mainManualPanel.add(individualRulePanel);
-                    mainManualPanel.updateUI();
-                }
+            button.addActionListener(e -> {
+                mainManualPanel.remove(manualRulesPanel);
+                mainManualPanel.add(individualRulePanel);
+                mainManualPanel.updateUI();
             });
 
             panel.add(button, ", wrap");
