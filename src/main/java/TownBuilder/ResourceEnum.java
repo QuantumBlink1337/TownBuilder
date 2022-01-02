@@ -46,6 +46,9 @@ public enum ResourceEnum {
     }
 
     private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
+    public static void resetResourceArray() {
+        resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
+    }
     public static ResourceEnum randomResource() {
         ResourceEnum result;
         try {
