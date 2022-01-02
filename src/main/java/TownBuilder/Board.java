@@ -5,6 +5,7 @@ import TownBuilder.Buildings.*;
 import TownBuilder.Buildings.Monuments.Monument;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.BoardUI;
+import TownBuilder.UI.TileButton;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -47,6 +48,11 @@ public class Board {
     private final BuildingFactory buildingFactory;
     private final PlayerManager playerManager;
     private final Scanner sc = new Scanner(System.in);
+
+    public BoardUI getBoardUI() {
+        return boardUI;
+    }
+
     private final BoardUI boardUI;
 
 
@@ -411,8 +417,6 @@ public class Board {
         ArrayList<Warehouse> warehousesOnBoard = new ArrayList<>();
         ArrayList<Factory> factoriesOnBoard = new ArrayList<>();
 
-        System.out.println("Your resource for this turn is "+Utility.generateColorizedString(Utility.lowerCaseLetters(resource.toString()), resource));
-
         for (Building[] buildingRow : gameBuildingBoard) {
             for (Building building : buildingRow) {
                 if (building instanceof Warehouse) {
@@ -426,86 +430,18 @@ public class Board {
                 }
             }
         }
-        do {
-            validSpot = false;
-            while (userCoordinate.length() != 2 && resource != ResourceEnum.NONE) {
-                System.out.println("Where would you like to place your "+ Utility.generateColorizedString(Utility.lowerCaseLetters(resource.toString()), resource)+ " resource? Alternatively, to view the game manual type 'help'");
-                System.out.println("You may also run a tentative score check on your board with 'score'.");
-                if (warehouseExists) {
-                    System.out.println("You can use 'warehouse' to access Warehouse controls.");
-                }
-                if (warehouseExists) {
-                    for (Warehouse warehouse : warehousesOnBoard) {
-                        ResourceEnum[] list = warehouse.getStoredResources();
-                        System.out.println("Here's what's inside the warehouse at " + Utility.MachineIndexesToHumanCoords(warehouse.getRow(), warehouse.getCol())+ ": "+ list[0] + "," + list[1] + "," + list[2]);
-                    }
-                }
-                else if (factoryExists) {
-                    for (Factory factory : factoriesOnBoard) {
-                        System.out.println("Type of resource in Factory at " +Utility.MachineIndexesToHumanCoords(factory.getRow(), factory.getCol()) + ": " + factory.getFactorizedResource());
-                    }
-                }
-                userCoordinate = sc.nextLine().toLowerCase();
-                if (userCoordinate.equals("help") || userCoordinate.equals("h") || userCoordinate.equals("manual") || userCoordinate.equals("m")) {
-                    manual.openManual();
-                    renderBoard();
-                }
-                if (userCoordinate.equals("score") || userCoordinate.equals("s")) {
-                    scoring(true);
-                    renderBoard();
-                }
-                if (userCoordinate.equals("factory") || (userCoordinate.equals("f")) && factoryExists) {
-                   resource = factoryOption(resource, factoriesOnBoard);
-                }
-                if (userCoordinate.equals("warehouse") || (userCoordinate.equals("w")) && warehouseExists) {
-                    resource = warehouseChoice(warehousesOnBoard, resource);
-                    if (resource == ResourceEnum.NONE) {
-                        validSpot = true;
-                    }
-                }
-                else if (userCoordinate.length() != 2) {
-                    System.out.println("Oops! That's not a coordinate or a command.");
-                }
-            }
-
-                int[] coords = Utility.humanCoordsToMachineIndexes(userCoordinate);
-                //System.out.println("Row: " + row + "Col: " + col);
-                if (validSpot) {
-                    break;
-                }
-                else if (coords[0] == -1 || coords[1] == -1) {
-                    System.out.println("Your coordinate is not valid.");
-                }
-                else if (gameResourceBoard[coords[0]][coords[1]].getResource() == ResourceEnum.NONE)
-                {
-                    gameResourceBoard[coords[0]][coords[1]].setResource(resource);
-                    validSpot = true;
-                }
-                else {
-                    System.out.println("You can't place a resource on a tile that already has something on it!");
-                }
-                userCoordinate = "   ";
-        }
-        while (!validSpot);
+        int[] coords = boardUI.getUserInputOfBoard();
+        System.out.println(Arrays.toString(coords));
+        System.out.println(resource);
+        gameResourceBoard[coords[0]][coords[1]].setResource(resource);
 
     }
     public void updateBoard() throws IOException {
+        TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                int boardWhiteSpaceLength = 9;
-                DebugTools.logging("[UPDATE_BOARD] - Checking row: " + row + " col: "+col);
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED && gameResourceBoard[row][col].getResource() != ResourceEnum.TPOST) {
-                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.resourceInformation(gameResourceBoard[row][col]) + " NONEMPTY RESOURCE. Updating it");
-                    gameBoard[row][col] = "[" + Utility.generateColorizedString(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), gameResourceBoard[row][col].getResource()) + "]";
-                }
-                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.buildingInformation(gameBuildingBoard[row][col]) + " NONEMPTY BUILDING. Updating it");
-                    gameBoard[row][col] = "["+ Utility.generateColorizedString(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), gameBuildingBoard[row][col].getType())+ "]";
-                }
-                else {
-                    DebugTools.logging("[UPDATE_BOARD] - Nothing here. Updating with empty tile");
-                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
-                }
+                accessMatrix[row][col].setResourceEnum(gameResourceBoard[row][col].getResource());
+                accessMatrix[row][col].updateButton();
 
             }
         }
