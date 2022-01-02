@@ -253,9 +253,6 @@ public class Board {
     }
     public ResourceEnum resourcePicker() throws IOException, URISyntaxException {
         ResourceEnum turnResource;
-        if (boardName.equalsIgnoreCase("debug")) {
-            return ResourceEnum.resourcePicker(null);
-        }
         if (!isSingleplayer) {
             do {
                 turnResource = ResourceEnum.resourcePicker(blacklistedResources.toArray(ResourceEnum[]::new));
@@ -268,19 +265,14 @@ public class Board {
         }
         else {
             if (spResourceSelectionIncrement == 2) {
-                do {
-                    turnResource = ResourceEnum.resourcePicker(blacklistedResources.toArray(ResourceEnum[]::new));
-                    if (turnResource == ResourceEnum.NONE) {
-                        manual.openManual();
-                        renderBoard();
-                    }
-                }
-                while (turnResource == ResourceEnum.NONE);
                 spResourceSelectionIncrement = 0;
+                ResourceEnum.resetResourceArray();
+                return boardUI.promptUserResourceSelection();
             }
             else {
-                turnResource = ResourceEnum.randomResource();
                 spResourceSelectionIncrement++;
+
+                return ResourceEnum.randomResource();
             }
         }
         return turnResource;
@@ -430,7 +422,8 @@ public class Board {
                 }
             }
         }
-        int[] coords = boardUI.getUserInputOfBoard();
+        boardUI.setSelectedResourceForTurn(resource);
+        int[] coords = boardUI.promptUserInputOfBoard();
         System.out.println(Arrays.toString(coords));
         System.out.println(resource);
         gameResourceBoard[coords[0]][coords[1]].setResource(resource);
