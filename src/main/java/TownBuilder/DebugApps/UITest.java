@@ -4,6 +4,7 @@ import TownBuilder.Board;
 import TownBuilder.Buildings.*;
 import TownBuilder.Buildings.Monuments.Starloom;
 import TownBuilder.UI.BoardUI;
+import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -17,9 +18,12 @@ public class UITest {
 
         Board board = new Board(masterBuildings, BuildingEnum.STARLOOM, null);
 
-        while (!board.gameOver()) {
-            board.playerTurn(board.resourcePicker());
+        while (!board.isGameCompletion()) {
             board.updateBoard();
+            board.renderBoard();
+            board.playerTurn(board.resourcePicker());
+            board.detectValidBuilding();
+            board.setGameCompletion(board.gameOver());
         }
 
 
