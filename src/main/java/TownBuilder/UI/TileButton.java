@@ -6,6 +6,7 @@ import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 
 import javax.swing.*;
+import java.awt.*;
 
 
 public class TileButton extends JButton {
@@ -27,6 +28,7 @@ public class TileButton extends JButton {
         coords[1] = c;
         text = "EMPTY!";
         setText(text);
+        setFont(new Font("TimesRoman", Font.BOLD, 35));
         resourceEnum = ResourceEnum.NONE;
         buildingEnum = BuildingEnum.NONE;
     }
