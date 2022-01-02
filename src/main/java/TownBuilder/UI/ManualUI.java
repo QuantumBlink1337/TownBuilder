@@ -181,6 +181,7 @@ public class ManualUI extends JPanel {
         rules.add(new ArrayList<>(Arrays.asList("Objective", "The goal of TownBuilder is to construct as many buildings as possible to earn points. The game ends when you have nowhere else to place a resource or building. Planning is key!")));
         rules.add(new ArrayList<>(Arrays.asList("Placement", "Buildings are made by placing resources on your board. Each building has its own unique pattern of what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example, the Cottage can have 8 different orientations!")));
         rules.add(new ArrayList<>(Arrays.asList("Scoring", "Each building has its own unique rules on how they accumulate points. But remember - for each resource you leave on the board you LOSE a point! It's up to you to figure out how to build your town for the most points possible.")));
+        rules.add(new ArrayList<>(Arrays.asList("Monuments", "Monuments are types of unique buildings that can have powerful benefits. Each player gets access to one monument - and no one can build it except you. You can only build it once though!")));
 
     }
     private JPanel initializeRulesMenu() {
