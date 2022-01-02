@@ -9,6 +9,7 @@ import TownBuilder.UI.TileButton;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -74,7 +75,7 @@ public class Board {
         }
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
-        buildingFactory = new BuildingFactory();
+        buildingFactory = new BuildingFactory(this);
         generateMonument();
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
@@ -88,7 +89,7 @@ public class Board {
         isSingleplayer = true;
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
-        buildingFactory = new BuildingFactory();
+        buildingFactory = new BuildingFactory(this);
         Monument monument = BuildingFactory.getMonument(mo,this, -1, -1, scorableBuildings);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
@@ -195,13 +196,16 @@ public class Board {
     }
     private void placementPrompt(Building building) throws IOException {
         //System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
-       ;
+
         //Utility.displayValidResources(gameResourceBoard, buildingFactory);
+
+        boardUI.highlightBoardTiles(buildingFactory.getValidResources());
         if (boardUI.promptYesNoPrompt("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found. Place it this turn?")) {
             lastBuiltBuilding = building.getType();
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
         }
         else {
+            boardUI.resetBoardTiles();
             buildingFactory.clearValidResourcesWithFlag(building.getType());
         }
     }
