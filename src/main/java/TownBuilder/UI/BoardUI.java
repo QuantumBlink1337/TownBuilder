@@ -21,10 +21,11 @@ public class BoardUI extends JFrame {
     
     private boolean inputReceived;
     JLabel turnResourceText;
-    final JPanel turnPanel;
+    final JPanel boardHeader;
     final JPanel boardMatrixPanel;
     final JPanel resourceSelectionPanel;
     final JPanel resourcePromptTextPanel;
+    final JPanel activeBuildingPanel;
     final ManualUI manualPanel;
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
 
@@ -32,33 +33,52 @@ public class BoardUI extends JFrame {
         return BUTTON_SIZE;
     }
 
-    private final int PLAYER_SELECTION_ROW_CONSTANT = 7;
 
     public BoardUI(String playerName, ArrayList<Building> buildingsForGame) {
         this.playerName = playerName;
-        setSize(1920, 1080);
+        setSize(2560, 1440);
+        //setSize(1920, 1080);
         manualPanel = new ManualUI(buildingsForGame);
-        turnPanel = createTurnPanel();
+        boardHeader = createBoardHeaderPanel();
         boardMatrixPanel = createBoardMatrix();
         resourceSelectionPanel = createResourceSelectionButtonPanel();
         resourcePromptTextPanel = createResourceTextPanel();
+        activeBuildingPanel = createActiveBuildingPanel();
         resourcePromptTextPanel.setVisible(false);
-        mainPanel.add(boardMatrixPanel, "dock center, w 800!,h 800!");
-        mainPanel.add(manualPanel, "dock east, gapright 30");
-        mainPanel.add(turnPanel, "dock north");
-        mainPanel.add(resourcePromptTextPanel, "dock north");
-        mainPanel.add(resourceSelectionPanel, " w 1000!, h 100!, dock south, align center");
-        //mainPanel.add(resourceLabelPanel, "dock south");
 
+        JPanel interactionPanel = new JPanel(new MigLayout());
+        JPanel gamePanel = new JPanel(new MigLayout());
+
+        gamePanel.add(boardHeader, "wrap");
+        gamePanel.add(resourcePromptTextPanel, "wrap, align center");
+        gamePanel.add(boardMatrixPanel, "wrap, align center, w 1000!, h 1000!");
+        gamePanel.add(resourceSelectionPanel, "align center");
+        interactionPanel.add(manualPanel, "Wrap, h 550!");
+        interactionPanel.add(activeBuildingPanel);
+        mainPanel.add(gamePanel);
+        mainPanel.add(interactionPanel);
         add(mainPanel);
+
+
+
+
+
+
+
+
+
+//        mainPanel.add(boardMatrixPanel, "dock center, w 800!,h 800!");
+//        mainPanel.add(manualPanel, "dock east, ");
+//        mainPanel.add(boardHeader, "dock north");
+//        mainPanel.add(resourcePromptTextPanel, "dock north");
+//        mainPanel.add(resourceSelectionPanel, " w 1000!, h 100!, dock south, align center");
+
+
+        gamePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
     }
     public TileButton[][] getTileAccessMatrix() {
         return tileAccessMatrix;
-    }
-
-    public int[] getSelectedCoords() {
-        return selectedCoords;
     }
 
     private JPanel createBoardMatrix() {
@@ -75,6 +95,7 @@ public class BoardUI extends JFrame {
                 });
             }
         }
+        tilePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         return tilePanel;
     }
     public int[] getUserInputOfBoard() {
@@ -87,14 +108,15 @@ public class BoardUI extends JFrame {
 
 
 
-    private JPanel createTurnPanel() {
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    private JPanel createBoardHeaderPanel() {
+        JPanel panel = new JPanel(new MigLayout());
         Font font = panel.getFont().deriveFont(Font.BOLD, 42f);
         System.out.println(playerName);
         JLabel playerLabel = new JLabel(playerName+"'s Turn");
         playerLabel.setFont(font);
-        panel.add(playerLabel);
+        playerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        playerLabel.setPreferredSize(new Dimension(2060, 50));
+        panel.add(playerLabel, "align center");
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
@@ -123,8 +145,7 @@ public class BoardUI extends JFrame {
             JButton button = new JButton();
             button.setBackground(resourceArray.get(i).getColor().getOverallColor());
             button.addActionListener(e -> {
-                selectedResourceForTurn = button.getText();
-                updateResourceTextLabel();
+                setSelectedResourceForTurn(button.getText());
                 mainPanel.remove(panel);
                 resourcePromptTextPanel.setVisible(true);
                 mainPanel.updateUI();
@@ -138,11 +159,18 @@ public class BoardUI extends JFrame {
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
-    private void updateResourceTextLabel() {
-        turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ".");
+    private JPanel createActiveBuildingPanel() {
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel label = new JLabel("Active Buildings");
+        Font headerFont = panel.getFont().deriveFont(Font.BOLD, 30f);
+        label.setFont(headerFont);
+        panel.add(label, "wrap");
+        return panel;
     }
+
     public void setSelectedResourceForTurn(String string) {
         selectedResourceForTurn = string;
+        turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ".");
     }
 
 
