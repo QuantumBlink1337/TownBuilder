@@ -4,6 +4,7 @@ package TownBuilder;
 import TownBuilder.Buildings.*;
 import TownBuilder.Buildings.Monuments.Monument;
 import TownBuilder.DebugApps.DebugTools;
+import TownBuilder.UI.BoardUI;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -46,6 +47,7 @@ public class Board {
     private final BuildingFactory buildingFactory;
     private final PlayerManager playerManager;
     private final Scanner sc = new Scanner(System.in);
+    private final BoardUI boardUI;
 
 
 
@@ -70,6 +72,7 @@ public class Board {
         generateMonument();
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
+        boardUI = null;
         buildArrays();
         updateBoard();
     }
@@ -85,6 +88,8 @@ public class Board {
         scorableBuildings.add(monument);
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
+        boardUI = new BoardUI(boardName, scorableBuildings);
+        boardUI.setVisible(true);
         buildArrays();
         updateBoard();
 
