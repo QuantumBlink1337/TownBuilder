@@ -30,6 +30,7 @@ public class BoardUI extends JFrame {
     private boolean isYes;
     private volatile boolean clicked = false;
     JLabel turnResourceText;
+    JLabel secondaryTextLabel = new JLabel();
     JLabel yesOrNoText;
     final JPanel boardHeader;
     final JPanel boardMatrixPanel;
@@ -69,7 +70,7 @@ public class BoardUI extends JFrame {
 
         gamePanel.add(boardHeader, "wrap");
         gamePanel.add(resourcePromptTextPanel, "wrap, align center");
-        gamePanel.add(boardMatrixPanel, "wrap, align center, w 1000!, h 1000!");
+        gamePanel.add(boardMatrixPanel, "wrap, align center, w 900!, h 900!");
         gamePanel.add(userPromptPanel, "align center");
         userPromptPanel.add(resourceSelectionPanel);
         userPromptPanel.add(YesOrNoPanel);
@@ -138,7 +139,6 @@ public class BoardUI extends JFrame {
         return selectedResourceForTurn;
     }
     public boolean promptYesNoPrompt(String labelText) {
-        System.out.println("prompt");
         yesOrNoText.setText(labelText);
         resourcePromptTextPanel.setVisible(false);
         resourceSelectionPanel.setVisible(false);
@@ -157,7 +157,6 @@ public class BoardUI extends JFrame {
                 for (Placeable placeable : resources) {
                     tileButton.setEnabled(false);
                     if (tileButton.getRow() == placeable.getRow() && tileButton.getCol() == placeable.getCol()) {
-                        System.out.println("Valid resource: " + Arrays.toString(tileButton.getCoords()));
                         foundButtons.add(tileButton);
                     }
                 }
@@ -192,14 +191,18 @@ public class BoardUI extends JFrame {
         return panel;
     }
     private JPanel createResourceTextPanel() {
-        JPanel panel = new JPanel(new FlowLayout());
+        JPanel panel = new JPanel(new MigLayout());
         Font font = panel.getFont().deriveFont(Font.BOLD, 30f);
         turnResourceText = new JLabel("Your resource for this turn is "+ selectedResourceForTurn+ ".");
         JLabel label = new JLabel("Where would you like to place it?");
+        secondaryTextLabel = new JLabel();
+        secondaryTextLabel.setVisible(false);
+        secondaryTextLabel.setFont(font);
         label.setFont(font);
         turnResourceText.setFont(font);
         panel.add(turnResourceText, "wrap");
         panel.add(label, "wrap");
+        panel.add(secondaryTextLabel);
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
@@ -277,8 +280,17 @@ public class BoardUI extends JFrame {
     public void setSelectedResourceForTurn(ResourceEnum resource) {
         selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ".");
+        secondaryTextLabel.setVisible(false);
         resourcePromptTextPanel.setVisible(true);
-
+    }
+    public void setPrimaryTextLabel(String string) {
+        turnResourceText.setText(string);
+        resourcePromptTextPanel.setVisible(true);
+        System.out.println("Prompt");
+    }
+    public void setSecondaryTextLabel(String string) {
+        secondaryTextLabel.setText(string);
+        secondaryTextLabel.setVisible(true);
     }
 
 
