@@ -1,14 +1,19 @@
 package TownBuilder.UI;
 import TownBuilder.Buildings.Building;
+import TownBuilder.Placeable;
+import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static javax.swing.border.BevelBorder.RAISED;
 
 public class BoardUI extends JFrame {
 
@@ -136,8 +141,7 @@ public class BoardUI extends JFrame {
         System.out.println("prompt");
         yesOrNoText.setText(labelText);
         resourcePromptTextPanel.setVisible(false);
-        userPromptPanel.removeAll();
-        userPromptPanel.add(YesOrNoPanel);
+        resourceSelectionPanel.setVisible(false);
         YesOrNoPanel.setVisible(true);
         clicked = false;
         while (!clicked) {
@@ -145,6 +149,31 @@ public class BoardUI extends JFrame {
         }
         YesOrNoPanel.setVisible(false);
         return isYes;
+    }
+    public void highlightBoardTiles(ArrayList<Resource> resources) {
+        ArrayList<TileButton> foundButtons = new ArrayList<>();
+        for (TileButton[] tileButtons : tileAccessMatrix) {
+            for (TileButton tileButton : tileButtons) {
+                for (Placeable placeable : resources) {
+                    tileButton.setEnabled(false);
+                    if (tileButton.getRow() == placeable.getRow() && tileButton.getCol() == placeable.getCol()) {
+                        System.out.println("Valid resource: " + Arrays.toString(tileButton.getCoords()));
+                        foundButtons.add(tileButton);
+                    }
+                }
+            }
+            for (TileButton tileButton : foundButtons) {
+                tileButton.setEnabled(true);
+            }
+        }
+    }
+    public void resetBoardTiles() {
+        for (TileButton[] tileButtons : tileAccessMatrix) {
+            for (TileButton tileButton : tileButtons) {
+                tileButton.setEnabled(true);
+                tileButton.setVisible(true);
+            }
+        }
     }
 
 
@@ -176,7 +205,7 @@ public class BoardUI extends JFrame {
     }
     private JPanel createResourceSelectionButtonPanel() {
         JPanel panel = new JPanel(new MigLayout());
-        JPanel selectionPanel = new JPanel(new GridLayout(1, 5, 20, 0));
+        JPanel selectionPanel = new JPanel(new GridLayout(1, 5, 0, 0));
         Font font = panel.getFont().deriveFont(Font.BOLD, 36f);
         JLabel label = new JLabel("Select a Resource");
         label.setHorizontalAlignment(SwingConstants.CENTER);
