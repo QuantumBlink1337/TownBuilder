@@ -244,8 +244,7 @@ public class BuildingFactory {
 
 
     public void placeBuildingOnBoard(BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere, Board board) throws IOException {
-        Scanner sc = new Scanner((System.in));
-        int[] coords = new int[]{-1, -1};
+        int[] coords;
         boolean validInput = false;
         Building building;
         if (buildingEnum.isMonument()) {
@@ -256,43 +255,29 @@ public class BuildingFactory {
         }
         Building[][] bArray = board.getGameBuildingBoard();
         Resource[][] rArray = board.getGameResourceBoard();
-
-        do {
-            try {
-                System.out.println("Where would you like to place your " + Utility.generateColorizedString(building.toString(), buildingEnum) + "?");
-                if (PlaceBuildingAnywhere) {
-                    System.out.println("You can place your building wherever you want, provided there's nothing there already!");
-                    coords = Utility.humanCoordsToMachineIndexes(sc.nextLine().toLowerCase());
-                    DebugTools.logging("[PLACE_BUILDING_ON_BOARD] - Coords: " + coords[0] + coords[1]);
-                    if (rArray[coords[0]][coords[1]].getResource() == ResourceEnum.NONE && bArray[coords[0]][coords[1]].getType() == BuildingEnum.NONE) {
-                        validInput = true;
-                    }
-                }
-                else {
-                    System.out.println("Valid positions for the "+ Utility.generateColorizedString(building.toString(), buildingEnum)+ " are:");
-                    Utility.displayValidResources(rArray, this);
-                    coords = Utility.humanCoordsToMachineIndexes(sc.nextLine().toLowerCase());
-                    if (rArray[coords[0]][coords[1]].getScannedBuilding() == building.getType()) {
-                        validInput = true;
-                    }
+        board.getBoardUI().setPrimaryTextLabel("Your selected building is " + Utility.generateColorizedString(building.toString(), buildingEnum) + ".");
+        if (PlaceBuildingAnywhere) {
+            board.getBoardUI().setSecondaryTextLabel("You can place your building wherever you want, provided there's nothing there already!");
+            board.getBoardUI().resetBoardTiles();
+            do {
+                coords = board.getBoardUI().promptUserInputOfBoard();
+                if (rArray[coords[0]][coords[1]].getResource() == ResourceEnum.NONE && bArray[coords[0]][coords[1]].getType() == BuildingEnum.NONE) {
+                    validInput = true;
                 }
             }
-            catch(ArrayIndexOutOfBoundsException ignored) {
-                System.out.println("Invalid input.");
-                sc.next();
-
-            }
+            while (!validInput);
+        }
+        else {
+            coords = board.getBoardUI().promptUserInputOfBoard();
+            board.getBoardUI().resetBoardTiles();
 
         }
-        while (!validInput);
-
         for (Resource validResource : validResources) {
             validResource.setResource(ResourceEnum.NONE);
         }
         clearValidResourcesWithFlag(building.getType());
         if (buildingEnum != BuildingEnum.TRDINGPST) {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.OBSTRUCTED);
-
         }
         else {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.TPOST);
@@ -304,6 +289,7 @@ public class BuildingFactory {
         else {
             bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);
         }
+
     }
 
 }
