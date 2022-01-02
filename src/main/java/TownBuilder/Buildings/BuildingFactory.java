@@ -9,6 +9,7 @@ import java.util.*;
 
 public class BuildingFactory {
     private final ArrayList<Resource> validResources = new ArrayList<>();
+    private final Board board;
     private static final HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() {
         buildingMasterList.put(ColorEnum.BLUE, new ArrayList<>(List.of(new Cottage(-1, -1))));
@@ -154,6 +155,12 @@ public class BuildingFactory {
     public static HashMap<ColorEnum, ArrayList<Building>> getBuildingMasterList() {
         return buildingMasterList;
     }
+
+    public BuildingFactory(Board b) {
+        board = b;
+    }
+
+
 
     public void clearValidResourcesWithFlag(BuildingEnum building) throws IOException {
         DebugTools.logging("Clearing valid resources that have flag: " + building);
