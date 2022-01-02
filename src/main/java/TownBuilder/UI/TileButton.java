@@ -1,5 +1,6 @@
 package TownBuilder.UI;
 
+import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
@@ -12,6 +13,9 @@ public class TileButton extends JButton {
 
     private final int[] coords = new int[2];
     private String text;
+
+
+
     ResourceEnum resourceEnum;
     BuildingEnum buildingEnum;
 
@@ -26,6 +30,29 @@ public class TileButton extends JButton {
         resourceEnum = ResourceEnum.NONE;
         buildingEnum = BuildingEnum.NONE;
     }
+    public void setResourceEnum(ResourceEnum resource) {
+        resourceEnum = resource;
+        buildingEnum = BuildingEnum.NONE;
+    }
+    public void setBuildingEnum(BuildingEnum building) {
+        buildingEnum = building;
+        resourceEnum = ResourceEnum.NONE;
+    }
+    public ResourceEnum getResourceEnum() {
+        return resourceEnum;
+    }
+
+    public BuildingEnum getBuildingEnum() {
+        return buildingEnum;
+    }
+
+    public void updateButton() {
+        if (resourceEnum != ResourceEnum.NONE) {
+            text = resourceEnum.toString();
+            setBackground(resourceEnum.getColor().getOverallColor());
+        }
+    }
+
     public int[] getCoords() {
         return coords;
     }
