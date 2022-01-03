@@ -14,13 +14,11 @@ import java.util.Arrays;
 
 public class UITest {
     public static void main(String[] args) throws IOException, URISyntaxException {
-        ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
+        ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Warehouse(-1, -1)));
 
         Board board = new Board(masterBuildings, BuildingEnum.STARLOOM, null);
 
         while (!board.isGameCompletion()) {
-            board.updateBoard();
-            board.renderBoard();
             board.playerTurn(board.resourcePicker());
             board.detectValidBuilding();
             board.setGameCompletion(board.gameOver());
