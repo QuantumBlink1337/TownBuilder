@@ -46,7 +46,7 @@ public class ManualUI extends JPanel {
         manualRulesPanel = initializeRulesMenu();
         initializeBuildingMenu();
         mainPanel.add(manualMenuPanel, " wrap");
-        System.out.println(label.getPreferredSize().width);
+        //System.out.println(label.getPreferredSize().width);
         label.setBorder(BorderFactory.createLineBorder(Color.black));
         mainManualPanel = mainPanel;
         return mainPanel;
