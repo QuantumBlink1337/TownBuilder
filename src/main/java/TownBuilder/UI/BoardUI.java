@@ -1,5 +1,7 @@
 package TownBuilder.UI;
+import TownBuilder.Board;
 import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Placeable;
 import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
@@ -8,8 +10,6 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,15 +20,18 @@ public class BoardUI extends JFrame {
     final JPanel mainPanel = new JPanel(new MigLayout("","[center][right][left][c]","[top][center][b]"));
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
+    private final Board board;
     public ResourceEnum getSelectedResourceForTurn() {
         return selectedResourceForTurn;
     }
 
     private volatile ResourceEnum selectedResourceForTurn;
+    private volatile BuildingEnum selectedBuildingForTurn;
     private volatile int[] selectedCoords;
     
     private boolean isYes;
     private volatile boolean clicked = false;
+    private final ArrayList<Building> buildings;
     JLabel turnResourceText;
     JLabel secondaryTextLabel = new JLabel();
     JLabel yesOrNoText;
@@ -36,9 +39,22 @@ public class BoardUI extends JFrame {
     final JPanel boardMatrixPanel;
     final JPanel resourceSelectionPanel;
     final JPanel resourcePromptTextPanel;
-    final JPanel activeBuildingPanel;
+
+    public ActiveBuildingsUI getActiveBuildingPanel() {
+        return activeBuildingPanel;
+    }
+
+    ActiveBuildingsUI activeBuildingPanel;
     final JPanel YesOrNoPanel;
+    final JPanel buildingSelectingPanel;
+
+    public ManualUI getManualPanel() {
+        return manualPanel;
+    }
+
     final ManualUI manualPanel;
+
+
     JPanel interactionPanel = new JPanel(new MigLayout());
     JPanel gamePanel = new JPanel(new MigLayout());
     JPanel userPromptPanel = new JPanel();
@@ -49,17 +65,20 @@ public class BoardUI extends JFrame {
     }
 
 
-    public BoardUI(String playerName, ArrayList<Building> buildingsForGame) {
-        this.playerName = playerName;
+    public BoardUI(Board board) {
+        this.board = board;
+        this.playerName = board.getBoardName();
         setSize(2560, 1440);
         //setSize(1920, 1080);
-        manualPanel = new ManualUI(buildingsForGame);
+        buildings = board.getScorableBuildings();
+        manualPanel = new ManualUI(buildings);
         boardHeader = createBoardHeaderPanel();
         boardMatrixPanel = createBoardMatrix();
         resourceSelectionPanel = createResourceSelectionButtonPanel();
         resourcePromptTextPanel = createResourceTextPanel();
-        activeBuildingPanel = createActiveBuildingPanel();
+        activeBuildingPanel = new ActiveBuildingsUI(tileAccessMatrix, board);
         YesOrNoPanel = createYesNoPrompt();
+        buildingSelectingPanel = createBuildingSelectionPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
         yesOrNoText.setText("TEST");
@@ -77,7 +96,7 @@ public class BoardUI extends JFrame {
 
 
         interactionPanel.add(manualPanel, "Wrap, h 550!");
-        interactionPanel.add(activeBuildingPanel);
+        interactionPanel.add(activeBuildingPanel, "h 550!");
         mainPanel.add(gamePanel);
         mainPanel.add(interactionPanel);
         add(mainPanel);
@@ -162,6 +181,7 @@ public class BoardUI extends JFrame {
                 }
             }
             for (TileButton tileButton : foundButtons) {
+                tileButton.setBorder(new BevelBorder(RAISED, Color.black, Color.black));
                 tileButton.setEnabled(true);
             }
         }
@@ -171,6 +191,7 @@ public class BoardUI extends JFrame {
             for (TileButton tileButton : tileButtons) {
                 tileButton.setEnabled(true);
                 tileButton.setVisible(true);
+                tileButton.setBorder(mainPanel.getBorder());
             }
         }
     }
@@ -235,14 +256,28 @@ public class BoardUI extends JFrame {
         panel.setVisible(false);
         return panel;
     }
-    private JPanel createActiveBuildingPanel() {
+    private JPanel createBuildingSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
-        JLabel label = new JLabel("Active Buildings");
-        Font headerFont = panel.getFont().deriveFont(Font.BOLD, 30f);
-        label.setFont(headerFont);
-        panel.add(label, "wrap");
+        JPanel selectionPanel = new JPanel(new GridLayout(1, buildings.size(), 0, 0));
+        Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
+        JLabel label = new JLabel("Select a building to place.");
+        label.setFont(font);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        for (Building building : buildings) {
+            TileButton button = new TileButton(-1, -1);
+            button.setBackground(building.getType().getColor().getOverallColor());
+            button.setBuildingEnum(building.getType());
+            button.addActionListener(e -> selectedBuildingForTurn = building.getType());
+            button.setText(building.toString());
+            button.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+            button.setPreferredSize(new Dimension(300,50));
+            selectionPanel.add(button);
+        }
+        panel.add(label, "Wrap");
+        panel.add(selectionPanel);
         return panel;
     }
+
     private JPanel createYesNoPrompt() {
         JPanel panel = new JPanel(new MigLayout());
         panel.setBorder(BorderFactory.createLineBorder(Color.red));
