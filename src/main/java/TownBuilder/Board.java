@@ -9,7 +9,6 @@ import TownBuilder.UI.TileButton;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -95,7 +94,7 @@ public class Board {
         scorableBuildings.add(monument);
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
-        boardUI = new BoardUI(boardName, scorableBuildings);
+        boardUI = new BoardUI(this);
         boardUI.setVisible(true);
         buildArrays();
         updateBoard();
@@ -400,26 +399,6 @@ public class Board {
     }
 
     public void playerTurn(ResourceEnum resource) throws IOException, URISyntaxException {
-        String userCoordinate = "";
-        boolean validSpot;
-        boolean warehouseExists = false;
-        boolean factoryExists = false;
-        ArrayList<Warehouse> warehousesOnBoard = new ArrayList<>();
-        ArrayList<Factory> factoriesOnBoard = new ArrayList<>();
-
-        for (Building[] buildingRow : gameBuildingBoard) {
-            for (Building building : buildingRow) {
-                if (building instanceof Warehouse) {
-                    warehousesOnBoard.add((Warehouse)building);
-                    warehouseExists = true;
-
-                }
-                else if (building instanceof Factory) {
-                    factoriesOnBoard.add((Factory) building);
-                    factoryExists = true;
-                }
-            }
-        }
         boardUI.setSelectedResourceForTurn(resource);
         int[] coords = boardUI.promptUserInputOfBoard();
         System.out.println(Arrays.toString(coords));
@@ -436,6 +415,10 @@ public class Board {
                 accessMatrix[row][col].setBuildingEnum(gameBuildingBoard[row][col].getType());
                 accessMatrix[row][col].updateButton();
             }
+        }
+        System.out.println("Updating...");
+        if (lastBuiltBuilding == BuildingEnum.WAREHOUSE) {
+            boardUI.getActiveBuildingPanel().updateActiveBuildings(getBoardUI().getActiveBuildingPanel().getMainActiveBuildingPanel());
         }
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
