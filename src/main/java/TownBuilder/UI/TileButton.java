@@ -19,6 +19,16 @@ public class TileButton extends JButton {
     ResourceEnum resourceEnum;
     BuildingEnum buildingEnum;
 
+    public boolean isActiveBuilding() {
+        return activeBuilding;
+    }
+
+    public void setActiveBuilding(boolean activeBuilding) {
+        this.activeBuilding = activeBuilding;
+    }
+
+    boolean activeBuilding;
+
     public TileButton(int r, int c) {
         coords[0] = r;
         coords[1] = c;
@@ -43,16 +53,15 @@ public class TileButton extends JButton {
     }
 
     public void updateButton() {
-        System.out.println(Arrays.toString(coords));
-        System.out.println(resourceEnum);
-        System.out.println(buildingEnum);
         if (resourceEnum != ResourceEnum.NONE && resourceEnum != ResourceEnum.OBSTRUCTED) {
             setText(text = resourceEnum.toString());
             setBackground(resourceEnum.getColor().getOverallColor());
+            setEnabled(false);
         }
         else if (buildingEnum != BuildingEnum.NONE) {
             setText(text = buildingEnum.toString());
             setBackground(buildingEnum.getColor().getOverallColor());
+            setEnabled(false);
         }
         else {
             setText(text = "EMPTY!");
