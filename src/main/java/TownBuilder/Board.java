@@ -35,6 +35,10 @@ public class Board {
 
 
 
+    private boolean activeBuildingUse = false;
+
+
+
     private boolean placeAnywhere = false;
     private BuildingEnum lastBuiltBuilding;
     private final boolean isSingleplayer;
@@ -48,6 +52,9 @@ public class Board {
     private final BuildingFactory buildingFactory;
     private final PlayerManager playerManager;
     private final Scanner sc = new Scanner(System.in);
+
+    private ResourceEnum currentResourceForTurn;
+
 
     public BoardUI getBoardUI() {
         return boardUI;
@@ -104,6 +111,13 @@ public class Board {
     }
     public BuildingEnum getLastBuiltBuilding() {
         return lastBuiltBuilding;
+    }
+    public boolean isActiveBuildingUse() {
+        return activeBuildingUse;
+    }
+
+    public void setActiveBuildingUse(boolean activeBuildingUse) {
+        this.activeBuildingUse = activeBuildingUse;
     }
     public void setLastBuiltBuilding(BuildingEnum lastBuiltBuilding) {
         this.lastBuiltBuilding = lastBuiltBuilding;
@@ -194,10 +208,6 @@ public class Board {
         monumentPlacement = true;
     }
     private void placementPrompt(Building building) throws IOException {
-        //System.out.println("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found at the following coordinates:");
-
-        //Utility.displayValidResources(gameResourceBoard, buildingFactory);
-
         boardUI.highlightBoardTiles(buildingFactory.getValidResources());
         if (boardUI.promptYesNoPrompt("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found. Place it this turn?")) {
             lastBuiltBuilding = building.getType();
@@ -324,61 +334,61 @@ public class Board {
         while (!validInput);
         return resource;
     }
-    private ResourceEnum warehouseChoice(ArrayList<Warehouse> warehousesOnBoard, ResourceEnum resource) {
-        boolean validInput = false;
-        String userInput;
-        Warehouse warehouse = null;
-        do {
-            do {
-                System.out.println("Which Warehouse would you like?");
-                for (Warehouse w : warehousesOnBoard) {
-                    System.out.println("Warehouse at: " + Utility.MachineIndexesToHumanCoords(w.getRow(), w.getCol()));
-                }
-                userInput = sc.nextLine().toLowerCase();
-                for (Warehouse w : warehousesOnBoard) {
-                    if (Utility.MachineIndexesToHumanCoords(w.getRow(), w.getCol()).equalsIgnoreCase(userInput)) {
-                        warehouse = w;
-                        validInput = true;
-                    }
-                }
-            }
-            while (!validInput);
-            validInput = false;
-            System.out.println("What would you like to do with the warehouse selected? Use 'place' to place resources" +
-                    "or 'swap' to swap a resource out.");
-            userInput = sc.nextLine().toLowerCase();
-            if (userInput.equals("place")) {
-                if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
-                    resource = warehouseOption(resource, warehouse, true);
-                    validInput = true;
-
-                }
-                else {
-                    System.out.println("The warehouse is full. You need to swap something instead.");
-                }
-
-            }
-            else if (userInput.equals("swap")) {
-                if (warehouse.getFullness() != Warehouse.getMinFullness()) {
-                    resource = warehouseOption(resource, warehouse, false);
-                    validInput = true;
-                }
-                else {
-                    System.out.println("There's nothing to swap with in the warehouse.");
-                }
-            }
-        }
-        while (!validInput);
-        return resource;
-    }
-    private ResourceEnum warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
+//    private ResourceEnum warehouseChoice(ArrayList<Warehouse> warehousesOnBoard, ResourceEnum resource) {
+//        boolean validInput = false;
+//        String userInput;
+//        Warehouse warehouse = null;
+//        do {
+//            do {
+//                System.out.println("Which Warehouse would you like?");
+//                for (Warehouse w : warehousesOnBoard) {
+//                    System.out.println("Warehouse at: " + Utility.MachineIndexesToHumanCoords(w.getRow(), w.getCol()));
+//                }
+//                userInput = sc.nextLine().toLowerCase();
+//                for (Warehouse w : warehousesOnBoard) {
+//                    if (Utility.MachineIndexesToHumanCoords(w.getRow(), w.getCol()).equalsIgnoreCase(userInput)) {
+//                        warehouse = w;
+//                        validInput = true;
+//                    }
+//                }
+//            }
+//            while (!validInput);
+//            validInput = false;
+//            System.out.println("What would you like to do with the warehouse selected? Use 'place' to place resources" +
+//                    "or 'swap' to swap a resource out.");
+//            userInput = sc.nextLine().toLowerCase();
+//            if (userInput.equals("place")) {
+//                if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
+//                    resource = warehouseOption(resource, warehouse, true);
+//                    validInput = true;
+//
+//                }
+//                else {
+//                    System.out.println("The warehouse is full. You need to swap something instead.");
+//                }
+//
+//            }
+//            else if (userInput.equals("swap")) {
+//                if (warehouse.getFullness() != Warehouse.getMinFullness()) {
+//                    resource = warehouseOption(resource, warehouse, false);
+//                    validInput = true;
+//                }
+//                else {
+//                    System.out.println("There's nothing to swap with in the warehouse.");
+//                }
+//            }
+//        }
+//        while (!validInput);
+//        return resource;
+//    }
+    public void warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
 
         ResourceEnum turnResource = t;
         //System.out.println(warehouse.getFullness());
         if (mode) {
             if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
-                //System.out.println("Warehouse is not full, so placing it there");
-                 return warehouse.placeResource(turnResource, ResourceEnum.NONE);
+                System.out.println("Warehouse is not full, so placing it there");
+
             }
         }
         else {
@@ -395,14 +405,14 @@ public class Board {
             }
             while (turnResource == ResourceEnum.OBSTRUCTED);
         }
-        return turnResource;
+        //return turnResource;
     }
 
-    public void playerTurn(ResourceEnum resource) throws IOException, URISyntaxException {
+    public void playerTurn() throws IOException, URISyntaxException {
+        ResourceEnum resource = resourcePicker();
         boardUI.setSelectedResourceForTurn(resource);
+
         int[] coords = boardUI.promptUserInputOfBoard();
-        System.out.println(Arrays.toString(coords));
-        System.out.println(resource);
         gameResourceBoard[coords[0]][coords[1]].setResource(resource);
         updateBoard();
 
@@ -418,7 +428,7 @@ public class Board {
         }
         System.out.println("Updating...");
         if (lastBuiltBuilding == BuildingEnum.WAREHOUSE) {
-            boardUI.getActiveBuildingPanel().updateActiveBuildings(getBoardUI().getActiveBuildingPanel().getMainActiveBuildingPanel());
+            boardUI.getActiveBuildingPanel().updateActiveBuildings();
         }
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
