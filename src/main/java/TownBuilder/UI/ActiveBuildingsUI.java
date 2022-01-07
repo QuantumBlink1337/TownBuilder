@@ -119,9 +119,9 @@ public class ActiveBuildingsUI extends JPanel {
             swapButton.setFont(font);
             placeButton.setFont(font);
 
-            swapButton.addActionListener(e -> {
-                board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, false);
-            });
+//            swapButton.addActionListener(e -> {
+//                board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, false);
+//            });
             placeButton.addActionListener(e -> {
                 board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, true);
             });
