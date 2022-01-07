@@ -9,12 +9,16 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TimerTask;
 
 public class ActiveBuildingsUI extends JPanel {
     ArrayList<Building> buildings;
-    int count = 0;
 
     public String getChoice() {
         return choice;
@@ -23,7 +27,6 @@ public class ActiveBuildingsUI extends JPanel {
     String choice;
     Board board;
     TileButton[][] tileAccessMatrix;
-    JPanel activeBuildings;
 
     public JPanel getMainActiveBuildingPanel() {
         return mainActiveBuildingPanel;
@@ -32,75 +35,76 @@ public class ActiveBuildingsUI extends JPanel {
     JPanel mainActiveBuildingPanel;
     JPanel mainPanel;
     final BuildingEnum gameActiveBuilding;
+    final BoardUI boardUI;
 
-    public ActiveBuildingsUI(TileButton[][] tB, Board b) {
+    public ActiveBuildingsUI(TileButton[][] tB, Board b, BoardUI boardUIPanel) {
+        boardUI = boardUIPanel;
         mainPanel = new JPanel(new MigLayout());
         board = b;
         buildings = board.getScorableBuildings();
         gameActiveBuilding = buildings.get(buildings.size()-2).getType();
         System.out.println(gameActiveBuilding);
         tileAccessMatrix = tB;
-        mainActiveBuildingPanel = createActiveBuildingPanel();
-
+        mainActiveBuildingPanel = new JPanel(new MigLayout());
         JLabel label = new JLabel("Active Buildings");
-        label.setPreferredSize(new Dimension(380, 40));
-        label.setMaximumSize(new Dimension(380, 40));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         Font headerFont = getFont().deriveFont(Font.BOLD, 30f);
         label.setFont(headerFont);
-        label.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
-        setBorder(BorderFactory.createLineBorder(Color.green));
-        mainPanel.add(label, "dock north, wrap, cell  1 0");
-        mainPanel.add(mainActiveBuildingPanel, "Wrap");
+        label.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+
+        setBorder(BorderFactory.createLineBorder(Color.RED));
+        mainPanel.add(label, "align center, wrap, w :380:380, h :40:40");
+        mainPanel.add(mainActiveBuildingPanel, "dock center, Wrap");
         add(mainPanel);
 
     }
-    private JPanel createActiveBuildingPanel() {
-        JPanel panel = new JPanel(new MigLayout());
-        panel.setBorder(BorderFactory.createLineBorder(Color.blue));
-        updateActiveBuildings(panel);
-        panel.add(activeBuildings);
-        panel.setBorder(BorderFactory.createLineBorder(Color.red));
-        return panel;
-    }
-    public void updateActiveBuildings(JPanel mainPanel) {
-        ArrayList<TileButton> activeTileButtons = new ArrayList<>();
 
+    public void updateActiveBuildings() {
+        ArrayList<TileButton> activeTileButtons = new ArrayList<>();
         for (TileButton[] tileButtons : tileAccessMatrix) {
             for (TileButton tileButton : tileButtons) {
-                //System.out.println("Checking button at " + Arrays.toString(tileButton.getCoords()));
                 if (tileButton.buildingEnum == gameActiveBuilding && !tileButton.isActiveBuilding()) {
                     activeTileButtons.add(tileButton);
                     tileButton.setActiveBuilding(true);
-                    System.out.println("Fire!" + Arrays.toString(tileButton.getCoords()));
                 }
             }
         }
-            activeBuildings = new JPanel(new MigLayout());
             if (activeTileButtons.size() > 0) {
-                activeBuildings.setBorder(BorderFactory.createLineBorder(Color.blue));
+                mainActiveBuildingPanel.setBorder(BorderFactory.createLineBorder(new Color(66, 29, 117)));
                 for (TileButton activeTileButton : activeTileButtons) {
-                    System.out.println("Fire two");
                     JButton button = new JButton(gameActiveBuilding.toString());
                     Font smallFont = mainPanel.getFont().deriveFont(Font.BOLD, 25f);
                     button.setFont(smallFont);
                     JPanel individualView = generateIndividualActiveBuildingView(activeTileButton.getCoords());
                     button.addActionListener(e -> {
-                        mainActiveBuildingPanel.remove(activeBuildings);
-                        mainActiveBuildingPanel.add(individualView);
+                        mainPanel.remove(mainActiveBuildingPanel);
+                        mainPanel.add(individualView, "dock center");
+                        activeTileButton.setBackground(activeTileButton.getBuildingEnum().getColor().getOverallColor());
+
                         updateUI();
                     });
-                    activeBuildings.add(button, "Wrap");
+                    button.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                            activeTileButton.setBackground(new Color(210, 124, 124, 255));
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            activeTileButton.setBackground(activeTileButton.getBuildingEnum().getColor().getOverallColor());
+                        }
+                    });
+                    mainActiveBuildingPanel.add(button, "wrap, dock center");
                 }
-                mainPanel.add(activeBuildings);
             }
     }
     private JPanel generateIndividualActiveBuildingView(int[] coords) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton("EXIT");
         if (gameActiveBuilding == BuildingEnum.WAREHOUSE) {
-            JLabel inventory = new JLabel("Inventory");
-            inventory.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+            JLabel inventoryLabel = new JLabel("Inventory");
+            inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
             JPanel inventoryView = new JPanel(new GridLayout(1, 3, 0, 0));
             Warehouse building = (Warehouse) board.getGameBuildingBoard()[coords[0]][coords[1]];
             for (ResourceEnum resourceEnum : building.getStoredResources()) {
@@ -114,19 +118,36 @@ public class ActiveBuildingsUI extends JPanel {
             Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
             swapButton.setFont(font);
             placeButton.setFont(font);
+
+            swapButton.addActionListener(e -> {
+                board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, false);
+            });
+            placeButton.addActionListener(e -> {
+                board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, true);
+            });
+            exitButton.setFont(font);
             swapButton.addActionListener(e -> choice = "swap");
             placeButton.addActionListener(e -> choice = "place");
-            panel.add(inventory, "wrap, align center");
-            panel.add(inventoryView, "wrap, align center");
-            panel.add(swapButton);
-            panel.add(placeButton);
+            panel.setBorder(BorderFactory.createLineBorder(Color.red));
+            JPanel inventoryPanel = new JPanel(new MigLayout());
+            inventoryPanel.add(inventoryLabel, "wrap, dock center, align center");
+            inventoryPanel.add(inventoryView, "dock center, align center");
+            inventoryLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            inventoryView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            panel.add(inventoryPanel, "dock center, align center, wrap");
+            String sizeControl = "w 180!, h 40!";
+            panel.add(swapButton, "split 2, align center, "+sizeControl);
+            swapButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            panel.add(placeButton, sizeControl+",wrap");
+            placeButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         }
         exitButton.addActionListener(e -> {
-            mainActiveBuildingPanel.remove(panel);
-            mainActiveBuildingPanel.add(activeBuildings);
+            mainPanel.remove(panel);
+            mainPanel.add(mainActiveBuildingPanel, "dock center");
             updateUI();
         });
-        panel.add(exitButton);
+        panel.add(exitButton, "growx, h 40!");
         return panel;
     }
 }
