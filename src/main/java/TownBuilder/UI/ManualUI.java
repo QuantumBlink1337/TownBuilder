@@ -38,9 +38,9 @@ public class ManualUI extends JPanel {
         JLabel label = new JLabel("Manual");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font);
-        label.setPreferredSize(new Dimension(380, 40));
-        label.setMaximumSize(new Dimension(380, 40));
-        mainPanel.add(label, "dock north, wrap");
+        //label.setPreferredSize(new Dimension(380, 40));
+        //label.setMaximumSize(new Dimension(380, 40));
+        mainPanel.add(label, "dock north, , wrap");
         mainPanel.setBorder(BorderFactory.createLineBorder(Color.red));
         manualMenuPanel = createManualMenuPanel();
         manualRulesPanel = initializeRulesMenu();
@@ -82,13 +82,10 @@ public class ManualUI extends JPanel {
         Font font = this.getFont().deriveFont(36f);
         manualBuildingAccessButton.setFont(font);
         manualBuildingAccessButton.setPreferredSize(BoardUI.ButtonSize());
-        manualBuildingAccessButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainManualPanel.remove(manualMenuPanel);
-                mainManualPanel.add(manualBuildingSelectionPanel);
-                mainManualPanel.updateUI();
-            }
+        manualBuildingAccessButton.addActionListener(e -> {
+            mainManualPanel.remove(manualMenuPanel);
+            mainManualPanel.add(manualBuildingSelectionPanel);
+            mainManualPanel.updateUI();
         });
     }
     private void initializeBuildingMenu() {
@@ -103,13 +100,13 @@ public class ManualUI extends JPanel {
             button.setBackground(building.getType().getColor().getOverallColor());
             Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 25f);
             button.setFont(font);
-            button.setPreferredSize(new Dimension(364, 10));
+            //button.setPreferredSize(new Dimension(364, 10));
             button.addActionListener(e -> {
                 mainManualPanel.remove(manualBuildingSelectionPanel);
                 mainManualPanel.add(panel);
                 mainManualPanel.updateUI();
             });
-            manualBuildingSelectionPanel.add(button, "wrap");
+            manualBuildingSelectionPanel.add(button, "wrap, w :364:, h :10:");
         }
         JButton exitButton = new JButton();
         exitButton.setText("EXIT");
