@@ -67,13 +67,14 @@ public class BoardUI extends JFrame {
 
     public BoardUI(Board board) {
         this.playerName = board.getBoardName();
+        setExtendedState(MAXIMIZED_BOTH);
         final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-//        final int SCREEN_WIDTH = SCREEN_SIZE.width;
-//        final int SCREEN_HEIGHT = SCREEN_SIZE.height;
+        final int SCREEN_WIDTH = SCREEN_SIZE.width;
+        final int SCREEN_HEIGHT = SCREEN_SIZE.height;
 
 
-        final int SCREEN_WIDTH = 1920;
-        final int SCREEN_HEIGHT = 1080;
+//        final int SCREEN_WIDTH = 1920;
+//        final int SCREEN_HEIGHT = 1080;
         setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         buildings = board.getScorableBuildings();
@@ -82,7 +83,7 @@ public class BoardUI extends JFrame {
         boardMatrixPanel = createBoardMatrix();
         resourceSelectionPanel = createResourceSelectionButtonPanel();
         resourcePromptTextPanel = createResourceTextPanel();
-        activeBuildingPanel = new ActiveBuildingsUI(tileAccessMatrix, board);
+        activeBuildingPanel = new ActiveBuildingsUI(tileAccessMatrix, board, this);
         YesOrNoPanel = createYesNoPrompt();
         buildingSelectingPanel = createBuildingSelectionPanel();
         resourcePromptTextPanel.setVisible(false);
@@ -90,7 +91,7 @@ public class BoardUI extends JFrame {
 
         mainPanel.add(gamePanel, "span 2, align center, gapleft "+(int) (SCREEN_WIDTH*(600.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH)));
         mainPanel.add(interactionPanel, "");
-        gamePanel.setBorder(BorderFactory.createLineBorder(Color.magenta));
+        //.setBorder(BorderFactory.createLineBorder(Color.magenta));
         add(mainPanel);
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
@@ -233,7 +234,7 @@ public class BoardUI extends JFrame {
             });
             button.setText(resourceArray.get(i).toString());
             button.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
-            button.setPreferredSize(new Dimension(200,50));
+            //button.setPreferredSize(new Dimension(200,50));
             selectionPanel.add(button);
         }
         panel.add(selectionPanel);
