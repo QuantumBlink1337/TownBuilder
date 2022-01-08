@@ -60,10 +60,11 @@ public class ActiveBuildingsUI extends JPanel {
     }
 
     public void updateActiveBuildings() {
+        mainActiveBuildingPanel.removeAll();
         ArrayList<TileButton> activeTileButtons = new ArrayList<>();
         for (TileButton[] tileButtons : tileAccessMatrix) {
             for (TileButton tileButton : tileButtons) {
-                if (tileButton.buildingEnum == gameActiveBuilding && !tileButton.isActiveBuilding()) {
+                if (tileButton.buildingEnum == gameActiveBuilding) {
                     activeTileButtons.add(tileButton);
                     tileButton.setActiveBuilding(true);
                 }
@@ -109,11 +110,12 @@ public class ActiveBuildingsUI extends JPanel {
             Warehouse building = (Warehouse) board.getGameBuildingBoard()[coords[0]][coords[1]];
             for (ResourceEnum resourceEnum : building.getStoredResources()) {
                 JButton button = new JButton(resourceEnum.toString());
-                button.setPreferredSize(new Dimension(25, 25));
+                //button.setPreferredSize(new Dimension(25, 25));
                 button.setBackground(resourceEnum.getColor().getOverallColor());
                 inventoryView.add(button);
             }
             JButton swapButton = new JButton("Swap");
+
             JButton placeButton = new JButton("Place");
             Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
             swapButton.setFont(font);
