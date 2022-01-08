@@ -1,6 +1,8 @@
 package TownBuilder;
 
 
+import TownBuilder.UI.BoardUI;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,7 +64,7 @@ public enum ResourceEnum {
         }
         return result;
     }
-    public static ResourceEnum resourcePicker(ResourceEnum[] blacklistedResources) {
+    public static ResourceEnum resourcePicker(ResourceEnum[] blacklistedResources, BoardUI boardUI) {
         resourceArray = new ArrayList<>(Arrays.asList(WOOD, BRICK, WHEAT, GLASS, STONE));
         Scanner sc = new Scanner(System.in);
         String resourceChoice;
