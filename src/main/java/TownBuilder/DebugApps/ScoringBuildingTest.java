@@ -45,7 +45,7 @@ public class ScoringBuildingTest {
 
         DebugTools.logging("MOVING TO SECOND SET OF BUILDING TESTS.");
 
-        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
+        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false, null)));
         board = new Board(masterBuildings, BuildingEnum.MANDRAS, null);
         bBoard = board.getGameBuildingBoard();
 //        bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 0, 0, false);
@@ -71,7 +71,7 @@ public class ScoringBuildingTest {
 //        board.runBuildingTurnAction();
 //        board.scoring(false);
 
-        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
+        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false, null)));
         board = new Board(masterBuildings, BuildingEnum.MANDRAS, null);
         bBoard = board.getGameBuildingBoard();
         rBoard = board.getGameResourceBoard();
@@ -98,7 +98,7 @@ public class ScoringBuildingTest {
 //        board.runBuildingTurnAction();
 //        board.scoring(false);
 
-        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
+        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false, null)));
         board = new Board(masterBuildings, BuildingEnum.CATERINA, null);
         bBoard = board.getGameBuildingBoard();
         rBoard = board.getGameResourceBoard();
@@ -125,7 +125,7 @@ public class ScoringBuildingTest {
 //        board.runBuildingTurnAction();
 //        board.scoring(false);
 
-        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
+        masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false, null)));
         board = new Board(masterBuildings, BuildingEnum.SKYBATHS, null);
         PlayerManager playerManager = new PlayerManager(masterBuildings, board);
         bBoard = board.getGameBuildingBoard();
