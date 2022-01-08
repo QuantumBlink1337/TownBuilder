@@ -446,7 +446,7 @@ public class Board {
                 }
             }
             if (boardUI.isCoordinatesClicked()) {
-                int[] coords = boardUI.promptUserInputOfBoard();
+                int[] coords = boardUI.getSelectedCoords();
                 gameResourceBoard[coords[0]][coords[1]].setResource(currentResourceForTurn);
                 turnOver = true;
             }

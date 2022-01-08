@@ -28,10 +28,20 @@ public class BoardUI extends JFrame {
     private volatile ResourceEnum selectedResourceForTurn;
     private volatile BuildingEnum selectedBuildingForTurn;
     private volatile int[] selectedCoords;
-    
+
+    public boolean isCoordinatesClicked() {
+        return coordinatesClicked;
+    }
+    public void setCoordinatesClicked(boolean b) {
+        coordinatesClicked = b;
+    }
+
+    private boolean coordinatesClicked = false;
+
     private boolean isYes;
     private volatile boolean clicked = false;
     private final ArrayList<Building> buildings;
+    private final Board board;
     JLabel turnResourceText;
     JLabel secondaryTextLabel = new JLabel();
     JLabel yesOrNoText;
@@ -47,11 +57,6 @@ public class BoardUI extends JFrame {
     ActiveBuildingsUI activeBuildingPanel;
     final JPanel YesOrNoPanel;
     final JPanel buildingSelectingPanel;
-
-    public ManualUI getManualPanel() {
-        return manualPanel;
-    }
-
     final ManualUI manualPanel;
 
 
@@ -66,6 +71,7 @@ public class BoardUI extends JFrame {
 
 
     public BoardUI(Board board) {
+        this.board = board;
         this.playerName = board.getBoardName();
         setExtendedState(MAXIMIZED_BOTH);
         final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
@@ -119,18 +125,20 @@ public class BoardUI extends JFrame {
                 tileAccessMatrix[r][c] = temp;
                 tilePanel.add(temp);
                 temp.addActionListener(e -> {
-                        selectedCoords = temp.getCoords();
+                     selectedCoords = null;
+                     selectedCoords = temp.getCoords();
+                     coordinatesClicked = true;
+                     synchronized (board.getNotifier()) {
+                         board.getNotifier().notify();
+                     }
+
                 });
             }
         }
         tilePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         return tilePanel;
     }
-    public int[] promptUserInputOfBoard() {
-        selectedCoords = null;
-        while (selectedCoords == null) {
-            Thread.onSpinWait();
-        }
+    public int[] getSelectedCoords() {
         return selectedCoords;
     }
     public ResourceEnum promptUserResourceSelection() {
@@ -303,6 +311,7 @@ public class BoardUI extends JFrame {
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ". Where would you like to place it?");
         secondaryTextLabel.setVisible(false);
         resourcePromptTextPanel.setVisible(true);
+        selectedCoords = null;
     }
     public void setPrimaryTextLabel(String string) {
         turnResourceText.setText(string);
