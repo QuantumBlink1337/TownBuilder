@@ -15,7 +15,7 @@ public class BoardTraverser{
         DebugTools.logging("[GET_BUILDING_AT] - Getting Building at row: " + row + " and col: " + col);
         if ((row > buildingBoard.length-1 || row < 0) || (col > buildingBoard[row].length-1 || col < 0)) {
             DebugTools.logging("[GET_BUILDING_AT] - Returning new empty building.");
-            return BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1, false);
+            return BuildingFactory.getBuilding(BuildingEnum.NONE, null, -1, -1, false, null);
         }
         else {
             DebugTools.logging("[GET_BUILDING_AT] - Returning building at specified row and col");

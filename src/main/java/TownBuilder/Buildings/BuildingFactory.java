@@ -18,9 +18,9 @@ public class BuildingFactory {
         buildingMasterList.put(ColorEnum.ORANGE, new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put(ColorEnum.GREEN, new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
         buildingMasterList.put(ColorEnum.YELLOW, new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
-        buildingMasterList.put(ColorEnum.WHITE, new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false), new Bank(-1, -1, false), new TradingPost(-1, -1))));
+        buildingMasterList.put(ColorEnum.WHITE, new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false), new Bank(-1, -1, false, null), new TradingPost(-1, -1))));
     }
-    public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade) {
+    public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade, Board board) {
         if (buildingEnum == BuildingEnum.NONE) {
             return new EmptyBuilding();
         }
@@ -82,7 +82,7 @@ public class BuildingFactory {
             return new Factory(row, col, isPlayerMade);
         }
         else if (buildingEnum == BuildingEnum.BANK) {
-            return new Bank(row, col ,isPlayerMade);
+            return new Bank(row, col ,isPlayerMade, board);
         }
         else if (buildingEnum == BuildingEnum.TRDINGPST) {
             return new TradingPost(row, col);
@@ -251,7 +251,7 @@ public class BuildingFactory {
              building = getMonument(buildingEnum, board, -1, -1, buildingArrayList);
         }
         else {
-             building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false);
+             building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false, board);
         }
         Building[][] bArray = board.getGameBuildingBoard();
         Resource[][] rArray = board.getGameResourceBoard();
@@ -307,7 +307,7 @@ public class BuildingFactory {
             board.monumentControl((Monument) bArray[coords[0]][coords[1]]);
         }
         else {
-            bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true);
+            bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true, board);
         }
 
     }

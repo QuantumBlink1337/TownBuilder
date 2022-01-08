@@ -18,25 +18,25 @@ public class ScoringBuildingTest {
         Board board = new Board(masterBuildings, BuildingEnum.BARRETT, null);
         Building[][] bBoard = board.getGameBuildingBoard();
         Resource[][] rBoard = board.getGameResourceBoard();
-        bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, masterBuildings, 0, 0, false);
-        bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
-        bBoard[0][2] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 2, false);
-        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.BARRETT, board, 0, 3, board.getScorableBuildings());
-
-        bBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.FARM, masterBuildings, 1, 0, false);
-        bBoard[1][1] = BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, masterBuildings, 1, 1, false);
-        bBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.CHAPEL, masterBuildings, 1, 2, false);
-        bBoard[1][3] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 1, 3, false);
-
-        bBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.WELL, masterBuildings, 2, 0, false);
-        bBoard[2][1] = BuildingFactory.getBuilding(BuildingEnum.TAVERN, masterBuildings, 2, 1, false);
-        bBoard[2][2] = BuildingFactory.getBuilding(BuildingEnum.WELL, masterBuildings, 2, 2, false);
-        bBoard[2][3] = BuildingFactory.getBuilding(BuildingEnum.TAVERN, masterBuildings, 2, 3, false);
-
-        bBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, masterBuildings, 3, 0, false);
-        bBoard[3][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 3, 1, false);
-        bBoard[3][2] = BuildingFactory.getBuilding(BuildingEnum.WELL, masterBuildings, 3, 2, false);
-        bBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.THEATER, masterBuildings, 3, 3, false);
+//        bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, masterBuildings, 0, 0, false);
+//        bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
+//        bBoard[0][2] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 2, false);
+//        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.BARRETT, board, 0, 3, board.getScorableBuildings());
+//
+//        bBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.FARM, masterBuildings, 1, 0, false);
+//        bBoard[1][1] = BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, masterBuildings, 1, 1, false);
+//        bBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.CHAPEL, masterBuildings, 1, 2, false);
+//        bBoard[1][3] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 1, 3, false);
+//
+//        bBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.WELL, masterBuildings, 2, 0, false);
+//        bBoard[2][1] = BuildingFactory.getBuilding(BuildingEnum.TAVERN, masterBuildings, 2, 1, false);
+//        bBoard[2][2] = BuildingFactory.getBuilding(BuildingEnum.WELL, masterBuildings, 2, 2, false);
+//        bBoard[2][3] = BuildingFactory.getBuilding(BuildingEnum.TAVERN, masterBuildings, 2, 3, false);
+//
+//        bBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.THEATER, masterBuildings, 3, 0, false);
+//        bBoard[3][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 3, 1, false);
+//        bBoard[3][2] = BuildingFactory.getBuilding(BuildingEnum.WELL, masterBuildings, 3, 2, false);
+//        bBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.THEATER, masterBuildings, 3, 3, false);
 //        board.renderBoard();
 //        board.runBuildingTurnAction();
 //        board.scoring(false);
@@ -48,25 +48,25 @@ public class ScoringBuildingTest {
         masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Granary(-1, -1), new Shed(-1, -1), new Abbey(-1, -1), new Bakery(-1, -1), new Almshouse(-1, -1), new Factory(-1, -1, false)));
         board = new Board(masterBuildings, BuildingEnum.MANDRAS, null);
         bBoard = board.getGameBuildingBoard();
-        bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 0, 0, false);
-        bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
-        bBoard[0][2] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 2, false);
-        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.MANDRAS, board, 0, 3, board.getScorableBuildings());
-
-        bBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 1, 0, false);
-        bBoard[1][1] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 1, 1, false);
-        bBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.GRANARY, masterBuildings, 1, 2, false);
-        bBoard[1][3] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 1, 3, false);
-
-        bBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 2, 0, false);
-        bBoard[2][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 2, 1, false);
-        bBoard[2][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 2, 2, false);
-        bBoard[2][3] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 2, 3, false);
-
-        bBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.FACTORY, masterBuildings, 3, 0, false);
-        bBoard[3][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 3, 1, false);
-        bBoard[3][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 3, 2, false);
-        bBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 3, 3, false);
+//        bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 0, 0, false);
+//        bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
+//        bBoard[0][2] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 2, false);
+//        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.MANDRAS, board, 0, 3, board.getScorableBuildings());
+//
+//        bBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 1, 0, false);
+//        bBoard[1][1] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 1, 1, false);
+//        bBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.GRANARY, masterBuildings, 1, 2, false);
+//        bBoard[1][3] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 1, 3, false);
+//
+//        bBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 2, 0, false);
+//        bBoard[2][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 2, 1, false);
+//        bBoard[2][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 2, 2, false);
+//        bBoard[2][3] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 2, 3, false);
+//
+//        bBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.FACTORY, masterBuildings, 3, 0, false);
+//        bBoard[3][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 3, 1, false);
+//        bBoard[3][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 3, 2, false);
+//        bBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 3, 3, false);
 //        board.renderBoard();
 //        board.runBuildingTurnAction();
 //        board.scoring(false);
@@ -129,25 +129,25 @@ public class ScoringBuildingTest {
         board = new Board(masterBuildings, BuildingEnum.SKYBATHS, null);
         PlayerManager playerManager = new PlayerManager(masterBuildings, board);
         bBoard = board.getGameBuildingBoard();
-        bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 0, false);
-        bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
-        bBoard[0][2] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 2, false);
-        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.SKYBATHS, board, 0, 3, board.getScorableBuildings());
-
-        bBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 1, 0, false);
-        bBoard[1][1] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 1, 1, false);
-        bBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.GRANARY, masterBuildings, 1, 2, false);
-        bBoard[1][3] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 1, 3, false);
-
-        bBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 2, 0, false);
-        bBoard[2][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 2, 1, false);
-        bBoard[2][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 2, 2, false);
-        bBoard[2][3] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 2, 3, false);
-
-        bBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.FACTORY, masterBuildings, 3, 0, false);
-        bBoard[3][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 3, 1, false);
-        bBoard[3][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 3, 2, false);
-        bBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 3, 3, false);
+//        bBoard[0][0] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 0, false);
+//        bBoard[0][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 1, false);
+//        bBoard[0][2] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 0, 2, false);
+//        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.SKYBATHS, board, 0, 3, board.getScorableBuildings());
+//
+//        bBoard[1][0] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 1, 0, false);
+//        bBoard[1][1] = BuildingFactory.getBuilding(BuildingEnum.BAKERY, masterBuildings, 1, 1, false);
+//        bBoard[1][2] = BuildingFactory.getBuilding(BuildingEnum.GRANARY, masterBuildings, 1, 2, false);
+//        bBoard[1][3] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 1, 3, false);
+//
+//        bBoard[2][0] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 2, 0, false);
+//        bBoard[2][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 2, 1, false);
+//        bBoard[2][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 2, 2, false);
+//        bBoard[2][3] = BuildingFactory.getBuilding(BuildingEnum.ALMSHOUSE, masterBuildings, 2, 3, false);
+//
+//        bBoard[3][0] = BuildingFactory.getBuilding(BuildingEnum.FACTORY, masterBuildings, 3, 0, false);
+//        bBoard[3][1] = BuildingFactory.getBuilding(BuildingEnum.COTTAGE, masterBuildings, 3, 1, false);
+//        bBoard[3][2] = BuildingFactory.getBuilding(BuildingEnum.ABBEY, masterBuildings, 3, 2, false);
+//        bBoard[3][3] = BuildingFactory.getBuilding(BuildingEnum.SHED, masterBuildings, 3, 3, false);
 
         board.updateBoard();
         board.runBuildingTurnAction();
