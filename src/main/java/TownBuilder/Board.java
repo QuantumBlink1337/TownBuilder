@@ -32,10 +32,29 @@ public class Board {
     private boolean canBeMasterBuilder = true;
     private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
-
-
-
     private boolean activeBuildingUse = false;
+    private boolean turnOver = false;
+
+
+    public Object getNotifier() {
+        return notifier;
+    }
+
+    private final Object notifier = new Object();
+
+    //private boolean listenForInput = false;
+
+    public int[] getCoords() {
+        return coords;
+    }
+
+    public void setCoords(int[] coords) {
+        this.coords = coords;
+    }
+
+    private int[] coords;
+
+
 
 
 
@@ -388,7 +407,12 @@ public class Board {
         if (mode) {
             if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
                 System.out.println("Warehouse is not full, so placing it there");
-
+                currentResourceForTurn = warehouse.placeResource(currentResourceForTurn, ResourceEnum.NONE);
+                synchronized (notifier) {
+                    notifier.notify();
+                }
+                turnOver = true;
+                boardUI.setCoordinatesClicked(false);
             }
         }
         else {
@@ -404,32 +428,52 @@ public class Board {
                 }
             }
             while (turnResource == ResourceEnum.OBSTRUCTED);
+            currentResourceForTurn = turnResource;
         }
         //return turnResource;
     }
 
     public void playerTurn() throws IOException, URISyntaxException {
-        ResourceEnum resource = resourcePicker();
-        boardUI.setSelectedResourceForTurn(resource);
-
-        int[] coords = boardUI.promptUserInputOfBoard();
-        gameResourceBoard[coords[0]][coords[1]].setResource(resource);
+        currentResourceForTurn = resourcePicker();
+        do {
+            boardUI.setSelectedResourceForTurn(currentResourceForTurn);
+            synchronized (notifier) {
+                try {
+                    notifier.wait();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (boardUI.isCoordinatesClicked()) {
+                int[] coords = boardUI.promptUserInputOfBoard();
+                gameResourceBoard[coords[0]][coords[1]].setResource(currentResourceForTurn);
+                turnOver = true;
+            }
+        }
+        while (!turnOver);
         updateBoard();
 
     }
     public void updateBoard() throws IOException {
+        boolean activeBuilding = false;
         TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 accessMatrix[row][col].setResourceEnum(gameResourceBoard[row][col].getResource());
                 accessMatrix[row][col].setBuildingEnum(gameBuildingBoard[row][col].getType());
                 accessMatrix[row][col].updateButton();
+                if (gameBuildingBoard[row][col].getType() == BuildingEnum.WAREHOUSE) {
+                    activeBuilding = true;
+                }
             }
         }
-        System.out.println("Updating...");
-        if (lastBuiltBuilding == BuildingEnum.WAREHOUSE) {
+        if (activeBuilding) {
+            System.out.println("Updating warehouse");
             boardUI.getActiveBuildingPanel().updateActiveBuildings();
         }
+
+
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 int boardWhiteSpaceLength = 9;
@@ -451,7 +495,7 @@ public class Board {
         }
     }
     public void renderBoard() throws IOException {
-        this.updateBoard();
+        //this.updateBoard();
         System.out.println("============="+boardName.toUpperCase()+"'s BOARD============");
         for (int i = 0; i < letterCoords.length; i++) {
             if (i == 4) {
