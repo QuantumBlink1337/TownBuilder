@@ -1,10 +1,7 @@
 package TownBuilder.UI;
-import TownBuilder.Board;
+import TownBuilder.*;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
-import TownBuilder.Placeable;
-import TownBuilder.Resource;
-import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -141,16 +138,17 @@ public class BoardUI extends JFrame {
     public int[] getSelectedCoords() {
         return selectedCoords;
     }
-    public ResourceEnum promptUserResourceSelection() {
-        selectedResourceForTurn = null;
-        resourceSelectionPanel.setVisible(true);
-        resourcePromptTextPanel.setVisible(false);
-        while (selectedResourceForTurn == null) {
-            Thread.onSpinWait();
-        }
-
-        resourceSelectionPanel.setVisible(false);
+    public ResourceEnum getUserSelectedResource() {
         return selectedResourceForTurn;
+    }
+    public void promptResourceSelection(boolean mode) {
+        if (mode) {
+            resourceSelectionPanel.setVisible(true);
+            resourcePromptTextPanel.setVisible(false);
+        }
+        else {
+            resourceSelectionPanel.setVisible(false);
+        }
     }
     public boolean promptYesNoPrompt(String labelText) {
         yesOrNoText.setText(labelText);
@@ -236,6 +234,9 @@ public class BoardUI extends JFrame {
             button.setResourceEnum(resourceArray.get(i));
             button.addActionListener(e -> {
                 setSelectedResourceForTurn(button.getResourceEnum());
+                synchronized (Utility.getNotifier()) {
+                    Utility.getNotifier().notify();
+                }
                 mainPanel.remove(panel);
                 resourcePromptTextPanel.setVisible(true);
                 mainPanel.updateUI();
@@ -320,6 +321,11 @@ public class BoardUI extends JFrame {
     }
     public void setSecondaryTextLabel(String string) {
         secondaryTextLabel.setText(string);
+        secondaryTextLabel.setVisible(true);
+    }
+    public void setSecondaryTextLabel(String string, Color color) {
+        secondaryTextLabel.setText(string);
+        secondaryTextLabel.setForeground(color);
         secondaryTextLabel.setVisible(true);
     }
 
