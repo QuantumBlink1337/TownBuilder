@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TimerTask;
@@ -59,7 +60,7 @@ public class ActiveBuildingsUI extends JPanel {
 
     }
 
-    public void updateActiveBuildings() {
+    public void updateActiveBuildings() throws IOException {
         mainActiveBuildingPanel.removeAll();
         ArrayList<TileButton> activeTileButtons = new ArrayList<>();
         for (TileButton[] tileButtons : tileAccessMatrix) {
@@ -99,7 +100,7 @@ public class ActiveBuildingsUI extends JPanel {
                 }
             }
     }
-    private JPanel generateIndividualActiveBuildingView(int[] coords) {
+    private JPanel generateIndividualActiveBuildingView(int[] coords) throws IOException {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton("EXIT");
         if (gameActiveBuilding == BuildingEnum.WAREHOUSE) {
@@ -121,11 +122,19 @@ public class ActiveBuildingsUI extends JPanel {
             swapButton.setFont(font);
             placeButton.setFont(font);
 
-//            swapButton.addActionListener(e -> {
-//                board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, false);
-//            });
+            swapButton.addActionListener(e -> {
+                try {
+                    board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, false);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             placeButton.addActionListener(e -> {
-                board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, true);
+                try {
+                    board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, true);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             });
             exitButton.setFont(font);
             swapButton.addActionListener(e -> choice = "swap");
