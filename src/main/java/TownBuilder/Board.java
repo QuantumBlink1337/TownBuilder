@@ -7,6 +7,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.BoardUI;
 import TownBuilder.UI.TileButton;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -277,13 +278,12 @@ public class Board {
             scorableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
         }
     }
-    public ResourceEnum resourcePicker() throws IOException, URISyntaxException {
+    public ResourceEnum resourcePicker() throws IOException {
         ResourceEnum turnResource;
         if (!isSingleplayer) {
             do {
-                turnResource = ResourceEnum.resourcePicker(blacklistedResources.toArray(ResourceEnum[]::new));
+                turnResource = Utility.resourcePicker(blacklistedResources, boardUI);
                 if (turnResource == ResourceEnum.NONE) {
-                    manual.openManual();
                     renderBoard();
                 }
             }
@@ -292,13 +292,13 @@ public class Board {
         else {
             if (spResourceSelectionIncrement == 2) {
                 spResourceSelectionIncrement = 0;
-                ResourceEnum.resetResourceArray();
-                return boardUI.promptUserResourceSelection();
+                Utility.resetResourceArray();
+                return Utility.resourcePicker(blacklistedResources, boardUI);
             }
             else {
                 spResourceSelectionIncrement++;
 
-                return ResourceEnum.randomResource();
+                return Utility.randomResource();
             }
         }
         return turnResource;
@@ -400,9 +400,9 @@ public class Board {
 //        while (!validInput);
 //        return resource;
 //    }
-    public void warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) {
+    public void warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) throws IOException {
 
-        ResourceEnum turnResource = t;
+        ResourceEnum turnResource;
         //System.out.println(warehouse.getFullness());
         if (mode) {
             if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
@@ -414,12 +414,15 @@ public class Board {
                 turnOver = true;
                 boardUI.setCoordinatesClicked(false);
             }
+            else {
+                boardUI.setSecondaryTextLabel("The selected warehouse is full.", Color.RED);
+            }
         }
         else {
             ResourceEnum swap;
             do {
                     turnResource = t;
-                    swap = ResourceEnum.resourcePicker(null);
+                    swap = resourcePicker();
                 if (turnResource != ResourceEnum.OBSTRUCTED) {
                     turnResource = warehouse.placeResource(turnResource, swap);
                 }
@@ -429,6 +432,11 @@ public class Board {
             }
             while (turnResource == ResourceEnum.OBSTRUCTED);
             currentResourceForTurn = turnResource;
+            synchronized (notifier) {
+                notifier.notify();
+            }
+            turnOver = false;
+            boardUI.setCoordinatesClicked(false);
         }
         //return turnResource;
     }

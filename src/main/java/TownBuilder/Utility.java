@@ -25,6 +25,12 @@ public class Utility {
     public static boolean isColor() {
         return color;
     }
+
+    public static Object getNotifier() {
+        return notifier;
+    }
+
+    private static final Object notifier = new Object();
     private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
 
     public static void setColor(boolean color) {
@@ -290,44 +296,35 @@ public class Utility {
         return buildingEnums;
     }
 
-    public static ResourceEnum resourcePicker(ResourceEnum[] blacklistedResources, BoardUI boardUI) {
-        resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
-        Scanner sc = new Scanner(System.in);
-        String resourceChoice;
-        while (true) {
-            System.out.println("What resource do you want?");
-            resourceChoice = sc.nextLine().toLowerCase();
-            try {
-                for (ResourceEnum blackListedResource : blacklistedResources)
-                if (blackListedResource.toString().equalsIgnoreCase(resourceChoice)) {
-                    resourceChoice = "blacklisted";
-
+    public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, BoardUI boardUI) {
+        resetResourceArray();
+        ResourceEnum resourceChoice;
+        boolean validResource = true;
+        boardUI.promptResourceSelection(true);
+        do {
+            synchronized (notifier) {
+                try {
+                    notifier.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-            catch (NullPointerException ignored) {}
-            switch (resourceChoice) {
-                case "wheat":
-                    return ResourceEnum.WHEAT;
-                case "glass":
-                    return ResourceEnum.GLASS;
-                case "brick":
-                    return ResourceEnum.BRICK;
-                case "stone":
-                    return ResourceEnum.STONE;
-                case "wood":
-                    return ResourceEnum.WOOD;
-                case "help":
-                    return ResourceEnum.NONE;
-                case "blacklisted":
-                    System.out.println("This resource is unavailable to pick. Please choose another resource.");
-                    break;
-                default:
-                    System.out.println("Invalid input. Please try again.");
-                    break;
+            resourceChoice = boardUI.getUserSelectedResource();
+            if (blacklistedResources != null) {
+                for (ResourceEnum resource : blacklistedResources) {
+                    validResource = (resource == resourceChoice);
+                }
+            }
+            if (!validResource) {
+                boardUI.setSecondaryTextLabel("That resource is unavailable to choose. Please pick another.", Color.RED);
             }
         }
-        //return NONE;
+
+        while (!validResource);
+        boardUI.promptResourceSelection(false);
+        return resourceChoice;
     }
+
 
     public static ResourceEnum randomResource() {
         ResourceEnum result;
