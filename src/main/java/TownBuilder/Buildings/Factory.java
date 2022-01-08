@@ -36,10 +36,10 @@ public class Factory implements Building{
     }
     private void pickResource() {
         System.out.println("You can choose a resource for your Factory.");
-        factorizedResource = Utility.resourcePicker(null, );
+        factorizedResource = Utility.resourcePicker(null, board.getBoardUI());
     }
     public ResourceEnum exchangeResource() {
-        return Utility.resourcePicker(null, );
+        return Utility.resourcePicker(null, board.getBoardUI());
     }
     public ResourceEnum getFactorizedResource() {
         return factorizedResource;
