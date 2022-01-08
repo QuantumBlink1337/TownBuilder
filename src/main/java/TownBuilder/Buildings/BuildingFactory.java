@@ -244,7 +244,7 @@ public class BuildingFactory {
 
 
     public void placeBuildingOnBoard(BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere, Board board) throws IOException {
-        int[] coords;
+        int[] coords = null;
         boolean validInput = false;
         Building building;
         if (buildingEnum.isMonument()) {
@@ -260,7 +260,17 @@ public class BuildingFactory {
             board.getBoardUI().setSecondaryTextLabel("You can place your building wherever you want, provided there's nothing there already!");
             board.getBoardUI().resetBoardTiles();
             do {
-                coords = board.getBoardUI().promptUserInputOfBoard();
+                synchronized (board.getNotifier()) {
+                    try {
+                        board.getNotifier().wait();
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (board.getBoardUI().isCoordinatesClicked()) {
+                    coords = board.getBoardUI().getSelectedCoords();
+                }
                 if (rArray[coords[0]][coords[1]].getResource() == ResourceEnum.NONE && bArray[coords[0]][coords[1]].getType() == BuildingEnum.NONE) {
                     validInput = true;
                 }
@@ -268,7 +278,17 @@ public class BuildingFactory {
             while (!validInput);
         }
         else {
-            coords = board.getBoardUI().promptUserInputOfBoard();
+            synchronized (board.getNotifier()) {
+                try {
+                    board.getNotifier().wait();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (board.getBoardUI().isCoordinatesClicked()) {
+                coords = board.getBoardUI().getSelectedCoords();
+            }
             board.getBoardUI().resetBoardTiles();
 
         }
