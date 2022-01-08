@@ -18,7 +18,7 @@ public class BuildingFactory {
         buildingMasterList.put(ColorEnum.ORANGE, new ArrayList<>(Arrays.asList(new Chapel(-1, -1 ), new Abbey(-1, -1), new Cloister(-1, -1), new Temple(-1, -1))));
         buildingMasterList.put(ColorEnum.GREEN, new ArrayList<>(Arrays.asList(new Tavern(-1, -1), new Almshouse(-1, -1), new FeastHall(-1, -1), new Inn(-1, -1))));
         buildingMasterList.put(ColorEnum.YELLOW, new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
-        buildingMasterList.put(ColorEnum.WHITE, new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false), new Bank(-1, -1, false, null), new TradingPost(-1, -1))));
+        buildingMasterList.put(ColorEnum.WHITE, new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false, null), new Bank(-1, -1, false, null), new TradingPost(-1, -1))));
     }
     public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade, Board board) {
         if (buildingEnum == BuildingEnum.NONE) {
@@ -79,7 +79,7 @@ public class BuildingFactory {
             return new Warehouse(row, col);
         }
         else if (buildingEnum == BuildingEnum.FACTORY) {
-            return new Factory(row, col, isPlayerMade);
+            return new Factory(row, col, isPlayerMade, board);
         }
         else if (buildingEnum == BuildingEnum.BANK) {
             return new Bank(row, col ,isPlayerMade, board);
