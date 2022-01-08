@@ -4,7 +4,6 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.DebugApps.DebugTools;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.util.*;
 
@@ -230,7 +229,7 @@ public class PlayerManager {
         every turn does this, so I decided to split it into its own method. Runs the turn actions for all players.
      */
     private static void turnActions(Board board, ResourceEnum resource) throws IOException, URISyntaxException{
-        board.playerTurn(resource);
+        board.playerTurn();
         board.detectValidBuilding();
         board.runBuildingTurnAction();
         board.setGameCompletion(board.gameOver());
