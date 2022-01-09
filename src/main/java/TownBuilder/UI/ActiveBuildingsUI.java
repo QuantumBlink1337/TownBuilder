@@ -3,6 +3,7 @@ package TownBuilder.UI;
 import TownBuilder.Board;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.Factory;
 import TownBuilder.Buildings.Warehouse;
 import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
@@ -73,7 +74,12 @@ public class ActiveBuildingsUI extends JPanel {
                     JButton button = new JButton(gameActiveBuilding.toString());
                     Font smallFont = mainPanel.getFont().deriveFont(Font.BOLD, 25f);
                     button.setFont(smallFont);
-                    JPanel individualView = generateIndividualActiveBuildingView(activeTileButton.getCoords());
+                    JPanel individualView;
+                    switch (gameActiveBuilding) {
+                        case WAREHOUSE -> individualView = generateIndividualWarehouseView(activeTileButton.getCoords());
+                        case FACTORY -> individualView = generateIndividualFactoryView(activeTileButton.getCoords());
+                        default -> individualView = new JPanel();
+                    }
                     button.addActionListener(e -> {
                         mainPanel.remove(mainActiveBuildingPanel);
                         mainPanel.add(individualView, "dock center");
@@ -96,65 +102,103 @@ public class ActiveBuildingsUI extends JPanel {
                 }
             }
     }
-    private JPanel generateIndividualActiveBuildingView(int[] coords) throws IOException {
+    private JPanel generateIndividualWarehouseView(int[] coords) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton("EXIT");
-        if (gameActiveBuilding == BuildingEnum.WAREHOUSE) {
-            JLabel inventoryLabel = new JLabel("Inventory");
-            inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
-            JPanel inventoryView = new JPanel(new GridLayout(1, 3, 0, 0));
-            Warehouse building = (Warehouse) board.getGameBuildingBoard()[coords[0]][coords[1]];
-            for (ResourceEnum resourceEnum : building.getStoredResources()) {
-                JLabel button = new JLabel(resourceEnum.toString());
-                button.setHorizontalAlignment(SwingConstants.CENTER);
-                button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                button.setOpaque(true);
-                button.setBackground(resourceEnum.getColor().getOverallColor());
-                inventoryView.add(button);
-            }
-            JButton swapButton = new JButton("Swap");
-
-            JButton placeButton = new JButton("Place");
-            Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
-            swapButton.setFont(font);
-            placeButton.setFont(font);
-
-            swapButton.addActionListener(e -> {
-                boardUI.setActiveBuildingToggled(true);
-                boardUI.setActiveMode("swap");
-                boardUI.setSelectedActiveBuilding(building);
-                boardUI.setCoordinatesClicked(false);
-                synchronized (board.getNotifier()) {
-                    board.getNotifier().notify();
-                }
-            });
-            placeButton.addActionListener(e -> {
-                boardUI.setActiveBuildingToggled(true);
-                boardUI.setActiveMode("place");
-                boardUI.setSelectedActiveBuilding(building);
-                boardUI.setCoordinatesClicked(false);
-                synchronized (board.getNotifier()) {
-                    board.getNotifier().notify();
-                }
-            });
-            exitButton.setFont(font);
-            swapButton.addActionListener(e -> choice = "swap");
-            placeButton.addActionListener(e -> choice = "place");
-            panel.setBorder(BorderFactory.createLineBorder(Color.red));
-            JPanel inventoryPanel = new JPanel(new MigLayout());
-            inventoryPanel.add(inventoryLabel, "wrap, dock center, align center");
-            inventoryPanel.add(inventoryView, "dock center, align center");
-            inventoryLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            inventoryView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-            panel.add(inventoryPanel, "dock center, align center, wrap");
-            String sizeControl = "w 180!, h 40!";
-            panel.add(swapButton, "split 2, align center, "+sizeControl);
-            swapButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            panel.add(placeButton, sizeControl+",wrap");
-            placeButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        JLabel inventoryLabel = new JLabel("Inventory");
+        inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        JPanel inventoryView = new JPanel(new GridLayout(1, 3, 0, 0));
+        Warehouse building = (Warehouse) board.getGameBuildingBoard()[coords[0]][coords[1]];
+        for (ResourceEnum resourceEnum : building.getStoredResources()) {
+            JLabel button = new JLabel(resourceEnum.toString());
+            button.setHorizontalAlignment(SwingConstants.CENTER);
+            button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            button.setOpaque(true);
+            button.setBackground(resourceEnum.getColor().getOverallColor());
+            inventoryView.add(button);
         }
+        JButton swapButton = new JButton("Swap");
+
+        JButton placeButton = new JButton("Place");
+        Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
+        swapButton.setFont(font);
+        placeButton.setFont(font);
+
+        swapButton.addActionListener(e -> {
+            boardUI.setActiveBuildingToggled(true);
+            boardUI.setActiveMode("swap");
+            boardUI.setSelectedActiveBuilding(building);
+            boardUI.setCoordinatesClicked(false);
+            synchronized (board.getNotifier()) {
+                board.getNotifier().notify();
+            }
+        });
+        placeButton.addActionListener(e -> {
+            boardUI.setActiveBuildingToggled(true);
+            boardUI.setActiveMode("place");
+            boardUI.setSelectedActiveBuilding(building);
+            boardUI.setCoordinatesClicked(false);
+            synchronized (board.getNotifier()) {
+                board.getNotifier().notify();
+            }
+        });
+        exitButton.setFont(font);
+        swapButton.addActionListener(e -> choice = "swap");
+        placeButton.addActionListener(e -> choice = "place");
+        panel.setBorder(BorderFactory.createLineBorder(Color.red));
+        JPanel inventoryPanel = new JPanel(new MigLayout());
+        inventoryPanel.add(inventoryLabel, "wrap, dock center, align center");
+        inventoryPanel.add(inventoryView, "dock center, align center");
+        inventoryLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        inventoryView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        panel.add(inventoryPanel, "dock center, align center, wrap");
+        String sizeControl = "w 180!, h 40!";
+        panel.add(swapButton, "split 2, align center, "+sizeControl);
+        swapButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel.add(placeButton, sizeControl+",wrap");
+        placeButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        exitButton.addActionListener(e -> {
+            mainPanel.remove(panel);
+            mainPanel.add(mainActiveBuildingPanel, "dock center");
+            updateUI();
+        });
+        panel.add(exitButton, "growx, h 40!");
+        return panel;
+    }
+    private JPanel generateIndividualFactoryView(int[] coords) {
+        JPanel panel = new JPanel(new MigLayout());
+        JButton exitButton = new JButton("EXIT");
+        JLabel inventoryLabel = new JLabel("Chosen Resource");
+        inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        JPanel inventoryView = new JPanel(new MigLayout());
+        Factory building = (Factory) board.getGameBuildingBoard()[coords[0]][coords[1]];
+        ResourceEnum selectedFactoryResource = building.getFactorizedResource();
+        JLabel factoryResourceLabel = new JLabel(selectedFactoryResource.toString());
+        factoryResourceLabel.setBackground(selectedFactoryResource.getColor().getOverallColor());
+        inventoryView.add(inventoryLabel, "align center, wrap");
+        inventoryView.add(factoryResourceLabel);
+
+        panel.add(inventoryView, "wrap");
+
+        JButton swapButton = new JButton("Swap");
+        Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
+        swapButton.setFont(font);
+        swapButton.addActionListener(e -> {
+            boardUI.setActiveBuildingToggled(true);
+            boardUI.setActiveMode("exchange");
+            boardUI.setSelectedActiveBuilding(building);
+            boardUI.setCoordinatesClicked(false);
+            synchronized (board.getNotifier()) {
+                board.getNotifier().notify();
+            }
+        });
+        panel.add(swapButton, "wrap");
+
+
+
         exitButton.addActionListener(e -> {
             mainPanel.remove(panel);
             mainPanel.add(mainActiveBuildingPanel, "dock center");

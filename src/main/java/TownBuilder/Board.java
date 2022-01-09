@@ -343,33 +343,17 @@ public class Board {
         }
         while (true);
     }
-    private ResourceEnum factoryOption(ResourceEnum resource, ArrayList<Factory> factoriesOnBoard) throws IOException {
-        boolean validInput = false;
-        String userInput;
-        do {
-            System.out.println("Which Factory would you like to use?");
-            userInput = sc.nextLine().toLowerCase();
-            for (Factory factory : factoriesOnBoard) {
-                int row = factory.getRow();
-                int col = factory.getCol();
-                if (Utility.MachineIndexesToHumanCoords(row, col).equalsIgnoreCase(userInput) && resource == factory.getFactorizedResource()) {
-                    resource = factory.exchangeResource();
-                    validInput = true;
-                    break;
-                }
-                else if (Utility.MachineIndexesToHumanCoords(row, col).equalsIgnoreCase(userInput) && resource != factory.getFactorizedResource()) {
-                    System.out.println("The Factory selected does match the type of the resource you're exchanging.");
-                }
-                else if (userInput.equals("exit")) {
-                    validInput = true;
-                }
-                else {
-                    System.out.println("Invalid input.");
-                }
-            }
+    private void factoryOption(ResourceEnum resource, Factory building) throws IOException {
+        if (currentResourceForTurn == building.getFactorizedResource()) {
+            currentResourceForTurn = building.exchangeResource();
         }
-        while (!validInput);
-        return resource;
+        else {
+            System.out.println("Invalid swap");
+            boardUI.getErrorTextLabel().setVisible(true);
+            boardUI.getErrorTextLabel().setText("That Factory doesn't match the resource this turn.");
+        }
+        turnOver = false;
+
     }
     public void warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) throws IOException {
 
@@ -378,9 +362,6 @@ public class Board {
             if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
                 currentResourceForTurn = warehouse.placeResource(currentResourceForTurn, ResourceEnum.NONE);
                 boardUI.getActiveBuildingPanel().updateActiveBuildings();
-                synchronized (notifier) {
-                    notifier.notify();
-                }
                 turnOver = true;
                 boardUI.setCoordinatesClicked(false);
             }
@@ -436,10 +417,12 @@ public class Board {
                 switch (boardUI.getActiveMode()) {
                     case "swap" -> warehouseOption(currentResourceForTurn, (Warehouse) boardUI.getSelectedActiveBuilding(), false);
                     case "place" -> warehouseOption(currentResourceForTurn, (Warehouse) boardUI.getSelectedActiveBuilding(), true);
+                    case "exchange" -> factoryOption(currentResourceForTurn, (Factory) boardUI.getSelectedActiveBuilding());
                 }
             }
         }
         while (!turnOver);
+        boardUI.getErrorTextLabel().setVisible(false);
         updateBoard();
     }
     public void updateBoard() throws IOException {
@@ -451,7 +434,7 @@ public class Board {
                 accessMatrix[row][col].setResourceEnum(gameResourceBoard[row][col].getResource());
                 accessMatrix[row][col].setBuildingEnum(gameBuildingBoard[row][col].getType());
                 accessMatrix[row][col].updateButton();
-                if (gameBuildingBoard[row][col].getType() == BuildingEnum.WAREHOUSE) {
+                if (gameBuildingBoard[row][col].getType() == BuildingEnum.WAREHOUSE || gameBuildingBoard[row][col].getType() == BuildingEnum.FACTORY) {
                     activeBuilding = true;
                 }
             }
