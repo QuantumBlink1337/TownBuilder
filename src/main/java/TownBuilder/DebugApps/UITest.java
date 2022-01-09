@@ -17,11 +17,10 @@ public class UITest {
         board.getGameBuildingBoard()[3][3] = BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, masterBuildings, 3, 3, false, board);
         board.setLastBuiltBuilding(BuildingEnum.WAREHOUSE);
         while (!board.isGameCompletion()) {
-            System.out.println("new turn!");
             board.playerTurn();
             board.detectValidBuilding();
             board.setGameCompletion(board.gameOver());
-            board.getBoardUI().repaint();
+            //board.getBoardUI().repaint();
         }
     }
 }
