@@ -2,8 +2,10 @@ package TownBuilder.Buildings;
 
 import TownBuilder.Board;
 import TownBuilder.ResourceEnum;
+import TownBuilder.ResourceUtility;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Factory implements Building{
@@ -22,7 +24,7 @@ public class Factory implements Building{
         // factoryPattern[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.STONE, ResourceEnum.STONE, ResourceEnum.BRICK};
         // BuildingFactory.patternBuilder(factoryPattern, factoryPatternList, 3);
     }
-    public Factory(int r, int c, boolean playerMade, Board board) {
+    public Factory(int r, int c, boolean playerMade, Board board) throws IOException {
         row = r;
         col = c;
         this.board = board;
@@ -34,12 +36,12 @@ public class Factory implements Building{
             factorizedResource = ResourceEnum.NONE;
         }
     }
-    private void pickResource() {
+    private void pickResource() throws IOException {
         System.out.println("You can choose a resource for your Factory.");
-        factorizedResource = Utility.resourcePicker(null, board.getBoardUI());
+        factorizedResource = board.getResourceUtility().resourcePicker(null, board.getBoardUI());
     }
-    public ResourceEnum exchangeResource() {
-        return Utility.resourcePicker(null, board.getBoardUI());
+    public ResourceEnum exchangeResource() throws IOException {
+        return board.getResourceUtility().resourcePicker(null, board.getBoardUI());
     }
     public ResourceEnum getFactorizedResource() {
         return factorizedResource;

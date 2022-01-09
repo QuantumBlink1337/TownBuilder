@@ -2,8 +2,10 @@ package TownBuilder.Buildings;
 
 import TownBuilder.Board;
 import TownBuilder.ResourceEnum;
+import TownBuilder.ResourceUtility;
 import TownBuilder.Utility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static TownBuilder.Buildings.BuildingFactory.patternBuilder;
@@ -21,7 +23,7 @@ public class Bank implements Building{
         bankPattern[1] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.GLASS, ResourceEnum.BRICK};
         patternBuilder(bankPattern, bankPatternList);
     }
-    public Bank(int r, int c, boolean playerMade, Board board) {
+    public Bank(int r, int c, boolean playerMade, Board board) throws IOException {
         row = r;
         col = c;
         this.board = board;
@@ -30,9 +32,9 @@ public class Bank implements Building{
             setLockedResource();
         }
     }
-    private void setLockedResource() {
+    private void setLockedResource() throws IOException {
         System.out.println("You must declare a resource to be the Bank's type.\nOnce you do this, you may no longer ask for it. ");
-        lockedResource = Utility.resourcePicker(null, board.getBoardUI());
+        lockedResource = board.getResourceUtility().resourcePicker(null, board.getBoardUI());
     }
     public ResourceEnum getLockedResource() {
         return lockedResource;

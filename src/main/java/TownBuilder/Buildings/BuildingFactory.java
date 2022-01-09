@@ -11,7 +11,7 @@ public class BuildingFactory {
     private final ArrayList<Resource> validResources = new ArrayList<>();
     private final Board board;
     private static final HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = new HashMap<>();
-    public static void setbuildingMasterList() {
+    public static void setbuildingMasterList() throws IOException {
         buildingMasterList.put(ColorEnum.BLUE, new ArrayList<>(List.of(new Cottage(-1, -1))));
         buildingMasterList.put(ColorEnum.RED, new ArrayList<>(Arrays.asList(new Farm(-1, -1), new Granary(-1, -1), new Orchard(-1, -1), new Greenhouse(-1, -1))));
         buildingMasterList.put(ColorEnum.GRAY, new ArrayList<>(Arrays.asList(new Well(-1, -1), new Fountain(-1, -1), new Millstone(-1, -1), new Shed(-1, -1))));
@@ -20,7 +20,7 @@ public class BuildingFactory {
         buildingMasterList.put(ColorEnum.YELLOW, new ArrayList<>(Arrays.asList(new Theater(), new Bakery(-1, -1), new Market(-1, -1), new Tailor(-1, -1))));
         buildingMasterList.put(ColorEnum.WHITE, new ArrayList<>(Arrays.asList(new Warehouse(-1, -1), new Factory(-1, -1, false, null), new Bank(-1, -1, false, null), new TradingPost(-1, -1))));
     }
-    public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade, Board board) {
+    public static Building getBuilding(BuildingEnum buildingEnum, ArrayList<Building> buildingMasterList, int row, int col, boolean isPlayerMade, Board board) throws IOException {
         if (buildingEnum == BuildingEnum.NONE) {
             return new EmptyBuilding();
         }
@@ -260,9 +260,9 @@ public class BuildingFactory {
             board.getBoardUI().setSecondaryTextLabel("You can place your building wherever you want, provided there's nothing there already!");
             board.getBoardUI().resetBoardTiles();
             do {
-                synchronized (board.getNotifier()) {
+                synchronized (Utility.getNotifier()) {
                     try {
-                        board.getNotifier().wait();
+                        Utility.getNotifier().wait();
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();
@@ -278,9 +278,9 @@ public class BuildingFactory {
             while (!validInput);
         }
         else {
-            synchronized (board.getNotifier()) {
+            synchronized (Utility.getNotifier()) {
                 try {
-                    board.getNotifier().wait();
+                    Utility.getNotifier().wait();
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();

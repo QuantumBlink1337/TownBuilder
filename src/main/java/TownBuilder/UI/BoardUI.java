@@ -2,11 +2,13 @@ package TownBuilder.UI;
 import TownBuilder.*;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.DebugApps.DebugTools;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -44,7 +46,7 @@ public class BoardUI extends JFrame {
     JLabel yesOrNoText;
     final JPanel boardHeader;
     final JPanel boardMatrixPanel;
-    final JPanel resourceSelectionPanel;
+    public final JPanel resourceSelectionPanel;
     final JPanel resourcePromptTextPanel;
 
     public ActiveBuildingsUI getActiveBuildingPanel() {
@@ -141,13 +143,15 @@ public class BoardUI extends JFrame {
     public ResourceEnum getUserSelectedResource() {
         return selectedResourceForTurn;
     }
-    public void promptResourceSelection(boolean mode) {
+    public void promptResourceSelection(boolean mode) throws IOException {
+        DebugTools.logging("[BoardUI] - Triggering Resource Prompt Visibility");
         if (mode) {
             resourceSelectionPanel.setVisible(true);
             resourcePromptTextPanel.setVisible(false);
         }
         else {
             resourceSelectionPanel.setVisible(false);
+            resourcePromptTextPanel.setVisible(true);
         }
     }
     public boolean promptYesNoPrompt(String labelText) {
@@ -234,11 +238,10 @@ public class BoardUI extends JFrame {
             button.setResourceEnum(resourceArray.get(i));
             button.addActionListener(e -> {
                 setSelectedResourceForTurn(button.getResourceEnum());
-                synchronized (Utility.getNotifier()) {
-                    Utility.getNotifier().notify();
+                synchronized (board.getResourceUtility().getNotifier()) {
+                    board.getResourceUtility().getNotifier().notify();
                 }
-                mainPanel.remove(panel);
-                resourcePromptTextPanel.setVisible(true);
+                System.out.println("Pressed resource button");
                 mainPanel.updateUI();
             });
             button.setText(resourceArray.get(i).toString());

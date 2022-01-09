@@ -31,7 +31,6 @@ public class Utility {
     }
 
     private static final Object notifier = new Object();
-    private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
 
     public static void setColor(boolean color) {
         Utility.color = color;
@@ -296,51 +295,5 @@ public class Utility {
         return buildingEnums;
     }
 
-    public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, BoardUI boardUI) {
-        resetResourceArray();
-        ResourceEnum resourceChoice;
-        boolean validResource = true;
-        boardUI.promptResourceSelection(true);
-        do {
-            synchronized (notifier) {
-                try {
-                    notifier.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            resourceChoice = boardUI.getUserSelectedResource();
-            if (blacklistedResources != null) {
-                for (ResourceEnum resource : blacklistedResources) {
-                    validResource = (resource == resourceChoice);
-                }
-            }
-            if (!validResource) {
-                boardUI.setSecondaryTextLabel("That resource is unavailable to choose. Please pick another.", Color.RED);
-            }
-        }
 
-        while (!validResource);
-        boardUI.promptResourceSelection(false);
-        return resourceChoice;
-    }
-
-
-    public static ResourceEnum randomResource() {
-        ResourceEnum result;
-        try {
-            int random = (int) (Math.random() * resourceArray.size());
-            result = resourceArray.get(random);
-            resourceArray.remove(random);
-        }
-        catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-            result = ResourceEnum.GLASS;
-        }
-        return result;
-    }
-
-    public static void resetResourceArray() {
-       resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
-    }
 }

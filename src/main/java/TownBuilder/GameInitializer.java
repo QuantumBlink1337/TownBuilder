@@ -5,6 +5,7 @@ import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import com.diogonunes.jcolor.Attribute;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class GameInitializer {
     public ArrayList<Building> getBuildingsForGame() {
         return buildingsForGame;
     }
-    public void buildingSelection() {
+    public void buildingSelection() throws IOException {
         Scanner sc = new Scanner(System.in);
 
         HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = BuildingFactory.getBuildingMasterList();

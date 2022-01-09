@@ -36,12 +36,14 @@ public class Board {
     private boolean activeBuildingUse = false;
     private boolean turnOver = false;
 
-
-    public Object getNotifier() {
-        return notifier;
+    public ResourceUtility getResourceUtility() {
+        return resourceUtility;
     }
 
-    private final Object notifier = new Object();
+    private final ResourceUtility resourceUtility;
+
+
+
 
     //private boolean listenForInput = false;
 
@@ -82,12 +84,18 @@ public class Board {
 
     private final BoardUI boardUI;
 
+    public Object getNotifier() {
+        return notifier;
+    }
+
+    private final Object notifier;
 
 
 
     public Board(ArrayList<Building> b, boolean ISP, PlayerManager pM) throws IOException {
         isSingleplayer = ISP;
         playerManager = pM;
+        resourceUtility = new ResourceUtility(this);
         System.out.println("What's your name?");
         boardName = sc.nextLine();
         if (boardName.equals("debug")) {
@@ -106,11 +114,13 @@ public class Board {
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
         boardUI = null;
+        notifier = new Object();
         buildArrays();
         updateBoard();
     }
     public Board(ArrayList<Building> b, BuildingEnum mo, PlayerManager playerManager) throws IOException {
         this.playerManager = playerManager;
+        resourceUtility = new ResourceUtility(this);
         boardName = "DEBUG";
         isSingleplayer = true;
         detectableBuildings = new ArrayList<>(b);
@@ -123,6 +133,8 @@ public class Board {
         scorer = new Scorer(this, scorableBuildings);
         boardUI = new BoardUI(this);
         boardUI.setVisible(true);
+        notifier = new Object();
+
         buildArrays();
         updateBoard();
 
@@ -282,7 +294,7 @@ public class Board {
         ResourceEnum turnResource;
         if (!isSingleplayer) {
             do {
-                turnResource = Utility.resourcePicker(blacklistedResources, boardUI);
+                turnResource = resourceUtility.resourcePicker(blacklistedResources, boardUI);
                 if (turnResource == ResourceEnum.NONE) {
                     renderBoard();
                 }
@@ -292,13 +304,13 @@ public class Board {
         else {
             if (spResourceSelectionIncrement == 2) {
                 spResourceSelectionIncrement = 0;
-                Utility.resetResourceArray();
-                return Utility.resourcePicker(blacklistedResources, boardUI);
+                resourceUtility.resetResourceArray();
+                return resourceUtility.resourcePicker(blacklistedResources, boardUI);
             }
             else {
                 spResourceSelectionIncrement++;
 
-                return Utility.randomResource();
+                return resourceUtility.randomResource();
             }
         }
         return turnResource;
@@ -325,7 +337,7 @@ public class Board {
         }
         while (true);
     }
-    private ResourceEnum factoryOption(ResourceEnum resource, ArrayList<Factory> factoriesOnBoard) {
+    private ResourceEnum factoryOption(ResourceEnum resource, ArrayList<Factory> factoriesOnBoard) throws IOException {
         boolean validInput = false;
         String userInput;
         do {
@@ -402,11 +414,11 @@ public class Board {
 //    }
     public void warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) throws IOException {
 
-        ResourceEnum turnResource;
+        ResourceEnum turnResource = t;
         //System.out.println(warehouse.getFullness());
         if (mode) {
             if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
-                System.out.println("Warehouse is not full, so placing it there");
+                //System.out.println("Warehouse is not full, so placing it there");
                 currentResourceForTurn = warehouse.placeResource(currentResourceForTurn, ResourceEnum.NONE);
                 synchronized (notifier) {
                     notifier.notify();
@@ -419,24 +431,32 @@ public class Board {
             }
         }
         else {
-            ResourceEnum swap;
-            do {
-                    turnResource = t;
-                    swap = resourcePicker();
-                if (turnResource != ResourceEnum.OBSTRUCTED) {
+            if (warehouse.getFullness() != 0) {
+                ResourceEnum swap;
+                do {
+                    boardUI.setCoordinatesClicked(false);
+
+                    synchronized (Utility.getNotifier()) {
+                        Utility.getNotifier().notify();
+                    }
+
+                    boardUI.setPrimaryTextLabel("Select a resource to swap out from your Warehouse.");
+                    swap = resourceUtility.resourcePicker(null, boardUI);
+                    System.out.println(swap);
                     turnResource = warehouse.placeResource(turnResource, swap);
+                    if (turnResource == ResourceEnum.OBSTRUCTED) {
+                        boardUI.setSecondaryTextLabel("You asked for a resource that is not in the warehouse!", Color.RED);
+                    }
                 }
-                else {
-                    System.out.println("You asked for a resource that is not in the warehouse!");
-                }
+                while (turnResource == ResourceEnum.OBSTRUCTED);
+                currentResourceForTurn = turnResource;
+
+                turnOver = false;
+
             }
-            while (turnResource == ResourceEnum.OBSTRUCTED);
-            currentResourceForTurn = turnResource;
-            synchronized (notifier) {
-                notifier.notify();
+            else {
+                boardUI.setSecondaryTextLabel("Your Warehouse has nothing in it to swap out!", Color.RED);
             }
-            turnOver = false;
-            boardUI.setCoordinatesClicked(false);
         }
         //return turnResource;
     }
@@ -477,7 +497,7 @@ public class Board {
             }
         }
         if (activeBuilding) {
-            System.out.println("Updating warehouse");
+            //System.out.println("Updating warehouse");
             boardUI.getActiveBuildingPanel().updateActiveBuildings();
         }
 

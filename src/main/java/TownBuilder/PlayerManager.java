@@ -204,7 +204,7 @@ public class PlayerManager {
         if (placeBuilding) {
             board.renderBoard();
             board.setLastBuiltBuilding(board.buildingPlacer(buildingsForGame, true));
-            turnActions(board, Utility.randomResource());
+            turnActions(board, board.getResourceUtility().randomResource());
             return null;
         }
         if (resourcePick) {
