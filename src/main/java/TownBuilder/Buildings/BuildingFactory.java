@@ -260,9 +260,9 @@ public class BuildingFactory {
             board.getBoardUI().setSecondaryTextLabel("You can place your building wherever you want, provided there's nothing there already!");
             board.getBoardUI().resetBoardTiles();
             do {
-                synchronized (Utility.getNotifier()) {
+                synchronized (board.getNotifier()) {
                     try {
-                        Utility.getNotifier().wait();
+                        board.getNotifier().wait();
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();
@@ -278,9 +278,11 @@ public class BuildingFactory {
             while (!validInput);
         }
         else {
-            synchronized (Utility.getNotifier()) {
+            board.getBoardUI().setSecondaryTextLabel("You may place it in the highlighted tiles.");
+
+            synchronized (board.getNotifier()) {
                 try {
-                    Utility.getNotifier().wait();
+                    board.getNotifier().wait();
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
