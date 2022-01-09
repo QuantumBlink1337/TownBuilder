@@ -2,7 +2,6 @@ package TownBuilder.Buildings;
 
 import TownBuilder.Board;
 import TownBuilder.ResourceEnum;
-import TownBuilder.ResourceUtility;
 import TownBuilder.Utility;
 
 import java.io.IOException;
@@ -34,7 +33,7 @@ public class Bank implements Building{
     }
     private void setLockedResource() throws IOException {
         System.out.println("You must declare a resource to be the Bank's type.\nOnce you do this, you may no longer ask for it. ");
-        lockedResource = board.getResourceUtility().resourcePicker(null, board.getBoardUI());
+        lockedResource = Utility.resourcePicker(null, board);
     }
     public ResourceEnum getLockedResource() {
         return lockedResource;

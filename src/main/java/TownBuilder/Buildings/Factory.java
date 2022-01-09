@@ -2,7 +2,6 @@ package TownBuilder.Buildings;
 
 import TownBuilder.Board;
 import TownBuilder.ResourceEnum;
-import TownBuilder.ResourceUtility;
 import TownBuilder.Utility;
 
 import java.io.IOException;
@@ -38,10 +37,10 @@ public class Factory implements Building{
     }
     private void pickResource() throws IOException {
         System.out.println("You can choose a resource for your Factory.");
-        factorizedResource = board.getResourceUtility().resourcePicker(null, board.getBoardUI());
+        factorizedResource = Utility.resourcePicker(null, board);
     }
     public ResourceEnum exchangeResource() throws IOException {
-        return board.getResourceUtility().resourcePicker(null, board.getBoardUI());
+        return Utility.resourcePicker(null, board);
     }
     public ResourceEnum getFactorizedResource() {
         return factorizedResource;

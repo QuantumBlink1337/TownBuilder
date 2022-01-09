@@ -22,6 +22,8 @@ public class Utility {
     // lacking RGB color support
 
     private static boolean color = !System.getProperty("os.name").contains("Windows");
+    private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
+
     public static boolean isColor() {
         return color;
     }
@@ -296,4 +298,50 @@ public class Utility {
     }
 
 
+    public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, Board board) throws IOException {
+        resetResourceArray();
+        ResourceEnum resourceChoice;
+        boolean validResource = true;
+        BoardUI boardUI = board.getBoardUI();
+            do {
+                boardUI.promptResourceSelection(true);
+                synchronized (notifier) {
+                    try {
+                        notifier.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                resourceChoice = boardUI.getUserSelectedResource();
+                if (blacklistedResources != null) {
+                    for (ResourceEnum resource : blacklistedResources) {
+                        validResource = (resource == resourceChoice);
+                    }
+                }
+                if (!validResource) {
+                    boardUI.setSecondaryTextLabel("That resource is unavailable to choose. Please pick another.", Color.RED);
+                }
+            }
+            while (!validResource);
+
+        return resourceChoice;
+    }
+
+    public static ResourceEnum randomResource() {
+        ResourceEnum result;
+        try {
+            int random = (int) (Math.random() * resourceArray.size());
+            result = resourceArray.get(random);
+            resourceArray.remove(random);
+        }
+        catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            result = ResourceEnum.GLASS;
+        }
+        return result;
+    }
+
+    public static void resetResourceArray() {
+       resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
+    }
 }
