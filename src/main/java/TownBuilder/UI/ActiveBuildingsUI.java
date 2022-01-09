@@ -178,10 +178,12 @@ public class ActiveBuildingsUI extends JPanel {
         ResourceEnum selectedFactoryResource = building.getFactorizedResource();
         JLabel factoryResourceLabel = new JLabel(selectedFactoryResource.toString());
         factoryResourceLabel.setBackground(selectedFactoryResource.getColor().getOverallColor());
-        inventoryView.add(inventoryLabel, "align center, wrap");
-        inventoryView.add(factoryResourceLabel);
+        factoryResourceLabel.setOpaque(true);
+        factoryResourceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        inventoryView.add(inventoryLabel, "dock center, wrap");
+        inventoryView.add(factoryResourceLabel, "dock center");
 
-        panel.add(inventoryView, "wrap");
+        panel.add(inventoryView, "wrap, dock center");
 
         JButton swapButton = new JButton("Swap");
         Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
@@ -195,16 +197,14 @@ public class ActiveBuildingsUI extends JPanel {
                 board.getNotifier().notify();
             }
         });
-        panel.add(swapButton, "wrap");
-
-
-
+        panel.add(swapButton, "wrap, dock center");
         exitButton.addActionListener(e -> {
             mainPanel.remove(panel);
             mainPanel.add(mainActiveBuildingPanel, "dock center");
             updateUI();
         });
         panel.add(exitButton, "growx, h 40!");
+        panel.setBorder(BorderFactory.createLineBorder(Color.red));
         return panel;
     }
 }
