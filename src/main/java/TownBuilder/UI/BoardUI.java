@@ -73,6 +73,7 @@ public class BoardUI extends JFrame {
     JLabel turnResourceText;
     JLabel secondaryTextLabel = new JLabel();
     JLabel yesOrNoText;
+    JLabel resourceSelectionLabel;
     final JPanel boardHeader;
     final JPanel boardMatrixPanel;
     public final JPanel resourceSelectionPanel;
@@ -176,23 +177,20 @@ public class BoardUI extends JFrame {
         DebugTools.logging("[BoardUI] - Triggering Resource Prompt Visibility");
         if (mode) {
             resourceSelectionPanel.setVisible(true);
-            resourcePromptTextPanel.setVisible(false);
+            //resourcePromptTextPanel.setVisible(false);
         }
         else {
             resourceSelectionPanel.setVisible(false);
-            resourcePromptTextPanel.setVisible(true);
+            //resourcePromptTextPanel.setVisible(true);
         }
     }
-    public boolean promptYesNoPrompt(String labelText) {
+    public void promptYesNoPrompt(String labelText) {
         yesOrNoText.setText(labelText);
         resourcePromptTextPanel.setVisible(false);
         resourceSelectionPanel.setVisible(false);
         YesOrNoPanel.setVisible(true);
-        clicked = false;
-        while (!clicked) {
-            Thread.onSpinWait();
-        }
-        YesOrNoPanel.setVisible(false);
+    }
+    public boolean getUserYesNoAnswer() {
         return isYes;
     }
     public void highlightBoardTiles(ArrayList<Resource> resources) {
@@ -256,10 +254,10 @@ public class BoardUI extends JFrame {
         JPanel panel = new JPanel(new MigLayout());
         JPanel selectionPanel = new JPanel(new GridLayout(1, 5, 0, 0));
         Font font = panel.getFont().deriveFont(Font.BOLD, 36f);
-        JLabel label = new JLabel("Select a Resource");
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setFont(font);
-        panel.add(label, "dock center, wrap");
+        resourceSelectionLabel = new JLabel("Select a Resource");
+        resourceSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        resourceSelectionLabel.setFont(font);
+        panel.add(resourceSelectionLabel, "dock center, wrap");
         ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
         for (int i = 0; i < 5; i++) {
             TileButton button = new TileButton(-1, -1);
@@ -268,8 +266,8 @@ public class BoardUI extends JFrame {
             button.addActionListener(e -> {
                 setSelectedResourceForTurn(button.getResourceEnum());
                 resourceSelectionPanel.setVisible(false);
-                synchronized (board.getNotifier()) {
-                    board.getNotifier().notify();
+                synchronized (Utility.getNotifier()) {
+                    Utility.getNotifier().notify();
                 }
                 System.out.println("Pressed resource button");
                 mainPanel.updateUI();
@@ -277,9 +275,9 @@ public class BoardUI extends JFrame {
             button.setText(resourceArray.get(i).toString());
             button.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
             //button.setPreferredSize(new Dimension(200,50));
-            selectionPanel.add(button);
+            selectionPanel.add(button, "w :200:, h :50:");
         }
-        panel.add(selectionPanel);
+        panel.add(selectionPanel, "align center, span 3");
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         panel.setVisible(false);
         return panel;
@@ -324,11 +322,17 @@ public class BoardUI extends JFrame {
         noButton.setPreferredSize(dimension);
         yesButton.addActionListener(e -> {
             isYes = true;
-            clicked = true;
+            YesOrNoPanel.setVisible(false);
+            synchronized (Utility.getNotifier()) {
+                Utility.getNotifier().notify();
+            }
         });
         noButton.addActionListener(e -> {
             isYes = false;
-            clicked = true;
+            YesOrNoPanel.setVisible(false);
+            synchronized (Utility.getNotifier()) {
+                Utility.getNotifier().notify();
+            }
         });
         panel.add(yesOrNoText, "wrap, align center, span 2 1");
         panel.add(yesButton);
@@ -347,8 +351,19 @@ public class BoardUI extends JFrame {
         resourcePromptTextPanel.setVisible(true);
         selectedCoords = null;
     }
+    public void setResourceSelectionLabel(String string) {
+        resourceSelectionLabel.setText(string);
+    }
+    public void setResourceSelectionLabel() {
+        resourceSelectionLabel.setText("Select a resource.");
+    }
+    public void setResourceSelectionLabel(String string, Color color) {
+        resourceSelectionLabel.setText(string);
+        resourceSelectionLabel.setForeground(color);
+    }
     public void setPrimaryTextLabel(String string) {
         turnResourceText.setText(string);
+        turnResourceText.setVisible(true);
         resourcePromptTextPanel.setVisible(true);
         System.out.println("Prompt");
     }

@@ -36,11 +36,8 @@ public class Board {
     private boolean activeBuildingUse = false;
     private boolean turnOver = false;
 
-    public ResourceUtility getResourceUtility() {
-        return resourceUtility;
-    }
 
-    private final ResourceUtility resourceUtility;
+
 
 
 
@@ -95,7 +92,6 @@ public class Board {
     public Board(ArrayList<Building> b, boolean ISP, PlayerManager pM) throws IOException {
         isSingleplayer = ISP;
         playerManager = pM;
-        resourceUtility = new ResourceUtility(this);
         System.out.println("What's your name?");
         boardName = sc.nextLine();
         if (boardName.equals("debug")) {
@@ -120,7 +116,6 @@ public class Board {
     }
     public Board(ArrayList<Building> b, BuildingEnum mo, PlayerManager playerManager) throws IOException {
         this.playerManager = playerManager;
-        resourceUtility = new ResourceUtility(this);
         boardName = "DEBUG";
         isSingleplayer = true;
         detectableBuildings = new ArrayList<>(b);
@@ -241,7 +236,18 @@ public class Board {
     }
     private void placementPrompt(Building building) throws IOException {
         boardUI.highlightBoardTiles(buildingFactory.getValidResources());
-        if (boardUI.promptYesNoPrompt("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found. Place it this turn?")) {
+        boardUI.promptYesNoPrompt("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found. Place it this turn?");
+        boolean selection;
+        synchronized (Utility.getNotifier()) {
+            try {
+                Utility.getNotifier().wait();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        selection = boardUI.getUserYesNoAnswer();
+        if (selection) {
             lastBuiltBuilding = building.getType();
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
         }
@@ -294,7 +300,7 @@ public class Board {
         ResourceEnum turnResource;
         if (!isSingleplayer) {
             do {
-                turnResource = resourceUtility.resourcePicker(blacklistedResources, boardUI);
+                turnResource = Utility.resourcePicker(blacklistedResources, this);
                 if (turnResource == ResourceEnum.NONE) {
                     renderBoard();
                 }
@@ -304,13 +310,13 @@ public class Board {
         else {
             if (spResourceSelectionIncrement == 2) {
                 spResourceSelectionIncrement = 0;
-                resourceUtility.resetResourceArray();
-                return resourceUtility.resourcePicker(blacklistedResources, boardUI);
+                Utility.resetResourceArray();
+                return Utility.resourcePicker(blacklistedResources, this);
             }
             else {
                 spResourceSelectionIncrement++;
 
-                return resourceUtility.randomResource();
+                return Utility.randomResource();
             }
         }
         return turnResource;
@@ -415,11 +421,10 @@ public class Board {
     public void warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) throws IOException {
 
         ResourceEnum turnResource = t;
-        //System.out.println(warehouse.getFullness());
         if (mode) {
             if (warehouse.getFullness() != Warehouse.getMaxFullness()) {
-                //System.out.println("Warehouse is not full, so placing it there");
                 currentResourceForTurn = warehouse.placeResource(currentResourceForTurn, ResourceEnum.NONE);
+                boardUI.getActiveBuildingPanel().updateActiveBuildings();
                 synchronized (notifier) {
                     notifier.notify();
                 }
@@ -435,8 +440,8 @@ public class Board {
                 ResourceEnum swap;
                 do {
                     boardUI.setCoordinatesClicked(false);
-                    boardUI.setPrimaryTextLabel("Select a resource to swap out from your Warehouse."); // this doesn't happen
-                    swap = resourceUtility.resourcePicker(null, boardUI);
+                    boardUI.setResourceSelectionLabel("Select a resource to swap out from your Warehouse.");
+                    swap = Utility.resourcePicker(null, this);
                     System.out.println(swap);
                     turnResource = warehouse.placeResource(turnResource, swap);
                     if (turnResource == ResourceEnum.OBSTRUCTED) {
@@ -457,6 +462,7 @@ public class Board {
     }
 
     public void playerTurn() throws IOException, URISyntaxException {
+        boardUI.setResourceSelectionLabel();
         currentResourceForTurn = resourcePicker();
         do {
             boardUI.setSelectedResourceForTurn(currentResourceForTurn);
@@ -484,6 +490,7 @@ public class Board {
         updateBoard();
     }
     public void updateBoard() throws IOException {
+        System.out.println("Updating board");
         boolean activeBuilding = false;
         TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
         for (int row = 0; row < gameResourceBoard.length; row++) {
