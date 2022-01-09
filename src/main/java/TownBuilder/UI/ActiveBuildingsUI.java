@@ -9,14 +9,10 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.TimerTask;
 
 public class ActiveBuildingsUI extends JPanel {
     ArrayList<Building> buildings;
@@ -110,8 +106,10 @@ public class ActiveBuildingsUI extends JPanel {
             JPanel inventoryView = new JPanel(new GridLayout(1, 3, 0, 0));
             Warehouse building = (Warehouse) board.getGameBuildingBoard()[coords[0]][coords[1]];
             for (ResourceEnum resourceEnum : building.getStoredResources()) {
-                JButton button = new JButton(resourceEnum.toString());
-                //button.setPreferredSize(new Dimension(25, 25));
+                JLabel button = new JLabel(resourceEnum.toString());
+                button.setHorizontalAlignment(SwingConstants.CENTER);
+                button.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                button.setOpaque(true);
                 button.setBackground(resourceEnum.getColor().getOverallColor());
                 inventoryView.add(button);
             }
