@@ -26,6 +26,35 @@ public class BoardUI extends JFrame {
 
     private volatile ResourceEnum selectedResourceForTurn;
     private volatile BuildingEnum selectedBuildingForTurn;
+    private boolean activeBuildingToggled;
+
+    public Building getSelectedActiveBuilding() {
+        return selectedActiveBuilding;
+    }
+
+    public void setSelectedActiveBuilding(Building selectedActiveBuilding) {
+        this.selectedActiveBuilding = selectedActiveBuilding;
+    }
+
+    private Building selectedActiveBuilding;
+
+    public boolean isActiveBuildingToggled() {
+        return activeBuildingToggled;
+    }
+
+    public void setActiveBuildingToggled(boolean activeBuildingToggled) {
+        this.activeBuildingToggled = activeBuildingToggled;
+    }
+
+    public String getActiveMode() {
+        return activeMode;
+    }
+
+    public void setActiveMode(String activeMode) {
+        this.activeMode = activeMode;
+    }
+
+    private String activeMode;
     private volatile int[] selectedCoords;
 
     public boolean isCoordinatesClicked() {
@@ -238,8 +267,9 @@ public class BoardUI extends JFrame {
             button.setResourceEnum(resourceArray.get(i));
             button.addActionListener(e -> {
                 setSelectedResourceForTurn(button.getResourceEnum());
-                synchronized (board.getResourceUtility().getNotifier()) {
-                    board.getResourceUtility().getNotifier().notify();
+                resourceSelectionPanel.setVisible(false);
+                synchronized (board.getNotifier()) {
+                    board.getNotifier().notify();
                 }
                 System.out.println("Pressed resource button");
                 mainPanel.updateUI();

@@ -121,17 +121,21 @@ public class ActiveBuildingsUI extends JPanel {
             placeButton.setFont(font);
 
             swapButton.addActionListener(e -> {
-                try {
-                    board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, false);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                boardUI.setActiveBuildingToggled(true);
+                boardUI.setActiveMode("swap");
+                boardUI.setSelectedActiveBuilding(building);
+                boardUI.setCoordinatesClicked(false);
+                synchronized (board.getNotifier()) {
+                    board.getNotifier().notify();
                 }
             });
             placeButton.addActionListener(e -> {
-                try {
-                    board.warehouseOption(boardUI.getSelectedResourceForTurn(), building, true);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                boardUI.setActiveBuildingToggled(true);
+                boardUI.setActiveMode("place");
+                boardUI.setSelectedActiveBuilding(building);
+                boardUI.setCoordinatesClicked(false);
+                synchronized (board.getNotifier()) {
+                    board.getNotifier().notify();
                 }
             });
             exitButton.setFont(font);

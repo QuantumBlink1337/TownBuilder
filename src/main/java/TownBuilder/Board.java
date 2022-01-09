@@ -435,12 +435,7 @@ public class Board {
                 ResourceEnum swap;
                 do {
                     boardUI.setCoordinatesClicked(false);
-
-                    synchronized (Utility.getNotifier()) {
-                        Utility.getNotifier().notify();
-                    }
-
-                    boardUI.setPrimaryTextLabel("Select a resource to swap out from your Warehouse.");
+                    boardUI.setPrimaryTextLabel("Select a resource to swap out from your Warehouse."); // this doesn't happen
                     swap = resourceUtility.resourcePicker(null, boardUI);
                     System.out.println(swap);
                     turnResource = warehouse.placeResource(turnResource, swap);
@@ -478,10 +473,15 @@ public class Board {
                 gameResourceBoard[coords[0]][coords[1]].setResource(currentResourceForTurn);
                 turnOver = true;
             }
+            else if (boardUI.isActiveBuildingToggled()) {
+                switch (boardUI.getActiveMode()) {
+                    case "swap" -> warehouseOption(currentResourceForTurn, (Warehouse) boardUI.getSelectedActiveBuilding(), false);
+                    case "place" -> warehouseOption(currentResourceForTurn, (Warehouse) boardUI.getSelectedActiveBuilding(), true);
+                }
+            }
         }
         while (!turnOver);
         updateBoard();
-
     }
     public void updateBoard() throws IOException {
         boolean activeBuilding = false;
