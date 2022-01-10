@@ -52,28 +52,25 @@ public class ScoreUI extends JPanel {
         JLabel scoreLabel = new JLabel();
         JButton exitButton = new JButton("EXIT");
         Font labelFont = panel.getFont().deriveFont(Font.BOLD, 30f);
-        scoreLabel.setText("Total Score: " + score);
+        scoreLabel.setText("Total Score: " + score + " Penalty: " + board.getScorer().getResourcePenalty());
         scoreLabel.setFont(labelFont);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         //panel.add(scoreLabel, "align center, wrap");
         panel.add(scoreLabel, "align center, w "+BoardUI.INTERACTIVE_PANEL_WIDTH+", wrap");
         ArrayList<Building> scorableBuildings = board.getScorableBuildings();
         for (Building scorableBuilding : scorableBuildings) {
-            JButton label = new JButton("Score contribution of " + scorableBuilding + ": " + scores.get(scorableBuilding.getType()));
-            if (scorableBuilding instanceof Monument) {
-                label.setText("Score contribution of Monument: " + scores.get(scorableBuilding.getType()));
-            }
-            label.setFont(panel.getFont().deriveFont(20f));
+            JButton label = new JButton(scorableBuilding + ": " + scores.get(scorableBuilding.getType()));
+            label.setFont(panel.getFont().deriveFont(Font.BOLD, 24f));
             label.setBackground(scorableBuilding.getType().getColor().getOverallColor());
             label.setOpaque(true);
             label.setHorizontalAlignment(SwingConstants.CENTER);
             panel.add(label, "Wrap, dock center");
         }
         JButton penaltyButton = new JButton("Resource Penalty: -" + board.getScorer().getResourcePenalty());
-        penaltyButton.setFont(panel.getFont().deriveFont(20f));
+        penaltyButton.setFont(panel.getFont().deriveFont(24f));
         penaltyButton.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(penaltyButton, "Wrap, dock center");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 20f));
+        //panel.add(penaltyButton, "Wrap, dock center");
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 24f));
         exitButton.setHorizontalAlignment(SwingConstants.CENTER);
         exitButton.addActionListener(e -> {
             remove(panel);
