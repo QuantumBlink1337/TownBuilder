@@ -24,6 +24,8 @@ public class Board {
             BuildingEnum.GROVEUNI, BuildingEnum.MANDRAS, BuildingEnum.OPALEYE, BuildingEnum.SHRINE, BuildingEnum.SILVAFRM, BuildingEnum.STARLOOM, BuildingEnum.OBELISK, BuildingEnum.SKYBATHS));
     //private static ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.OBELISK));
 
+
+
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
     private final Scorer scorer;
@@ -34,29 +36,7 @@ public class Board {
     private boolean isGameCompletion = false;
     private boolean activeBuildingUse = false;
     private boolean turnOver = false;
-
-
-
-
-
-
-
-    //private boolean listenForInput = false;
-
-    public int[] getCoords() {
-        return coords;
-    }
-
-    public void setCoords(int[] coords) {
-        this.coords = coords;
-    }
-
     private int[] coords;
-
-
-
-
-
     private boolean placeAnywhere = false;
     private BuildingEnum lastBuiltBuilding;
     private final boolean isSingleplayer;
@@ -66,25 +46,11 @@ public class Board {
     private final String[][] gameBoard = new String[4][4];
     private final String[] letterCoords = {"      ", "a", "         b",  "           c", "          d"};
     private final char[] numberCoords = {'1', '2', '3','4'};
-
     private final BuildingFactory buildingFactory;
     private final PlayerManager playerManager;
-
     private ResourceEnum currentResourceForTurn;
-
-
-    public BoardUI getBoardUI() {
-        return boardUI;
-    }
-
     private final BoardUI boardUI;
-
-    public Object getNotifier() {
-        return notifier;
-    }
-
     private final Object notifier;
-
 
 
     public Board(ArrayList<Building> b, boolean ISP, PlayerManager pM) throws IOException {
@@ -104,7 +70,7 @@ public class Board {
         }
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
-        buildingFactory = new BuildingFactory(this);
+        buildingFactory = new BuildingFactory();
         generateMonument();
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
@@ -119,7 +85,7 @@ public class Board {
         isSingleplayer = true;
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
-        buildingFactory = new BuildingFactory(this);
+        buildingFactory = new BuildingFactory();
         Monument monument = BuildingFactory.getMonument(mo,this, -1, -1, scorableBuildings);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
@@ -138,10 +104,24 @@ public class Board {
     public BuildingEnum getLastBuiltBuilding() {
         return lastBuiltBuilding;
     }
+    public Object getNotifier() {
+        return notifier;
+    }
     public boolean isActiveBuildingUse() {
         return activeBuildingUse;
     }
-
+    public ArrayList<ResourceEnum> getBlacklistedResources() {
+        return blacklistedResources;
+    }
+    public BoardUI getBoardUI() {
+        return boardUI;
+    }
+    public int[] getCoords() {
+        return coords;
+    }
+    public void setCoords(int[] coords) {
+        this.coords = coords;
+    }
     public void setActiveBuildingUse(boolean activeBuildingUse) {
         this.activeBuildingUse = activeBuildingUse;
     }
@@ -284,6 +264,7 @@ public class Board {
                 building.onTurnInterval(gameBuildingBoard);
                 if (building instanceof Bank bank) {
                     bankCounter++;
+                    System.out.println("Bank found!");
                     ResourceEnum blacklistedResource = bank.getLockedResource();
                     if (!blacklistedResources.contains(blacklistedResource)) {
                         blacklistedResources.add(blacklistedResource);
@@ -433,7 +414,7 @@ public class Board {
                 accessMatrix[row][col].setResourceEnum(gameResourceBoard[row][col].getResource());
                 accessMatrix[row][col].setBuildingEnum(gameBuildingBoard[row][col].getType());
                 accessMatrix[row][col].updateButton();
-                if (gameBuildingBoard[row][col].getType() == BuildingEnum.WAREHOUSE || gameBuildingBoard[row][col].getType() == BuildingEnum.FACTORY) {
+                if (gameBuildingBoard[row][col].getType() == BuildingEnum.WAREHOUSE || gameBuildingBoard[row][col].getType() == BuildingEnum.FACTORY || gameBuildingBoard[row][col].getType() == BuildingEnum.BANK) {
                     activeBuilding = true;
                 }
             }

@@ -1,10 +1,7 @@
 package TownBuilder.UI;
 
 import TownBuilder.Board;
-import TownBuilder.Buildings.Building;
-import TownBuilder.Buildings.BuildingEnum;
-import TownBuilder.Buildings.Factory;
-import TownBuilder.Buildings.Warehouse;
+import TownBuilder.Buildings.*;
 import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
 
@@ -78,6 +75,7 @@ public class ActiveBuildingsUI extends JPanel {
                     switch (gameActiveBuilding) {
                         case WAREHOUSE -> individualView = generateIndividualWarehouseView(activeTileButton.getCoords());
                         case FACTORY -> individualView = generateIndividualFactoryView(activeTileButton.getCoords());
+                        case BANK -> individualView = generateIndividualBankView(activeTileButton.getCoords());
                         default -> individualView = new JPanel();
                     }
                     button.addActionListener(e -> {
@@ -198,6 +196,32 @@ public class ActiveBuildingsUI extends JPanel {
             }
         });
         panel.add(swapButton, "wrap, dock center");
+        exitButton.addActionListener(e -> {
+            mainPanel.remove(panel);
+            mainPanel.add(mainActiveBuildingPanel, "dock center");
+            updateUI();
+        });
+        panel.add(exitButton, "growx, h 40!");
+        panel.setBorder(BorderFactory.createLineBorder(Color.red));
+        return panel;
+    }
+    private JPanel generateIndividualBankView(int[] coords) {
+        JPanel panel = new JPanel(new MigLayout());
+        JButton exitButton = new JButton("EXIT");
+        JLabel inventoryLabel = new JLabel("Chosen Resource");
+        inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        JPanel inventoryView = new JPanel(new MigLayout());
+        Bank building = (Bank) board.getGameBuildingBoard()[coords[0]][coords[1]];
+        ResourceEnum selectedFactoryResource = building.getLockedResource();
+        JLabel factoryResourceLabel = new JLabel(selectedFactoryResource.toString());
+        factoryResourceLabel.setBackground(selectedFactoryResource.getColor().getOverallColor());
+        factoryResourceLabel.setOpaque(true);
+        factoryResourceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        inventoryView.add(inventoryLabel, "dock center, wrap");
+        inventoryView.add(factoryResourceLabel, "dock center");
+
+        panel.add(inventoryView, "wrap, dock center");
         exitButton.addActionListener(e -> {
             mainPanel.remove(panel);
             mainPanel.add(mainActiveBuildingPanel, "dock center");
