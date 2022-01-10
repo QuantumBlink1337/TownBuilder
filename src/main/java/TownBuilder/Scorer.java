@@ -12,6 +12,12 @@ public class Scorer {
     private int previousScore;
     private final Board board;
     private final ArrayList<Building> buildingsForGame;
+
+    public HashMap<BuildingEnum, Integer> getScores() {
+        return scores;
+    }
+
+    private HashMap<BuildingEnum, Integer> scores;
     public Scorer(Board b, ArrayList<Building> bu) {
         board = b;
         buildingsForGame = new ArrayList<>(bu);
@@ -23,7 +29,7 @@ public class Scorer {
         int score;
         int resourcePenalty =0;
         boolean caterina = false;
-        HashMap<BuildingEnum, Integer> scores = new HashMap<>(buildingsForGame.size());
+        scores = new HashMap<>(buildingsForGame.size());
         DebugTools.logging("Scoring check: buildingsForGame size: " + buildingsForGame.size());
         for (Building value : buildingsForGame) {
             scores.put(value.getType(), 0);
