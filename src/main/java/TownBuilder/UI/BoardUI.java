@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 import static javax.swing.border.BevelBorder.RAISED;
 
-public class BoardUI extends JFrame {
+public class BoardUI extends JPanel {
 
     final JPanel mainPanel = new JPanel(new MigLayout("","[center][right][left][c]","[top][center][b]"));
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
@@ -112,13 +112,13 @@ public class BoardUI extends JFrame {
     public BoardUI(Board board) {
         this.board = board;
         this.playerName = board.getBoardName();
-        setExtendedState(MAXIMIZED_BOTH);
+        //setExtendedState(MAXIMIZED_BOTH);
 
 
 
 //        final int SCREEN_WIDTH = 1920;
 //        final int SCREEN_HEIGHT = 1080;
-        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        //setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         buildings = board.getScorableBuildings();
         manualPanel = new ManualUI(buildings);
