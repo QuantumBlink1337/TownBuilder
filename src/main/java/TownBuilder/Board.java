@@ -7,6 +7,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.BoardUI;
 import TownBuilder.UI.TileButton;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -102,9 +103,23 @@ public class Board {
 
         buildArrays();
         updateBoard();
+    }
+    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, JFrame jF, String boardName) throws IOException {
+        this.playerManager = playerManager;
+        this.boardName = boardName;
+        isSingleplayer = true;
+        detectableBuildings = new ArrayList<>(b);
+        scorableBuildings = new ArrayList<>(b);
+        buildingFactory = new BuildingFactory();
+        generateMonument();
+        manual = new Manual(detectableBuildings);
+        scorer = new Scorer(this, scorableBuildings);
+        boardUI = new BoardUI(this);
+        jF.add(boardUI);
+        notifier = new Object();
 
-
-
+        buildArrays();
+        updateBoard();
     }
     public BuildingEnum getLastBuiltBuilding() {
         return lastBuiltBuilding;
@@ -412,6 +427,7 @@ public class Board {
     }
     public void updateBoard() throws IOException {
         System.out.println("Updating board");
+
         boolean activeBuilding = false;
         TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
         for (int row = 0; row < gameResourceBoard.length; row++) {
@@ -425,7 +441,6 @@ public class Board {
             }
         }
         if (activeBuilding) {
-            //System.out.println("Updating warehouse");
             boardUI.getActiveBuildingPanel().updateActiveBuildings();
         }
 
