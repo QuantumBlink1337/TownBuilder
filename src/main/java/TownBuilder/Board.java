@@ -9,7 +9,6 @@ import TownBuilder.UI.TileButton;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -70,7 +69,6 @@ public class Board {
 
     private final BuildingFactory buildingFactory;
     private final PlayerManager playerManager;
-    private final Scanner sc = new Scanner(System.in);
 
     private ResourceEnum currentResourceForTurn;
 
@@ -93,6 +91,7 @@ public class Board {
         isSingleplayer = ISP;
         playerManager = pM;
         System.out.println("What's your name?");
+        Scanner sc = new Scanner(System.in);
         boardName = sc.nextLine();
         if (boardName.equals("debug")) {
             System.out.println("Debug/testing mode activated. Disabled randomized resource collection");
@@ -395,7 +394,7 @@ public class Board {
         //return turnResource;
     }
 
-    public void playerTurn() throws IOException, URISyntaxException {
+    public void playerTurn() throws IOException {
         boardUI.setResourceSelectionLabel();
         currentResourceForTurn = resourcePicker();
         do {
@@ -465,7 +464,7 @@ public class Board {
             }
         }
     }
-    public void renderBoard() throws IOException {
+    public void renderBoard()  {
         //this.updateBoard();
         System.out.println("============="+boardName.toUpperCase()+"'s BOARD============");
         for (int i = 0; i < letterCoords.length; i++) {
