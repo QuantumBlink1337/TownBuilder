@@ -43,7 +43,7 @@ public class ActiveBuildingsUI extends JPanel {
         mainActiveBuildingPanel = new JPanel(new MigLayout());
         JLabel label = new JLabel("Active Buildings");
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        Font headerFont = getFont().deriveFont(Font.BOLD, 30f);
+        Font headerFont = getFont().deriveFont(Font.BOLD, 36f);
         label.setFont(headerFont);
         label.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 

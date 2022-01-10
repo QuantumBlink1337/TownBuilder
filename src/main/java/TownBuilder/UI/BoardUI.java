@@ -89,12 +89,12 @@ public class BoardUI extends JFrame {
         return activeBuildingPanel;
     }
 
-    ActiveBuildingsUI activeBuildingPanel;
+    final ActiveBuildingsUI activeBuildingPanel;
+    final ManualUI manualPanel;
+    final ScoreUI scorePanel;
+
     final JPanel YesOrNoPanel;
     final JPanel buildingSelectingPanel;
-    final ManualUI manualPanel;
-
-
     JPanel interactionPanel = new JPanel(new MigLayout());
     JPanel gamePanel = new JPanel(new MigLayout());
     JPanel userPromptPanel = new JPanel();
@@ -125,6 +125,7 @@ public class BoardUI extends JFrame {
         resourceSelectionPanel = createResourceSelectionButtonPanel();
         resourcePromptTextPanel = createResourceTextPanel();
         activeBuildingPanel = new ActiveBuildingsUI(tileAccessMatrix, board, this);
+        scorePanel = new ScoreUI(board);
         YesOrNoPanel = createYesNoPrompt();
         buildingSelectingPanel = createBuildingSelectionPanel();
         resourcePromptTextPanel.setVisible(false);
@@ -142,7 +143,8 @@ public class BoardUI extends JFrame {
         userPromptPanel.add(resourceSelectionPanel, "dock center");
         userPromptPanel.add(YesOrNoPanel);
         interactionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        interactionPanel.add(activeBuildingPanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
+        interactionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
+        interactionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
 
 
 
