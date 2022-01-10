@@ -9,9 +9,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Scorer {
+    public int getPreviousScore() {
+        return previousScore;
+    }
+
     private int previousScore;
     private final Board board;
     private final ArrayList<Building> buildingsForGame;
+
+    public int getResourcePenalty() {
+        return resourcePenalty;
+    }
+
+    private int resourcePenalty;
 
     public HashMap<BuildingEnum, Integer> getScores() {
         return scores;
@@ -27,7 +37,7 @@ public class Scorer {
     public int scoring(boolean isMidGameCheck) throws IOException {
         int totalScore = 0;
         int score;
-        int resourcePenalty =0;
+        resourcePenalty =0;
         boolean caterina = false;
         scores = new HashMap<>(buildingsForGame.size());
         DebugTools.logging("Scoring check: buildingsForGame size: " + buildingsForGame.size());
