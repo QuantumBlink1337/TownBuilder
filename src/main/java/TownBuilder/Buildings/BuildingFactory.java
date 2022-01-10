@@ -9,7 +9,6 @@ import java.util.*;
 
 public class BuildingFactory {
     private final ArrayList<Resource> validResources = new ArrayList<>();
-    private final Board board;
     private static final HashMap<ColorEnum, ArrayList<Building>> buildingMasterList = new HashMap<>();
     public static void setbuildingMasterList() throws IOException {
         buildingMasterList.put(ColorEnum.BLUE, new ArrayList<>(List.of(new Cottage(-1, -1))));
@@ -156,8 +155,7 @@ public class BuildingFactory {
         return buildingMasterList;
     }
 
-    public BuildingFactory(Board b) {
-        board = b;
+    public BuildingFactory() {
     }
 
 
@@ -244,7 +242,7 @@ public class BuildingFactory {
 
 
     public void placeBuildingOnBoard(BuildingEnum buildingEnum, ArrayList<Building> buildingArrayList, boolean PlaceBuildingAnywhere, Board board) throws IOException {
-        int[] coords = null;
+        int[] coords = new int[]{};
         boolean validInput = false;
         Building building;
         if (buildingEnum.isMonument()) {
