@@ -28,7 +28,9 @@ public class Shrine implements Monument {
         col = c;
         board = b;
         condition = false;
-        onPlacement();
+        if (board != null) {
+            onPlacement();
+        }
     }
     @Override
     public String toString() {
