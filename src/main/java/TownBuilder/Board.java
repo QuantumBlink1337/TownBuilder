@@ -28,6 +28,11 @@ public class Board {
 
     private ArrayList<ResourceEnum> blacklistedResources;
     private final Manual manual;
+
+    public Scorer getScorer() {
+        return scorer;
+    }
+
     private final Scorer scorer;
     private int spResourceSelectionIncrement = 0;
     private int boardFinishPlace = 0;
