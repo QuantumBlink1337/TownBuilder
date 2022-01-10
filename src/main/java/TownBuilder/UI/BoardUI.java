@@ -72,6 +72,12 @@ public class BoardUI extends JFrame {
     private final Board board;
     JLabel turnResourceText;
     JLabel secondaryTextLabel = new JLabel();
+
+    public JLabel getErrorTextLabel() {
+        return errorTextLabel;
+    }
+
+    JLabel errorTextLabel;
     JLabel yesOrNoText;
     JLabel resourceSelectionLabel;
     final JPanel boardHeader;
@@ -237,16 +243,24 @@ public class BoardUI extends JFrame {
     private JPanel createResourceTextPanel() {
         JPanel panel = new JPanel(new MigLayout());
         Font font = panel.getFont().deriveFont(Font.BOLD, 30f);
+
         turnResourceText = new JLabel();
-        JLabel label = new JLabel();
+        turnResourceText.setHorizontalAlignment(SwingConstants.CENTER);
+        turnResourceText.setFont(font);
+
         secondaryTextLabel = new JLabel();
         secondaryTextLabel.setVisible(false);
         secondaryTextLabel.setFont(font);
-        label.setFont(font);
-        turnResourceText.setFont(font);
-        panel.add(turnResourceText, "wrap");
-        //panel.add(label, "wrap");
-        panel.add(secondaryTextLabel);
+        secondaryTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        errorTextLabel = new JLabel();
+        errorTextLabel.setFont(font);
+        errorTextLabel.setForeground(Color.RED);
+        errorTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        panel.add(turnResourceText, "wrap, align center");
+        panel.add(secondaryTextLabel, "Wrap, align center");
+        panel.add(errorTextLabel, "align center");
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
@@ -345,11 +359,12 @@ public class BoardUI extends JFrame {
     }
 
     public void setSelectedResourceForTurn(ResourceEnum resource) {
+        System.out.println("Set Selected Resource Text Label");
+
         selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ". Where would you like to place it?");
         secondaryTextLabel.setVisible(false);
         resourcePromptTextPanel.setVisible(true);
-        selectedCoords = null;
     }
     public void setResourceSelectionLabel(String string) {
         resourceSelectionLabel.setText(string);
@@ -362,19 +377,24 @@ public class BoardUI extends JFrame {
         resourceSelectionLabel.setForeground(color);
     }
     public void setPrimaryTextLabel(String string) {
+        System.out.println("Set Primary Text Label");
         turnResourceText.setText(string);
         turnResourceText.setVisible(true);
         resourcePromptTextPanel.setVisible(true);
-        System.out.println("Prompt");
     }
     public void setSecondaryTextLabel(String string) {
+        System.out.println("Set Secondary Text Label");
         secondaryTextLabel.setText(string);
         secondaryTextLabel.setVisible(true);
+        resourcePromptTextPanel.setVisible(true);
     }
     public void setSecondaryTextLabel(String string, Color color) {
+        System.out.println("Set Secondary Text Label with Color");
         secondaryTextLabel.setText(string);
         secondaryTextLabel.setForeground(color);
         secondaryTextLabel.setVisible(true);
+        resourcePromptTextPanel.setVisible(true);
+        resourcePromptTextPanel.updateUI();
     }
 
 
