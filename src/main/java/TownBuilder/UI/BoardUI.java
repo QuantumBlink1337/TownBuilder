@@ -368,7 +368,7 @@ public class BoardUI extends JPanel {
 
         selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ". Where would you like to place it?");
-        secondaryTextLabel.setVisible(false);
+        //secondaryTextLabel.setVisible(false);
         resourcePromptTextPanel.setVisible(true);
     }
     public void setResourceSelectionLabel(String string) {
