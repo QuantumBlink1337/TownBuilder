@@ -115,7 +115,7 @@ public class Board {
         manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
         boardUI = new BoardUI(this);
-        jF.add(boardUI);
+        //jF.add(boardUI);
         notifier = new Object();
 
         buildArrays();
@@ -395,9 +395,10 @@ public class Board {
         //return turnResource;
     }
 
-    public void playerTurn() throws IOException {
+    public void playerTurn(ResourceEnum resourceEnum, String string) throws IOException {
         boardUI.setResourceSelectionLabel();
-        currentResourceForTurn = resourcePicker();
+        currentResourceForTurn = resourceEnum;
+        boardUI.setSecondaryTextLabel(string);
         do {
             boardUI.setSelectedResourceForTurn(currentResourceForTurn);
             synchronized (notifier) {
