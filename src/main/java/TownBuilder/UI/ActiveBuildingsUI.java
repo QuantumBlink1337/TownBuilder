@@ -6,6 +6,7 @@ import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -34,24 +35,25 @@ public class ActiveBuildingsUI extends JPanel {
 
     public ActiveBuildingsUI(TileButton[][] tB, Board b, BoardUI boardUIPanel) {
         boardUI = boardUIPanel;
-        mainPanel = new JPanel(new MigLayout());
+
         board = b;
         buildings = board.getScorableBuildings();
         gameActiveBuilding = buildings.get(buildings.size()-2).getType();
-        System.out.println(gameActiveBuilding);
         tileAccessMatrix = tB;
+        generateMainActiveBuildingsPanel();
+        setBorder(new LineBorder(Color.BLACK, 2));
+        add(mainPanel);
+
+    }
+    private void generateMainActiveBuildingsPanel() {
+        mainPanel = new JPanel(new MigLayout());
         mainActiveBuildingPanel = new JPanel(new MigLayout());
         JLabel label = new JLabel("Active Buildings");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         Font headerFont = getFont().deriveFont(Font.BOLD, 36f);
         label.setFont(headerFont);
-        label.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-
-        setBorder(BorderFactory.createLineBorder(Color.RED));
-        mainPanel.add(label, "align center, wrap, w :380:380, h :40:40");
+        mainPanel.add(label, "align center, wrap, w 380!, h :40:40");
         mainPanel.add(mainActiveBuildingPanel, "dock center, Wrap");
-        add(mainPanel);
-
     }
 
     public void updateActiveBuildings() throws IOException {
@@ -66,7 +68,6 @@ public class ActiveBuildingsUI extends JPanel {
             }
         }
             if (activeTileButtons.size() > 0) {
-                mainActiveBuildingPanel.setBorder(BorderFactory.createLineBorder(new Color(66, 29, 117)));
                 for (TileButton activeTileButton : activeTileButtons) {
                     JButton button = new JButton(gameActiveBuilding.toString());
                     Font smallFont = mainPanel.getFont().deriveFont(Font.BOLD, 25f);
