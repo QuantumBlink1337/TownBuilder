@@ -293,7 +293,7 @@ public class Board {
             }
         }
         if (bankCounter > 4) {
-            scorableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
+            detectableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
         }
     }
     public ResourceEnum resourcePicker() throws IOException {
