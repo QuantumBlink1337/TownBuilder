@@ -16,6 +16,7 @@ public class InitializationUI extends JPanel {
 
     private String selection;
     public InitializationUI() {
+        System.out.println("Initialize UI");
         mainMenuPanel = createMainMenuPanel();
         add(mainMenuPanel);
     }
@@ -24,7 +25,6 @@ public class InitializationUI extends JPanel {
         JLabel titleLabel = new JLabel("TownBuilder");
         titleLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
         JLabel promptLabel = new JLabel("What type of game would you like?");
         promptLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
         promptLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -59,11 +59,11 @@ public class InitializationUI extends JPanel {
                 Utility.getNotifier().notify();
             }
         });
-        panel.add(titleLabel, "wrap, dock north, align center");
-        panel.add(promptLabel, "dock north, align center, wrap");
+        panel.add(titleLabel, "wrap, , align center");
+        panel.add(promptLabel, " align center, wrap");
         panel.add(defaultButton, "split 3, dock center, align center");
-        panel.add(customButton);
-        panel.add(randomButton);
+        panel.add(customButton, "dock center, align center");
+        panel.add(randomButton, "dock center, align center");
 
 
 
