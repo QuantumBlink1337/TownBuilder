@@ -5,10 +5,19 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class InitializationUI extends JPanel {
     private final JPanel mainMenuPanel;
+    private final JPanel playerSelectionPanel;
+
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
+    private int playerCount;
 
     public String getSelection() {
         return selection;
@@ -18,7 +27,9 @@ public class InitializationUI extends JPanel {
     public InitializationUI() {
         System.out.println("Initialize UI");
         mainMenuPanel = createMainMenuPanel();
+        playerSelectionPanel = createPlayerSelectionPanel();
         add(mainMenuPanel);
+
     }
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout());
@@ -65,11 +76,35 @@ public class InitializationUI extends JPanel {
         panel.add(customButton, "dock center, align center");
         panel.add(randomButton, "dock center, align center");
 
-
-
         return panel;
+    }
+    private JPanel createPlayerSelectionPanel() {
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel headerLabel = new JLabel("How many players?");
+        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-
+        Integer[] integers = new Integer[]{1,2,3,4,5,6};
+        JComboBox<Integer> playerSelection = new JComboBox<>(integers);
+        playerSelection.setSelectedIndex(0);
+        playerSelection.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                playerCount = (Integer) playerSelection.getSelectedItem();
+                synchronized (Utility.getNotifier()) {
+                    Utility.getNotifier().notify();
+                }
+            }
+        });
+        panel.add(headerLabel, "align center, wrap");
+        panel.add(playerSelection, "align center, h 300!, w 300!");
+        //panel.add(playerSelection, "align center");
+        return panel;
+    }
+    public void promptPlayerSelection() {
+        remove(mainMenuPanel);
+        add(playerSelectionPanel);
+        updateUI();
     }
 
 }
