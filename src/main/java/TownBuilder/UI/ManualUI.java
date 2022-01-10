@@ -5,6 +5,7 @@ import TownBuilder.ResourceEnum;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class ManualUI extends JPanel {
     public ManualUI(ArrayList<Building> buildingsForGame) {
         this.buildingsForGame = buildingsForGame;
         add(createMainManualPanel());
+        setBorder(new LineBorder(Color.BLACK, 2));
     }
 
 
@@ -38,16 +40,12 @@ public class ManualUI extends JPanel {
         JLabel label = new JLabel("Manual");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font);
-        //label.setPreferredSize(new Dimension(380, 40));
-        //label.setMaximumSize(new Dimension(380, 40));
-        mainPanel.add(label, "dock north, , wrap");
-        mainPanel.setBorder(BorderFactory.createLineBorder(Color.red));
+        mainPanel.add(label, "w "+BoardUI.INTERACTIVE_PANEL_WIDTH+"! , wrap");
+        //mainPanel.setBorder(BorderFactory.createLineBorder(Color.red));
         manualMenuPanel = createManualMenuPanel();
         manualRulesPanel = initializeRulesMenu();
         initializeBuildingMenu();
-        mainPanel.add(manualMenuPanel, " wrap");
-        //System.out.println(label.getPreferredSize().width);
-        label.setBorder(BorderFactory.createLineBorder(Color.black));
+        mainPanel.add(manualMenuPanel,  "wrap, w " + BoardUI.INTERACTIVE_PANEL_WIDTH + "!");
         mainManualPanel = mainPanel;
         return mainPanel;
     }
@@ -62,15 +60,12 @@ public class ManualUI extends JPanel {
         panel.add(manualRuleAccessButton, "dock center, wrap");
         panel.add(manualBuildingAccessButton, "dock center, wrap");
         manualMenuPanel = panel;
-        //panel.setBorder(BorderFactory.createLineBorder(Color.blue));
-        panel.setPreferredSize(new Dimension(380, 40));
         return panel;
     }
     private void initializeRuleButton() {
         manualRuleAccessButton = new JButton("Rules");
         Font font = this.getFont().deriveFont(36f);
         manualRuleAccessButton.setFont(font);
-        //manualRuleAccessButton.setPreferredSize(BoardUI.ButtonSize());
         manualRuleAccessButton.addActionListener(e -> {
             mainManualPanel.remove(manualMenuPanel);
             mainManualPanel.add(manualRulesPanel);
@@ -93,14 +88,12 @@ public class ManualUI extends JPanel {
         JLabel label = new JLabel("Buildings");
         label.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 30f));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        manualBuildingSelectionPanel.add(label, "dock center, wrap");
         for (Building building : buildingsForGame) {
             JPanel panel = initializeIndividualBuildingView(building);
             JButton button = new JButton(building.toString());
             button.setBackground(building.getType().getColor().getOverallColor());
             Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 25f);
             button.setFont(font);
-            //button.setPreferredSize(new Dimension(364, 10));
             button.addActionListener(e -> {
                 mainManualPanel.remove(manualBuildingSelectionPanel);
                 mainManualPanel.add(panel);
@@ -114,7 +107,7 @@ public class ManualUI extends JPanel {
         exitButton.setPreferredSize(new Dimension(364, 10));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualBuildingSelectionPanel);
-            mainManualPanel.add(manualMenuPanel);
+            mainManualPanel.add(manualMenuPanel, "wrap, w " + BoardUI.INTERACTIVE_PANEL_WIDTH + "!");
             mainManualPanel.updateUI();
         });
         manualBuildingSelectionPanel.add(exitButton);
@@ -183,11 +176,9 @@ public class ManualUI extends JPanel {
     }
     private JPanel initializeRulesMenu() {
         JPanel panel = new JPanel(new MigLayout());
-        //panel.setBorder(BorderFactory.createLineBorder(Color.blue));
         initializeRules();
         for (ArrayList<String> rules : rules) {
             JPanel individualRulePanel = initializeRulePage(rules.get(1));
-            //individualRulePanel.setBorder(BorderFactory.createLineBorder(Color.blue));
             JButton button = new JButton(rules.get(0));
             Font font = individualRulePanel.getFont().deriveFont(25f);
             button.setPreferredSize(new Dimension(364, 10));
@@ -205,7 +196,7 @@ public class ManualUI extends JPanel {
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualRulesPanel);
-            mainManualPanel.add(manualMenuPanel);
+            mainManualPanel.add(manualMenuPanel, "wrap, w " + BoardUI.INTERACTIVE_PANEL_WIDTH + "!");
             mainManualPanel.updateUI();
         });
         panel.add(exitButton, "dock center");
