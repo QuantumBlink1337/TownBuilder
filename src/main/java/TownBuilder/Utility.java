@@ -303,26 +303,28 @@ public class Utility {
         ResourceEnum resourceChoice;
         boolean validResource = true;
         BoardUI boardUI = board.getBoardUI();
-            do {
-                boardUI.promptResourceSelection(true);
-                synchronized (notifier) {
-                    try {
-                        notifier.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                resourceChoice = boardUI.getUserSelectedResource();
-                if (blacklistedResources != null) {
-                    for (ResourceEnum resource : blacklistedResources) {
-                        validResource = (resource == resourceChoice);
-                    }
-                }
-                if (!validResource) {
-                    boardUI.setSecondaryTextLabel("That resource is unavailable to choose. Please pick another.", Color.RED);
+        do {
+            boardUI.promptResourceSelection(true);
+            synchronized (notifier) {
+                try {
+                    notifier.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-            while (!validResource);
+            resourceChoice = boardUI.getUserSelectedResource();
+            if (blacklistedResources != null) {
+                for (ResourceEnum blackListedResource : blacklistedResources) {
+                    validResource = (blackListedResource != resourceChoice);
+                }
+            }
+            if (!validResource) {
+                boardUI.getErrorTextLabel().setText("That resource is unavailable to choose. Please pick another.");
+                boardUI.getErrorTextLabel().setVisible(true);
+            }
+        }
+        while (!validResource);
+        boardUI.getErrorTextLabel().setVisible(false);
 
         return resourceChoice;
     }
