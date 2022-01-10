@@ -316,6 +316,9 @@ public class Utility {
             if (blacklistedResources != null) {
                 for (ResourceEnum blackListedResource : blacklistedResources) {
                     validResource = (blackListedResource != resourceChoice);
+                    if (!validResource) {
+                        break;
+                    }
                 }
             }
             if (!validResource) {
