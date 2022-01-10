@@ -98,7 +98,11 @@ public class BoardUI extends JFrame {
     JPanel interactionPanel = new JPanel(new MigLayout());
     JPanel gamePanel = new JPanel(new MigLayout());
     JPanel userPromptPanel = new JPanel();
+    static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    static final int SCREEN_WIDTH = SCREEN_SIZE.width;
+    static final int SCREEN_HEIGHT = SCREEN_SIZE.height;
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
+    static final int INTERACTIVE_PANEL_WIDTH = (int) (SCREEN_WIDTH * (380.0/SCREEN_WIDTH));
 
     public static Dimension ButtonSize() {
         return BUTTON_SIZE;
@@ -109,9 +113,7 @@ public class BoardUI extends JFrame {
         this.board = board;
         this.playerName = board.getBoardName();
         setExtendedState(MAXIMIZED_BOTH);
-        final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-        final int SCREEN_WIDTH = SCREEN_SIZE.width;
-        final int SCREEN_HEIGHT = SCREEN_SIZE.height;
+
 
 
 //        final int SCREEN_WIDTH = 1920;
@@ -145,6 +147,7 @@ public class BoardUI extends JFrame {
         interactionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
         interactionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
         interactionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
+        interactionPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
 
 
 
