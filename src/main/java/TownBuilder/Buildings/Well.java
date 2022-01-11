@@ -14,7 +14,7 @@ public class Well implements Building {
     private boolean condition;
     private final int row;
     private final int col;
-    private static final ResourceEnum[][] wellArray = new ResourceEnum[2][1];
+    private static final ResourceEnum[][] wellArray = new ResourceEnum[1][2];
     private static final ArrayList<ResourceEnum[][]> wellPatternList = new ArrayList<>();
 
     public Well(int r, int c) {
@@ -24,7 +24,7 @@ public class Well implements Building {
     }
     static {
         wellArray[0][0] = ResourceEnum.WOOD;
-        wellArray[1][0] = ResourceEnum.STONE;
+        wellArray[0][1] = ResourceEnum.STONE;
         patternBuilder(wellArray, wellPatternList);
     }
     public BuildingEnum getType() {

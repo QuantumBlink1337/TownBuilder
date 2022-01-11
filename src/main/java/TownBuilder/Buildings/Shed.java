@@ -10,7 +10,7 @@ public class Shed implements Building {
     private boolean condition;
     private final int row;
     private final int col;
-    private static final ResourceEnum[][] pattern = new ResourceEnum[2][1];
+    private static final ResourceEnum[][] pattern = new ResourceEnum[1][2];
     private static final ArrayList<ResourceEnum[][]> patternList = new ArrayList<>();
 
     public Shed(int r, int c) {
@@ -20,7 +20,7 @@ public class Shed implements Building {
     }
     static {
         pattern[0][0] = ResourceEnum.WOOD;
-        pattern[1][0] = ResourceEnum.STONE;
+        pattern[0][1] = ResourceEnum.STONE;
         patternBuilder(pattern, patternList);;
     }
     public BuildingEnum getType() {
