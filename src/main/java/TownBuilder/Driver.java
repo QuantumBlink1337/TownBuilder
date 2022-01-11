@@ -20,10 +20,10 @@ public class Driver {
         gameInitializer.buildingSelection();
         PlayerManager playerManager = new PlayerManager(gameInitializer.getBuildingsForGame(), gameInitializer.getInitializationUI());
         playerManager.determineNumberOfBoards();
-//        Manual.tutorial();
-//        playerManager.getBoards().get(0).getManual().displayBuildings();
+
         do {
             playerManager.manageTurn();
+            initFrame();
         }
         while(playerManager.gameActive());
         System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
@@ -37,5 +37,9 @@ public class Driver {
     public static void initFrame() {
         gameFrame.setSize(2560, 1440);
         gameFrame.setVisible(true);
+    }
+    public static void updateFrame() {
+        gameFrame.setVisible(true);
+        gameFrame.repaint();
     }
 }
