@@ -5,8 +5,10 @@ import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.UI.InitializationUI;
 import com.diogonunes.jcolor.Attribute;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class GameInitializer {
     }
 
     private final InitializationUI initializationUI;
-    private final ColorEnum[] colors = new ColorEnum[]{ColorEnum.BLUE, ColorEnum.RED, ColorEnum.GRAY, ColorEnum.ORANGE, ColorEnum.GREEN, ColorEnum.YELLOW, ColorEnum.WHITE};
+    public static final ColorEnum[] colors = new ColorEnum[]{ColorEnum.BLUE, ColorEnum.RED, ColorEnum.GRAY, ColorEnum.ORANGE, ColorEnum.GREEN, ColorEnum.YELLOW, ColorEnum.WHITE};
 
 
     public GameInitializer() throws IOException {
@@ -109,8 +111,21 @@ public class GameInitializer {
             buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.THEATER, buildingsForGame, -1, -1, false, null));
             buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, -1, -1, false, null));
         }
-        private void customGame() {
+        private void customGame() throws IOException {
+            HashMap<ColorEnum, ArrayList<Building>> masterBuildingList = BuildingFactory.getBuildingMasterList();
+            for (int i = 0; i < masterBuildingList.size(); i++) {
+               synchronized (Utility.getNotifier()) {
+                   try {
+                       Utility.getNotifier().wait();
+                   }
+                   catch (InterruptedException e) {
+                       e.printStackTrace();
+                   }
+               }
+               buildingsForGame.add(BuildingFactory.getBuilding(initializationUI.getBuildingSelection(), buildingsForGame, -1, -1, false, null));
 
+
+            }
         }
         private void randomGame() throws IOException {
             BuildingFactory.setbuildingMasterList();

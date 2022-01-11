@@ -1,38 +1,54 @@
 package TownBuilder.UI;
 
+import TownBuilder.Buildings.Building;
+import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.BuildingFactory;
+import TownBuilder.ColorEnum;
+import TownBuilder.GameInitializer;
+import TownBuilder.ResourceEnum;
 import TownBuilder.Utility;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class InitializationUI extends JPanel {
     private final JPanel mainMenuPanel;
     private final JPanel playerSelectionPanel;
-
-    public int getPlayerCount() {
-        return playerCount;
-    }
-
+    private final JPanel customSelectionPanel;
+    private final ArrayList<JPanel> coloredBuildingViews = new ArrayList<>();
+    private BuildingEnum buildingSelection;
     private int playerCount;
 
-    public String getSelection() {
-        return selection;
-    }
 
     private String selection;
     public InitializationUI() {
         System.out.println("Initialize UI");
         mainMenuPanel = createMainMenuPanel();
         playerSelectionPanel = createPlayerSelectionPanel();
+        customSelectionPanel = createBuildingSelectionPanel();
+        customSelectionPanel.setVisible(false);
         add(mainMenuPanel);
+        add(customSelectionPanel);
 
     }
+    public String getSelection() {
+        return selection;
+    }
+    public int getPlayerCount() {
+        return playerCount;
+    }
+    public BuildingEnum getBuildingSelection() {
+        return buildingSelection;
+    }
+    public ArrayList<JPanel> getColoredBuildingViews() {
+        return coloredBuildingViews;
+    }
     private JPanel createMainMenuPanel() {
-        JPanel panel = new JPanel(new MigLayout());
+        JPanel panel = new JPanel(new MigLayout("" +
+                "","[][]20[]", "[][]500[]"));
         JLabel titleLabel = new JLabel("TownBuilder");
         titleLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -72,9 +88,9 @@ public class InitializationUI extends JPanel {
         });
         panel.add(titleLabel, "wrap, , align center");
         panel.add(promptLabel, " align center, wrap");
-        panel.add(defaultButton, "split 3, dock center, align center");
-        panel.add(customButton, "dock center, align center");
-        panel.add(randomButton, "dock center, align center");
+        panel.add(defaultButton, "split 3, dock center, align center, w 500!, h 100!");
+        panel.add(customButton, "dock center, align center, w 500!, h 100!");
+        panel.add(randomButton, "dock center, align center, w 500!, h 100!");
 
         return panel;
     }
@@ -87,17 +103,16 @@ public class InitializationUI extends JPanel {
         Integer[] integers = new Integer[]{1,2,3,4,5,6};
         JComboBox<Integer> playerSelection = new JComboBox<>(integers);
         playerSelection.setSelectedIndex(0);
-        playerSelection.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playerCount = (Integer) playerSelection.getSelectedItem();
-                synchronized (Utility.getNotifier()) {
-                    Utility.getNotifier().notify();
-                }
+        playerSelection.setFont(panel.getFont().deriveFont(50f));
+        playerSelection.addActionListener(e -> {
+            //noinspection ConstantConditions
+            playerCount = (int) playerSelection.getSelectedItem();
+            synchronized (Utility.getNotifier()) {
+                Utility.getNotifier().notify();
             }
         });
         panel.add(headerLabel, "align center, wrap");
-        panel.add(playerSelection, "align center, h 300!, w 300!");
+        panel.add(playerSelection, "align center");
         //panel.add(playerSelection, "align center");
         return panel;
     }
@@ -105,6 +120,77 @@ public class InitializationUI extends JPanel {
         remove(mainMenuPanel);
         add(playerSelectionPanel);
         updateUI();
+    }
+    private JPanel createBuildingSelectionPanel() {
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel buildingSelectionLabel = new JLabel("Select your buildings!");
+        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        HashMap<ColorEnum, ArrayList<Building>> masterBuildingList = BuildingFactory.getBuildingMasterList();
+        ColorEnum[] colors = GameInitializer.colors;
+        for (int i = 0; i < masterBuildingList.size(); i++) {
+            JPanel mainBuildingViewPanel = new JPanel(new MigLayout());
+            ArrayList<Building> buildings = masterBuildingList.get(colors[i]);
+            for (Building building : buildings) {
+                mainBuildingViewPanel.add(initializeIndividualBuildingView(building));
+            }
+            coloredBuildingViews.add(mainBuildingViewPanel);
+        }
+        panel.add(buildingSelectionLabel, "dock center, wrap");
+        return panel;
+
+    }
+    private JPanel initializeIndividualBuildingView(Building building) {
+        JPanel panel = new JPanel(new MigLayout());
+        JButton exitButton = new JButton();
+        JTextArea textArea = new JTextArea(building.getManualEntry());
+        JLabel explanationLabel = new JLabel("Here's what it does:");
+        JLabel matrixLabel = new JLabel("Here's what it looks like:");
+        JLabel buildingLabel = new JLabel(building.toString());
+        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setFont(panel.getFont().deriveFont(20f));
+        textArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        exitButton.setText("Choose this building");
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        exitButton.setPreferredSize(BoardUI.BUTTON_SIZE);
+        exitButton.addActionListener(e -> {
+            buildingSelection = building.getType();
+            synchronized (Utility.getNotifier()) {
+                Utility.getNotifier().notify();
+            }
+        });
+        panel.setPreferredSize(new Dimension(380, 200));
+        panel.add(buildingLabel, "dock center, wrap");
+        panel.add(explanationLabel, "dock center, wrap");
+        panel.add(textArea, "dock center, wrap");
+        panel.add(matrixLabel, "dock center, wrap");
+        panel.add(initializeBuildingMatrix(building), "dock center, wrap");
+        panel.add(exitButton, "dock center");
+        return panel;
+    }
+    private JPanel initializeBuildingMatrix(Building building) {
+        ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
+        JPanel tilePanel = new JPanel(new GridLayout(Math.max(2, buildingPattern.length), Math.max(2, buildingPattern[buildingPattern.length-1].length), 2, 0));
+        for (ResourceEnum[] resourceEnums : buildingPattern) {
+            for (ResourceEnum resourceEnum : resourceEnums) {
+                JButton temp = new JButton(resourceEnum.toString());
+                temp.setBackground(resourceEnum.getColor().getOverallColor());
+                temp.setPreferredSize(new Dimension(150, 150));
+                if (temp.getText().equals("NONE")) {
+                    temp.setVisible(false);
+                }
+                tilePanel.add(temp);
+            }
+        }
+        return tilePanel;
     }
 
 }
