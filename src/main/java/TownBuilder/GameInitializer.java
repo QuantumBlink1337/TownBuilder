@@ -64,12 +64,12 @@ public class GameInitializer {
             buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, -1, -1, false, null));
         }
         private void customGame() throws IOException {
-            HashMap<ColorEnum, ArrayList<Building>> masterBuildingList = BuildingFactory.getBuildingMasterList();
             initializationUI.getMainMenuPanel().setVisible(false);
             initializationUI.getCustomSelectionPanel().setVisible(true);
-            for (int i = 0; i < masterBuildingList.size(); i++) {
+            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, -1, -1, false, null));
+            for (int i = 0; i < initializationUI.getColoredBuildingViews().size(); i++) {
                 JPanel colorView = initializationUI.getColoredBuildingViews().get(i);
-                initializationUI.getCustomSelectionPanel().add(colorView);
+                initializationUI.getCustomSelectionPanel().add(colorView, "dock center");
                 colorView.setVisible(true);
                 System.out.println("Started notifier");
                synchronized (Utility.getNotifier()) {

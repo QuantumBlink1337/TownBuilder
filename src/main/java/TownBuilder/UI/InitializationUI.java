@@ -142,14 +142,16 @@ public class InitializationUI extends JPanel {
         HashMap<ColorEnum, ArrayList<Building>> masterBuildingList = BuildingFactory.getBuildingMasterList();
         ColorEnum[] colors = GameInitializer.colors;
         for (int i = 0; i < masterBuildingList.size(); i++) {
-            JPanel mainBuildingViewPanel = new JPanel(new MigLayout());
-            ArrayList<Building> buildings = masterBuildingList.get(colors[i]);
-            for (Building building : buildings) {
-                mainBuildingViewPanel.add(initializeIndividualBuildingView(building), "split " + buildings.size() + "" );
+            if (masterBuildingList.get(colors[i]).size() > 1) {
+                JPanel mainBuildingViewPanel = new JPanel(new MigLayout());
+                ArrayList<Building> buildings = masterBuildingList.get(colors[i]);
+                for (Building building : buildings) {
+                    mainBuildingViewPanel.add(initializeIndividualBuildingView(building), "split " + buildings.size() + "");
+                }
+                coloredBuildingViews.add(mainBuildingViewPanel);
             }
-            coloredBuildingViews.add(mainBuildingViewPanel);
         }
-        panel.add(buildingSelectionLabel, "wrap");
+        panel.add(buildingSelectionLabel, "wrap, dock center");
         return panel;
 
     }
