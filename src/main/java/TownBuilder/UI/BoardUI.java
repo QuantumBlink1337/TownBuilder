@@ -92,9 +92,10 @@ public class BoardUI extends JPanel {
 
     final JPanel YesOrNoPanel;
     final JPanel buildingSelectingPanel;
-    JPanel interactionPanel = new JPanel(new MigLayout());
+    JPanel rightInteractionPanel = new JPanel(new MigLayout());
     JPanel gamePanel = new JPanel(new MigLayout());
     JPanel userPromptPanel = new JPanel();
+    JPanel leftInteractionPanel = new JPanel(new MigLayout());
     static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
     static final int SCREEN_WIDTH = SCREEN_SIZE.width;
     static final int SCREEN_HEIGHT = SCREEN_SIZE.height;
@@ -124,7 +125,7 @@ public class BoardUI extends JPanel {
         YesOrNoPanel.setVisible(false);
 
         mainPanel.add(gamePanel, "span 2, align center, gapleft "+(int) (SCREEN_WIDTH*(600.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH)));
-        mainPanel.add(interactionPanel, "");
+        mainPanel.add(rightInteractionPanel, "");
         add(mainPanel);
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
@@ -134,10 +135,10 @@ public class BoardUI extends JPanel {
         userPromptPanel.add(resourceSelectionPanel, "dock center");
         userPromptPanel.add(YesOrNoPanel, "dock center");
         userPromptPanel.add(buildingSelectingPanel, "dock center");
-        interactionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        interactionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
-        interactionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        interactionPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
+        rightInteractionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
+        rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
+        rightInteractionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
+        rightInteractionPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
 
 
 
