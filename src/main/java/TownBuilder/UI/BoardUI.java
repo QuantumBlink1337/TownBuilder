@@ -188,6 +188,15 @@ public class BoardUI extends JPanel {
         buildingSelectionLabel.setText(labelText);
         buildingSelectingPanel.setVisible(true);
     }
+    public void promptFinalScoreView() throws IOException {
+        mainPanel.removeAll();
+        JLabel header = new JLabel("Final score for " + board.getBoardName() + ":");
+        header.setFont(mainPanel.getFont().deriveFont(Font.BOLD, 50f));
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+        mainPanel.add(header, "dock center, align center, wrap");
+        mainPanel.add(scorePanel.createFinalScoreView());
+        mainPanel.updateUI();
+    }
     public boolean getUserYesNoAnswer() {
         return isYes;
     }

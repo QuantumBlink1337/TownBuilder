@@ -47,6 +47,7 @@ public class PlayerManager {
                 e.printStackTrace();
             }
         }
+        initializationUI.getPlayerSelectionPanel().setVisible(false);
         playerCount = initializationUI.getPlayerCount();
 
 
@@ -158,7 +159,15 @@ public class PlayerManager {
                 }
             }
             if (boardComplete(board)) {
-                board.scoring(false);
+                board.getBoardUI().promptFinalScoreView();
+                synchronized (Utility.getNotifier()) {
+                    try {
+                        Utility.getNotifier().wait();
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
         }
