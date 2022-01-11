@@ -68,6 +68,10 @@ public class GameInitializer {
             initializationUI.getMainMenuPanel().setVisible(false);
             initializationUI.getCustomSelectionPanel().setVisible(true);
             for (int i = 0; i < masterBuildingList.size(); i++) {
+                JPanel colorView = initializationUI.getColoredBuildingViews().get(i);
+                initializationUI.getCustomSelectionPanel().add(colorView);
+                colorView.setVisible(true);
+                System.out.println("Started notifier");
                synchronized (Utility.getNotifier()) {
                    try {
                        Utility.getNotifier().wait();
@@ -76,10 +80,12 @@ public class GameInitializer {
                        e.printStackTrace();
                    }
                }
+               System.out.println("Stopped notifier");
                buildingsForGame.add(BuildingFactory.getBuilding(initializationUI.getBuildingSelection(), buildingsForGame, -1, -1, false, null));
-
-
+                initializationUI.getCustomSelectionPanel().remove(colorView);
+               initializationUI.updateUI();
             }
+            initializationUI.getCustomSelectionPanel().setVisible(false);
         }
         private void randomGame() throws IOException {
             BuildingFactory.setbuildingMasterList();
