@@ -9,6 +9,8 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +19,8 @@ import static javax.swing.border.BevelBorder.RAISED;
 
 public class BoardUI extends JPanel {
 
-    final JPanel mainPanel = new JPanel(new MigLayout("","[center][right][left][c]","[top][center][b]"));
-    private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
+    final JPanel mainPanel = new JPanel(new MigLayout("", "[][][]", "[][][]"));
+    private TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
 
     private ResourceEnum selectedResourceForTurn;
@@ -81,6 +83,7 @@ public class BoardUI extends JPanel {
     final JPanel boardMatrixPanel;
     public final JPanel resourceSelectionPanel;
     final JPanel resourcePromptTextPanel;
+    JPanel otherBoardsPanel;
 
     public ActiveBuildingsUI getActiveBuildingPanel() {
         return activeBuildingPanel;
@@ -121,16 +124,24 @@ public class BoardUI extends JPanel {
         scorePanel = new ScoreUI(board);
         YesOrNoPanel = createYesNoPrompt();
         buildingSelectingPanel = createBuildingSelectionPanel();
+        otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-
-        mainPanel.add(gamePanel, "span 2, align center, gapleft "+(int) (SCREEN_WIDTH*(600.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH)));
-        mainPanel.add(rightInteractionPanel, "");
+        mainPanel.add(leftInteractionPanel, "dock west");
+        //mainPanel.add(gamePanel, ", gapleft "+(int) (SCREEN_WIDTH*(600.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH)));
+        mainPanel.add(gamePanel, "dock center");
+        mainPanel.add(rightInteractionPanel, "dock east");
         add(mainPanel);
 
+
+        leftInteractionPanel.add(otherBoardsPanel, "Wrap");
+        leftInteractionPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+
+
+        gamePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
         gamePanel.add(resourcePromptTextPanel, "wrap, align center,");
-        gamePanel.add(boardMatrixPanel, " wrap, align center, gapleft "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH))+", w "+(int)(SCREEN_WIDTH*(900.0/SCREEN_WIDTH))+"!, h " + (int)(SCREEN_HEIGHT*(900.0/SCREEN_HEIGHT)) + "!");
+        gamePanel.add(boardMatrixPanel, " wrap, align center , w "+(int)(SCREEN_WIDTH*(900.0/SCREEN_WIDTH))+"!, h " + (int)(SCREEN_HEIGHT*(900.0/SCREEN_HEIGHT)) + "!");
         gamePanel.add(userPromptPanel, "align center");
         userPromptPanel.add(resourceSelectionPanel, "dock center");
         userPromptPanel.add(YesOrNoPanel, "dock center");
@@ -362,11 +373,53 @@ public class BoardUI extends JPanel {
         panel.add(yesOrNoText, "wrap, align center, span 2 1");
         panel.add(yesButton);
         panel.add(noButton);
-
-
-
         return panel;
+    }
+    private JPanel createPlayerViewPanel() {
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel label = new JLabel("Other Players");
+        label.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(label, "dock center, align center, wrap, w "+BoardUI.INTERACTIVE_PANEL_WIDTH);
+        ArrayList<Board> boards = board.getPlayerManager().getBoards();
+        for (Board board : boards) {
+            if (board != this.board) {
+                JButton button = new JButton(board.getBoardName());
+                button.setFont(panel.getFont().deriveFont(24f));
+                button.setHorizontalAlignment(SwingConstants.CENTER);
+                TileButton[][] copiedMatrix = tileAccessMatrix;
+                button.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        System.out.println("Mouse in.");
+                        tileAccessMatrix = board.getBoardUI().getTileAccessMatrix();
+                        try {
+                            board.updateBoard();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        mainPanel.updateUI();
+                    }
 
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        tileAccessMatrix = copiedMatrix;
+                        try {
+                            board.updateBoard();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        mainPanel.updateUI();
+                    }
+                });
+                panel.add(button, "wrap, dock center");
+            }
+        }
+        return panel;
+    }
+    public void createPlayerView() {
+        leftInteractionPanel.remove(otherBoardsPanel);
+        leftInteractionPanel.add(createPlayerViewPanel(), "wrap, cell 0 0");
     }
 
     public void setSelectedResourceForTurn(ResourceEnum resource) {

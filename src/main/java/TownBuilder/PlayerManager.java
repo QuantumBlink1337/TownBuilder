@@ -76,6 +76,9 @@ public class PlayerManager {
         multiplayerModifiableBoards = new ArrayList<>(boards);
         Driver.getGameFrame().remove(initializationUI);
         Driver.initFrame();
+        for (Board board : boards) {
+            board.getBoardUI().createPlayerView();
+        }
     }
     public boolean gameActive() throws IOException {
         int finishedPlayers = 0;
