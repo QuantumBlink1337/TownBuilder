@@ -37,11 +37,11 @@ public class Factory implements Building{
     }
     private void pickResource() throws IOException {
         board.getBoardUI().setResourceSelectionLabel("Select a resource for your new Factory.");
-        factorizedResource = Utility.resourcePicker(null, board);
+        factorizedResource = Utility.resourcePicker(null, board, "");
     }
     public ResourceEnum exchangeResource() throws IOException {
         board.getBoardUI().setResourceSelectionLabel("Select a resource.");
-        return Utility.resourcePicker(null, board);
+        return Utility.resourcePicker(null, board, "");
     }
     public ResourceEnum getFactorizedResource() {
         return factorizedResource;
