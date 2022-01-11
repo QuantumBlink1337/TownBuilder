@@ -145,11 +145,11 @@ public class InitializationUI extends JPanel {
             JPanel mainBuildingViewPanel = new JPanel(new MigLayout());
             ArrayList<Building> buildings = masterBuildingList.get(colors[i]);
             for (Building building : buildings) {
-                mainBuildingViewPanel.add(initializeIndividualBuildingView(building));
+                mainBuildingViewPanel.add(initializeIndividualBuildingView(building), "split " + buildings.size() + "" );
             }
             coloredBuildingViews.add(mainBuildingViewPanel);
         }
-        panel.add(buildingSelectionLabel, "dock center, wrap");
+        panel.add(buildingSelectionLabel, "wrap");
         return panel;
 
     }
@@ -171,6 +171,8 @@ public class InitializationUI extends JPanel {
         textArea.setWrapStyleWord(true);
         textArea.setFont(panel.getFont().deriveFont(20f));
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        JScrollPane jScrollPane = new JScrollPane(textArea);
+        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         exitButton.setText("Choose this building");
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         exitButton.setPreferredSize(BoardUI.BUTTON_SIZE);
@@ -183,7 +185,7 @@ public class InitializationUI extends JPanel {
         panel.setPreferredSize(new Dimension(380, 200));
         panel.add(buildingLabel, "dock center, wrap");
         panel.add(explanationLabel, "dock center, wrap");
-        panel.add(textArea, "dock center, wrap");
+        panel.add(jScrollPane, "dock center, wrap, h 175!");
         panel.add(matrixLabel, "dock center, wrap");
         panel.add(initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center");
