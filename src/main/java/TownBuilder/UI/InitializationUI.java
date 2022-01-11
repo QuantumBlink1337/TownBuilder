@@ -15,8 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InitializationUI extends JPanel {
+
     private final JPanel mainMenuPanel;
     private final JPanel playerSelectionPanel;
+
+
+
     private final JPanel customSelectionPanel;
     private final ArrayList<JPanel> coloredBuildingViews = new ArrayList<>();
     private BuildingEnum buildingSelection;
@@ -46,6 +50,15 @@ public class InitializationUI extends JPanel {
     public ArrayList<JPanel> getColoredBuildingViews() {
         return coloredBuildingViews;
     }
+    public JPanel getCustomSelectionPanel() {
+        return customSelectionPanel;
+    }
+    public JPanel getMainMenuPanel() {
+        return mainMenuPanel;
+    }
+
+
+
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout("" +
                 "","[][]20[]", "[][]500[]"));

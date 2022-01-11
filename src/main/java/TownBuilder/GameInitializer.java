@@ -53,54 +53,6 @@ public class GameInitializer {
             case "custom" -> customGame();
             case "random" -> randomGame();
         }
-
-
-//        if (isCustomGame) {
-//
-//            for (ColorEnum color : colors) {
-//                ArrayList<Building> coloredBuildings = buildingMasterList.get(color);
-//                isUserInputValid = false;
-//                if (coloredBuildings.size() > 1) {
-//                    do {
-//                        System.out.println("What " + color + " building would you like for your game?");
-//                        System.out.println("Available choices include:");
-//                        Utility.printBuildingsInList(coloredBuildings);
-//                        userInput = sc.nextLine().toLowerCase();
-//                        for (Building coloredBuilding : coloredBuildings) {
-//                            if (userInput.equals(coloredBuilding.toString().toLowerCase())) {
-//                                buildingsForGame.add(BuildingFactory.getBuilding(coloredBuilding.getType(), buildingsForGame, -1, -1, false, null));
-//                                isUserInputValid = true;
-//                            }
-//                        }
-//                    }
-//                    while (!isUserInputValid);
-//                } else {
-//                    buildingsForGame.add(coloredBuildings.get(0));
-//                }
-//
-//            }
-//        } else if (isRandomGame) {
-////            BuildingFactory.setbuildingMasterList();
-////            for (ColorEnum color : colors) {
-////                ArrayList<Building> buildings = buildingMasterList.get(color);
-////                if (buildings.size() > 1) {
-////                    int randomIndex = (int) (Math.random() * buildings.size());
-////                    Building building = buildings.get(randomIndex);
-////                    buildingsForGame.add(BuildingFactory.getBuilding(building.getType(), buildingsForGame, -1, -1, false, null));
-////                } else {
-////                    buildingsForGame.add(BuildingFactory.getBuilding(buildings.get(0).getType(), buildingsForGame, -1, -1, false, null));
-////                }
-////            }
-//        }
-//        else {
-////            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, -1, -1, false, null));
-////            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.FARM, buildingsForGame, -1, -1, false, null));
-////            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WELL, buildingsForGame, -1, -1, false, null));
-////            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.CHAPEL, buildingsForGame, -1, -1, false, null));
-////            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.TAVERN, buildingsForGame, -1, -1, false, null));
-////            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.THEATER, buildingsForGame, -1, -1, false, null));
-////            buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.WAREHOUSE, buildingsForGame, -1, -1, false, null));
-//        }
     }
         private void defaultGame() throws IOException {
             buildingsForGame.add(BuildingFactory.getBuilding(BuildingEnum.COTTAGE, buildingsForGame, -1, -1, false, null));
@@ -113,6 +65,8 @@ public class GameInitializer {
         }
         private void customGame() throws IOException {
             HashMap<ColorEnum, ArrayList<Building>> masterBuildingList = BuildingFactory.getBuildingMasterList();
+            initializationUI.getMainMenuPanel().setVisible(false);
+            initializationUI.getCustomSelectionPanel().setVisible(true);
             for (int i = 0; i < masterBuildingList.size(); i++) {
                synchronized (Utility.getNotifier()) {
                    try {
