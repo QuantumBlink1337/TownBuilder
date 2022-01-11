@@ -10,13 +10,13 @@ import java.net.URISyntaxException;
 import static TownBuilder.DebugApps.DebugTools.*;
 
 public class MultiplayerTest {
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
         logging("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE MULTIPLAYER SYSTEM.");
         Utility.setColor(true);
         System.out.println(Utility.generateColorizedString("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE MULTIPLAYER SYSTEM.", Attribute.RED_TEXT()));
         GameInitializer gameInitializer = new GameInitializer();
         gameInitializer.buildingSelection();
-        PlayerManager playerManager = new PlayerManager(gameInitializer.getBuildingsForGame());
+        PlayerManager playerManager = new PlayerManager(gameInitializer.getBuildingsForGame(), gameInitializer.getInitializationUI());
         playerManager.determineNumberOfBoards();
         Board OpaleyeBoard = null;
         for (Board board : playerManager.getBoards()) {

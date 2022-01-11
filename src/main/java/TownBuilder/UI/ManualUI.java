@@ -7,8 +7,6 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -147,7 +145,6 @@ public class ManualUI extends JPanel {
         panel.add(initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center");
         return panel;
-
     }
     private JPanel initializeBuildingMatrix(Building building) {
         ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
