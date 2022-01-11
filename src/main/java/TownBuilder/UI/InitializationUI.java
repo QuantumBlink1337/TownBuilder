@@ -193,12 +193,11 @@ public class InitializationUI extends JPanel {
     }
     private JPanel initializeBuildingMatrix(Building building) {
         ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
-        JPanel tilePanel = new JPanel(new GridLayout(Math.max(2, buildingPattern.length), Math.max(2, buildingPattern[buildingPattern.length-1].length), 2, 0));
+        JPanel tilePanel = new JPanel(new GridLayout(buildingPattern.length, buildingPattern[buildingPattern.length-1].length, 2, 0));
         for (ResourceEnum[] resourceEnums : buildingPattern) {
             for (ResourceEnum resourceEnum : resourceEnums) {
                 JButton temp = new JButton(resourceEnum.toString());
                 temp.setBackground(resourceEnum.getColor().getOverallColor());
-                temp.setPreferredSize(new Dimension(150, 150));
                 if (temp.getText().equals("NONE")) {
                     temp.setVisible(false);
                 }
