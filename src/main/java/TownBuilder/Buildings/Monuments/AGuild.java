@@ -96,14 +96,22 @@ public class AGuild implements Monument {
 
     @Override
     public void onPlacement() throws IOException {
-        System.out.println("You may replace up to 2 buildings on your board.\nNote, you do not have to, but you may not choose to come back to this.");
         while (MAX_BUILDING_PLACEMENTS > 1) {
-            if (Utility.prompt()) {
+            board.getBoardUI().promptYesNoPrompt("You may replace up to 2 buildings on your board.");
+            synchronized (Utility.getNotifier()) {
+                try {
+                    Utility.getNotifier().wait();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (board.getBoardUI().getUserYesNoAnswer()) {
                 board.getBuildingFactory().placeBuildingOnBoard(flagOverturnedResources(board.buildingPlacer(board.getDetectableBuildings(),false)), board.getDetectableBuildings(), false, board);
-                System.out.println("Continue?");
             }
             MAX_BUILDING_PLACEMENTS--;
         }
+
 
     }
     private BuildingEnum flagOverturnedResources(BuildingEnum buildingEnum) throws IOException {
