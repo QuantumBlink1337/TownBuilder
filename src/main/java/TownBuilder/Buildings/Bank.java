@@ -33,7 +33,7 @@ public class Bank implements Building{
     }
     private void setLockedResource() throws IOException {
         board.getBoardUI().setResourceSelectionLabel("You must declare a blacklisted resource for your Bank.");
-        lockedResource = Utility.resourcePicker(board.getBlacklistedResources(), board);
+        lockedResource = Utility.resourcePicker(board.getBlacklistedResources(), board, "");
     }
     public ResourceEnum getLockedResource() {
         return lockedResource;

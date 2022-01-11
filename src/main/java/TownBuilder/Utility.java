@@ -298,13 +298,14 @@ public class Utility {
     }
 
 
-    public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, Board board) throws IOException {
+    public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, Board board, String string) throws IOException {
         resetResourceArray();
         ResourceEnum resourceChoice;
         boolean validResource = true;
         BoardUI boardUI = board.getBoardUI();
         do {
             boardUI.promptResourceSelection(true);
+            boardUI.setSecondaryTextLabel(string);
             synchronized (notifier) {
                 try {
                     notifier.wait();
@@ -328,7 +329,7 @@ public class Utility {
         }
         while (!validResource);
         boardUI.getErrorTextLabel().setVisible(false);
-
+        //System.out.println("Chosen resource: " + resourceChoice);
         return resourceChoice;
     }
 
