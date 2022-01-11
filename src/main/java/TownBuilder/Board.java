@@ -421,17 +421,22 @@ public class Board {
         boardUI.getErrorTextLabel().setVisible(false);
         updateBoard();
     }
-    public void updateBoard() throws IOException {
-        System.out.println("Updating board");
 
-        boolean activeBuilding = false;
+    public void updateBoard() throws IOException {
+        updateBoard(gameResourceBoard, gameBuildingBoard);
+    }
+
+    public void updateBoard(Resource[][] gRB, Building[][] gBB) throws IOException {
+        System.out.println("Updating board");
         TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
-        for (int row = 0; row < gameResourceBoard.length; row++) {
-            for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                accessMatrix[row][col].setResourceEnum(gameResourceBoard[row][col].getResource());
-                accessMatrix[row][col].setBuildingEnum(gameBuildingBoard[row][col].getType());
+        boolean activeBuilding = false;
+        for (int row = 0; row < gRB.length; row++) {
+            for (int col = 0; col < gBB[row].length; col++) {
+                accessMatrix[row][col].setResourceEnum(gRB[row][col].getResource());
+                System.out.println(gRB[row][col].getResource());
+                accessMatrix[row][col].setBuildingEnum(gBB[row][col].getType());
                 accessMatrix[row][col].updateButton();
-                if (gameBuildingBoard[row][col].getType() == BuildingEnum.WAREHOUSE || gameBuildingBoard[row][col].getType() == BuildingEnum.FACTORY || gameBuildingBoard[row][col].getType() == BuildingEnum.BANK) {
+                if (gBB[row][col].getType() == BuildingEnum.WAREHOUSE || gBB[row][col].getType() == BuildingEnum.FACTORY || gBB[row][col].getType() == BuildingEnum.BANK) {
                     activeBuilding = true;
                 }
             }
@@ -439,54 +444,10 @@ public class Board {
         if (activeBuilding) {
             boardUI.getActiveBuildingPanel().updateActiveBuildings();
         }
-
-
-//        for (int row = 0; row < gameResourceBoard.length; row++) {
-//            for (int col = 0; col < gameResourceBoard[row].length; col++) {
-//                int boardWhiteSpaceLength = 9;
-//                DebugTools.logging("[UPDATE_BOARD] - Checking row: " + row + " col: "+col);
-//                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED && gameResourceBoard[row][col].getResource() != ResourceEnum.TPOST) {
-//                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.resourceInformation(gameResourceBoard[row][col]) + " NONEMPTY RESOURCE. Updating it");
-//                    gameBoard[row][col] = "[" + Utility.generateColorizedString(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), gameResourceBoard[row][col].getResource()) + "]";
-//                }
-//                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-//                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.buildingInformation(gameBuildingBoard[row][col]) + " NONEMPTY BUILDING. Updating it");
-//                    gameBoard[row][col] = "["+ Utility.generateColorizedString(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), gameBuildingBoard[row][col].getType())+ "]";
-//                }
-//                else {
-//                    DebugTools.logging("[UPDATE_BOARD] - Nothing here. Updating with empty tile");
-//                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
-//                }
-//
-//            }
-//        }
     }
-//    public void renderBoard()  {
-//        //this.updateBoard();
-//        System.out.println("============="+boardName.toUpperCase()+"'s BOARD============");
-//        for (int i = 0; i < letterCoords.length; i++) {
-//            if (i == 4) {
-//                System.out.println(letterCoords[i]);
-//            }
-//            else {
-//                System.out.print(letterCoords[i]);
-//
-//            }
-//        }
-//        for (int row = 0; row < gameBoard.length; row++) {
-//            for (int col = -1; col < gameBoard[row].length; col++) {
-//                if (col == -1) {
-//                    System.out.print(numberCoords[row]);
-//                } else {
-//                    if (col == 3) {
-//                        System.out.println(gameBoard[row][col]);
-//                    } else {
-//                        System.out.print(gameBoard[row][col]);
-//                    }
-//                }
-//            }
-//        }
-//    }
+
+
+
 
     public String getBoardName() {
         return boardName;
