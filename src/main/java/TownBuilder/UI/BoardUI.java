@@ -2,6 +2,7 @@ package TownBuilder.UI;
 import TownBuilder.*;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.Monuments.Monument;
 import TownBuilder.DebugApps.DebugTools;
 import net.miginfocom.swing.MigLayout;
 
@@ -20,12 +21,8 @@ public class BoardUI extends JPanel {
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
 
-    public ResourceEnum getSelectedResourceForTurn() {
-        return selectedResourceForTurn;
-    }
-
-    private volatile ResourceEnum selectedResourceForTurn;
-    private volatile BuildingEnum selectedBuildingForTurn;
+    private ResourceEnum selectedResourceForTurn;
+    private BuildingEnum selectedBuildingForTurn;
     private boolean activeBuildingToggled;
 
     public Building getSelectedActiveBuilding() {
@@ -71,6 +68,7 @@ public class BoardUI extends JPanel {
     private final Board board;
     JLabel turnResourceText;
     JLabel secondaryTextLabel = new JLabel();
+    JLabel buildingSelectionLabel;
 
     public JLabel getErrorTextLabel() {
         return errorTextLabel;
@@ -111,14 +109,7 @@ public class BoardUI extends JPanel {
     public BoardUI(Board board) {
         this.board = board;
         this.playerName = board.getBoardName();
-        //setExtendedState(MAXIMIZED_BOTH);
 
-
-
-//        final int SCREEN_WIDTH = 1920;
-//        final int SCREEN_HEIGHT = 1080;
-        //setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
         buildings = board.getScorableBuildings();
         manualPanel = new ManualUI(buildings);
         boardHeader = createBoardHeaderPanel();
@@ -134,7 +125,6 @@ public class BoardUI extends JPanel {
 
         mainPanel.add(gamePanel, "span 2, align center, gapleft "+(int) (SCREEN_WIDTH*(600.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH)));
         mainPanel.add(interactionPanel, "");
-        //.setBorder(BorderFactory.createLineBorder(Color.magenta));
         add(mainPanel);
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
@@ -142,7 +132,8 @@ public class BoardUI extends JPanel {
         gamePanel.add(boardMatrixPanel, " wrap, align center, gapleft "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH))+", w "+(int)(SCREEN_WIDTH*(900.0/SCREEN_WIDTH))+"!, h " + (int)(SCREEN_HEIGHT*(900.0/SCREEN_HEIGHT)) + "!");
         gamePanel.add(userPromptPanel, "align center");
         userPromptPanel.add(resourceSelectionPanel, "dock center");
-        userPromptPanel.add(YesOrNoPanel);
+        userPromptPanel.add(YesOrNoPanel, "dock center");
+        userPromptPanel.add(buildingSelectingPanel, "dock center");
         interactionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
         interactionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
         interactionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
@@ -185,8 +176,6 @@ public class BoardUI extends JPanel {
     }
     public void promptResourceSelection(boolean mode) throws IOException {
         DebugTools.logging("[BoardUI] - Triggering Resource Prompt Visibility");
-        //resourcePromptTextPanel.setVisible(false);
-        //resourcePromptTextPanel.setVisible(true);
         resourceSelectionPanel.setVisible(mode);
     }
     public void promptYesNoPrompt(String labelText) {
@@ -194,6 +183,10 @@ public class BoardUI extends JPanel {
         resourcePromptTextPanel.setVisible(false);
         resourceSelectionPanel.setVisible(false);
         YesOrNoPanel.setVisible(true);
+    }
+    public void promptBuildingSelection(String labelText) {
+        buildingSelectionLabel.setText(labelText);
+        buildingSelectingPanel.setVisible(true);
     }
     public boolean getUserYesNoAnswer() {
         return isYes;
@@ -297,23 +290,32 @@ public class BoardUI extends JPanel {
     }
     private JPanel createBuildingSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
-        JPanel selectionPanel = new JPanel(new GridLayout(1, buildings.size(), 0, 0));
+        JPanel selectionPanel = new JPanel(new GridLayout(1, buildings.size()-1, 0, 0));
         Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
-        JLabel label = new JLabel("Select a building to place.");
-        label.setFont(font);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
+        buildingSelectionLabel = new JLabel("Select a building to place.");
+        buildingSelectionLabel.setFont(font);
+        buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         for (Building building : buildings) {
-            TileButton button = new TileButton(-1, -1);
-            button.setBackground(building.getType().getColor().getOverallColor());
-            button.setBuildingEnum(building.getType());
-            button.addActionListener(e -> selectedBuildingForTurn = building.getType());
-            button.setText(building.toString());
-            button.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
-            button.setPreferredSize(new Dimension(300,50));
-            selectionPanel.add(button);
+            if (!(building instanceof Monument)) {
+                TileButton button = new TileButton(-1, -1);
+                button.setBackground(building.getType().getColor().getOverallColor());
+                button.setBuildingEnum(building.getType());
+                button.addActionListener(e -> {
+                    selectedBuildingForTurn = building.getType();
+                    panel.setVisible(false);
+                    synchronized (Utility.getNotifier()) {
+                        Utility.getNotifier().notify();
+                    }
+                });
+                button.setText(building.toString());
+                button.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+                button.setPreferredSize(new Dimension(300,50));
+                selectionPanel.add(button);
+            }
         }
-        panel.add(label, "Wrap");
+        panel.add(buildingSelectionLabel, "dock center, Wrap");
         panel.add(selectionPanel);
+        panel.setVisible(false);
         return panel;
     }
 
@@ -397,6 +399,7 @@ public class BoardUI extends JPanel {
     }
 
 
-
-
+    public BuildingEnum getSelectedBuildingForTurn() {
+        return selectedBuildingForTurn;
+    }
 }

@@ -326,23 +326,18 @@ public class Board {
         buildingPlacer(detectableBuildings, true);
     }
     public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeBuildingOnBoard) throws IOException {
-        System.out.println("What building would you like?");
-        Scanner sc = new Scanner(System.in);
-        boolean validInput = false;
-        do {
-            String userInput = sc.nextLine().toLowerCase();
-            for (Building building : buildingArrayList) {
-                if (userInput.equalsIgnoreCase(building.toString())) {
-                    if (placeBuildingOnBoard) {
-                        buildingFactory.placeBuildingOnBoard(building.getType(), buildingArrayList, true, this);
-                    }
-                    return building.getType();
-                }
+        boardUI.promptBuildingSelection("What building would you like?");
+        synchronized (Utility.getNotifier()) {
+            try {
+                Utility.getNotifier().wait();
             }
-            System.out.println("Invalid input.");
-
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        while (true);
+        buildingFactory.placeBuildingOnBoard(boardUI.getSelectedBuildingForTurn(), buildingArrayList, placeBuildingOnBoard, this);
+        updateBoard();
+        return boardUI.getSelectedBuildingForTurn();
     }
     private void factoryOption(ResourceEnum resource, Factory building) throws IOException {
         if (currentResourceForTurn == building.getFactorizedResource()) {
