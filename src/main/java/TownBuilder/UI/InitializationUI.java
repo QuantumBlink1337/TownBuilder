@@ -23,6 +23,12 @@ public class InitializationUI extends JPanel {
 
     private final JPanel customSelectionPanel;
     private final ArrayList<JPanel> coloredBuildingViews = new ArrayList<>();
+
+    public String getChosenBoardName() {
+        return chosenBoardName;
+    }
+
+    private String chosenBoardName;
     private BuildingEnum buildingSelection;
     private int playerCount;
 
@@ -146,7 +152,7 @@ public class InitializationUI extends JPanel {
                 JPanel mainBuildingViewPanel = new JPanel(new MigLayout());
                 ArrayList<Building> buildings = masterBuildingList.get(colors[i]);
                 for (Building building : buildings) {
-                    mainBuildingViewPanel.add(initializeIndividualBuildingView(building), "split " + buildings.size() + "");
+                    mainBuildingViewPanel.add(initializeIndividualBuildingView(building, "Choose this building"), "split " + buildings.size() + "");
                 }
                 coloredBuildingViews.add(mainBuildingViewPanel);
             }
@@ -155,7 +161,7 @@ public class InitializationUI extends JPanel {
         return panel;
 
     }
-    private JPanel initializeIndividualBuildingView(Building building) {
+    private JPanel initializeIndividualBuildingView(Building building, String string) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton();
         JTextArea textArea = new JTextArea(building.getManualEntry());
@@ -175,7 +181,7 @@ public class InitializationUI extends JPanel {
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JScrollPane jScrollPane = new JScrollPane(textArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        exitButton.setText("Choose this building");
+        exitButton.setText(string);
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         exitButton.setPreferredSize(BoardUI.BUTTON_SIZE);
         exitButton.addActionListener(e -> {
@@ -193,6 +199,8 @@ public class InitializationUI extends JPanel {
         panel.add(exitButton, "dock center");
         return panel;
     }
+
+
     private JPanel initializeBuildingMatrix(Building building) {
         ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
         JPanel tilePanel = new JPanel(new GridLayout(buildingPattern.length, buildingPattern[buildingPattern.length-1].length, 2, 0));
@@ -207,6 +215,34 @@ public class InitializationUI extends JPanel {
             }
         }
         return tilePanel;
+    }
+    public JPanel generatePlayerNameSelectionPanel() {
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel headerLabel = new JLabel("What's your name?");
+        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JTextArea nameTextArea = new JTextArea();
+        JButton button = new JButton("Enter");
+        button.setFont(panel.getFont().deriveFont(Font.BOLD, 15f));
+        button.setHorizontalAlignment(SwingConstants.CENTER);
+        button.addActionListener(e -> {
+            if (nameTextArea.getText().length() < 20) {
+                chosenBoardName = nameTextArea.getText();
+                synchronized (Utility.getNotifier()) {
+                    Utility.getNotifier().notify();
+                }
+            }
+        });
+        nameTextArea.setEditable(true);
+        nameTextArea.setLineWrap(true);
+        nameTextArea.setWrapStyleWord(true);
+        nameTextArea.setFont(panel.getFont().deriveFont(20f));
+        nameTextArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel.add(headerLabel, "dock center, wrap");
+        panel.add(nameTextArea, "dock center, align center, wrap");
+        panel.add(button, "dock center, align center");
+
+        return panel;
     }
 
 }

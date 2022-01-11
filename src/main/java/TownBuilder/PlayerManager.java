@@ -4,6 +4,7 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.InitializationUI;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -53,8 +54,22 @@ public class PlayerManager {
 
         for (int i= 0; i < playerCount; i++) {
             // generates a new Board object for each player
-            Board temp = new Board(masterBuildings, this, playerCount == 1, Driver.getGameFrame(), "Debug" + i);
+            JPanel panel = initializationUI.generatePlayerNameSelectionPanel();
+            initializationUI.add(panel);
+            initializationUI.updateUI();
+            synchronized (Utility.getNotifier()) {
+                try {
+                    Utility.getNotifier().wait();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Board temp = new Board(masterBuildings, this, playerCount == 1, Driver.getGameFrame(), initializationUI.getChosenBoardName());
             boards.add(temp);
+            initializationUI.remove(panel);
+            initializationUI.updateUI();
         }
         isSingleplayer = !(boards.size() > 1);
         multiplayerModifiableBoards = new ArrayList<>(boards);
