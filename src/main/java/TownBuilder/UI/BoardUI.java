@@ -67,7 +67,6 @@ public class BoardUI extends JPanel {
     private boolean coordinatesClicked = false;
 
     private boolean isYes;
-    private volatile boolean clicked = false;
     private final ArrayList<Building> buildings;
     private final Board board;
     JLabel turnResourceText;
@@ -186,14 +185,9 @@ public class BoardUI extends JPanel {
     }
     public void promptResourceSelection(boolean mode) throws IOException {
         DebugTools.logging("[BoardUI] - Triggering Resource Prompt Visibility");
-        if (mode) {
-            resourceSelectionPanel.setVisible(true);
-            //resourcePromptTextPanel.setVisible(false);
-        }
-        else {
-            resourceSelectionPanel.setVisible(false);
-            //resourcePromptTextPanel.setVisible(true);
-        }
+        //resourcePromptTextPanel.setVisible(false);
+        //resourcePromptTextPanel.setVisible(true);
+        resourceSelectionPanel.setVisible(mode);
     }
     public void promptYesNoPrompt(String labelText) {
         yesOrNoText.setText(labelText);
@@ -382,19 +376,19 @@ public class BoardUI extends JPanel {
         resourceSelectionLabel.setForeground(color);
     }
     public void setPrimaryTextLabel(String string) {
-        System.out.println("Set Primary Text Label");
+        //System.out.println("Set Primary Text Label");
         turnResourceText.setText(string);
         turnResourceText.setVisible(true);
         resourcePromptTextPanel.setVisible(true);
     }
     public void setSecondaryTextLabel(String string) {
-        System.out.println("Set Secondary Text Label");
+        //System.out.println("Set Secondary Text Label");
         secondaryTextLabel.setText(string);
         secondaryTextLabel.setVisible(true);
         resourcePromptTextPanel.setVisible(true);
     }
     public void setSecondaryTextLabel(String string, Color color) {
-        System.out.println("Set Secondary Text Label with Color");
+        //System.out.println("Set Secondary Text Label with Color");
         secondaryTextLabel.setText(string);
         secondaryTextLabel.setForeground(color);
         secondaryTextLabel.setVisible(true);
