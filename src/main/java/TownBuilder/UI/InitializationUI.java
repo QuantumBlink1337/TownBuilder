@@ -34,6 +34,11 @@ public class InitializationUI extends JPanel {
 
 
     private String selection;
+
+    public JPanel getPlayerSelectionPanel() {
+        return playerSelectionPanel;
+    }
+
     public InitializationUI() {
         System.out.println("Initialize UI");
         mainMenuPanel = createMainMenuPanel();
