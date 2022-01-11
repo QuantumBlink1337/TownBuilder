@@ -107,7 +107,10 @@ public class Board {
     public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, JFrame jF, String boardName) throws IOException {
         this.playerManager = playerManager;
         this.boardName = boardName;
-        isSingleplayer = true;
+        isSingleplayer = ISP;
+        if (ISP) {
+            monumentTypes.removeIf(m -> m == BuildingEnum.IRONWEED || m == BuildingEnum.OPALEYE || m == BuildingEnum.STARLOOM) ;
+        }
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
@@ -296,22 +299,20 @@ public class Board {
             detectableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
         }
     }
-    public ResourceEnum resourcePicker() throws IOException {
+    public ResourceEnum resourcePicker(String string) throws IOException {
         ResourceEnum turnResource;
+        //System.out.println("Singleplayer? " + isSingleplayer);
         if (!isSingleplayer) {
-            do {
-                turnResource = Utility.resourcePicker(blacklistedResources, this);
-                if (turnResource == ResourceEnum.NONE) {
-                    renderBoard();
-                }
-            }
-            while (turnResource == ResourceEnum.NONE);
+            //System.out.println("Hit");
+            boardUI.setPrimaryTextLabel(" ");
+            turnResource = Utility.resourcePicker(blacklistedResources, this, string);
         }
         else {
+            //System.out.println("I shouldn't be hit rn");
             if (spResourceSelectionIncrement == 2) {
                 spResourceSelectionIncrement = 0;
                 Utility.resetResourceArray();
-                return Utility.resourcePicker(blacklistedResources, this);
+                return Utility.resourcePicker(blacklistedResources, this, string);
             }
             else {
                 spResourceSelectionIncrement++;
@@ -375,7 +376,7 @@ public class Board {
                 do {
                     boardUI.setCoordinatesClicked(false);
                     boardUI.setResourceSelectionLabel("Select a resource to swap out from your Warehouse.");
-                    swap = Utility.resourcePicker(null, this);
+                    swap = Utility.resourcePicker(null, this, "");
                     System.out.println(swap);
                     turnResource = warehouse.placeResource(turnResource, swap);
                     if (turnResource == ResourceEnum.OBSTRUCTED) {
@@ -384,7 +385,6 @@ public class Board {
                 }
                 while (turnResource == ResourceEnum.OBSTRUCTED);
                 currentResourceForTurn = turnResource;
-
                 turnOver = false;
 
             }
@@ -446,52 +446,52 @@ public class Board {
         }
 
 
-        for (int row = 0; row < gameResourceBoard.length; row++) {
-            for (int col = 0; col < gameResourceBoard[row].length; col++) {
-                int boardWhiteSpaceLength = 9;
-                DebugTools.logging("[UPDATE_BOARD] - Checking row: " + row + " col: "+col);
-                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED && gameResourceBoard[row][col].getResource() != ResourceEnum.TPOST) {
-                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.resourceInformation(gameResourceBoard[row][col]) + " NONEMPTY RESOURCE. Updating it");
-                    gameBoard[row][col] = "[" + Utility.generateColorizedString(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), gameResourceBoard[row][col].getResource()) + "]";
-                }
-                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
-                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.buildingInformation(gameBuildingBoard[row][col]) + " NONEMPTY BUILDING. Updating it");
-                    gameBoard[row][col] = "["+ Utility.generateColorizedString(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), gameBuildingBoard[row][col].getType())+ "]";
-                }
-                else {
-                    DebugTools.logging("[UPDATE_BOARD] - Nothing here. Updating with empty tile");
-                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
-                }
-
-            }
-        }
+//        for (int row = 0; row < gameResourceBoard.length; row++) {
+//            for (int col = 0; col < gameResourceBoard[row].length; col++) {
+//                int boardWhiteSpaceLength = 9;
+//                DebugTools.logging("[UPDATE_BOARD] - Checking row: " + row + " col: "+col);
+//                if (gameResourceBoard[row][col].getResource() != ResourceEnum.NONE && gameResourceBoard[row][col].getResource() != ResourceEnum.OBSTRUCTED && gameResourceBoard[row][col].getResource() != ResourceEnum.TPOST) {
+//                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.resourceInformation(gameResourceBoard[row][col]) + " NONEMPTY RESOURCE. Updating it");
+//                    gameBoard[row][col] = "[" + Utility.generateColorizedString(Utility.lengthResizer(gameResourceBoard[row][col].toString(), boardWhiteSpaceLength), gameResourceBoard[row][col].getResource()) + "]";
+//                }
+//                else if (gameBuildingBoard[row][col].getType() != BuildingEnum.NONE) {
+//                    DebugTools.logging("[UPDATE_BOARD] - "+DebugTools.buildingInformation(gameBuildingBoard[row][col]) + " NONEMPTY BUILDING. Updating it");
+//                    gameBoard[row][col] = "["+ Utility.generateColorizedString(Utility.lengthResizer(gameBuildingBoard[row][col].getType().toString(), boardWhiteSpaceLength), gameBuildingBoard[row][col].getType())+ "]";
+//                }
+//                else {
+//                    DebugTools.logging("[UPDATE_BOARD] - Nothing here. Updating with empty tile");
+//                    gameBoard[row][col] = "["+Utility.lengthResizer("EMPTY!", boardWhiteSpaceLength)+"]";
+//                }
+//
+//            }
+//        }
     }
-    public void renderBoard()  {
-        //this.updateBoard();
-        System.out.println("============="+boardName.toUpperCase()+"'s BOARD============");
-        for (int i = 0; i < letterCoords.length; i++) {
-            if (i == 4) {
-                System.out.println(letterCoords[i]);
-            }
-            else {
-                System.out.print(letterCoords[i]);
-
-            }
-        }
-        for (int row = 0; row < gameBoard.length; row++) {
-            for (int col = -1; col < gameBoard[row].length; col++) {
-                if (col == -1) {
-                    System.out.print(numberCoords[row]);
-                } else {
-                    if (col == 3) {
-                        System.out.println(gameBoard[row][col]);
-                    } else {
-                        System.out.print(gameBoard[row][col]);
-                    }
-                }
-            }
-        }
-    }
+//    public void renderBoard()  {
+//        //this.updateBoard();
+//        System.out.println("============="+boardName.toUpperCase()+"'s BOARD============");
+//        for (int i = 0; i < letterCoords.length; i++) {
+//            if (i == 4) {
+//                System.out.println(letterCoords[i]);
+//            }
+//            else {
+//                System.out.print(letterCoords[i]);
+//
+//            }
+//        }
+//        for (int row = 0; row < gameBoard.length; row++) {
+//            for (int col = -1; col < gameBoard[row].length; col++) {
+//                if (col == -1) {
+//                    System.out.print(numberCoords[row]);
+//                } else {
+//                    if (col == 3) {
+//                        System.out.println(gameBoard[row][col]);
+//                    } else {
+//                        System.out.print(gameBoard[row][col]);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public String getBoardName() {
         return boardName;
