@@ -4,15 +4,12 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.UI.InitializationUI;
-import com.diogonunes.jcolor.Attribute;
-import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
+
 
 public class GameInitializer {
 
