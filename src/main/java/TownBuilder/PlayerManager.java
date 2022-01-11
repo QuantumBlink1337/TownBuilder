@@ -53,7 +53,7 @@ public class PlayerManager {
 
         for (int i= 0; i < playerCount; i++) {
             // generates a new Board object for each player
-            Board temp = new Board(masterBuildings, this, playerCount <= 1, Driver.getGameFrame(), "Debug" + i);
+            Board temp = new Board(masterBuildings, this, playerCount == 1, Driver.getGameFrame(), "Debug" + i);
             boards.add(temp);
         }
         isSingleplayer = !(boards.size() > 1);
@@ -115,7 +115,7 @@ public class PlayerManager {
         }
         return adjacentBoards;
     }
-    public void manageTurn() throws IOException, URISyntaxException {
+    public void manageTurn() throws IOException, URISyntaxException, InterruptedException {
         ResourceEnum resource = null;
         DebugTools.logging("[MANAGE_TURN] - Beginning turn management process. Is Singleplayer? : " + isSingleplayer);
         if (isSingleplayer) {
@@ -164,10 +164,13 @@ public class PlayerManager {
                 pickResourceBoard = multiplayerModifiableBoards.get(1);
             }
             DebugTools.logging("[MULTIPLAYER_TURN] - Stored Board " +pickResourceBoard.getBoardName());
+            pickResourceBoard.getBoardUI().repaint();
             Driver.getGameFrame().add(pickResourceBoard.getBoardUI());
             Driver.initFrame();
-            resource = turnExecution(pickResourceBoard, resource, true, true, false,masterBuildings );
+            resource = turnExecution(pickResourceBoard, null, true, true, false, masterBuildings );
             multiplayerModifiableBoards.remove(pickResourceBoard); // removes from board
+
+            Thread.sleep(1000);
             Driver.getGameFrame().remove(pickResourceBoard.getBoardUI());
             Driver.initFrame();
             DebugTools.logging("[MULTIPLAYER_TURN] - Removed Board " +pickResourceBoard.getBoardName() + " from multiplayer boards TEMPORARILY");
@@ -193,6 +196,7 @@ public class PlayerManager {
                         multiplayerModifiableBoards.remove(temp);
                     }
                 }
+                Thread.sleep(1000);
                 Driver.getGameFrame().remove(temp.getBoardUI());
                 Driver.initFrame();
             }
@@ -205,21 +209,22 @@ public class PlayerManager {
     }
     private static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException, URISyntaxException {
         // run code that returns a resource if method was called with resourcePick = true
+        board.updateBoard();
         if (placeBuilding) {
-            board.renderBoard();
+            //board.renderBoard();
             board.setLastBuiltBuilding(board.buildingPlacer(buildingsForGame, true));
             turnActions(board, Utility.randomResource(), null);
             return null;
         }
         if (resourcePick) {
             ResourceEnum r;
-            String string = "";
+            String string = " ";
             //board.renderBoard();
             if (isMultiplayerGame) {
                 string = "It's "+ board.getBoardName() + "'s turn to DECIDE the resource!";
             }
             // if isMultiplayer = false, will use singleplayer code in resourcePicker()
-            r = board.resourcePicker(); // assigns the return value of resourcePicker()
+            r = board.resourcePicker(string); // assigns the return value of resourcePicker()
             System.out.println(r);
             turnActions(board, r, string);
             return r;
