@@ -289,7 +289,7 @@ public class BuildingFactory {
             if (board.getBoardUI().isCoordinatesClicked()) {
                 coords = board.getBoardUI().getSelectedCoords();
             }
-            board.getBoardUI().resetBoardTiles(true, true);
+            board.getBoardUI().resetBoardTiles(false, true);
 
         }
         for (Resource validResource : validResources) {
