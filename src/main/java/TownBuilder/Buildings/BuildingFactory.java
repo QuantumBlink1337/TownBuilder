@@ -256,7 +256,7 @@ public class BuildingFactory {
         board.getBoardUI().setPrimaryTextLabel("Your selected building is " + Utility.generateColorizedString(building.toString(), buildingEnum) + ".");
         if (PlaceBuildingAnywhere) {
             board.getBoardUI().setSecondaryTextLabel("You can place your building wherever you want, provided there's nothing there already!");
-            board.getBoardUI().resetBoardTiles();
+            board.getBoardUI().resetBoardTiles(true, true);
             do {
                 synchronized (board.getNotifier()) {
                     try {
@@ -289,7 +289,7 @@ public class BuildingFactory {
             if (board.getBoardUI().isCoordinatesClicked()) {
                 coords = board.getBoardUI().getSelectedCoords();
             }
-            board.getBoardUI().resetBoardTiles();
+            board.getBoardUI().resetBoardTiles(true, true);
 
         }
         for (Resource validResource : validResources) {

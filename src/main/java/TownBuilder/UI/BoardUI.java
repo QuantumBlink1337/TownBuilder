@@ -8,6 +8,7 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -135,10 +136,9 @@ public class BoardUI extends JPanel {
 
 
         leftInteractionPanel.add(otherBoardsPanel, "Wrap");
-        leftInteractionPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
 
-        gamePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //gamePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
         gamePanel.add(resourcePromptTextPanel, "wrap, align center,");
         gamePanel.add(boardMatrixPanel, " wrap, align center , w "+(int)(SCREEN_WIDTH*(900.0/SCREEN_WIDTH))+"!, h " + (int)(SCREEN_HEIGHT*(900.0/SCREEN_HEIGHT)) + "!");
@@ -149,7 +149,6 @@ public class BoardUI extends JPanel {
         rightInteractionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
         rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
         rightInteractionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        rightInteractionPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
 
 
 
@@ -229,12 +228,16 @@ public class BoardUI extends JPanel {
             }
         }
     }
-    public void resetBoardTiles() {
+    public void resetBoardTiles(boolean doLeaveResourceLocked, boolean doLeaveBuildingLocked) {
         for (TileButton[] tileButtons : tileAccessMatrix) {
             for (TileButton tileButton : tileButtons) {
+
                 tileButton.setEnabled(true);
                 tileButton.setVisible(true);
                 tileButton.setBorder(mainPanel.getBorder());
+                if ((tileButton.getResourceEnum() != ResourceEnum.NONE && doLeaveResourceLocked) ||(tileButton.getBuildingEnum() != BuildingEnum.NONE && doLeaveBuildingLocked)) {
+                    tileButton.setEnabled(false);
+                }
             }
         }
     }
@@ -250,7 +253,6 @@ public class BoardUI extends JPanel {
         playerLabel.setFont(font);
         playerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(playerLabel, "align center");
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
     private JPanel createResourceTextPanel() {
@@ -274,7 +276,6 @@ public class BoardUI extends JPanel {
         panel.add(turnResourceText, "wrap, align center");
         panel.add(secondaryTextLabel, "Wrap, align center");
         panel.add(errorTextLabel, "align center");
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
         return panel;
     }
     private JPanel createResourceSelectionButtonPanel() {
@@ -377,6 +378,7 @@ public class BoardUI extends JPanel {
     }
     private JPanel createPlayerViewPanel() {
         JPanel panel = new JPanel(new MigLayout());
+        panel.setBorder(new LineBorder(Color.BLACK, 2));
         JLabel label = new JLabel("Other Players");
         label.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -387,14 +389,14 @@ public class BoardUI extends JPanel {
                 JButton button = new JButton(board.getBoardName());
                 button.setFont(panel.getFont().deriveFont(24f));
                 button.setHorizontalAlignment(SwingConstants.CENTER);
-                TileButton[][] copiedMatrix = tileAccessMatrix;
+                Board thisBoard = this.board;
                 button.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        System.out.println("Mouse in.");
-                        tileAccessMatrix = board.getBoardUI().getTileAccessMatrix();
                         try {
-                            board.updateBoard();
+                            thisBoard.updateBoard(board.getGameResourceBoard(), board.getGameBuildingBoard());
+                            resetBoardTiles(true, true);
+
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
@@ -403,9 +405,11 @@ public class BoardUI extends JPanel {
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        tileAccessMatrix = copiedMatrix;
+
                         try {
-                            board.updateBoard();
+                            thisBoard.updateBoard();
+                            resetBoardTiles(true, true);
+
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }

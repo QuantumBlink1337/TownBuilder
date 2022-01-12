@@ -254,7 +254,7 @@ public class Board {
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
         }
         else {
-            boardUI.resetBoardTiles();
+            boardUI.resetBoardTiles(true, true);
             buildingFactory.clearValidResourcesWithFlag(building.getType());
         }
     }
