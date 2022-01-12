@@ -21,7 +21,7 @@ import static javax.swing.border.BevelBorder.RAISED;
 public class BoardUI extends JPanel {
 
     final JPanel mainPanel = new JPanel(new MigLayout("", "[][][]", "[][][]"));
-    private TileButton[][] tileAccessMatrix = new TileButton[4][4];
+    private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
 
     private ResourceEnum selectedResourceForTurn;
@@ -104,7 +104,7 @@ public class BoardUI extends JPanel {
     static final int SCREEN_WIDTH = SCREEN_SIZE.width;
     static final int SCREEN_HEIGHT = SCREEN_SIZE.height;
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
-    static final int INTERACTIVE_PANEL_WIDTH = (int) (SCREEN_WIDTH * (380.0/SCREEN_WIDTH));
+    static final int INTERACTIVE_PANEL_WIDTH = (int) (SCREEN_WIDTH * (420.0/SCREEN_WIDTH));
 
     public static Dimension ButtonSize() {
         return BUTTON_SIZE;
@@ -128,19 +128,17 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        mainPanel.add(leftInteractionPanel, "dock west");
-        //mainPanel.add(gamePanel, ", gapleft "+(int) (SCREEN_WIDTH*(600.0/SCREEN_WIDTH))+", gapright "+(int) (SCREEN_WIDTH*(200.0/SCREEN_WIDTH)));
-        mainPanel.add(gamePanel, "dock center");
-        mainPanel.add(rightInteractionPanel, "dock east");
+        mainPanel.add(leftInteractionPanel, "dock west, gapright 280");
+        mainPanel.add(gamePanel, "dock center, align center");
+        mainPanel.add(rightInteractionPanel, "dock east, gapleft 280");
         add(mainPanel);
 
 
         leftInteractionPanel.add(otherBoardsPanel, "Wrap");
 
 
-        //gamePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
-        gamePanel.add(resourcePromptTextPanel, "wrap, align center,");
+        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w 1050!");
         gamePanel.add(boardMatrixPanel, " wrap, align center , w "+(int)(SCREEN_WIDTH*(900.0/SCREEN_WIDTH))+"!, h " + (int)(SCREEN_HEIGHT*(900.0/SCREEN_HEIGHT)) + "!");
         gamePanel.add(userPromptPanel, "align center");
         userPromptPanel.add(resourceSelectionPanel, "dock center");
@@ -273,7 +271,7 @@ public class BoardUI extends JPanel {
         errorTextLabel.setForeground(Color.RED);
         errorTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        panel.add(turnResourceText, "wrap, align center");
+        panel.add(turnResourceText, "wrap, align center, dock center");
         panel.add(secondaryTextLabel, "Wrap, align center");
         panel.add(errorTextLabel, "align center");
         return panel;
@@ -440,10 +438,7 @@ public class BoardUI extends JPanel {
     public void setResourceSelectionLabel() {
         resourceSelectionLabel.setText("Select a resource.");
     }
-    public void setResourceSelectionLabel(String string, Color color) {
-        resourceSelectionLabel.setText(string);
-        resourceSelectionLabel.setForeground(color);
-    }
+
     public void setPrimaryTextLabel(String string) {
         //System.out.println("Set Primary Text Label");
         turnResourceText.setText(string);
