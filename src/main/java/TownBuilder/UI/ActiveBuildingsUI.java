@@ -10,23 +10,14 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ActiveBuildingsUI extends JPanel {
     ArrayList<Building> buildings;
 
-    public String getChoice() {
-        return choice;
-    }
-
     String choice;
     Board board;
     TileButton[][] tileAccessMatrix;
-
-    public JPanel getMainActiveBuildingPanel() {
-        return mainActiveBuildingPanel;
-    }
 
     JPanel mainActiveBuildingPanel;
     JPanel mainPanel;
@@ -52,11 +43,11 @@ public class ActiveBuildingsUI extends JPanel {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         Font headerFont = getFont().deriveFont(Font.BOLD, 36f);
         label.setFont(headerFont);
-        mainPanel.add(label, "align center, wrap, w 380!, h :40:40");
+        mainPanel.add(label, "align center, wrap, w "+BoardUI.INTERACTIVE_PANEL_WIDTH+"!, h :40:40");
         mainPanel.add(mainActiveBuildingPanel, "dock center, Wrap");
     }
 
-    public void updateActiveBuildings() throws IOException {
+    public void updateActiveBuildings() {
         mainActiveBuildingPanel.removeAll();
         ArrayList<TileButton> activeTileButtons = new ArrayList<>();
         for (TileButton[] tileButtons : tileAccessMatrix) {
