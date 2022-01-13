@@ -188,7 +188,7 @@ public class InitializationUI extends JPanel {
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         exitButton.setText(string);
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
-        exitButton.setPreferredSize(BoardUI.BUTTON_SIZE);
+        exitButton.setPreferredSize(UI_Utilities.BUTTON_SIZE);
         exitButton.addActionListener(e -> {
             buildingSelection = building.getType();
             synchronized (Utility.getNotifier()) {

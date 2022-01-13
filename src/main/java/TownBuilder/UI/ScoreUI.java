@@ -3,7 +3,6 @@ package TownBuilder.UI;
 import TownBuilder.Board;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
-import TownBuilder.Buildings.Monuments.Monument;
 import TownBuilder.Utility;
 import net.miginfocom.swing.MigLayout;
 
@@ -42,7 +41,7 @@ public class ScoreUI extends JPanel {
             }
             updateUI();
         });
-        panel.add(mainLabel, "align center, w "+BoardUI.INTERACTIVE_PANEL_WIDTH+", wrap");
+        panel.add(mainLabel, "align center, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+", wrap");
         panel.add(scorerButton, "dock center");
         return panel;
     }
@@ -57,7 +56,7 @@ public class ScoreUI extends JPanel {
         scoreLabel.setFont(labelFont);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         //panel.add(scoreLabel, "align center, wrap");
-        panel.add(scoreLabel, "align center, w "+BoardUI.INTERACTIVE_PANEL_WIDTH+", wrap");
+        panel.add(scoreLabel, "align center, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+", wrap");
         ArrayList<Building> scorableBuildings = board.getScorableBuildings();
         for (Building scorableBuilding : scorableBuildings) {
             JButton label = new JButton(scorableBuilding + ": " + scores.get(scorableBuilding.getType()));
@@ -92,7 +91,7 @@ public class ScoreUI extends JPanel {
         scoreLabel.setFont(labelFont);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         //panel.add(scoreLabel, "align center, wrap");
-        panel.add(scoreLabel, "align center, w "+BoardUI.INTERACTIVE_PANEL_WIDTH+", wrap");
+        panel.add(scoreLabel, "align center, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+", wrap");
         ArrayList<Building> scorableBuildings = board.getScorableBuildings();
         for (Building scorableBuilding : scorableBuildings) {
             JButton label = new JButton(scorableBuilding + ": " + scores.get(scorableBuilding.getType()));

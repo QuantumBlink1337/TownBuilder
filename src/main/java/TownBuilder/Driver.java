@@ -35,7 +35,7 @@ public class Driver {
         return gameFrame;
     }
     public static void initFrame() {
-        gameFrame.setSize(2560, 1440);
+        gameFrame.setSize(1080, 1080);
         gameFrame.setVisible(true);
     }
     public static void updateFrame() {

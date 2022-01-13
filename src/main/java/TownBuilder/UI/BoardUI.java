@@ -100,14 +100,9 @@ public class BoardUI extends JPanel {
     JPanel gamePanel = new JPanel(new MigLayout());
     JPanel userPromptPanel = new JPanel();
     JPanel leftInteractionPanel = new JPanel(new MigLayout());
-    static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-    static final int SCREEN_WIDTH = SCREEN_SIZE.width;
-    static final int SCREEN_HEIGHT = SCREEN_SIZE.height;
-    static final Dimension BUTTON_SIZE = new Dimension(50, 50);
-    static final int INTERACTIVE_PANEL_WIDTH = (int) (SCREEN_WIDTH * (420.0/SCREEN_WIDTH));
 
     public static Dimension ButtonSize() {
-        return BUTTON_SIZE;
+        return UI_Utilities.BUTTON_SIZE;
     }
 
 
@@ -128,9 +123,9 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(280, SCREEN_WIDTH));
+        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(280, UI_Utilities.SCREEN_WIDTH));
         mainPanel.add(gamePanel, "dock center, align center");
-        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(280, SCREEN_WIDTH));
+        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(280, UI_Utilities.SCREEN_WIDTH));
         add(mainPanel);
 
 
@@ -138,18 +133,18 @@ public class BoardUI extends JPanel {
 
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
-        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, SCREEN_WIDTH)+"!");
-        gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, SCREEN_WIDTH)+"!, h " + UI_Utilities.convertIntToPercentString(900, SCREEN_HEIGHT)+"!");
+        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, UI_Utilities.SCREEN_WIDTH)+"!");
+        gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, UI_Utilities.SCREEN_WIDTH)+"!, h " + UI_Utilities.convertIntToPercentString(900, UI_Utilities.SCREEN_HEIGHT)+"!");
         gamePanel.add(userPromptPanel, "align center");
         userPromptPanel.add(resourceSelectionPanel, "dock center");
         userPromptPanel.add(YesOrNoPanel, "dock center");
         userPromptPanel.add(buildingSelectingPanel, "dock center");
         //rightInteractionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(550, SCREEN_HEIGHT)+"!");
+        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(550, UI_Utilities.SCREEN_HEIGHT)+"!");
         //rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
-        rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, SCREEN_HEIGHT)+"!");
+        rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, UI_Utilities.SCREEN_HEIGHT)+"!");
         //rightInteractionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, SCREEN_HEIGHT)+"!");
+        rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, UI_Utilities.SCREEN_HEIGHT)+"!");
 
 
 
@@ -383,7 +378,7 @@ public class BoardUI extends JPanel {
         JLabel label = new JLabel("Other Players");
         label.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(label, "dock center, align center, wrap, w "+BoardUI.INTERACTIVE_PANEL_WIDTH);
+        panel.add(label, "dock center, align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH);
         ArrayList<Board> boards = board.getPlayerManager().getBoards();
         for (Board board : boards) {
             if (board != this.board) {
