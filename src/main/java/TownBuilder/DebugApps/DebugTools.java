@@ -2,18 +2,14 @@ package TownBuilder.DebugApps;
 
 import TownBuilder.Buildings.Building;
 import TownBuilder.Resource;
-import TownBuilder.Utility;
-import com.diogonunes.jcolor.Ansi;
-import com.diogonunes.jcolor.AnsiFormat;
-import com.diogonunes.jcolor.Attribute;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class DebugTools {
     /*
         0 = no logging at all
@@ -27,25 +23,16 @@ public class DebugTools {
     private static final File log = new File("latest.log");
     private static BufferedWriter bufferedWriter = null;
 
-    public static void setVerbose(int verbose) {
-        DebugTools.verbose = verbose;
-    }
 
-    private static int verbose = 0;
-    private static final AnsiFormat textColor = new AnsiFormat(Attribute.RED_TEXT(), Attribute.BOLD());
     static {
         initFile();
     }
 
     public static void initFile() {
         try {
-            if (log.createNewFile()) {
-                //logging("File created.", 2);
-            }
-            else {
-                //logging("File already exists.", 2);
-            }
-        } catch (IOException e) {
+            log.createNewFile();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         try {
@@ -74,15 +61,6 @@ public class DebugTools {
         }
         return t.toString();
 
-    }
-    public static <T> void printMembersOfArrayList(ArrayList<T> arrayList, int verbosity, String optionalMessage) throws IOException {
-        if (verbose >= verbosity) {
-            if (optionalMessage != null) {
-                logging(optionalMessage);
-            }
-            System.out.println(Ansi.colorize("DEBUGGING: ", textColor));
-            Utility.printMembersOfArrayList(arrayList);
-        }
     }
     public static String buildingInformation(Building building) {
         if (building.getRow() != -1 && building.getCol() != -1) {
