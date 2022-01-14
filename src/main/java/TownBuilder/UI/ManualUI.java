@@ -21,7 +21,42 @@ public class ManualUI extends JPanel {
     JPanel manualRulesPanel;
 
     JPanel manualBuildingSelectionPanel;
-
+    public static float getManualHeaderFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 36f;
+            default -> 28f;
+        };
+    }
+    public static float getManualMenuFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 22f;
+            default -> 18f;
+        };
+    }
+    public static float getManualRuleBuildingButtonFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 36f;
+            default -> 26f;
+        };
+    }
+    public static float getManualBuildingButtonFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 25f;
+            default -> 18f;
+        };
+    }
+    public static float getManualIndividualBuildingHeaderFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 30f;
+            default -> 25;
+        };
+    }
+    public static float getManualEntryTextFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 18f;
+            default -> 14f;
+        };
+    }
 
 
     public ManualUI(ArrayList<Building> buildingsForGame) {
@@ -34,13 +69,12 @@ public class ManualUI extends JPanel {
 
     private JPanel createMainManualPanel() {
         JPanel mainPanel = new JPanel(new MigLayout());
-        Font font = mainPanel.getFont().deriveFont(Font.BOLD, 36f);
+        Font font = mainPanel.getFont().deriveFont(Font.BOLD, getManualHeaderFont());
         JLabel label = new JLabel("Manual");
         label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font);
         mainPanel.add(label, "w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+"! , wrap");
-        //mainPanel.setBorder(BorderFactory.createLineBorder(Color.red));
         manualMenuPanel = createManualMenuPanel();
         manualRulesPanel = initializeRulesMenu();
         initializeBuildingMenu();
@@ -51,7 +85,7 @@ public class ManualUI extends JPanel {
     private JPanel createManualMenuPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel label = new JLabel("What would you like to read about?");
-        label.setFont(panel.getFont().deriveFont(Font.BOLD, 20f));
+        label.setFont(panel.getFont().deriveFont(Font.BOLD, getManualMenuFont()));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, "dock center, wrap");
         initializeRuleButton();
@@ -63,7 +97,7 @@ public class ManualUI extends JPanel {
     }
     private void initializeRuleButton() {
         manualRuleAccessButton = new JButton("Rules");
-        Font font = this.getFont().deriveFont(36f);
+        Font font = this.getFont().deriveFont(getManualRuleBuildingButtonFont());
         manualRuleAccessButton.setFont(font);
         manualRuleAccessButton.addActionListener(e -> {
             mainManualPanel.remove(manualMenuPanel);
@@ -73,7 +107,7 @@ public class ManualUI extends JPanel {
     }
     private void initalizeBuildingButton() {
         manualBuildingAccessButton = new JButton("Buildings");
-        Font font = this.getFont().deriveFont(36f);
+        Font font = this.getFont().deriveFont(getManualRuleBuildingButtonFont());
         manualBuildingAccessButton.setFont(font);
         manualBuildingAccessButton.setPreferredSize(BoardUI.ButtonSize());
         manualBuildingAccessButton.addActionListener(e -> {
@@ -89,18 +123,18 @@ public class ManualUI extends JPanel {
             JPanel panel = initializeIndividualBuildingView(building);
             JButton button = new JButton(building.toString());
             button.setBackground(building.getType().getColor().getOverallColor());
-            Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 25f);
+            Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont());
             button.setFont(font);
             button.addActionListener(e -> {
                 mainManualPanel.remove(manualBuildingSelectionPanel);
                 mainManualPanel.add(panel, "w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
                 mainManualPanel.updateUI();
             });
-            manualBuildingSelectionPanel.add(button, "dock center, wrap");
+            manualBuildingSelectionPanel.add(button, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(35, false) + "!");
         }
         JButton exitButton = new JButton();
         exitButton.setText("EXIT");
-        exitButton.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, 22f));
+        exitButton.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont()));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualBuildingSelectionPanel);
             mainManualPanel.add(manualMenuPanel, "wrap, align center, w " + UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
@@ -116,16 +150,16 @@ public class ManualUI extends JPanel {
         JLabel explanationLabel = new JLabel("Here's what it does:");
         JLabel matrixLabel = new JLabel("Here's what it looks like:");
         JLabel buildingLabel = new JLabel(building.toString());
-        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getManualIndividualBuildingHeaderFont()));
         buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont()));
         matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont()));
         explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setFont(panel.getFont().deriveFont(20f));
+        textArea.setFont(panel.getFont().deriveFont(getManualEntryTextFont()));
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JScrollPane jScrollPane = new JScrollPane(textArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -134,21 +168,19 @@ public class ManualUI extends JPanel {
 
 
         exitButton.setText("EXIT");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
-        exitButton.setPreferredSize(UI_Utilities.BUTTON_SIZE);
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getManualIndividualBuildingHeaderFont()));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(panel);
             mainManualPanel.add(manualBuildingSelectionPanel, "dock center");
             mainManualPanel.updateUI();
 
         });
-        panel.setPreferredSize(new Dimension(380, 200));
         panel.add(buildingLabel, "dock center, wrap");
         panel.add(explanationLabel, "dock center, wrap");
-        panel.add(jScrollPane, "dock center, wrap");
+        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(80, false) + "!");
         panel.add(matrixLabel, "dock center, wrap");
         panel.add(initializeBuildingMatrix(building), "dock center, wrap");
-        panel.add(exitButton, "dock center");
+        panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
     private JPanel initializeBuildingMatrix(Building building) {
@@ -181,8 +213,7 @@ public class ManualUI extends JPanel {
         for (ArrayList<String> rules : rules) {
             JPanel individualRulePanel = initializeRulePage(rules.get(1));
             JButton button = new JButton(rules.get(0));
-            Font font = individualRulePanel.getFont().deriveFont(25f);
-            button.setPreferredSize(new Dimension(364, 10));
+            Font font = individualRulePanel.getFont().deriveFont(getManualBuildingButtonFont());
             button.setFont(font);
             individualRulePanel.setVisible(true);
             button.addActionListener(e -> {
@@ -191,10 +222,10 @@ public class ManualUI extends JPanel {
                 mainManualPanel.updateUI();
             });
 
-            panel.add(button, "dock center, wrap");
+            panel.add(button, "dock center, wrap, h "+UI_Utilities.convertIntToPercentString(35, false) + "!" );
         }
         JButton exitButton = new JButton("EXIT");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getManualIndividualBuildingHeaderFont()));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualRulesPanel);
             mainManualPanel.add(manualMenuPanel, "wrap, w " + UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
