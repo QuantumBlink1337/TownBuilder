@@ -147,9 +147,9 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(270, true));
+        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(120, true));
         mainPanel.add(gamePanel, "dock center, align center");
-        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(270, true));
+        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(120, true));
         add(mainPanel);
 
 
@@ -157,24 +157,16 @@ public class BoardUI extends JPanel {
 
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
-        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, true)+"!");
-
+        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1350, true)+"!");
         gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, true)+"!, h " + UI_Utilities.convertIntToPercentString(900, false)+"!");
-
         gamePanel.add(userPromptPanel, "align center");
+
         userPromptPanel.add(resourceSelectionPanel, "dock center");
         userPromptPanel.add(YesOrNoPanel, "dock center");
         userPromptPanel.add(buildingSelectingPanel, "dock center");
-        //rightInteractionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        //rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(550, UI_Utilities.SCREEN_HEIGHT)+"!");
-        //rightInteractionPanel.add(manualPanel, "Wrap, h "+38.194444+"sp!");
+
         rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(520, false)+"!");
-
-        //rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
-        //rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, UI_Utilities.SCREEN_HEIGHT)+"!");
         rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, false)+"!");
-
-        //rightInteractionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
         rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
 
 
@@ -225,6 +217,8 @@ public class BoardUI extends JPanel {
     public void promptBuildingSelection(String labelText) {
         buildingSelectionLabel.setText(labelText);
         buildingSelectingPanel.setVisible(true);
+//        leftInteractionPanel.setVisible(false);
+//        rightInteractionPanel.setVisible(false);
     }
     public void promptFinalScoreView() throws IOException {
         mainPanel.removeAll();
@@ -352,6 +346,8 @@ public class BoardUI extends JPanel {
                 button.addActionListener(e -> {
                     selectedBuildingForTurn = building.getType();
                     panel.setVisible(false);
+                    leftInteractionPanel.setVisible(true);
+                    rightInteractionPanel.setVisible(true);
                     synchronized (Utility.getNotifier()) {
                         Utility.getNotifier().notify();
                     }
