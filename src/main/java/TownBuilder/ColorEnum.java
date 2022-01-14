@@ -7,7 +7,7 @@ public enum ColorEnum {
 
     RED (new Color(255, 0, 0)),
     YELLOW (new Color(255, 255, 0)),
-    BLUE (new Color(54, 90, 175)),
+    BLUE (new Color(28, 142, 182)),
     GREEN (new Color(0, 128, 0)),
     GRAY (new Color(115, 115, 115)),
     ORANGE (new Color(255, 165, 0)),
