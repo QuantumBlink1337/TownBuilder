@@ -158,7 +158,6 @@ public class ActiveBuildingsUI extends JPanel {
         exitButton.setFont(font);
         swapButton.addActionListener(e -> choice = "swap");
         placeButton.addActionListener(e -> choice = "place");
-        //panel.setBorder(BorderFactory.createLineBorder(Color.red));
         JPanel inventoryPanel = new JPanel(new MigLayout());
         inventoryPanel.add(inventoryLabel, "wrap, dock center, align center");
         inventoryPanel.add(inventoryView, "dock center, align center");
@@ -182,7 +181,7 @@ public class ActiveBuildingsUI extends JPanel {
         JButton exitButton = new JButton("EXIT");
         JLabel inventoryLabel = new JLabel("Chosen Resource");
         inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getWarehouseHeaderFont()));
         JPanel inventoryView = new JPanel(new MigLayout());
         Factory building = (Factory) board.getGameBuildingBoard()[coords[0]][coords[1]];
         ResourceEnum selectedFactoryResource = building.getFactorizedResource();
@@ -190,6 +189,7 @@ public class ActiveBuildingsUI extends JPanel {
         factoryResourceLabel.setBackground(selectedFactoryResource.getColor().getOverallColor());
         factoryResourceLabel.setOpaque(true);
         factoryResourceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        factoryResourceLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         inventoryView.add(inventoryLabel, "dock center, wrap");
         inventoryView.add(factoryResourceLabel, "dock center");
 
@@ -197,6 +197,7 @@ public class ActiveBuildingsUI extends JPanel {
 
         JButton swapButton = new JButton("Swap");
         Font font = panel.getFont().deriveFont(Font.BOLD, getActiveButtonFont());
+        exitButton.setFont(font);
         swapButton.setFont(font);
         swapButton.addActionListener(e -> {
             boardUI.setActiveBuildingToggled(true);
@@ -213,16 +214,16 @@ public class ActiveBuildingsUI extends JPanel {
             mainPanel.add(mainActiveBuildingPanel, "dock center");
             updateUI();
         });
-        panel.add(exitButton, "growx, h 40!");
-        panel.setBorder(BorderFactory.createLineBorder(Color.red));
+        panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
     private JPanel generateIndividualBankView(int[] coords) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton("EXIT");
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getActiveButtonFont()));
         JLabel inventoryLabel = new JLabel("Chosen Resource");
         inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getWarehouseHeaderFont()));
         JPanel inventoryView = new JPanel(new MigLayout());
         Bank building = (Bank) board.getGameBuildingBoard()[coords[0]][coords[1]];
         ResourceEnum selectedFactoryResource = building.getLockedResource();
@@ -239,8 +240,7 @@ public class ActiveBuildingsUI extends JPanel {
             mainPanel.add(mainActiveBuildingPanel, "dock center");
             updateUI();
         });
-        panel.add(exitButton, "growx, h 40!");
-        panel.setBorder(BorderFactory.createLineBorder(Color.red));
+        panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
 }
