@@ -153,8 +153,8 @@ public class Board {
     public ArrayList<Building> getScorableBuildings() {
         return scorableBuildings;
     }
-    public int scoring(boolean isMidGameCheck) throws IOException {
-        return scorer.scoring(isMidGameCheck);
+    public int scoring() throws IOException {
+        return scorer.scoring();
     }
     public boolean gameOver() throws IOException {
         int i = 0;

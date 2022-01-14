@@ -69,7 +69,7 @@ public class ScoreUI extends JPanel {
         return panel;
     }
     private JPanel createScoreView() throws IOException {
-        int score = board.getScorer().scoring(true);
+        int score = board.getScorer().scoring();
         HashMap<BuildingEnum, Integer> scores = board.getScorer().getScores();
         JPanel panel = new JPanel(new MigLayout());
         JLabel scoreLabel = new JLabel();
@@ -99,7 +99,7 @@ public class ScoreUI extends JPanel {
         return panel;
     }
     public JPanel createFinalScoreView() throws IOException {
-        int score = board.getScorer().scoring(true);
+        int score = board.getScorer().scoring();
         HashMap<BuildingEnum, Integer> scores = board.getScorer().getScores();
         JPanel panel = new JPanel(new MigLayout());
         JLabel scoreLabel = new JLabel();

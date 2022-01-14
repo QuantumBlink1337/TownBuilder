@@ -204,7 +204,7 @@ public class PlayerManager {
             // if board is game complete, score them
             if (boardComplete(pickResourceBoard)) {
                 DebugTools.logging("[MULTIPLAYER_TURN] - Scored Board " +pickResourceBoard.getBoardName());
-                int score = pickResourceBoard.scoring(false);
+                int score = pickResourceBoard.scoring();
                 System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+score);
             }
             // loop for remaining players
