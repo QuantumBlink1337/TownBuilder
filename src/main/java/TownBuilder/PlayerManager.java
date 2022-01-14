@@ -67,7 +67,7 @@ public class PlayerManager {
                 }
             }
 
-            Board temp = new Board(masterBuildings, this, playerCount == 1, Driver.getGameFrame(), initializationUI.getChosenBoardName());
+            Board temp = new Board(masterBuildings, this, playerCount == 1, initializationUI.getChosenBoardName());
             boards.add(temp);
             initializationUI.remove(panel);
             initializationUI.updateUI();
@@ -191,7 +191,6 @@ public class PlayerManager {
                 pickResourceBoard = multiplayerModifiableBoards.get(1);
             }
             DebugTools.logging("[MULTIPLAYER_TURN] - Stored Board " +pickResourceBoard.getBoardName());
-            pickResourceBoard.getBoardUI().repaint();
             Driver.getGameFrame().add(pickResourceBoard.getBoardUI());
             Driver.initFrame();
             resource = turnExecution(pickResourceBoard, null, true, true, false, masterBuildings );
@@ -237,6 +236,7 @@ public class PlayerManager {
     private static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException, URISyntaxException {
         // run code that returns a resource if method was called with resourcePick = true
         board.updateBoard();
+        board.getBoardUI().getMainPanel().updateUI();
         if (placeBuilding) {
             //board.renderBoard();
             board.setLastBuiltBuilding(board.buildingPlacer(buildingsForGame, true));
