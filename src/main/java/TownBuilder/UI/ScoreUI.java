@@ -79,7 +79,6 @@ public class ScoreUI extends JPanel {
         scoreLabel.setText("Total Score: " + score + " Penalty: " + board.getScorer().getResourcePenalty());
         scoreLabel.setFont(labelFont);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        //panel.add(scoreLabel, "align center, wrap");
         panel.add(scoreLabel, "align center, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+", wrap");
         ArrayList<Building> scorableBuildings = board.getScorableBuildings();
         for (Building scorableBuilding : scorableBuildings) {
