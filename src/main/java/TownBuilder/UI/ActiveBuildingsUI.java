@@ -43,7 +43,7 @@ public class ActiveBuildingsUI extends JPanel {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         Font headerFont = getFont().deriveFont(Font.BOLD, 36f);
         label.setFont(headerFont);
-        mainPanel.add(label, "align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+"!, h :40:40");
+        mainPanel.add(label, "align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+"!");
         mainPanel.add(mainActiveBuildingPanel, "dock center, Wrap");
     }
 

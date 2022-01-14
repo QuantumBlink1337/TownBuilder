@@ -28,6 +28,26 @@ public class BoardUI extends JPanel {
     private BuildingEnum selectedBuildingForTurn;
     private boolean activeBuildingToggled;
 
+    public static float getResourceTextFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 30f;
+            default -> 22f;
+        };
+    }
+
+    public static float getPlayerHeaderTextFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 42f;
+            default -> 36f;
+        };
+    }
+    public static float getYesNoPromptFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 30f;
+            default -> 22f;
+        };
+    }
+
     public Building getSelectedActiveBuilding() {
         return selectedActiveBuilding;
     }
@@ -123,9 +143,11 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(280, UI_Utilities.SCREEN_WIDTH));
+        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(280, UI_Utilities.SCREEN_WIDTH, true));
+        //mainPanel.add(leftInteractionPanel, "dock west, ");
         mainPanel.add(gamePanel, "dock center, align center");
-        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(280, UI_Utilities.SCREEN_WIDTH));
+        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(280, UI_Utilities.SCREEN_WIDTH, true));
+        //mainPanel.add(rightInteractionPanel, "dock east, ");
         add(mainPanel);
 
 
@@ -133,18 +155,27 @@ public class BoardUI extends JPanel {
 
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
-        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, UI_Utilities.SCREEN_WIDTH)+"!");
-        gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, UI_Utilities.SCREEN_WIDTH)+"!, h " + UI_Utilities.convertIntToPercentString(900, UI_Utilities.SCREEN_HEIGHT)+"!");
+        //gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, UI_Utilities.SCREEN_WIDTH)+"!");
+        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, UI_Utilities.SCREEN_WIDTH, true)+"!");
+
+        gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, UI_Utilities.SCREEN_WIDTH, true)+"!, h " + UI_Utilities.convertIntToPercentString(900, UI_Utilities.SCREEN_HEIGHT,false)+"!");
+        //gamePanel.add(boardMatrixPanel, "wrap, align center, w "+35.15625 +"sp!, h " + 35.15625 +"sp!");
+
         gamePanel.add(userPromptPanel, "align center");
         userPromptPanel.add(resourceSelectionPanel, "dock center");
         userPromptPanel.add(YesOrNoPanel, "dock center");
         userPromptPanel.add(buildingSelectingPanel, "dock center");
         //rightInteractionPanel.add(manualPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(550, UI_Utilities.SCREEN_HEIGHT)+"!");
+        //rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(550, UI_Utilities.SCREEN_HEIGHT)+"!");
+        //rightInteractionPanel.add(manualPanel, "Wrap, h "+38.194444+"sp!");
+        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(520, UI_Utilities.SCREEN_HEIGHT, false)+"!");
+
         //rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+(int)(SCREEN_HEIGHT * (300.0/SCREEN_HEIGHT))+"!");
-        rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, UI_Utilities.SCREEN_HEIGHT)+"!");
+        //rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, UI_Utilities.SCREEN_HEIGHT)+"!");
+        rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300,  UI_Utilities.SCREEN_HEIGHT, false)+"!");
+
         //rightInteractionPanel.add(scorePanel, "h "+(int)(SCREEN_HEIGHT * (550.0/SCREEN_HEIGHT))+"!");
-        rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, UI_Utilities.SCREEN_HEIGHT)+"!");
+        rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, UI_Utilities.SCREEN_HEIGHT, false)+"!");
 
 
 
@@ -243,7 +274,7 @@ public class BoardUI extends JPanel {
 
     private JPanel createBoardHeaderPanel() {
         JPanel panel = new JPanel(new MigLayout());
-        Font font = panel.getFont().deriveFont(Font.BOLD, 42f);
+        Font font = panel.getFont().deriveFont(Font.BOLD, getPlayerHeaderTextFont());
         System.out.println(playerName);
         JLabel playerLabel = new JLabel(playerName+"'s Turn");
         playerLabel.setFont(font);
@@ -253,7 +284,7 @@ public class BoardUI extends JPanel {
     }
     private JPanel createResourceTextPanel() {
         JPanel panel = new JPanel(new MigLayout());
-        Font font = panel.getFont().deriveFont(Font.BOLD, 30f);
+        Font font = panel.getFont().deriveFont(Font.BOLD, getResourceTextFont());
 
         turnResourceText = new JLabel();
         turnResourceText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -343,16 +374,15 @@ public class BoardUI extends JPanel {
         JButton yesButton = new JButton("Yes");
         JButton noButton = new JButton("No");
         yesOrNoText = new JLabel();
-        yesOrNoText.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        yesOrNoText.setFont(panel.getFont().deriveFont(Font.BOLD, getYesNoPromptFont()));
         yesOrNoText.setHorizontalAlignment(SwingConstants.CENTER);
-        Dimension dimension = new Dimension(500, 125);
         Font font = panel.getFont().deriveFont(Font.BOLD, 20f);
         yesButton.setFont(font);
         yesButton.setBackground(new Color(35, 138, 35));
-        yesButton.setPreferredSize(dimension);
+        //yesButton.setPreferredSize(dimension);
         noButton.setFont(font);
         noButton.setBackground(new Color(183, 19, 19));
-        noButton.setPreferredSize(dimension);
+        //noButton.setPreferredSize(dimension);
         yesButton.addActionListener(e -> {
             isYes = true;
             YesOrNoPanel.setVisible(false);
@@ -368,8 +398,8 @@ public class BoardUI extends JPanel {
             }
         });
         panel.add(yesOrNoText, "wrap, align center, span 2 1");
-        panel.add(yesButton);
-        panel.add(noButton);
+        panel.add(yesButton, "w " +UI_Utilities.convertIntToPercentString(500, UI_Utilities.SCREEN_WIDTH, true)+ " !, h " + UI_Utilities.convertIntToPercentString(125, UI_Utilities.SCREEN_HEIGHT, false)+"!");
+        panel.add(noButton, "w " +UI_Utilities.convertIntToPercentString(500, UI_Utilities.SCREEN_WIDTH, true)+ " !, h " + UI_Utilities.convertIntToPercentString(125, UI_Utilities.SCREEN_HEIGHT, false)+"!");
         return panel;
     }
     private JPanel createPlayerViewPanel() {
@@ -378,7 +408,7 @@ public class BoardUI extends JPanel {
         JLabel label = new JLabel("Other Players");
         label.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(label, "dock center, align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH);
+        panel.add(label, "dock center, align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
         ArrayList<Board> boards = board.getPlayerManager().getBoards();
         for (Board board : boards) {
             if (board != this.board) {
