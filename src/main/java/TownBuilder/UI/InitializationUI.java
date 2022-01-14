@@ -14,6 +14,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static TownBuilder.UI.ManualUI.getManualBuildingButtonFont;
+
 public class InitializationUI extends JPanel {
 
     private final JPanel mainMenuPanel;
@@ -67,19 +69,30 @@ public class InitializationUI extends JPanel {
     public JPanel getMainMenuPanel() {
         return mainMenuPanel;
     }
-
+    private static float getHeaderFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 60f;
+            default -> 50f;
+        };
+    }
+    private static float getButtonFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 30f;
+            default -> 24f;
+        };
+    }
 
 
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout("" +
                 "","[][]20[]", "[][]500[]"));
         JLabel titleLabel = new JLabel("TownBuilder");
-        titleLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        titleLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel promptLabel = new JLabel("What type of game would you like?");
-        promptLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        promptLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
         promptLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        Font buttonFont = panel.getFont().deriveFont(Font.BOLD, 30f);
+        Font buttonFont = panel.getFont().deriveFont(Font.BOLD, getButtonFont());
         JButton defaultButton = new JButton("Default");
         defaultButton.setHorizontalAlignment(SwingConstants.CENTER);
         defaultButton.setFont(buttonFont);
@@ -110,24 +123,25 @@ public class InitializationUI extends JPanel {
                 Utility.getNotifier().notify();
             }
         });
+        String sizeControl = "w " + UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(100, false) + "!";
         panel.add(titleLabel, "wrap, , align center");
         panel.add(promptLabel, " align center, wrap");
-        panel.add(defaultButton, "split 3, dock center, align center, w 500!, h 100!");
-        panel.add(customButton, "dock center, align center, w 500!, h 100!");
-        panel.add(randomButton, "dock center, align center, w 500!, h 100!");
+        panel.add(defaultButton, "split 3, dock center, align center, " + sizeControl);
+        panel.add(customButton, "dock center, align center," + sizeControl);
+        panel.add(randomButton, "dock center, align center, " + sizeControl);
 
         return panel;
     }
     private JPanel createPlayerSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel headerLabel = new JLabel("How many players?");
-        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         Integer[] integers = new Integer[]{1,2,3,4,5,6};
         JComboBox<Integer> playerSelection = new JComboBox<>(integers);
         playerSelection.setSelectedIndex(0);
-        playerSelection.setFont(panel.getFont().deriveFont(50f));
+        playerSelection.setFont(panel.getFont().deriveFont(getHeaderFont()));
         playerSelection.addActionListener(e -> {
             //noinspection ConstantConditions
             playerCount = (int) playerSelection.getSelectedItem();
@@ -136,8 +150,7 @@ public class InitializationUI extends JPanel {
             }
         });
         panel.add(headerLabel, "align center, wrap");
-        panel.add(playerSelection, "align center");
-        //panel.add(playerSelection, "align center");
+        panel.add(playerSelection, "align center, gaptop " + UI_Utilities.convertIntToPercentString(400, false));
         return panel;
     }
     public void promptPlayerSelection() {
@@ -148,7 +161,7 @@ public class InitializationUI extends JPanel {
     private JPanel createBuildingSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel buildingSelectionLabel = new JLabel("Select your buildings!");
-        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
         buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         HashMap<ColorEnum, ArrayList<Building>> masterBuildingList = BuildingFactory.getBuildingMasterList();
         ColorEnum[] colors = GameInitializer.colors;
@@ -157,7 +170,8 @@ public class InitializationUI extends JPanel {
                 JPanel mainBuildingViewPanel = new JPanel(new MigLayout());
                 ArrayList<Building> buildings = masterBuildingList.get(colors[i]);
                 for (Building building : buildings) {
-                    mainBuildingViewPanel.add(initializeIndividualBuildingView(building, "Choose this building"), "split " + buildings.size() + "");
+                    mainBuildingViewPanel.add(initializeIndividualBuildingView(building, "Choose this building"), "split " + buildings.size() + ", w " +
+                            UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(600, false) + "!");
                 }
                 coloredBuildingViews.add(mainBuildingViewPanel);
             }
@@ -173,34 +187,33 @@ public class InitializationUI extends JPanel {
         JLabel explanationLabel = new JLabel("Here's what it does:");
         JLabel matrixLabel = new JLabel("Here's what it looks like:");
         JLabel buildingLabel = new JLabel(building.toString());
-        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, ManualUI.getManualIndividualBuildingHeaderFont()));
         buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, ManualUI.getManualBuildingButtonFont()));
         matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
+        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, ManualUI.getManualBuildingButtonFont()));
         explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setFont(panel.getFont().deriveFont(20f));
+        textArea.setFont(panel.getFont().deriveFont(ManualUI.getBuildingManualEntryTextFont()));
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JScrollPane jScrollPane = new JScrollPane(textArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         exitButton.setText(string);
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD,ManualUI.getManualBuildingButtonFont()));
         exitButton.addActionListener(e -> {
             buildingSelection = building.getType();
             synchronized (Utility.getNotifier()) {
                 Utility.getNotifier().notify();
             }
         });
-        panel.setPreferredSize(new Dimension(380, 200));
         panel.add(buildingLabel, "dock center, wrap");
         panel.add(explanationLabel, "dock center, wrap");
-        panel.add(jScrollPane, "dock center, wrap, h 175!");
+        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(160, false) + "!");
         panel.add(matrixLabel, "dock center, wrap");
         panel.add(initializeBuildingMatrix(building), "dock center, wrap");
-        panel.add(exitButton, "dock center");
+        panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
 
@@ -243,7 +256,7 @@ public class InitializationUI extends JPanel {
         nameTextArea.setFont(panel.getFont().deriveFont(20f));
         nameTextArea.setBorder(BorderFactory.createLineBorder(Color.black));
         panel.add(headerLabel, "dock center, wrap");
-        panel.add(nameTextArea, "dock center, align center, wrap");
+        panel.add(nameTextArea, "dock center, align center, wrap, gaptop " + UI_Utilities.convertIntToPercentString(400, false));
         panel.add(button, "dock center, align center");
 
         return panel;
