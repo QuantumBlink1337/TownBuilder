@@ -26,6 +26,12 @@ public class TileButton extends JButton {
     public void setActiveBuilding(boolean activeBuilding) {
         this.activeBuilding = activeBuilding;
     }
+    public int getButtonFontSize() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 35;
+            default -> 25;
+        };
+    }
 
     boolean activeBuilding;
 
@@ -34,7 +40,7 @@ public class TileButton extends JButton {
         coords[1] = c;
         text = "EMPTY!";
         setText(text);
-        setFont(new Font("TimesRoman", Font.BOLD, 35));
+        setFont(new Font("TimesRoman", Font.BOLD, getButtonFontSize()));
         resourceEnum = ResourceEnum.NONE;
         buildingEnum = BuildingEnum.NONE;
     }
