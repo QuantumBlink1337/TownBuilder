@@ -20,19 +20,17 @@ import static javax.swing.border.BevelBorder.RAISED;
 
 public class BoardUI extends JPanel {
 
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
+
 
     final JPanel mainPanel = new JPanel(new MigLayout("", "[][][]", "[][][]"));
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
-
     private ResourceEnum selectedResourceForTurn;
     private BuildingEnum selectedBuildingForTurn;
     private boolean activeBuildingToggled;
 
     public static float getResourceTextFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 30f;
             default -> 22f;
@@ -40,71 +38,54 @@ public class BoardUI extends JPanel {
     }
 
     public static float getPlayerHeaderTextFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 42f;
             default -> 36f;
         };
     }
     public static float getYesNoPromptFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 30f;
             default -> 22f;
         };
     }
     public static float getBuildingSelectionPromptFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 25f;
             default -> 20f;
         };
     }
     public static float getPlayerViewFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 24f;
             default -> 18f;
         };
     }
     public static float getResourceSelectionPromptFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 36f;
             default -> 28f;
         };
     }
 
-    public Building getSelectedActiveBuilding() {
-        return selectedActiveBuilding;
-    }
 
-    public void setSelectedActiveBuilding(Building selectedActiveBuilding) {
-        this.selectedActiveBuilding = selectedActiveBuilding;
-    }
+
 
     private Building selectedActiveBuilding;
 
-    public boolean isActiveBuildingToggled() {
-        return activeBuildingToggled;
-    }
 
-    public void setActiveBuildingToggled(boolean activeBuildingToggled) {
-        this.activeBuildingToggled = activeBuildingToggled;
-    }
 
-    public String getActiveMode() {
-        return activeMode;
-    }
 
-    public void setActiveMode(String activeMode) {
-        this.activeMode = activeMode;
-    }
 
     private String activeMode;
     private volatile int[] selectedCoords;
 
-    public boolean isCoordinatesClicked() {
-        return coordinatesClicked;
-    }
-    public void setCoordinatesClicked(boolean b) {
-        coordinatesClicked = b;
-    }
+
 
     private boolean coordinatesClicked = false;
 
@@ -115,9 +96,6 @@ public class BoardUI extends JPanel {
     JLabel secondaryTextLabel = new JLabel();
     JLabel buildingSelectionLabel;
 
-    public JLabel getErrorTextLabel() {
-        return errorTextLabel;
-    }
 
     JLabel errorTextLabel;
     JLabel yesOrNoText;
@@ -128,9 +106,6 @@ public class BoardUI extends JPanel {
     final JPanel resourcePromptTextPanel;
     JPanel otherBoardsPanel;
 
-    public ActiveBuildingsUI getActiveBuildingPanel() {
-        return activeBuildingPanel;
-    }
 
     final ActiveBuildingsUI activeBuildingPanel;
     final ManualUI manualPanel;
@@ -163,34 +138,65 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(120, true));
-        mainPanel.add(gamePanel, "dock center, align center");
-        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(120, true));
-        add(mainPanel);
 
-
-        leftInteractionPanel.add(otherBoardsPanel, "Wrap, h " + UI_Utilities.convertIntToPercentString(500, false) + "!");
-
+        userPromptPanel.add(resourceSelectionPanel, "dock center");
+        userPromptPanel.add(YesOrNoPanel, "dock center");
+        userPromptPanel.add(buildingSelectingPanel, "dock center");
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
         gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1350, true)+"!");
         gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, true)+"!, h " + UI_Utilities.convertIntToPercentString(900, false)+"!");
         gamePanel.add(userPromptPanel, "align center");
 
-        userPromptPanel.add(resourceSelectionPanel, "dock center");
-        userPromptPanel.add(YesOrNoPanel, "dock center");
-        userPromptPanel.add(buildingSelectingPanel, "dock center");
+        leftInteractionPanel.add(otherBoardsPanel, "Wrap, h " + UI_Utilities.convertIntToPercentString(500, false) + "!");
 
         rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(520, false)+"!");
         rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, false)+"!");
         rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
 
+        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(120, true));
+        mainPanel.add(gamePanel, "dock center, align center");
+        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(120, true));
+        add(mainPanel);
 
 
 
     }
+    public ActiveBuildingsUI getActiveBuildingPanel() {
+        return activeBuildingPanel;
+    }
     public TileButton[][] getTileAccessMatrix() {
         return tileAccessMatrix;
+    }
+    public boolean isActiveBuildingToggled() {
+        return activeBuildingToggled;
+    }
+    public void setActiveBuildingToggled(boolean activeBuildingToggled) {
+        this.activeBuildingToggled = activeBuildingToggled;
+    }
+    public void setSelectedActiveBuilding(Building selectedActiveBuilding) {
+        this.selectedActiveBuilding = selectedActiveBuilding;
+    }
+    public boolean isCoordinatesClicked() {
+        return coordinatesClicked;
+    }
+    public void setCoordinatesClicked(boolean b) {
+        coordinatesClicked = b;
+    }
+    public JLabel getErrorTextLabel() {
+        return errorTextLabel;
+    }
+    public String getActiveMode() {
+        return activeMode;
+    }
+    public void setActiveMode(String activeMode) {
+        this.activeMode = activeMode;
+    }
+    public Building getSelectedActiveBuilding() {
+        return selectedActiveBuilding;
+    }
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 
     private JPanel createBoardMatrix() {
@@ -233,8 +239,6 @@ public class BoardUI extends JPanel {
     public void promptBuildingSelection(String labelText) {
         buildingSelectionLabel.setText(labelText);
         buildingSelectingPanel.setVisible(true);
-//        leftInteractionPanel.setVisible(false);
-//        rightInteractionPanel.setVisible(false);
     }
     public void promptFinalScoreView() throws IOException {
         mainPanel.removeAll();
@@ -278,10 +282,6 @@ public class BoardUI extends JPanel {
             }
         }
     }
-
-
-
-
     private JPanel createBoardHeaderPanel() {
         JPanel panel = new JPanel(new MigLayout());
         Font font = panel.getFont().deriveFont(Font.BOLD, getPlayerHeaderTextFont());
@@ -334,7 +334,6 @@ public class BoardUI extends JPanel {
                 synchronized (Utility.getNotifier()) {
                     Utility.getNotifier().notify();
                 }
-                System.out.println("Pressed resource button");
                 mainPanel.updateUI();
             });
             button.setText(resourceArray.get(i).toString());
@@ -461,7 +460,6 @@ public class BoardUI extends JPanel {
     }
 
     public void setSelectedResourceForTurn(ResourceEnum resource) {
-        System.out.println("Set Selected Resource Text Label");
         selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ". Where would you like to place it?");
         resourcePromptTextPanel.setVisible(true);
