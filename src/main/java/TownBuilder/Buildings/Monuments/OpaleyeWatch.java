@@ -74,7 +74,7 @@ public class OpaleyeWatch implements Monument{
             DebugTools.logging("[MONUMENT_OPALEYE] - Board " + adjacentBoard.getBoardName() + " last placed building was: " + adjacentBoard.getLastBuiltBuilding());
             for (BuildingEnum buildingEnum : chosenBuildings) {
                 if (adjacentBoard.getLastBuiltBuilding() == buildingEnum)  {
-                    System.out.println("Someone next to you built a " + buildingEnum.toString() + " which is on your Opaleye's Watch monument.");
+                    board.getBoardUI().getErrorTextLabel().setText("Someone next to you built a " + buildingEnum.toString() + " which is on your Opaleye's Watch monument.");
                     board.getBuildingFactory().placeBuildingOnBoard(adjacentBoard.getLastBuiltBuilding(), board.getDetectableBuildings(), true, board);
                     chosenBuildings.remove(adjacentBoard.getLastBuiltBuilding());
                     break;
