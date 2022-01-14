@@ -23,6 +23,25 @@ public class ActiveBuildingsUI extends JPanel {
     JPanel mainPanel;
     final BuildingEnum gameActiveBuilding;
     final BoardUI boardUI;
+    private static float getPanelHeaderFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 36f;
+            default -> 28f;
+        };
+    }
+    private static float getActiveButtonFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 25f;
+            default -> 18f;
+        };
+    }
+    private static float getWarehouseHeaderFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 30f;
+            default -> 23f;
+        };
+    }
+
 
     public ActiveBuildingsUI(TileButton[][] tB, Board b, BoardUI boardUIPanel) {
         boardUI = boardUIPanel;
@@ -40,9 +59,11 @@ public class ActiveBuildingsUI extends JPanel {
         mainPanel = new JPanel(new MigLayout());
         mainActiveBuildingPanel = new JPanel(new MigLayout());
         JLabel label = new JLabel("Active Buildings");
+        //label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        Font headerFont = getFont().deriveFont(Font.BOLD, 36f);
+        Font headerFont = getFont().deriveFont(Font.BOLD, getPanelHeaderFont());
         label.setFont(headerFont);
+        //mainPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
         mainPanel.add(label, "align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+"!");
         mainPanel.add(mainActiveBuildingPanel, "dock center, Wrap");
     }
@@ -61,7 +82,7 @@ public class ActiveBuildingsUI extends JPanel {
             if (activeTileButtons.size() > 0) {
                 for (TileButton activeTileButton : activeTileButtons) {
                     JButton button = new JButton(gameActiveBuilding.toString());
-                    Font smallFont = mainPanel.getFont().deriveFont(Font.BOLD, 25f);
+                    Font smallFont = mainPanel.getFont().deriveFont(Font.BOLD, getActiveButtonFont());
                     button.setFont(smallFont);
                     JPanel individualView;
                     switch (gameActiveBuilding) {
@@ -72,7 +93,7 @@ public class ActiveBuildingsUI extends JPanel {
                     }
                     button.addActionListener(e -> {
                         mainPanel.remove(mainActiveBuildingPanel);
-                        mainPanel.add(individualView, "dock center");
+                        mainPanel.add(individualView, "dock center, w " + UI_Utilities.INTERACTIVE_PANEL_WIDTH+"!");
                         activeTileButton.setBackground(activeTileButton.getBuildingEnum().getColor().getOverallColor());
 
                         updateUI();
@@ -80,7 +101,7 @@ public class ActiveBuildingsUI extends JPanel {
                     button.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseEntered(MouseEvent e) {
-                            activeTileButton.setBackground(new Color(210, 124, 124, 255));
+                            activeTileButton.setBackground(new Color(220, 105, 105, 255));
                         }
 
                         @Override
@@ -88,16 +109,17 @@ public class ActiveBuildingsUI extends JPanel {
                             activeTileButton.setBackground(activeTileButton.getBuildingEnum().getColor().getOverallColor());
                         }
                     });
-                    mainActiveBuildingPanel.add(button, "wrap, dock center");
+                    mainActiveBuildingPanel.add(button, "wrap, dock center, h " + UI_Utilities.convertIntToPercentString(35, false)+"!");
                 }
             }
     }
     private JPanel generateIndividualWarehouseView(int[] coords) {
-        JPanel panel = new JPanel(new MigLayout());
+
+        JPanel panel = new JPanel(new MigLayout("", "[][][]", "[]0[][]"));
         JButton exitButton = new JButton("EXIT");
         JLabel inventoryLabel = new JLabel("Inventory");
+        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getWarehouseHeaderFont()));
         inventoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inventoryLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         JPanel inventoryView = new JPanel(new GridLayout(1, 3, 0, 0));
         Warehouse building = (Warehouse) board.getGameBuildingBoard()[coords[0]][coords[1]];
         for (ResourceEnum resourceEnum : building.getStoredResources()) {
@@ -111,7 +133,7 @@ public class ActiveBuildingsUI extends JPanel {
         JButton swapButton = new JButton("Swap");
 
         JButton placeButton = new JButton("Place");
-        Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
+        Font font = panel.getFont().deriveFont(Font.BOLD, getActiveButtonFont());
         swapButton.setFont(font);
         placeButton.setFont(font);
 
@@ -136,15 +158,13 @@ public class ActiveBuildingsUI extends JPanel {
         exitButton.setFont(font);
         swapButton.addActionListener(e -> choice = "swap");
         placeButton.addActionListener(e -> choice = "place");
-        panel.setBorder(BorderFactory.createLineBorder(Color.red));
+        //panel.setBorder(BorderFactory.createLineBorder(Color.red));
         JPanel inventoryPanel = new JPanel(new MigLayout());
         inventoryPanel.add(inventoryLabel, "wrap, dock center, align center");
         inventoryPanel.add(inventoryView, "dock center, align center");
-        inventoryLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        inventoryView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         panel.add(inventoryPanel, "dock center, align center, wrap");
-        String sizeControl = "w 180!, h 40!";
+        String sizeControl = "w "+UI_Utilities.convertIntToPercentString(180, true)+"!, h "+ UI_Utilities.convertIntToPercentString(40, false)+"!";
         panel.add(swapButton, "split 2, align center, "+sizeControl);
         swapButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panel.add(placeButton, sizeControl+",wrap");
@@ -154,7 +174,7 @@ public class ActiveBuildingsUI extends JPanel {
             mainPanel.add(mainActiveBuildingPanel, "dock center");
             updateUI();
         });
-        panel.add(exitButton, "growx, h 40!");
+        panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
     private JPanel generateIndividualFactoryView(int[] coords) {
@@ -176,7 +196,7 @@ public class ActiveBuildingsUI extends JPanel {
         panel.add(inventoryView, "wrap, dock center");
 
         JButton swapButton = new JButton("Swap");
-        Font font = panel.getFont().deriveFont(Font.BOLD, 25f);
+        Font font = panel.getFont().deriveFont(Font.BOLD, getActiveButtonFont());
         swapButton.setFont(font);
         swapButton.addActionListener(e -> {
             boardUI.setActiveBuildingToggled(true);
