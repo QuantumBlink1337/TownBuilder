@@ -24,7 +24,6 @@ public class GameInitializer {
     private final InitializationUI initializationUI;
     public static final ColorEnum[] colors = new ColorEnum[]{ColorEnum.BLUE, ColorEnum.RED, ColorEnum.GRAY, ColorEnum.ORANGE, ColorEnum.GREEN, ColorEnum.YELLOW, ColorEnum.WHITE};
 
-
     public GameInitializer() throws IOException {
         BuildingFactory.setbuildingMasterList();
         buildingMasterList = BuildingFactory.getBuildingMasterList();
@@ -32,8 +31,6 @@ public class GameInitializer {
         Driver.getGameFrame().add(initializationUI);
         Driver.initFrame();
     }
-
-
     public ArrayList<Building> getBuildingsForGame() {
         return buildingsForGame;
     }
@@ -68,7 +65,6 @@ public class GameInitializer {
                 JPanel colorView = initializationUI.getColoredBuildingViews().get(i);
                 initializationUI.getCustomSelectionPanel().add(colorView, "dock center");
                 colorView.setVisible(true);
-                System.out.println("Started notifier");
                synchronized (Utility.getNotifier()) {
                    try {
                        Utility.getNotifier().wait();
@@ -77,7 +73,6 @@ public class GameInitializer {
                        e.printStackTrace();
                    }
                }
-               System.out.println("Stopped notifier");
                buildingsForGame.add(BuildingFactory.getBuilding(initializationUI.getBuildingSelection(), buildingsForGame, -1, -1, false, null));
                 initializationUI.getCustomSelectionPanel().remove(colorView);
                initializationUI.updateUI();

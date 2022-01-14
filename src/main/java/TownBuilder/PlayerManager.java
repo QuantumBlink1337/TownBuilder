@@ -135,7 +135,7 @@ public class PlayerManager {
         return adjacentBoards;
     }
     public void manageTurn() throws IOException, URISyntaxException, InterruptedException {
-        ResourceEnum resource = null;
+        ResourceEnum resource;
         DebugTools.logging("[MANAGE_TURN] - Beginning turn management process. Is Singleplayer? : " + isSingleplayer);
         if (isSingleplayer) {
             Board board;
@@ -216,8 +216,6 @@ public class PlayerManager {
                 if (!boardComplete(temp))  {
                     turnExecution(temp, resource, false, true,false, masterBuildings);
                     if (boardComplete(temp)) {
-                        int score = pickResourceBoard.scoring(false);
-                        System.out.println(temp.getBoardName() + "'s final score: "+score);
                         // if game is complete, remove them permanently from board list
                         multiplayerModifiableBoards.remove(temp);
                     }
