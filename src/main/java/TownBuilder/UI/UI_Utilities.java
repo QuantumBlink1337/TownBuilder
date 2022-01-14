@@ -1,6 +1,13 @@
 package TownBuilder.UI;
 
+import TownBuilder.Buildings.Building;
+import TownBuilder.Manual;
+import TownBuilder.ResourceEnum;
+import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class UI_Utilities {
 
