@@ -16,6 +16,30 @@ import java.util.HashMap;
 public class ScoreUI extends JPanel {
     JPanel mainScorerPanel;
     private final Board board;
+    public static float getScorerHeaderFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 36f;
+            default -> 28f;
+        };
+    }
+    public static float getScorerMainButtonFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 30f;
+            default -> 25;
+        };
+    }
+    public static float getScorerSecondaryButtonFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 24f;
+            default -> 18f;
+        };
+    }
+    public static float getScorerFinalLabelFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 40f;
+            default -> 30f;
+        };
+    }
     public ScoreUI (Board b) {
         board = b;
         mainScorerPanel = createMainScorerPanel();
@@ -26,10 +50,10 @@ public class ScoreUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         JLabel mainLabel = new JLabel("Scorer");
         mainLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        mainLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 36f));
+        mainLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getScorerHeaderFont()));
         mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JButton scorerButton = new JButton("Score Board");
-        Font buttonFont = panel.getFont().deriveFont(Font.BOLD, 30f);
+        Font buttonFont = panel.getFont().deriveFont(Font.BOLD, getScorerMainButtonFont());
         scorerButton.setFont(buttonFont);
         scorerButton.setHorizontalAlignment(SwingConstants.CENTER);
         scorerButton.addActionListener(e -> {
@@ -51,7 +75,7 @@ public class ScoreUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         JLabel scoreLabel = new JLabel();
         JButton exitButton = new JButton("EXIT");
-        Font labelFont = panel.getFont().deriveFont(Font.BOLD, 30f);
+        Font labelFont = panel.getFont().deriveFont(Font.BOLD, getScorerMainButtonFont());
         scoreLabel.setText("Total Score: " + score + " Penalty: " + board.getScorer().getResourcePenalty());
         scoreLabel.setFont(labelFont);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -60,17 +84,13 @@ public class ScoreUI extends JPanel {
         ArrayList<Building> scorableBuildings = board.getScorableBuildings();
         for (Building scorableBuilding : scorableBuildings) {
             JButton label = new JButton(scorableBuilding + ": " + scores.get(scorableBuilding.getType()));
-            label.setFont(panel.getFont().deriveFont(Font.BOLD, 24f));
+            label.setFont(panel.getFont().deriveFont(Font.BOLD, getScorerSecondaryButtonFont()));
             label.setBackground(scorableBuilding.getType().getColor().getOverallColor());
             label.setOpaque(true);
             label.setHorizontalAlignment(SwingConstants.CENTER);
-            panel.add(label, "Wrap, dock center");
+            panel.add(label, "Wrap, dock center, h " + UI_Utilities.convertIntToPercentString(35, false) + "!");
         }
-        JButton penaltyButton = new JButton("Resource Penalty: -" + board.getScorer().getResourcePenalty());
-        penaltyButton.setFont(panel.getFont().deriveFont(24f));
-        penaltyButton.setHorizontalAlignment(SwingConstants.CENTER);
-        //panel.add(penaltyButton, "Wrap, dock center");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 24f));
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getScorerSecondaryButtonFont()));
         exitButton.setHorizontalAlignment(SwingConstants.CENTER);
         exitButton.addActionListener(e -> {
             remove(panel);
@@ -86,7 +106,7 @@ public class ScoreUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         JLabel scoreLabel = new JLabel();
         JButton exitButton = new JButton("OK");
-        Font labelFont = panel.getFont().deriveFont(Font.BOLD, 40f);
+        Font labelFont = panel.getFont().deriveFont(Font.BOLD, getScorerFinalLabelFont());
         scoreLabel.setText("Total Score: " + score + " Penalty: " + board.getScorer().getResourcePenalty());
         scoreLabel.setFont(labelFont);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -95,17 +115,13 @@ public class ScoreUI extends JPanel {
         ArrayList<Building> scorableBuildings = board.getScorableBuildings();
         for (Building scorableBuilding : scorableBuildings) {
             JButton label = new JButton(scorableBuilding + ": " + scores.get(scorableBuilding.getType()));
-            label.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+            label.setFont(panel.getFont().deriveFont(Font.BOLD, getScorerMainButtonFont()));
             label.setBackground(scorableBuilding.getType().getColor().getOverallColor());
             label.setOpaque(true);
             label.setHorizontalAlignment(SwingConstants.CENTER);
-            panel.add(label, "Wrap, dock center");
+            panel.add(label, "Wrap, dock center, h " + UI_Utilities.convertIntToPercentString(35, false) + "!");
         }
-        JButton penaltyButton = new JButton("Resource Penalty: -" + board.getScorer().getResourcePenalty());
-        penaltyButton.setFont(panel.getFont().deriveFont(30f));
-        penaltyButton.setHorizontalAlignment(SwingConstants.CENTER);
-        //panel.add(penaltyButton, "Wrap, dock center");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 24f));
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getScorerSecondaryButtonFont()));
         exitButton.setHorizontalAlignment(SwingConstants.CENTER);
         exitButton.addActionListener(e -> {
             synchronized (Utility.getNotifier()) {
