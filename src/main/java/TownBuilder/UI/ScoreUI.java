@@ -49,7 +49,6 @@ public class ScoreUI extends JPanel {
     private JPanel createMainScorerPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel mainLabel = new JLabel("Scorer");
-        mainLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mainLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getScorerHeaderFont()));
         mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JButton scorerButton = new JButton("Score Board");

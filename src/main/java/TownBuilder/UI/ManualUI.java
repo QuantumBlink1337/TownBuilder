@@ -78,7 +78,6 @@ public class ManualUI extends JPanel {
         JPanel mainPanel = new JPanel(new MigLayout());
         Font font = mainPanel.getFont().deriveFont(Font.BOLD, getManualHeaderFont());
         JLabel label = new JLabel("Manual");
-        label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font);
         mainPanel.add(label, "w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+"! , wrap");
