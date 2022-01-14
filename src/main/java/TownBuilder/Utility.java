@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Scanner;
 
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.BoardUI;
@@ -24,22 +23,20 @@ public class Utility {
     private static boolean color = !System.getProperty("os.name").contains("Windows");
     private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
 
+    private static final Object notifier = new Object();
+    // (potentially obsolete)
+
     public static boolean isColor() {
         return color;
     }
-
     public static Object getNotifier() {
         return notifier;
     }
-
-    private static final Object notifier = new Object();
-
     public static void setColor(boolean color) {
         Utility.color = color;
     }
 
-    private static final Scanner sc = new Scanner(System.in);
-    // (potentially obsolete)
+
     public static <T> void arrayPrinter(T[][] array) {
         for (T[] ts : array) {
             for (int col = 0; col < ts.length; col++) {
@@ -170,9 +167,6 @@ public class Utility {
                 System.out.println(Utility.MachineIndexesToHumanCoords(r, c));
             }
         }
-
-
-
     }
     public static String lengthResizer(String t, int length) {
         StringBuilder target = new StringBuilder(t);
@@ -266,28 +260,7 @@ public class Utility {
         }
         return col+row;
     }
-    // prompts the user for a yes or no response. returns true if yes, returns false if no.
-    public static boolean prompt() {
-        do {
-            System.out.println("Use " + Utility.generateColorizedString("yes (y)", Attribute.GREEN_TEXT()) + " or " + Utility.generateColorizedString("no (n)", Attribute.RED_TEXT()));
-            String prompt = sc.nextLine().toLowerCase();
-            if (prompt.equals("y") || prompt.equals("yes")) {
-                return true;
-            }
-            else if (prompt.equals("n") || prompt.equals("no"))  {
-                return false;
-            }
-            else {
-                System.out.println("Invalid input. Please use yes or no. (y or n)");
-            }
-        }
-        while(true);
-    }
-    // simple prompt for any key.
-    public static void anyKey() {
-        System.out.println("Press any key to continue.");
-        sc.nextLine();
-    }
+
     public static ArrayList<BuildingEnum> convertBuildingListToEnumList(Collection<Building> buildingCollection) {
         ArrayList<BuildingEnum> buildingEnums = new ArrayList<>();
 
@@ -296,8 +269,6 @@ public class Utility {
         }
         return buildingEnums;
     }
-
-
     public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, Board board, String string) throws IOException {
         resetResourceArray();
         ResourceEnum resourceChoice;
