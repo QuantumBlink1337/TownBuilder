@@ -116,7 +116,6 @@ public class ManualUI extends JPanel {
         manualBuildingAccessButton = new JButton("Buildings");
         Font font = this.getFont().deriveFont(getManualRuleBuildingButtonFont());
         manualBuildingAccessButton.setFont(font);
-        manualBuildingAccessButton.setPreferredSize(BoardUI.ButtonSize());
         manualBuildingAccessButton.addActionListener(e -> {
             mainManualPanel.remove(manualMenuPanel);
             mainManualPanel.add(manualBuildingSelectionPanel, "w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
