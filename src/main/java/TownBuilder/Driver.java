@@ -3,6 +3,7 @@ package TownBuilder;
 import TownBuilder.DebugApps.DebugTools;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -35,7 +36,7 @@ public class Driver {
         return gameFrame;
     }
     public static void initFrame() {
-        gameFrame.setSize(1080, 1080);
+        gameFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
         gameFrame.setVisible(true);
     }
     public static void updateFrame() {
