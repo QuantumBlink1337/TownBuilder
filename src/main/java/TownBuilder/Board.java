@@ -7,14 +7,11 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.BoardUI;
 import TownBuilder.UI.TileButton;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
-@SuppressWarnings("unused")
 public class Board {
     private final ArrayList<Building> detectableBuildings;
     private final ArrayList<Building> scorableBuildings;
@@ -23,12 +20,10 @@ public class Board {
 
     private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED,
             BuildingEnum.GROVEUNI, BuildingEnum.MANDRAS, BuildingEnum.OPALEYE, BuildingEnum.SHRINE, BuildingEnum.SILVAFRM, BuildingEnum.STARLOOM, BuildingEnum.OBELISK, BuildingEnum.SKYBATHS));
-    //private static ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.OBELISK));
 
 
 
     private ArrayList<ResourceEnum> blacklistedResources;
-    private final Manual manual;
 
     public Scorer getScorer() {
         return scorer;
@@ -40,18 +35,13 @@ public class Board {
     private boolean canBeMasterBuilder = true;
     private boolean monumentPlacement = false;
     private boolean isGameCompletion = false;
-    private boolean activeBuildingUse = false;
     private boolean turnOver = false;
-    private int[] coords;
     private boolean placeAnywhere = false;
     private BuildingEnum lastBuiltBuilding;
     private final boolean isSingleplayer;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
     private final Building[][] gameBuildingBoard = new Building[4][4];
-    private final String[][] gameBoard = new String[4][4];
-    private final String[] letterCoords = {"      ", "a", "         b",  "           c", "          d"};
-    private final char[] numberCoords = {'1', '2', '3','4'};
     private final BuildingFactory buildingFactory;
     private final PlayerManager playerManager;
     private ResourceEnum currentResourceForTurn;
@@ -59,32 +49,7 @@ public class Board {
     private final Object notifier;
 
 
-    public Board(ArrayList<Building> b, boolean ISP, PlayerManager pM) throws IOException {
-        isSingleplayer = ISP;
-        playerManager = pM;
-        System.out.println("What's your name?");
-        Scanner sc = new Scanner(System.in);
-        boardName = sc.nextLine();
-        if (boardName.equals("debug")) {
-            System.out.println("Debug/testing mode activated. Disabled randomized resource collection");
-        }
-        else if (boardName.equals("debug_building")) {
-            System.out.println("Debug/testing mode activated. Enabled direct building placement");
-        }
-        if (ISP) {
-            monumentTypes.removeIf(m -> m == BuildingEnum.IRONWEED || m == BuildingEnum.OPALEYE || m == BuildingEnum.STARLOOM) ;
-        }
-        detectableBuildings = new ArrayList<>(b);
-        scorableBuildings = new ArrayList<>(b);
-        buildingFactory = new BuildingFactory();
-        generateMonument();
-        manual = new Manual(detectableBuildings);
-        scorer = new Scorer(this, scorableBuildings);
-        boardUI = null;
-        notifier = new Object();
-        buildArrays();
-        updateBoard();
-    }
+
     public Board(ArrayList<Building> b, BuildingEnum mo, PlayerManager playerManager) throws IOException {
         this.playerManager = playerManager;
         boardName = "DEBUG";
@@ -95,7 +60,6 @@ public class Board {
         Monument monument = BuildingFactory.getMonument(mo,this, -1, -1, scorableBuildings);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
-        manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
         boardUI = new BoardUI(this);
         boardUI.setVisible(true);
@@ -104,7 +68,7 @@ public class Board {
         buildArrays();
         updateBoard();
     }
-    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, JFrame jF, String boardName) throws IOException {
+    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName) throws IOException {
         this.playerManager = playerManager;
         this.boardName = boardName;
         isSingleplayer = ISP;
@@ -115,12 +79,9 @@ public class Board {
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
         generateMonument();
-        manual = new Manual(detectableBuildings);
         scorer = new Scorer(this, scorableBuildings);
         boardUI = new BoardUI(this);
-        //jF.add(boardUI);
         notifier = new Object();
-
         buildArrays();
         updateBoard();
     }
@@ -130,23 +91,11 @@ public class Board {
     public Object getNotifier() {
         return notifier;
     }
-    public boolean isActiveBuildingUse() {
-        return activeBuildingUse;
-    }
     public ArrayList<ResourceEnum> getBlacklistedResources() {
         return blacklistedResources;
     }
     public BoardUI getBoardUI() {
         return boardUI;
-    }
-    public int[] getCoords() {
-        return coords;
-    }
-    public void setCoords(int[] coords) {
-        this.coords = coords;
-    }
-    public void setActiveBuildingUse(boolean activeBuildingUse) {
-        this.activeBuildingUse = activeBuildingUse;
     }
     public void setLastBuiltBuilding(BuildingEnum lastBuiltBuilding) {
         this.lastBuiltBuilding = lastBuiltBuilding;
@@ -160,9 +109,6 @@ public class Board {
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
-    public Manual getManual() {
-        return manual;
-    }
     public BuildingFactory getBuildingFactory() {
         return buildingFactory;
     }
@@ -171,9 +117,6 @@ public class Board {
     }
     public void setCanBeMasterBuilder(boolean canBeMasterBuilder) {
         this.canBeMasterBuilder = canBeMasterBuilder;
-    }
-    public boolean isPlaceAnywhere() {
-        return placeAnywhere;
     }
     public void setPlaceAnywhere(boolean placeAnywhere) {
         this.placeAnywhere = placeAnywhere;
@@ -223,14 +166,7 @@ public class Board {
                 }
             }
         }
-        if (i >= (gameResourceBoard.length * gameResourceBoard.length))  {
-            System.out.println("=====GAME OVER=====");
-            System.out.println("     "+boardName+"     ");
-            return true;
-        }
-        else {
-            return false;
-        }
+        return i >= (gameResourceBoard.length * gameResourceBoard.length);
     }
     public void monumentControl(Monument monument) throws IOException {
         monument.onPlacement();
@@ -259,7 +195,6 @@ public class Board {
         }
     }
     public void detectValidBuilding() throws IOException {
-        //long initialTime = System.nanoTime();a
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : detectableBuildings) {
@@ -278,7 +213,6 @@ public class Board {
                 }
             }
         }
-        //System.out.println("Time elapsed: "+(System.nanoTime()-initialTime));
     }
     public void runBuildingTurnAction() throws IOException {
         int bankCounter = 0;
@@ -287,7 +221,6 @@ public class Board {
                 building.onTurnInterval(gameBuildingBoard);
                 if (building instanceof Bank bank) {
                     bankCounter++;
-                    System.out.println("Bank found!");
                     ResourceEnum blacklistedResource = bank.getLockedResource();
                     if (!blacklistedResources.contains(blacklistedResource)) {
                         blacklistedResources.add(blacklistedResource);
@@ -304,14 +237,11 @@ public class Board {
     }
     public ResourceEnum resourcePicker(String string) throws IOException {
         ResourceEnum turnResource;
-        //System.out.println("Singleplayer? " + isSingleplayer);
         if (!isSingleplayer) {
-            //System.out.println("Hit");
             boardUI.setPrimaryTextLabel(" ");
             turnResource = Utility.resourcePicker(blacklistedResources, this, string);
         }
         else {
-            //System.out.println("I shouldn't be hit rn");
             if (spResourceSelectionIncrement == 2) {
                 spResourceSelectionIncrement = 0;
                 Utility.resetResourceArray();
@@ -342,12 +272,11 @@ public class Board {
         updateBoard();
         return boardUI.getSelectedBuildingForTurn();
     }
-    private void factoryOption(ResourceEnum resource, Factory building) throws IOException {
+    private void factoryOption(Factory building) throws IOException {
         if (currentResourceForTurn == building.getFactorizedResource()) {
             currentResourceForTurn = building.exchangeResource();
         }
         else {
-            System.out.println("Invalid swap");
             boardUI.getErrorTextLabel().setVisible(true);
             boardUI.getErrorTextLabel().setText("That Factory doesn't match the resource this turn.");
         }
@@ -375,7 +304,6 @@ public class Board {
                     boardUI.setCoordinatesClicked(false);
                     boardUI.setResourceSelectionLabel("Select a resource to swap out from your Warehouse.");
                     swap = Utility.resourcePicker(null, this, "");
-                    System.out.println(swap);
                     turnResource = warehouse.placeResource(turnResource, swap);
                     if (turnResource == ResourceEnum.OBSTRUCTED) {
                         boardUI.setSecondaryTextLabel("You asked for a resource that is not in the warehouse!", Color.RED);
@@ -390,7 +318,6 @@ public class Board {
                 boardUI.setSecondaryTextLabel("Your Warehouse has nothing in it to swap out!", Color.RED);
             }
         }
-        //return turnResource;
     }
 
     public void playerTurn(ResourceEnum resourceEnum, String string) throws IOException {
@@ -416,7 +343,7 @@ public class Board {
                 switch (boardUI.getActiveMode()) {
                     case "swap" -> warehouseOption(currentResourceForTurn, (Warehouse) boardUI.getSelectedActiveBuilding(), false);
                     case "place" -> warehouseOption(currentResourceForTurn, (Warehouse) boardUI.getSelectedActiveBuilding(), true);
-                    case "exchange" -> factoryOption(currentResourceForTurn, (Factory) boardUI.getSelectedActiveBuilding());
+                    case "exchange" -> factoryOption((Factory) boardUI.getSelectedActiveBuilding());
                 }
             }
         }
@@ -430,7 +357,6 @@ public class Board {
     }
 
     public void updateBoard(Resource[][] gRB, Building[][] gBB) throws IOException {
-        System.out.println("Updating board");
         TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
         boolean activeBuilding = false;
         for (int row = 0; row < gRB.length; row++) {
@@ -448,8 +374,6 @@ public class Board {
             boardUI.getActiveBuildingPanel().updateActiveBuildings();
         }
     }
-
-
 
 
     public String getBoardName() {
