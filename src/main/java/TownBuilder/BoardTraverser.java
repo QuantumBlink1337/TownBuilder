@@ -68,28 +68,28 @@ public class BoardTraverser{
         DebugTools.logging("[INSTANCES_OF_BUILDING] - Returning " + sum + " instances of building types " + DebugTools.createStringOfObjectsInArray(t));
         return sum;
     }
-    public static int filteredInstancesOfBuilding(Building[] buildings, Function<Building, Boolean> func, BuildingEnum... t) throws IOException {
-        int sum = 0;
-        DebugTools.logging("[FILTERED_INSTANCES_OF_BUILDING] - Retrieving instances of building types:" +DebugTools.createStringOfObjectsInArray(t));
-        for (Building building : buildings) {
-            for (BuildingEnum type : t) {
-                DebugTools.logging("[FILTERED_INSTANCES_OF_BUILDING] - Checking " + DebugTools.buildingInformation(building));
-                if (building.getType() == type && func.apply(building)) {
-                    sum++;
-                    DebugTools.logging("[FILTERED_INSTANCES_OF_BUILDING] - Found building of type. Incrementing");
-
-                }
-            }
-        }
-        return sum;
-    }
-    public static int filteredInstancesOfBuilding(Building[][] buildings, Function<Building, Boolean> func, BuildingEnum... t) throws IOException {
-        int sum = 0;
-        for (Building[] buildingRow : buildings) {
-            sum+=filteredInstancesOfBuilding(buildingRow,func, t);
-        }
-        return sum;
-    }
+//    public static int filteredInstancesOfBuilding(Building[] buildings, Function<Building, Boolean> func, BuildingEnum... t) throws IOException {
+//        int sum = 0;
+//        DebugTools.logging("[FILTERED_INSTANCES_OF_BUILDING] - Retrieving instances of building types:" +DebugTools.createStringOfObjectsInArray(t));
+//        for (Building building : buildings) {
+//            for (BuildingEnum type : t) {
+//                DebugTools.logging("[FILTERED_INSTANCES_OF_BUILDING] - Checking " + DebugTools.buildingInformation(building));
+//                if (building.getType() == type && func.apply(building)) {
+//                    sum++;
+//                    DebugTools.logging("[FILTERED_INSTANCES_OF_BUILDING] - Found building of type. Incrementing");
+//
+//                }
+//            }
+//        }
+//        return sum;
+//    }
+//    public static int filteredInstancesOfBuilding(Building[][] buildings, Function<Building, Boolean> func, BuildingEnum... t) throws IOException {
+//        int sum = 0;
+//        for (Building[] buildingRow : buildings) {
+//            sum+=filteredInstancesOfBuilding(buildingRow,func, t);
+//        }
+//        return sum;
+//    }
 
     public static int instancesOfBuilding(Building[] buildings, ColorEnum ...c) throws IOException {
         DebugTools.logging("[INSTANCES_OF_BUILDING] - Retrieving instances of color types:" +DebugTools.createStringOfObjectsInArray(c));
