@@ -1,13 +1,11 @@
 package TownBuilder.UI;
 
-import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
-import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
+
 
 
 public class TileButton extends JButton {
@@ -19,14 +17,11 @@ public class TileButton extends JButton {
     ResourceEnum resourceEnum;
     BuildingEnum buildingEnum;
 
-    public boolean isActiveBuilding() {
-        return activeBuilding;
-    }
-
     public void setActiveBuilding(boolean activeBuilding) {
         this.activeBuilding = activeBuilding;
     }
     public int getButtonFontSize() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 35;
             default -> 25;

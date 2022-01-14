@@ -19,51 +19,57 @@ public class ManualUI extends JPanel {
     JButton manualBuildingAccessButton;
     JPanel manualMenuPanel;
     JPanel manualRulesPanel;
-
     JPanel manualBuildingSelectionPanel;
+
     public static float getManualHeaderFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 36f;
             default -> 28f;
         };
     }
     public static float getManualMenuFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 22f;
             default -> 18f;
         };
     }
     public static float getManualRuleBuildingButtonFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 36f;
             default -> 26f;
         };
     }
     public static float getManualBuildingButtonFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 25f;
             default -> 18f;
         };
     }
     public static float getManualIndividualBuildingHeaderFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 30f;
             default -> 25;
         };
     }
     public static float getBuildingManualEntryTextFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 24f;
             default -> 16f;
         };
     }
     public static float getRuleManualEntryTextFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 25f;
             default -> 18f;
         };
     }
-
 
 
     public ManualUI(ArrayList<Building> buildingsForGame) {

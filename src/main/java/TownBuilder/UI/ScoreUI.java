@@ -17,24 +17,28 @@ public class ScoreUI extends JPanel {
     JPanel mainScorerPanel;
     private final Board board;
     public static float getScorerHeaderFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 36f;
             default -> 28f;
         };
     }
     public static float getScorerMainButtonFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 30f;
             default -> 25;
         };
     }
     public static float getScorerSecondaryButtonFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 24f;
             default -> 18f;
         };
     }
     public static float getScorerFinalLabelFont() {
+        //noinspection SwitchStatementWithTooFewBranches
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 40f;
             default -> 30f;
