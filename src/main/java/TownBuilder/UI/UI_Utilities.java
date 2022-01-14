@@ -13,10 +13,11 @@ public class UI_Utilities {
 
 
     static final Dimension BUTTON_SIZE = new Dimension(50, 50);
-    static final String INTERACTIVE_PANEL_WIDTH = convertIntToPercentString(420, SCREEN_WIDTH, true);
+    static final String INTERACTIVE_PANEL_WIDTH = convertIntToPercentString(420, true);
 
 
-    public static String convertIntToPercentString(int value, int constant, boolean isWidth) {
+    public static String convertIntToPercentString(int value, boolean isWidth) {
+        int constant = isWidth ? SCREEN_WIDTH : SCREEN_HEIGHT;
         String string = (((float) convertBaseValueToScaledValue(value, isWidth)  / constant) * 100) + "sp";
         System.out.println(string);
         return string;
