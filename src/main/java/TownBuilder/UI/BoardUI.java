@@ -53,6 +53,12 @@ public class BoardUI extends JPanel {
             default -> 20f;
         };
     }
+    public static float getPlayerViewFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 24f;
+            default -> 18f;
+        };
+    }
 
     public Building getSelectedActiveBuilding() {
         return selectedActiveBuilding;
@@ -374,10 +380,8 @@ public class BoardUI extends JPanel {
         Font font = panel.getFont().deriveFont(Font.BOLD, 20f);
         yesButton.setFont(font);
         yesButton.setBackground(new Color(35, 138, 35));
-        //yesButton.setPreferredSize(dimension);
         noButton.setFont(font);
         noButton.setBackground(new Color(183, 19, 19));
-        //noButton.setPreferredSize(dimension);
         yesButton.addActionListener(e -> {
             isYes = true;
             YesOrNoPanel.setVisible(false);
@@ -401,14 +405,14 @@ public class BoardUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         panel.setBorder(new LineBorder(Color.BLACK, 2));
         JLabel label = new JLabel("Other Players");
-        label.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
+        label.setFont(panel.getFont().deriveFont(Font.BOLD, getYesNoPromptFont()));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, "dock center, align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
         ArrayList<Board> boards = board.getPlayerManager().getBoards();
         for (Board board : boards) {
             if (board != this.board) {
                 JButton button = new JButton(board.getBoardName());
-                button.setFont(panel.getFont().deriveFont(24f));
+                button.setFont(panel.getFont().deriveFont(getPlayerViewFont()));
                 button.setHorizontalAlignment(SwingConstants.CENTER);
                 Board thisBoard = this.board;
                 button.addMouseListener(new MouseAdapter() {
