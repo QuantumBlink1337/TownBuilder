@@ -127,9 +127,7 @@ public class BoardUI extends JPanel {
     JPanel userPromptPanel = new JPanel();
     JPanel leftInteractionPanel = new JPanel(new MigLayout());
 
-    public static Dimension ButtonSize() {
-        return UI_Utilities.BUTTON_SIZE;
-    }
+
 
 
     public BoardUI(Board board) {
@@ -149,11 +147,9 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(280, true));
-        //mainPanel.add(leftInteractionPanel, "dock west, ");
+        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(270, true));
         mainPanel.add(gamePanel, "dock center, align center");
-        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(280, true));
-        //mainPanel.add(rightInteractionPanel, "dock east, ");
+        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(270, true));
         add(mainPanel);
 
 
@@ -161,11 +157,9 @@ public class BoardUI extends JPanel {
 
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
-        //gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, UI_Utilities.SCREEN_WIDTH)+"!");
         gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1050, true)+"!");
 
         gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, true)+"!, h " + UI_Utilities.convertIntToPercentString(900, false)+"!");
-        //gamePanel.add(boardMatrixPanel, "wrap, align center, w "+35.15625 +"sp!, h " + 35.15625 +"sp!");
 
         gamePanel.add(userPromptPanel, "align center");
         userPromptPanel.add(resourceSelectionPanel, "dock center");
@@ -364,8 +358,7 @@ public class BoardUI extends JPanel {
                 });
                 button.setText(building.toString());
                 button.setFont(panel.getFont().deriveFont(Font.BOLD, getBuildingSelectionPromptFont()));
-                //button.setPreferredSize(new Dimension(300,50));
-                selectionPanel.add(button, "w " + UI_Utilities.convertIntToPercentString(300, false));
+                selectionPanel.add(button, "w " + UI_Utilities.convertIntToPercentString(300, true) + ", h " + UI_Utilities.convertIntToPercentString(50, false));
             }
         }
         panel.add(buildingSelectionLabel, "dock center, Wrap");
