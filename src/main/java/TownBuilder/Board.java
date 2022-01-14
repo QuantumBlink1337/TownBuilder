@@ -293,10 +293,13 @@ public class Board {
                         blacklistedResources.add(blacklistedResource);
                     }
                 }
+                else if (building instanceof Warehouse || building instanceof Factory || building instanceof TradingPost) {
+                    bankCounter++;
+                }
             }
         }
         if (bankCounter > 4) {
-            detectableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK);
+            detectableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK || building.getType() == BuildingEnum.WAREHOUSE || building.getType() == BuildingEnum.TRDINGPST || building.getType() == BuildingEnum.FACTORY);
         }
     }
     public ResourceEnum resourcePicker(String string) throws IOException {
