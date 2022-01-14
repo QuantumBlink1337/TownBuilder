@@ -127,6 +127,12 @@ public class ManualUI extends JPanel {
         textArea.setWrapStyleWord(true);
         textArea.setFont(panel.getFont().deriveFont(20f));
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        JScrollPane jScrollPane = new JScrollPane(textArea);
+        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+
+
+
         exitButton.setText("EXIT");
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, 30f));
         exitButton.setPreferredSize(UI_Utilities.BUTTON_SIZE);
@@ -139,7 +145,7 @@ public class ManualUI extends JPanel {
         panel.setPreferredSize(new Dimension(380, 200));
         panel.add(buildingLabel, "dock center, wrap");
         panel.add(explanationLabel, "dock center, wrap");
-        panel.add(textArea, "dock center, wrap");
+        panel.add(jScrollPane, "dock center, wrap");
         panel.add(matrixLabel, "dock center, wrap");
         panel.add(initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center");
