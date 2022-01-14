@@ -99,6 +99,6 @@ public class Almshouse implements Building{
 
     @Override
     public String getManualEntry() {
-        return "The Almshouse grants points based on how many Almshouses you have:\n1 Almshouse: -1 Points |\n2 Almshouses: 5 Points |\n3 Almshouses: -3 Points |\n4 Almshouses: 15 Points |\n5 Almshouses: -5 Points |\n6 Almshouses: 26 Points";
+        return "The Almshouse grants points based on how many Almshouses you have:\n1 Almshouse: -1 Points\n2 Almshouses: 5 Points\n3 Almshouses: -3 Points\n4 Almshouses: 15 Points\n5 Almshouses: -5 Points\n6 Almshouses: 26 Points";
     }
 }

@@ -91,13 +91,12 @@ public class Bank implements Building{
     @Override
     public void printManualText() {
         System.out.println("The Bank earns four points. When you place it, you must choose a resource. You may no longer choose that resource when it is your turn to pick a resource.");
-        System.out.println("Note: You cannot make more than four banks.");
         System.out.println("Here's what it looks like:");
         Utility.printFormattedResourcePattern(bankPattern);
     }
 
     @Override
     public String getManualEntry() {
-        return "The Bank earns four points. When you place it, you must choose a resource. You may no longer choose that resource when it is your turn to pick a resource. \nNote: You cannot make more than four banks.";
+        return "The Bank earns four points. When you place it, you must choose a resource. You may no longer choose that resource when it is your turn to pick a resource.";
     }
 }

@@ -70,7 +70,7 @@ public class Tavern implements Building {
 
     @Override
     public String getManualEntry() {
-        return "The Tavern grants points based on how many Taverns you have:\n1 Tavern: 2 Points |\n2 Taverns: 5 Points |\n3 Taverns: 9 Points |\n4 Taverns: 14 Points |\n5 Taverns: 20 Points";
+        return "The Tavern grants points based on how many Taverns you have:\n1 Tavern: 2 Points\n2 Taverns: 5 Points\n3 Taverns: 9 Points\n4 Taverns: 14 Points\n5 Taverns: 20 Points";
     }
 
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
