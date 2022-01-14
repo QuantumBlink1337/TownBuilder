@@ -20,6 +20,10 @@ import static javax.swing.border.BevelBorder.RAISED;
 
 public class BoardUI extends JPanel {
 
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
     final JPanel mainPanel = new JPanel(new MigLayout("", "[][][]", "[][][]"));
     private final TileButton[][] tileAccessMatrix = new TileButton[4][4];
     private final String playerName;
@@ -165,7 +169,7 @@ public class BoardUI extends JPanel {
         add(mainPanel);
 
 
-        leftInteractionPanel.add(otherBoardsPanel, "Wrap");
+        leftInteractionPanel.add(otherBoardsPanel, "Wrap, h " + UI_Utilities.convertIntToPercentString(500, false) + "!");
 
 
         gamePanel.add(boardHeader, "wrap, align center, span 1 1");
