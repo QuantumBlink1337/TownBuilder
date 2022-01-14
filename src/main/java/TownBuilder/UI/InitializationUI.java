@@ -20,29 +20,14 @@ public class InitializationUI extends JPanel {
 
     private final JPanel mainMenuPanel;
     private final JPanel playerSelectionPanel;
-
-
-
     private final JPanel customSelectionPanel;
     private final ArrayList<JPanel> coloredBuildingViews = new ArrayList<>();
-
-    public String getChosenBoardName() {
-        return chosenBoardName;
-    }
-
     private String chosenBoardName;
     private BuildingEnum buildingSelection;
     private int playerCount;
-
-
     private String selection;
 
-    public JPanel getPlayerSelectionPanel() {
-        return playerSelectionPanel;
-    }
-
     public InitializationUI() {
-        System.out.println("Initialize UI");
         mainMenuPanel = createMainMenuPanel();
         playerSelectionPanel = createPlayerSelectionPanel();
         customSelectionPanel = createBuildingSelectionPanel();
@@ -69,6 +54,12 @@ public class InitializationUI extends JPanel {
     public JPanel getMainMenuPanel() {
         return mainMenuPanel;
     }
+    public JPanel getPlayerSelectionPanel() {
+        return playerSelectionPanel;
+    }
+    public String getChosenBoardName() {
+        return chosenBoardName;
+    }
     private static float getHeaderFont() {
         return switch (UI_Utilities.SCREEN_WIDTH) {
             case 2560 -> 60f;
@@ -81,7 +72,6 @@ public class InitializationUI extends JPanel {
             default -> 24f;
         };
     }
-
 
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout("" +
