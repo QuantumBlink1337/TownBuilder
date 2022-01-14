@@ -59,6 +59,12 @@ public class BoardUI extends JPanel {
             default -> 18f;
         };
     }
+    public static float getResourceSelectionPromptFont() {
+        return switch (UI_Utilities.SCREEN_WIDTH) {
+            case 2560 -> 36f;
+            default -> 28f;
+        };
+    }
 
     public Building getSelectedActiveBuilding() {
         return selectedActiveBuilding;
@@ -308,7 +314,7 @@ public class BoardUI extends JPanel {
     private JPanel createResourceSelectionButtonPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JPanel selectionPanel = new JPanel(new GridLayout(1, 5, 0, 0));
-        Font font = panel.getFont().deriveFont(Font.BOLD, 36f);
+        Font font = panel.getFont().deriveFont(Font.BOLD, getResourceSelectionPromptFont());
         resourceSelectionLabel = new JLabel("Select a Resource");
         resourceSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resourceSelectionLabel.setFont(font);
@@ -328,9 +334,8 @@ public class BoardUI extends JPanel {
                 mainPanel.updateUI();
             });
             button.setText(resourceArray.get(i).toString());
-            button.setFont(panel.getFont().deriveFont(Font.BOLD, 25f));
-            //button.setPreferredSize(new Dimension(200,50));
-            selectionPanel.add(button, "w :200:, h :50:");
+            button.setFont(panel.getFont().deriveFont(Font.BOLD, getBuildingSelectionPromptFont()));
+            selectionPanel.add(button, "w "+UI_Utilities.convertIntToPercentString(200, true) + "!, h " + UI_Utilities.convertIntToPercentString(50, false) + "!");
         }
         panel.add(selectionPanel, "align center, span 3");
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -453,10 +458,8 @@ public class BoardUI extends JPanel {
 
     public void setSelectedResourceForTurn(ResourceEnum resource) {
         System.out.println("Set Selected Resource Text Label");
-
         selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ". Where would you like to place it?");
-        //secondaryTextLabel.setVisible(false);
         resourcePromptTextPanel.setVisible(true);
     }
     public void setResourceSelectionLabel(String string) {
@@ -467,26 +470,22 @@ public class BoardUI extends JPanel {
     }
 
     public void setPrimaryTextLabel(String string) {
-        //System.out.println("Set Primary Text Label");
         turnResourceText.setText(string);
         turnResourceText.setVisible(true);
         resourcePromptTextPanel.setVisible(true);
     }
     public void setSecondaryTextLabel(String string) {
-        //System.out.println("Set Secondary Text Label");
         secondaryTextLabel.setText(string);
         secondaryTextLabel.setVisible(true);
         resourcePromptTextPanel.setVisible(true);
     }
     public void setSecondaryTextLabel(String string, Color color) {
-        //System.out.println("Set Secondary Text Label with Color");
         secondaryTextLabel.setText(string);
         secondaryTextLabel.setForeground(color);
         secondaryTextLabel.setVisible(true);
         resourcePromptTextPanel.setVisible(true);
         resourcePromptTextPanel.updateUI();
     }
-
 
     public BuildingEnum getSelectedBuildingForTurn() {
         return selectedBuildingForTurn;
