@@ -53,8 +53,8 @@ public class ManualUI extends JPanel {
     }
     public static float getBuildingManualEntryTextFont() {
         return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 18f;
-            default -> 14f;
+            case 2560 -> 24f;
+            default -> 16f;
         };
     }
     public static float getRuleManualEntryTextFont() {
@@ -169,10 +169,6 @@ public class ManualUI extends JPanel {
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JScrollPane jScrollPane = new JScrollPane(textArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-
-
-
         exitButton.setText("EXIT");
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getManualIndividualBuildingHeaderFont()));
         exitButton.addActionListener(e -> {
@@ -183,7 +179,7 @@ public class ManualUI extends JPanel {
         });
         panel.add(buildingLabel, "dock center, wrap");
         panel.add(explanationLabel, "dock center, wrap");
-        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(80, false) + "!");
+        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(125, false) + "!");
         panel.add(matrixLabel, "dock center, wrap");
         panel.add(initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
@@ -210,7 +206,7 @@ public class ManualUI extends JPanel {
         rules.add(new ArrayList<>(Arrays.asList("Placement", "Buildings are made by placing resources on your board. Each building has its own unique pattern of what it looks like. The base pattern (see: display patterns) can be rotated and mirrored. For example, the Cottage can have 8 different orientations!")));
         rules.add(new ArrayList<>(Arrays.asList("Scoring", "Each building has its own unique rules on how they accumulate points. But remember - for each resource you leave on the board you LOSE a point! It's up to you to figure out how to build your town for the most points possible.")));
         rules.add(new ArrayList<>(Arrays.asList("Monuments", "Monuments are types of unique buildings that can have powerful benefits. Each player gets access to one monument - and no one can build it except you. You can only build it once though!")));
-        rules.add(new ArrayList<>(Arrays.asList("Active Buildings", "Active buildings have functionality that you can use on the board compared to regular buildings, that just add points to your score. These buildings are the Factory, Warehouse, Bank, and Trading Post.")));
+        rules.add(new ArrayList<>(Arrays.asList("Active Buildings", "Active buildings have functionality that you can use on the board compared to regular buildings, that just add points to your score. These buildings are the Factory, Warehouse, Bank, and Trading Post. You may up to 4 active buildings.")));
 
     }
     private JPanel initializeRulesMenu() {
