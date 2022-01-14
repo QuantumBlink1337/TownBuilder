@@ -27,7 +27,6 @@ public class Driver {
             initFrame();
         }
         while(playerManager.gameActive());
-        System.out.println("All players have finished TownBuilder. Thanks for playing! -Matt");
         gameFrame.setVisible(false);
     }
 
@@ -38,9 +37,5 @@ public class Driver {
     public static void initFrame() {
         gameFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
         gameFrame.setVisible(true);
-    }
-    public static void updateFrame() {
-        gameFrame.setVisible(true);
-        gameFrame.repaint();
     }
 }
