@@ -28,67 +28,10 @@ public class BoardUI extends JPanel {
     private ResourceEnum selectedResourceForTurn;
     private BuildingEnum selectedBuildingForTurn;
     private boolean activeBuildingToggled;
-
-    public static float getResourceTextFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 30f;
-            default -> 22f;
-        };
-    }
-
-    public static float getPlayerHeaderTextFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 42f;
-            default -> 36f;
-        };
-    }
-    public static float getYesNoPromptFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 30f;
-            default -> 22f;
-        };
-    }
-    public static float getBuildingSelectionPromptFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 25f;
-            default -> 20f;
-        };
-    }
-    public static float getPlayerViewFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 24f;
-            default -> 18f;
-        };
-    }
-    public static float getResourceSelectionPromptFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 36f;
-            default -> 28f;
-        };
-    }
-
-
-
-
     private Building selectedActiveBuilding;
-
-
-
-
-
     private String activeMode;
     private volatile int[] selectedCoords;
-
-
-
     private boolean coordinatesClicked = false;
-
     private boolean isYes;
     private final ArrayList<Building> buildings;
     private final Board board;
@@ -284,7 +227,7 @@ public class BoardUI extends JPanel {
     }
     private JPanel createBoardHeaderPanel() {
         JPanel panel = new JPanel(new MigLayout());
-        Font font = panel.getFont().deriveFont(Font.BOLD, getPlayerHeaderTextFont());
+        Font font = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(42f));
         System.out.println(playerName);
         JLabel playerLabel = new JLabel(playerName+"'s Turn");
         playerLabel.setFont(font);
@@ -294,7 +237,7 @@ public class BoardUI extends JPanel {
     }
     private JPanel createResourceTextPanel() {
         JPanel panel = new JPanel(new MigLayout());
-        Font font = panel.getFont().deriveFont(Font.BOLD, getResourceTextFont());
+        Font font = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f));
 
         turnResourceText = new JLabel();
         turnResourceText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -318,7 +261,7 @@ public class BoardUI extends JPanel {
     private JPanel createResourceSelectionButtonPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JPanel selectionPanel = new JPanel(new GridLayout(1, 5, 0, 0));
-        Font font = panel.getFont().deriveFont(Font.BOLD, getResourceSelectionPromptFont());
+        Font font = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(36f));
         resourceSelectionLabel = new JLabel("Select a Resource");
         resourceSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resourceSelectionLabel.setFont(font);
@@ -337,7 +280,7 @@ public class BoardUI extends JPanel {
                 mainPanel.updateUI();
             });
             button.setText(resourceArray.get(i).toString());
-            button.setFont(panel.getFont().deriveFont(Font.BOLD, getBuildingSelectionPromptFont()));
+            button.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
             selectionPanel.add(button, "w "+UI_Utilities.convertIntToPercentString(200, true) + "!, h " + UI_Utilities.convertIntToPercentString(50, false) + "!");
         }
         panel.add(selectionPanel, "align center, span 3");
@@ -348,7 +291,7 @@ public class BoardUI extends JPanel {
     private JPanel createBuildingSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JPanel selectionPanel = new JPanel(new GridLayout(1, buildings.size()-1, 0, 0));
-        Font font = panel.getFont().deriveFont(Font.BOLD, getBuildingSelectionPromptFont());
+        Font font = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f));
         buildingSelectionLabel = new JLabel("Select a building to place.");
         buildingSelectionLabel.setFont(font);
         buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -367,7 +310,7 @@ public class BoardUI extends JPanel {
                     }
                 });
                 button.setText(building.toString());
-                button.setFont(panel.getFont().deriveFont(Font.BOLD, getBuildingSelectionPromptFont()));
+                button.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
                 selectionPanel.add(button, "w " + UI_Utilities.convertIntToPercentString(300, true) + ", h " + UI_Utilities.convertIntToPercentString(50, false));
             }
         }
@@ -383,7 +326,7 @@ public class BoardUI extends JPanel {
         JButton yesButton = new JButton("Yes");
         JButton noButton = new JButton("No");
         yesOrNoText = new JLabel();
-        yesOrNoText.setFont(panel.getFont().deriveFont(Font.BOLD, getYesNoPromptFont()));
+        yesOrNoText.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
         yesOrNoText.setHorizontalAlignment(SwingConstants.CENTER);
         Font font = panel.getFont().deriveFont(Font.BOLD, 20f);
         yesButton.setFont(font);
@@ -413,14 +356,14 @@ public class BoardUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         panel.setBorder(new LineBorder(Color.BLACK, 2));
         JLabel label = new JLabel("Other Players");
-        label.setFont(panel.getFont().deriveFont(Font.BOLD, getYesNoPromptFont()));
+        label.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, "dock center, align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
         ArrayList<Board> boards = board.getPlayerManager().getBoards();
         for (Board board : boards) {
             if (board != this.board) {
                 JButton button = new JButton(board.getBoardName());
-                button.setFont(panel.getFont().deriveFont(getPlayerViewFont()));
+                button.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(24f)));
                 button.setHorizontalAlignment(SwingConstants.CENTER);
                 Board thisBoard = this.board;
                 button.addMouseListener(new MouseAdapter() {
