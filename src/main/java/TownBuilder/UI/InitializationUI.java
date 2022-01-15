@@ -14,7 +14,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static TownBuilder.UI.ManualUI.getManualBuildingButtonFont;
 
 public class InitializationUI extends JPanel {
 
@@ -60,29 +59,18 @@ public class InitializationUI extends JPanel {
     public String getChosenBoardName() {
         return chosenBoardName;
     }
-    private static float getHeaderFont() {
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 60f;
-            default -> 50f;
-        };
-    }
-    private static float getButtonFont() {
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 30f;
-            default -> 24f;
-        };
-    }
 
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout("" +
                 "","[][]20[]", "[][]500[]"));
         JLabel titleLabel = new JLabel("TownBuilder");
-        titleLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
+        Font headerFont = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f));
+        titleLabel.setFont(headerFont);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel promptLabel = new JLabel("What type of game would you like?");
-        promptLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
+        promptLabel.setFont(headerFont);
         promptLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        Font buttonFont = panel.getFont().deriveFont(Font.BOLD, getButtonFont());
+        Font buttonFont = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f));
         JButton defaultButton = new JButton("Default");
         defaultButton.setHorizontalAlignment(SwingConstants.CENTER);
         defaultButton.setFont(buttonFont);
@@ -125,13 +113,13 @@ public class InitializationUI extends JPanel {
     private JPanel createPlayerSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel headerLabel = new JLabel("How many players?");
-        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
+        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f)));
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         Integer[] integers = new Integer[]{1,2,3,4,5,6};
         JComboBox<Integer> playerSelection = new JComboBox<>(integers);
         playerSelection.setSelectedIndex(0);
-        playerSelection.setFont(panel.getFont().deriveFont(getHeaderFont()));
+        playerSelection.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(60f)));
         playerSelection.addActionListener(e -> {
             //noinspection ConstantConditions
             playerCount = (int) playerSelection.getSelectedItem();
@@ -151,7 +139,7 @@ public class InitializationUI extends JPanel {
     private JPanel createBuildingSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel buildingSelectionLabel = new JLabel("Select your buildings!");
-        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getHeaderFont()));
+        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f)));
         buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         HashMap<ColorEnum, ArrayList<Building>> masterBuildingList = BuildingFactory.getBuildingMasterList();
         ColorEnum[] colors = GameInitializer.colors;
@@ -177,21 +165,21 @@ public class InitializationUI extends JPanel {
         JLabel explanationLabel = new JLabel("Here's what it does:");
         JLabel matrixLabel = new JLabel("Here's what it looks like:");
         JLabel buildingLabel = new JLabel(building.toString());
-        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, ManualUI.getManualIndividualBuildingHeaderFont()));
+        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
         buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, ManualUI.getManualBuildingButtonFont()));
+        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
         matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, ManualUI.getManualBuildingButtonFont()));
+        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
         explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setFont(panel.getFont().deriveFont(ManualUI.getBuildingManualEntryTextFont()));
+        textArea.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(24f)));
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JScrollPane jScrollPane = new JScrollPane(textArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         exitButton.setText(string);
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD,ManualUI.getManualBuildingButtonFont()));
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD,UI_Utilities.convertFontSize(25f)));
         exitButton.addActionListener(e -> {
             buildingSelection = building.getType();
             synchronized (Utility.getNotifier()) {

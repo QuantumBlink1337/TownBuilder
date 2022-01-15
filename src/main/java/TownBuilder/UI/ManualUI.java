@@ -21,68 +21,15 @@ public class ManualUI extends JPanel {
     JPanel manualRulesPanel;
     JPanel manualBuildingSelectionPanel;
 
-    public static float getManualHeaderFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 36f;
-            default -> 28f;
-        };
-    }
-    public static float getManualMenuFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 22f;
-            default -> 18f;
-        };
-    }
-    public static float getManualRuleBuildingButtonFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 36f;
-            default -> 26f;
-        };
-    }
-    public static float getManualBuildingButtonFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 25f;
-            default -> 18f;
-        };
-    }
-    public static float getManualIndividualBuildingHeaderFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 30f;
-            default -> 25;
-        };
-    }
-    public static float getBuildingManualEntryTextFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 24f;
-            default -> 16f;
-        };
-    }
-    public static float getRuleManualEntryTextFont() {
-        //noinspection SwitchStatementWithTooFewBranches
-        return switch (UI_Utilities.SCREEN_WIDTH) {
-            case 2560 -> 25f;
-            default -> 18f;
-        };
-    }
-
-
     public ManualUI(ArrayList<Building> buildingsForGame) {
         this.buildingsForGame = buildingsForGame;
         add(createMainManualPanel());
         setBorder(new LineBorder(Color.BLACK, 2));
     }
 
-
-
     private JPanel createMainManualPanel() {
         JPanel mainPanel = new JPanel(new MigLayout());
-        Font font = mainPanel.getFont().deriveFont(Font.BOLD, getManualHeaderFont());
+        Font font = mainPanel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(36f));
         JLabel label = new JLabel("Manual");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(font);
@@ -97,7 +44,7 @@ public class ManualUI extends JPanel {
     private JPanel createManualMenuPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel label = new JLabel("What would you like to read about?");
-        label.setFont(panel.getFont().deriveFont(Font.BOLD, getManualMenuFont()));
+        label.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(22f)));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, "dock center, wrap");
         initializeRuleButton();
@@ -109,7 +56,7 @@ public class ManualUI extends JPanel {
     }
     private void initializeRuleButton() {
         manualRuleAccessButton = new JButton("Rules");
-        Font font = this.getFont().deriveFont(getManualRuleBuildingButtonFont());
+        Font font = this.getFont().deriveFont(UI_Utilities.convertFontSize(36f));
         manualRuleAccessButton.setFont(font);
         manualRuleAccessButton.addActionListener(e -> {
             mainManualPanel.remove(manualMenuPanel);
@@ -119,7 +66,7 @@ public class ManualUI extends JPanel {
     }
     private void initalizeBuildingButton() {
         manualBuildingAccessButton = new JButton("Buildings");
-        Font font = this.getFont().deriveFont(getManualRuleBuildingButtonFont());
+        Font font = this.getFont().deriveFont(UI_Utilities.convertFontSize(36f));
         manualBuildingAccessButton.setFont(font);
         manualBuildingAccessButton.addActionListener(e -> {
             mainManualPanel.remove(manualMenuPanel);
@@ -128,24 +75,23 @@ public class ManualUI extends JPanel {
         });
     }
     private void initializeBuildingMenu() {
-        manualBuildingSelectionPanel = new JPanel(new MigLayout("", "[]0[]0[]", "[][][]"));
-
+        manualBuildingSelectionPanel = new JPanel(new MigLayout("", "[]0[]0[]", "[]3[]3[]"));
+        Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f));
         for (Building building : buildingsForGame) {
             JPanel panel = initializeIndividualBuildingView(building);
             JButton button = new JButton(building.toString());
             button.setBackground(building.getType().getColor().getOverallColor());
-            Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont());
             button.setFont(font);
             button.addActionListener(e -> {
                 mainManualPanel.remove(manualBuildingSelectionPanel);
                 mainManualPanel.add(panel, "w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
                 mainManualPanel.updateUI();
             });
-            manualBuildingSelectionPanel.add(button, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(35, false) + "!");
+            manualBuildingSelectionPanel.add(button, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         }
         JButton exitButton = new JButton();
         exitButton.setText("EXIT");
-        exitButton.setFont(manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont()));
+        exitButton.setFont(font);
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualBuildingSelectionPanel);
             mainManualPanel.add(manualMenuPanel, "wrap, align center, w " + UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
@@ -161,21 +107,24 @@ public class ManualUI extends JPanel {
         JLabel explanationLabel = new JLabel("Here's what it does:");
         JLabel matrixLabel = new JLabel("Here's what it looks like:");
         JLabel buildingLabel = new JLabel(building.toString());
-        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getManualIndividualBuildingHeaderFont()));
+        Font font1 = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f));
+        Font font2 = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f));
+        Font font3 = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(24f));
+        buildingLabel.setFont(font2);
         buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont()));
+        matrixLabel.setFont(font1);
         matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont()));
+        explanationLabel.setFont(font1);
         explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setFont(panel.getFont().deriveFont(getBuildingManualEntryTextFont()));
+        textArea.setFont(font3);
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JScrollPane jScrollPane = new JScrollPane(textArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         exitButton.setText("EXIT");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getManualIndividualBuildingHeaderFont()));
+        exitButton.setFont(font3);
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(panel);
             mainManualPanel.add(manualBuildingSelectionPanel, "dock center");
@@ -220,7 +169,7 @@ public class ManualUI extends JPanel {
         for (ArrayList<String> rules : rules) {
             JPanel individualRulePanel = initializeRulePage(rules.get(1));
             JButton button = new JButton(rules.get(0));
-            Font font = individualRulePanel.getFont().deriveFont(Font.BOLD, getManualBuildingButtonFont());
+            Font font = individualRulePanel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f));
             button.setFont(font);
             individualRulePanel.setVisible(true);
             button.addActionListener(e -> {
@@ -229,10 +178,10 @@ public class ManualUI extends JPanel {
                 mainManualPanel.updateUI();
             });
 
-            panel.add(button, "dock center, wrap, h "+UI_Utilities.convertIntToPercentString(35, false) + "!" );
+            panel.add(button, "dock center, wrap, h "+UI_Utilities.convertIntToPercentString(40, false) + "!" );
         }
         JButton exitButton = new JButton("EXIT");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getManualIndividualBuildingHeaderFont()));
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(manualRulesPanel);
             mainManualPanel.add(manualMenuPanel, "wrap, w " + UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
@@ -246,7 +195,7 @@ public class ManualUI extends JPanel {
         JTextArea textArea = new JTextArea();
         JButton exitButton = new JButton();
         exitButton.setText("EXIT");
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, getManualRuleBuildingButtonFont()));
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(36f)));
         exitButton.addActionListener(e -> {
             mainManualPanel.remove(panel);
             mainManualPanel.add(manualRulesPanel, "w " + UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
@@ -257,7 +206,7 @@ public class ManualUI extends JPanel {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setText(ruleText);
-        textArea.setFont(panel.getFont().deriveFont(getRuleManualEntryTextFont()));
+        textArea.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(25f)));
         textArea.setBorder(BorderFactory.createLineBorder(Color.black));
         JScrollPane jScrollPane = new JScrollPane(textArea);
         jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
