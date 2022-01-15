@@ -25,4 +25,7 @@ public class UI_Utilities {
             return (value * SCREEN_HEIGHT) / 1440;
         }
     }
+    public static float convertFontSize(float value) {
+        return (float) (value * (SCREEN_WIDTH/2560.0));
+    }
 }
