@@ -15,20 +15,12 @@ import java.util.Arrays;
 public class Board {
     private final ArrayList<Building> detectableBuildings;
     private final ArrayList<Building> scorableBuildings;
-
-
-
     private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED,
             BuildingEnum.GROVEUNI, BuildingEnum.MANDRAS, BuildingEnum.OPALEYE, BuildingEnum.SHRINE, BuildingEnum.SILVAFRM, BuildingEnum.STARLOOM, BuildingEnum.OBELISK, BuildingEnum.SKYBATHS));
-
-
-
     private ArrayList<ResourceEnum> blacklistedResources;
-
     public Scorer getScorer() {
         return scorer;
     }
-
     private final Scorer scorer;
     private int spResourceSelectionIncrement = 0;
     private int boardFinishPlace = 0;
@@ -48,8 +40,29 @@ public class Board {
     private final BoardUI boardUI;
     private final Object notifier;
 
-
-
+    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName) throws IOException {
+        this.playerManager = playerManager;
+        this.boardName = boardName;
+        isSingleplayer = ISP;
+        // these monuments won't work / will crash the game if its singleplayer
+        // the board game also doesn't let SP users use these monuments anyway
+        if (ISP) {
+            monumentTypes.removeIf(m -> m == BuildingEnum.IRONWEED || m == BuildingEnum.OPALEYE || m == BuildingEnum.STARLOOM) ;
+        }
+        // use b to create two separate arraylists because what is scorable isn't always a valid building to find (monuments)
+        detectableBuildings = new ArrayList<>(b);
+        scorableBuildings = new ArrayList<>(b);
+        buildingFactory = new BuildingFactory();
+        generateMonument();
+        scorer = new Scorer(this, scorableBuildings);
+        boardUI = new BoardUI(this);
+        notifier = new Object();
+        buildArrays();
+        updateBoard();
+    }
+    /*
+        Debug constructor for Board. Used for ScoringBuildingTest
+     */
     public Board(ArrayList<Building> b, BuildingEnum mo, PlayerManager playerManager) throws IOException {
         this.playerManager = playerManager;
         boardName = "DEBUG";
@@ -68,23 +81,7 @@ public class Board {
         buildArrays();
         updateBoard();
     }
-    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName) throws IOException {
-        this.playerManager = playerManager;
-        this.boardName = boardName;
-        isSingleplayer = ISP;
-        if (ISP) {
-            monumentTypes.removeIf(m -> m == BuildingEnum.IRONWEED || m == BuildingEnum.OPALEYE || m == BuildingEnum.STARLOOM) ;
-        }
-        detectableBuildings = new ArrayList<>(b);
-        scorableBuildings = new ArrayList<>(b);
-        buildingFactory = new BuildingFactory();
-        generateMonument();
-        scorer = new Scorer(this, scorableBuildings);
-        boardUI = new BoardUI(this);
-        notifier = new Object();
-        buildArrays();
-        updateBoard();
-    }
+
     public BuildingEnum getLastBuiltBuilding() {
         return lastBuiltBuilding;
     }
@@ -121,6 +118,9 @@ public class Board {
     public void setPlaceAnywhere(boolean placeAnywhere) {
         this.placeAnywhere = placeAnywhere;
     }
+    /*
+        Generates a monument for a user based on the available monument types arraylist.
+     */
     private void generateMonument() throws IOException {
         int randomIndex = (int) (Math.random() * monumentTypes.size());
         Monument monument = BuildingFactory.getMonument(monumentTypes.get(randomIndex), this, -1, -1, scorableBuildings);
@@ -128,6 +128,9 @@ public class Board {
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
     }
+    /*
+        Fills the arrays with new "blank" representations of the objects they're tracking.
+     */
     private void buildArrays() throws IOException {
         DebugTools.logging("Initializing Resource Board.");
         for (int row = 0; row < gameResourceBoard.length; row++) {
@@ -152,6 +155,10 @@ public class Board {
     public int scoring() throws IOException {
         return scorer.scoring();
     }
+    /*
+        If either of the boards have a slot that is nonempty, then increment by one.
+        Returns true if i is greater than or equal to the area of the board.
+     */
     public boolean gameOver() throws IOException {
         int i = 0;
         this.updateBoard();
@@ -164,10 +171,16 @@ public class Board {
         }
         return i >= (gameResourceBoard.length * gameResourceBoard.length);
     }
+    /*
+        Called when a monument is placed on the board.
+     */
     public void monumentControl(Monument monument) throws IOException {
         monument.onPlacement();
         monumentPlacement = true;
     }
+    /*
+        Prompts the user on if they want to place a building that was detected.
+     */
     private void placementPrompt(Building building) throws IOException {
         boardUI.highlightBoardTiles(buildingFactory.getValidResources());
         boardUI.promptYesNoPrompt("A valid "+building.toString()+" construction was found. Place it this turn?");
@@ -181,19 +194,25 @@ public class Board {
             }
         }
         selection = boardUI.getUserYesNoAnswer();
+        // if they said yes, then call placeBuildingOnBoard
         if (selection) {
             lastBuiltBuilding = building.getType();
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
         }
+        // otherwise, reset the tiles as if they were not detected at all
         else {
             boardUI.resetBoardTiles(true, true);
             buildingFactory.clearValidResourcesWithFlag(building.getType());
         }
     }
+    /*
+        Iterates through each index of resource board and detects if a valid pattern is present starting at that index.
+     */
     public void detectValidBuilding() throws IOException {
         for (int row = 0; row < gameResourceBoard.length; row++) {
             for (int col = 0; col < gameResourceBoard[row].length; col++) {
                 for (Building building : detectableBuildings) {
+                    // If the building in question is a monument, and we already placed a monument, do not attempt detection
                     if (building instanceof Monument) {
                         if (!monumentPlacement) {
                             if (buildingFactory.detection(row, col, gameResourceBoard, building.getBuildingPatternsList(), building.getType())) {
@@ -210,6 +229,10 @@ public class Board {
             }
         }
     }
+    /*
+        Runs a buildings turn interval. E.g a Farm feeding buildings.
+        Also used to detect how many active buildings are on the board to prevent further detection.
+     */
     public void runBuildingTurnAction() throws IOException {
         int bankCounter = 0;
         for (Building[] buildings : gameBuildingBoard) {
@@ -222,15 +245,25 @@ public class Board {
                         blacklistedResources.add(blacklistedResource);
                     }
                 }
+
                 else if (building instanceof Warehouse || building instanceof Factory || building instanceof TradingPost) {
                     bankCounter++;
                 }
             }
         }
+        /*
+           If we have more than 4 active buildings the active building UI panel would overflow into the scoring panel and look bad.
+           We cannot have 4 banks because a 5th bank would softlock at resource selection. Also the board game doesn't let you have 4 banks.
+        */
         if (bankCounter > 4) {
             detectableBuildings.removeIf(building -> building.getType() == BuildingEnum.BANK || building.getType() == BuildingEnum.WAREHOUSE || building.getType() == BuildingEnum.TRDINGPST || building.getType() == BuildingEnum.FACTORY);
         }
     }
+    /*
+        Handles resource selection. For multiplayer, we just call resourcePicker for the resource.
+        For singleplayer, depending on spResourceSelectionIncrement we either do that or call a random.
+        Either way, the resulting ResourceEnum is returned.
+     */
     public ResourceEnum resourcePicker(String string) throws IOException {
         ResourceEnum turnResource;
         if (!isSingleplayer) {
@@ -251,9 +284,8 @@ public class Board {
         }
         return turnResource;
     }
-    public void buildingPlacer() throws IOException {
-        buildingPlacer(detectableBuildings, true);
-    }
+    /*
+     */
     public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeBuildingOnBoard) throws IOException {
         boardUI.promptBuildingSelection("What building would you like?");
         synchronized (Utility.getNotifier()) {
