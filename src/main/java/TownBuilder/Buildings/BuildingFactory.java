@@ -253,7 +253,7 @@ public class BuildingFactory {
         }
         Building[][] bArray = board.getGameBuildingBoard();
         Resource[][] rArray = board.getGameResourceBoard();
-        board.getBoardUI().setPrimaryTextLabel("Your selected building is " + Utility.generateColorizedString(building.toString(), buildingEnum) + ".");
+        board.getBoardUI().setPrimaryTextLabel("Your selected building is " + building.toString() + ".");
         if (PlaceBuildingAnywhere) {
             board.getBoardUI().setSecondaryTextLabel("You can place your building wherever you want, provided there's nothing there already!");
             board.getBoardUI().resetBoardTiles(true, true);

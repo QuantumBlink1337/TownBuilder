@@ -109,16 +109,16 @@ public class Utility {
         }
     }
 
-    public static void printBuildingInfo(Building building) {
-        System.out.println(Utility.generateColorizedString(building.toString(), building.getType()));
-        building.printManualText();
-        System.out.println("--------------------------------------------------------");
-    }
-    public static void printBuildingsInList(ArrayList<Building> buildings) {
-        for (Building building : buildings) {
-            printBuildingInfo(building);
-        }
-    }
+//    public static void printBuildingInfo(Building building) {
+//        System.out.println(Utility.generateColorizedString(building.toString(), building.getType()));
+//        building.printManualText();
+//        System.out.println("--------------------------------------------------------");
+//    }
+//    public static void printBuildingsInList(ArrayList<Building> buildings) {
+//        for (Building building : buildings) {
+//            printBuildingInfo(building);
+//        }
+//    }
     @SuppressWarnings({"unused", "StringOperationCanBeSimplified"})
     public static <T> void printMembersof3dArrayList(ArrayList<T[][]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
@@ -142,12 +142,12 @@ public class Utility {
         }
         return string;
     }
-    public static String generateColorizedString(String string, Attribute c) {
-        if (color) {
-            return Ansi.colorize(string, c);
-        }
-        return string;
-    }
+//    public static String generateColorizedString(String string, Attribute c) {
+//        if (color) {
+//            return Ansi.colorize(string, c);
+//        }
+//        return string;
+//    }
     public static Attribute generateAttributeFromColor(Color color) {
         int r = color.getRed();
         int g = color.getGreen();

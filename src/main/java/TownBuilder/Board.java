@@ -127,10 +127,6 @@ public class Board {
         monumentTypes.remove(randomIndex);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
-        System.out.print(boardName + ", your Monument is ");
-        if (monument != null) {
-            Utility.printBuildingInfo(monument);
-        }
     }
     private void buildArrays() throws IOException {
         DebugTools.logging("Initializing Resource Board.");
@@ -174,7 +170,7 @@ public class Board {
     }
     private void placementPrompt(Building building) throws IOException {
         boardUI.highlightBoardTiles(buildingFactory.getValidResources());
-        boardUI.promptYesNoPrompt("A valid "+Utility.generateColorizedString(building.toString(), building.getType())+" construction was found. Place it this turn?");
+        boardUI.promptYesNoPrompt("A valid "+building.toString()+" construction was found. Place it this turn?");
         boolean selection;
         synchronized (Utility.getNotifier()) {
             try {
