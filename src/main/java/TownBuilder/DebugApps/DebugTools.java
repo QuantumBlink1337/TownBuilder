@@ -22,15 +22,16 @@ public class DebugTools {
      */
     private static final File log = new File("latest.log");
     private static BufferedWriter bufferedWriter = null;
+    private static boolean success;
 
 
     static {
-        initFile();
+        //initFile();
     }
 
     public static void initFile() {
         try {
-            log.createNewFile();
+            success = log.createNewFile();
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -43,13 +44,15 @@ public class DebugTools {
     }
 
     public static void logging(String string) throws IOException {
-        try {
-            bufferedWriter.write(string);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+        if (success) {
+            try {
+                bufferedWriter.write(string);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     public static <T> String createStringOfObjectsInArray(T[] array) {

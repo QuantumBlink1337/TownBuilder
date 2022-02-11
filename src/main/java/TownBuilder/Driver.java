@@ -17,7 +17,7 @@ public class Driver {
         initFrame();
         GameInitializer gameInitializer = new GameInitializer();
 
-        DebugTools.initFile();
+        //DebugTools.initFile();
         gameInitializer.buildingSelection();
         PlayerManager playerManager = new PlayerManager(gameInitializer.getBuildingsForGame(), gameInitializer.getInitializationUI());
         playerManager.determineNumberOfBoards();
