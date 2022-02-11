@@ -62,7 +62,7 @@ public class InitializationUI extends JPanel {
 
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout("" +
-                "","[][]20[]", "[][]500[]"));
+                "","[][]"+UI_Utilities.convertIntToPercentString(20, true)+"[]", "[][]"+UI_Utilities.convertIntToPercentString(500, false)+"[]"));
         JLabel titleLabel = new JLabel("TownBuilder");
         Font headerFont = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f));
         titleLabel.setFont(headerFont);
@@ -214,11 +214,11 @@ public class InitializationUI extends JPanel {
     public JPanel generatePlayerNameSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel headerLabel = new JLabel("What's your name?");
-        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, 50f));
+        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(50f)));
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JTextArea nameTextArea = new JTextArea();
         JButton button = new JButton("Enter");
-        button.setFont(panel.getFont().deriveFont(Font.BOLD, 15f));
+        button.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(20f)));
         button.setHorizontalAlignment(SwingConstants.CENTER);
         button.addActionListener(e -> {
             if (nameTextArea.getText().length() < 20) {
@@ -231,11 +231,11 @@ public class InitializationUI extends JPanel {
         nameTextArea.setEditable(true);
         nameTextArea.setLineWrap(true);
         nameTextArea.setWrapStyleWord(true);
-        nameTextArea.setFont(panel.getFont().deriveFont(20f));
+        nameTextArea.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(40f)));
         nameTextArea.setBorder(BorderFactory.createLineBorder(Color.black));
         panel.add(headerLabel, "dock center, wrap");
         panel.add(nameTextArea, "dock center, align center, wrap, gaptop " + UI_Utilities.convertIntToPercentString(400, false));
-        panel.add(button, "dock center, align center");
+        panel.add(button, "dock center, align center, w "+UI_Utilities.convertIntToPercentString(850, true)+"!, h " + UI_Utilities.convertIntToPercentString(150, false) + "!");
 
         return panel;
     }
