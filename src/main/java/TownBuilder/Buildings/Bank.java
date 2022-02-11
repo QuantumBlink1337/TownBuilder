@@ -92,7 +92,6 @@ public class Bank implements Building{
     public void printManualText() {
         System.out.println("The Bank earns four points. When you place it, you must choose a resource. You may no longer choose that resource when it is your turn to pick a resource.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(bankPattern);
     }
 
     @Override

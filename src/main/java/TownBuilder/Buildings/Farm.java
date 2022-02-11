@@ -62,7 +62,6 @@ public class Farm implements Building {
     public void printManualText() {
         System.out.println("The Farm feeds up to four buildings on the board.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(farmArray);
     }
 
     @Override

@@ -86,7 +86,6 @@ public class AGuild implements Monument {
     public void printManualText() {
         System.out.println("The Architect's Guild is worth one point. \nWhen built, you may replace two buildings on your board with a building of your choice.");
         System.out.println("Here's what it look's like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

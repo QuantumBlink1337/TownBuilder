@@ -77,7 +77,6 @@ public class Orchard implements Building {
     public void printManualText() {
         System.out.println("The Orchard feeds any building in its row or column.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(orchardPatternList.get(0));
     }
 
     @Override

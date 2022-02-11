@@ -98,6 +98,18 @@ public class Utility {
             }
         }
     }
+//    public static String generateColorizedString(String string, ResourceEnum resource) {
+//        if (color) {
+//            return Ansi.colorize(string, new AnsiFormat(generateAttributeFromColor(resource.getColor().getOverallColor())));
+//        }
+//        return string;
+//    }
+//    public static String generateColorizedString(String string, BuildingEnum building) {
+//        if (color) {
+//            return Ansi.colorize(string, new AnsiFormat(generateAttributeFromColor(building.getColor().getOverallColor()), Attribute.BOLD()));
+//        }
+//        return string;
+//    }
     public static Attribute generateAttributeFromColor(Color color) {
         int r = color.getRed();
         int g = color.getGreen();

@@ -81,7 +81,6 @@ public class Bakery implements Building{
     public void printManualText() {
         System.out.println(getManualEntry());
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(bakeryArray);
     }
 
     @Override

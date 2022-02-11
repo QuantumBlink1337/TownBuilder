@@ -73,7 +73,6 @@ public class Warehouse implements Building {
         System.out.println("While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.");
         System.out.println("Note: these resources still count as a negative point!");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(warehouseArray);
     }
 
     @Override

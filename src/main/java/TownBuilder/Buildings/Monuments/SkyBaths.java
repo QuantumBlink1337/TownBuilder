@@ -74,7 +74,6 @@ public class SkyBaths implements Monument{
     public void printManualText() {
         System.out.println("2 Points for each building type your board is missing.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

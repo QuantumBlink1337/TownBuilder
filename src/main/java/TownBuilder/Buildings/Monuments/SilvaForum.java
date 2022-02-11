@@ -119,7 +119,6 @@ public class SilvaForum implements Monument{
     public void printManualText() {
         System.out.println("+1 Point. Grants points equal to the size of the largest group of unique contiguous buildings.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

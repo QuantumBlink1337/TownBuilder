@@ -56,7 +56,6 @@ public class Shed implements Building {
 
     public void printManualText() {
         System.out.println("Grants one point. May be placed on any empty square on your board.");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

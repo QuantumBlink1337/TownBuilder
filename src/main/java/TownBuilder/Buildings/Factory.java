@@ -99,7 +99,6 @@ public class Factory implements Building{
     public void printManualText() {
         System.out.println("When you place a Factory, you must also select a resource for it to use.\nIf your selected resource is the one given to you this turn, you may choose another resource.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(factoryPattern);
     }
 
     @Override

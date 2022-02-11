@@ -94,7 +94,6 @@ public class Almshouse implements Building{
         System.out.print("5 Almshouses: -5 Points | ");
         System.out.print("6 Almshouses: 26 Points");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(almshousePatternList.get(0));
     }
 
     @Override

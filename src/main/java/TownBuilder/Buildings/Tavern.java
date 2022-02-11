@@ -65,7 +65,6 @@ public class Tavern implements Building {
         System.out.print("4 Taverns: 14 Points | ");
         System.out.print("5 Taverns: 20 Points\n");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(tavernArray);
     }
 
     @Override

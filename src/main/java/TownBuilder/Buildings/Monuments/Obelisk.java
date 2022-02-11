@@ -71,7 +71,6 @@ public class Obelisk implements Monument {
     public void printManualText() {
         System.out.println("You may place all future buildings on any empty square on your board.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

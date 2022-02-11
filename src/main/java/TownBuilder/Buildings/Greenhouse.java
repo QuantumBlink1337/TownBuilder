@@ -98,7 +98,6 @@ public class Greenhouse implements Building {
     public void printManualText() {
         System.out.println("The Greenhouse feeds a contiguous group of feedable buildings on the board.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(greenhousePatternList.get(0));
     }
 
     @Override

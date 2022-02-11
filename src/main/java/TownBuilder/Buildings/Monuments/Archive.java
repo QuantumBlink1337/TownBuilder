@@ -88,7 +88,6 @@ public class Archive implements Monument {
     public void printManualText() {
         System.out.println("The Archive of the Second Age earns 1 point for each unique building\n(not including itself) on the board.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

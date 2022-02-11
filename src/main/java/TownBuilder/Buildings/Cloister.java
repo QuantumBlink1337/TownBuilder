@@ -76,7 +76,7 @@ public class Cloister implements Building {
         System.out.println("The Cloister earns 1 point for every Orange building in a corner of your board.");
         System.out.println("Note: a Cloister not in a corner still earns points, but it doesn't contribute to other Cloisters.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(cloisterPatternList.get(0));
+
     }
 
     @Override

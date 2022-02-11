@@ -87,7 +87,6 @@ public class OpaleyeWatch implements Monument{
     public void printManualText() {
         System.out.println("Upon placement, declare three different buildings.\nWhenever a player to your left or right constructs one of those buildings,\nplace that building on an empty spot on your board and remove it from Opaleye's Watch.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

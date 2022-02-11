@@ -80,7 +80,6 @@ public class Millstone implements Building{
         System.out.println("The Millstone grants 2 points if it is adjacent to a RED building or a YELLOW building.");
         System.out.println("Note: the maximum amount of points a Millstone can earn is 2.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(millstonePatternArray.get(0));
     }
 
     @Override

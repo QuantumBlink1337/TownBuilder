@@ -62,7 +62,6 @@ public class Well implements Building {
         System.out.println("The Well grants one point for each adjacent Cottage.");
         System.out.println("Note: these Cottages do not need to be fed. Note: diagonals do not count.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(wellArray);
     }
 
     @Override

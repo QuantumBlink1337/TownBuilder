@@ -79,7 +79,6 @@ public class Rodina implements Monument{
     public void printManualText() {
         System.out.println("3 Points for each unfed cottage.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

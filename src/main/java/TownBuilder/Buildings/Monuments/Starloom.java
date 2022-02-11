@@ -87,7 +87,6 @@ public class Starloom implements Monument{
         System.out.print("3rd: 2 Points | ");
         System.out.print("4th+: 0 Points\n");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(pattern);
     }
 
     @Override

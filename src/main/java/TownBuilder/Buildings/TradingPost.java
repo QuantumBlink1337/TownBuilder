@@ -77,7 +77,6 @@ public class TradingPost implements Building{
     public void printManualText() {
         System.out.println("The Trading Post earns one point. The Trading Post acts as any resource when\nconstructing a building.");
         System.out.println("Here's what it looks like:");
-        Utility.printFormattedResourcePattern(tPostPattern);
     }
 
     @Override
