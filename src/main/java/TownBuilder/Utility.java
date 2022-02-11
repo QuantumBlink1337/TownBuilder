@@ -48,29 +48,6 @@ public class Utility {
             }
         }
     }
-    public static void printFormattedResourcePattern(ResourceEnum[][] resourceEnums) {
-        int whitespace = 5;
-        for (ResourceEnum[] ts : resourceEnums) {
-            for (int col = 0; col < ts.length; col++) {
-                if (col == (ts.length - 1)) {
-                    if (ts[col] != ResourceEnum.NONE) {
-                        System.out.println("[" + Utility.generateColorizedString(Utility.lengthResizer(ts[col].toString(), whitespace) , ts[col])+ "]");
-                    }
-                    else {
-                        System.out.println("[" + Utility.generateColorizedString(Utility.lengthResizer("", whitespace) , ts[col])+ "]");
-                    }
-                }
-                else {
-                    if (ts[col] != ResourceEnum.NONE) {
-                        System.out.print("[" + Utility.generateColorizedString(Utility.lengthResizer(ts[col].toString(), whitespace) , ts[col])+ "]");
-                    }
-                    else {
-                        System.out.print("[" + Utility.generateColorizedString(Utility.lengthResizer("", whitespace) , ts[col])+ "]");
-                    }
-                }
-            }
-        }
-    }
     /*
         Rotate pattern 90 degrees to the right.
     */
@@ -109,16 +86,7 @@ public class Utility {
         }
     }
 
-//    public static void printBuildingInfo(Building building) {
-//        System.out.println(Utility.generateColorizedString(building.toString(), building.getType()));
-//        building.printManualText();
-//        System.out.println("--------------------------------------------------------");
-//    }
-//    public static void printBuildingsInList(ArrayList<Building> buildings) {
-//        for (Building building : buildings) {
-//            printBuildingInfo(building);
-//        }
-//    }
+
     @SuppressWarnings({"unused", "StringOperationCanBeSimplified"})
     public static <T> void printMembersof3dArrayList(ArrayList<T[][]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
@@ -130,24 +98,6 @@ public class Utility {
             }
         }
     }
-    public static String generateColorizedString(String string, ResourceEnum resource) {
-        if (color) {
-            return Ansi.colorize(string, new AnsiFormat(generateAttributeFromColor(resource.getColor().getOverallColor())));
-        }
-        return string;
-    }
-    public static String generateColorizedString(String string, BuildingEnum building) {
-        if (color) {
-            return Ansi.colorize(string, new AnsiFormat(generateAttributeFromColor(building.getColor().getOverallColor()), Attribute.BOLD()));
-        }
-        return string;
-    }
-//    public static String generateColorizedString(String string, Attribute c) {
-//        if (color) {
-//            return Ansi.colorize(string, c);
-//        }
-//        return string;
-//    }
     public static Attribute generateAttributeFromColor(Color color) {
         int r = color.getRed();
         int g = color.getGreen();

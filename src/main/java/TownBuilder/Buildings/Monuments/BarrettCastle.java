@@ -68,7 +68,7 @@ public class BarrettCastle implements Monument {
 
     @Override
     public int scorer(Building[][] bArray) throws IOException {
-        DebugTools.logging(Utility.generateColorizedString("Beginning "+ this+" scoring protocol.", this.getType()));
+        DebugTools.logging("[BARRETT_CASTLE] - Beginning Scoring Process.");
         return condition ? 5 : 0;
     }
 
