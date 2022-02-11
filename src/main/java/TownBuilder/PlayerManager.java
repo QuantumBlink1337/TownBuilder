@@ -6,7 +6,6 @@ import TownBuilder.UI.InitializationUI;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 
 public class PlayerManager {
@@ -20,12 +19,13 @@ public class PlayerManager {
     private final ArrayList<Building> masterBuildings;
     private boolean isSingleplayer;
     private int boardFinishPlace = 1;
-
+    // default constructor. takes the InitializationUI in order to prompt the GUI
     public PlayerManager(ArrayList<Building> masterBuildings, InitializationUI iUI) throws IOException {
         this.masterBuildings = masterBuildings;
         initializationUI = iUI;
         DebugTools.logging("[PLAYER_MANAGER_INIT]");
     }
+    // this constructor should only be invoked in a debug setting, usually the MPTest executable uses this as it pre-gens the Boards
     public PlayerManager(ArrayList<Building> masterBuildings, Board... b) throws IOException {
         DebugTools.logging("[DEBUG_PLAYER_MANAGER_INIT]");
         initializationUI = null;
@@ -34,9 +34,10 @@ public class PlayerManager {
         multiplayerModifiableBoards = new ArrayList<>(boards);
         isSingleplayer = boards.size() < 2;
     }
+    // prompts GUI to select how many players there will be and creates n amount of Boards and places them in boards
     public void determineNumberOfBoards() throws IOException {
         System.out.println("board");
-        int playerCount = 0;
+        int playerCount;
         DebugTools.logging("[PLAYER_MANAGER] - Determining number of boards");
         initializationUI.promptPlayerSelection();
         synchronized (Utility.getNotifier()) {
@@ -55,7 +56,7 @@ public class PlayerManager {
 
         for (int i= 0; i < playerCount; i++) {
             // generates a new Board object for each player
-            JPanel panel = initializationUI.generatePlayerNameSelectionPanel();
+            JPanel panel = initializationUI.generatePlayerNameSelectionPanel(); // temporarily adds a unique player name selection panel and removes it when name is collected
             initializationUI.add(panel);
             initializationUI.updateUI();
             synchronized (Utility.getNotifier()) {
@@ -75,11 +76,12 @@ public class PlayerManager {
         isSingleplayer = !(boards.size() > 1);
         multiplayerModifiableBoards = new ArrayList<>(boards);
         Driver.getGameFrame().remove(initializationUI);
-        Driver.initFrame();
+        Driver.initFrame(); // reset Frame when removing the initialization panel. it will not appear again in the program
         for (Board board : boards) {
             board.getBoardUI().createPlayerView();
         }
     }
+    // returns true if there is at least one Board that is still able to place things
     public boolean gameActive() throws IOException {
         int finishedPlayers = 0;
         for (Board board : boards) {
@@ -87,9 +89,11 @@ public class PlayerManager {
         }
         return finishedPlayers != boards.size();
     }
+    // returns true if board cannot place anything else on it
     public boolean boardComplete(Board board) {
         if (board.isGameCompletion()) {
             if (board.getBoardFinishPlace() == 0) {
+                // gives the board its placement when finishing. useful for the Monument Starloom which determines points based on this value
                 board.setBoardFinishPlace(boardFinishPlace);
                 boardFinishPlace++;
             }
@@ -100,9 +104,11 @@ public class PlayerManager {
     public ArrayList<Board> getBoards() {
         return boards;
     }
+    // gets "adjacent" boards. this is to simulate a real life board game system of "the player to your left/right".
     public Board[] getAdjacentBoards(Board b) throws IOException {
         Board[] adjacentBoards = new Board[2];
         DebugTools.logging("[GET_ADJACENT_BOARDS] - Starting process.");
+        // if this was called from singleplayer something is very wrong, and we need to crash the program :(
         if (isSingleplayer) {
             DebugTools.logging("[GET_ADJACENT_BOARDS] - This was called from a singleplayer game. THIS WILL RESULT IN AN EXCEPTION.");
             throw new NullPointerException();
@@ -115,6 +121,7 @@ public class PlayerManager {
                 break;
             }
         }
+        // if we can't go to the index to the left of the given index, just wrap to the last one on the list
         if (index-1 < 0) {
             adjacentBoards[0] = boards.get(boards.size()-1);
             DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board doesn't exist. Wrapping to the last Board in the list - " + adjacentBoards[0].getBoardName());
@@ -123,6 +130,7 @@ public class PlayerManager {
             adjacentBoards[0] = boards.get(index-1);
             DebugTools.logging("[GET_ADJACENT_BOARDS] - Left Bound Board grabbed - " + adjacentBoards[0].getBoardName());
         }
+        // if we can't go to the index to the right of the given index, just wrap to the first one on the list
         if (index+1 > boards.size() - 1) {
             adjacentBoards[1] = boards.get(0);
             DebugTools.logging("[GET_ADJACENT_BOARDS] - Right Bound Board doesn't exist. Wrapping to the first Board in the list - " + adjacentBoards[1].getBoardName());
@@ -134,7 +142,8 @@ public class PlayerManager {
         }
         return adjacentBoards;
     }
-    public void manageTurn() throws IOException, URISyntaxException, InterruptedException {
+    // general turn actions for each Board. this is where the main game logic actually occurs and all processes (building placement, etc.) spawn from this method.
+    public void manageTurn() throws IOException, InterruptedException {
         ResourceEnum resource;
         DebugTools.logging("[MANAGE_TURN] - Beginning turn management process. Is Singleplayer? : " + isSingleplayer);
         if (isSingleplayer) {
@@ -145,6 +154,9 @@ public class PlayerManager {
             Driver.getGameFrame().add(board.getBoardUI());
             Driver.initFrame();
             if (!board.isGameCompletion()) {
+                /*
+                    Support for the debug version of the game is here. If the Board name is set to a debug string, we pass along variables that force turnExecution to do what the debug task is.
+                 */
                 if (board.getBoardName().equals("debug")) {
                     DebugTools.logging("[MANAGE_TURN] - Debug Singleplayer turnExecution");
                     turnExecution(board, null, true, true, false, masterBuildings);
@@ -157,7 +169,6 @@ public class PlayerManager {
                 }
                 else {
                     DebugTools.logging("[MANAGE_TURN] -  Singleplayer turnExecution");
-
                     turnExecution(board, null, true, false, false, masterBuildings);
                 }
             }
@@ -177,13 +188,15 @@ public class PlayerManager {
         else {
              /*
                     multiplayer functions by using an ArrayList of Board objects. the first player is the first Board.
-                    the first index of the ArrayList is used to pick the resource and they play their turn, and then are removed from the
+                    the first index of the ArrayList is used to pick the resource, and they play their turn, and then are removed from the
                     list temporarily. the remaining players execute their turns based on the assignment of resource. then, the first board
                     is added back to the end.
                  */
             Board pickResourceBoard;
 
+            // first, we determine the player whose turn it is to select the resource for everyone else.
 
+            // the monument FortIronweed removes the ability to pick the resource. if this applies to the board at 0, then just go to the next one available.
             if (multiplayerModifiableBoards.get(0).CanBeMasterBuilder()) {
                 pickResourceBoard = multiplayerModifiableBoards.get(0);
             }
@@ -193,21 +206,21 @@ public class PlayerManager {
             DebugTools.logging("[MULTIPLAYER_TURN] - Stored Board " +pickResourceBoard.getBoardName());
             Driver.getGameFrame().add(pickResourceBoard.getBoardUI());
             Driver.initFrame();
-            resource = turnExecution(pickResourceBoard, null, true, true, false, masterBuildings );
-            multiplayerModifiableBoards.remove(pickResourceBoard); // removes from board
 
-            Thread.sleep(1000);
+            resource = turnExecution(pickResourceBoard, true, false, masterBuildings);
+            multiplayerModifiableBoards.remove(pickResourceBoard); // removes from board
+            Thread.sleep(1000); // why is this here?
             Driver.getGameFrame().remove(pickResourceBoard.getBoardUI());
             Driver.initFrame();
             DebugTools.logging("[MULTIPLAYER_TURN] - Removed Board " +pickResourceBoard.getBoardName() + " from multiplayer boards TEMPORARILY");
 
             // if board is game complete, score them
             if (boardComplete(pickResourceBoard)) {
-                DebugTools.logging("[MULTIPLAYER_TURN] - Scored Board " +pickResourceBoard.getBoardName());
+                DebugTools.logging("[MULTIPLAYER_TURN] - Scored Board " + pickResourceBoard.getBoardName());
                 int score = pickResourceBoard.scoring();
-                System.out.println(pickResourceBoard.getBoardName() + "'s final score: "+score);
+                System.out.println(pickResourceBoard.getBoardName() + "'s final score: " + score);
             }
-            // loop for remaining players
+            // now that we have our resource picked, loop for remaining players
             for (int p = 0; p < multiplayerModifiableBoards.size(); p++) {
                 Board temp = multiplayerModifiableBoards.get(p); // saves current board to temporary variable
                 DebugTools.logging("[MULTIPLAYER_TURN] - Stored Board " +temp.getBoardName() + " to temporary variable");
@@ -220,7 +233,6 @@ public class PlayerManager {
                         multiplayerModifiableBoards.remove(temp);
                     }
                 }
-                Thread.sleep(1000);
                 Driver.getGameFrame().remove(temp.getBoardUI());
                 Driver.initFrame();
             }
@@ -231,8 +243,17 @@ public class PlayerManager {
         }
         // continue while there are still boards that are playable
     }
-    private static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException, URISyntaxException {
-        // run code that returns a resource if method was called with resourcePick = true
+    // fast track turnExecution method for picking a resource
+    @SuppressWarnings("SameParameterValue")
+    private static ResourceEnum turnExecution(Board board, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException {
+        return turnExecution(board, null, true, isMultiplayerGame, placeBuilding, buildingsForGame);
+    }
+    /*
+        This handles the passing of resource to turnActions. If resourcePick is true, they're allowed to pick a resource. Otherwise, the resource will be whatever is passed in.
+
+        resource should be set to null if resourcePick is also true.
+     */
+    private static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException {
         board.updateBoard();
         board.getBoardUI().getMainPanel().updateUI();
         if (placeBuilding) {
@@ -244,7 +265,6 @@ public class PlayerManager {
         if (resourcePick) {
             ResourceEnum r;
             String string = " ";
-            //board.renderBoard();
             if (isMultiplayerGame) {
                 string = "It's "+ board.getBoardName() + "'s turn to DECIDE the resource!";
             }
@@ -261,9 +281,9 @@ public class PlayerManager {
         return null;
     }
     /*
-        every turn does this, so I decided to split it into its own method. Runs the turn actions for all players.
-     */
-    private static void turnActions(Board board, ResourceEnum resource, String string) throws IOException, URISyntaxException{
+        Contains all the actions an individual player's turn needs to do. Place a resource, look for valid buildings, do actions for in between turns, and check if the board is full.
+       */
+    private static void turnActions(Board board, ResourceEnum resource, String string) throws IOException{
         board.playerTurn(resource, string);
         board.detectValidBuilding();
         board.runBuildingTurnAction();
