@@ -12,7 +12,6 @@ import java.util.Arrays;
 public class ScoringBuildingTest {
     public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
         DebugTools.logging("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE AUTOMATED SCORING SYSTEM.");
-        Utility.setColor(true);
         //System.out.println(Utility.generateColorizedString("THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE MULTIPLAYER SYSTEM.", Attribute.RED_TEXT()));
         ArrayList<Building> masterBuildings = new ArrayList<>(Arrays.asList(new Cottage(-1, -1), new Farm(-1, -1), new Well(-1, -1), new Chapel(-1, -1), new Theater(), new Tavern(-1, -1), new Warehouse(-1, -1)));
         Board board = new Board(masterBuildings, BuildingEnum.BARRETT, null);
