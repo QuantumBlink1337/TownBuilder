@@ -12,12 +12,13 @@ import TownBuilder.UI.BoardUI;
 
 public class Utility {
     private static ArrayList<ResourceEnum> resourceArray = new ArrayList<>(Arrays.asList(ResourceEnum.WOOD, ResourceEnum.BRICK, ResourceEnum.WHEAT, ResourceEnum.GLASS, ResourceEnum.STONE));
+    // Utility object to coordinate synchronized threads
     private static final Object notifier = new Object();
     public static Object getNotifier() {
         return notifier;
     }
 
-
+    // generic printer for 2d arrays
     public static <T> void arrayPrinter(T[][] array) {
         for (T[] ts : array) {
             for (int col = 0; col < ts.length; col++) {
@@ -66,8 +67,6 @@ public class Utility {
             System.out.println(t);
         }
     }
-
-    @SuppressWarnings({"unused", "StringOperationCanBeSimplified"})
     public static <T> void printMembersof3dArrayList(ArrayList<T[][]> arrayList) {
         for (int i = 0; i < arrayList.size(); i++) {
             arrayPrinter(arrayList.get(i));
@@ -78,14 +77,14 @@ public class Utility {
             }
         }
     }
-
+    // appends spaces to the end of given string t until string is given length
     public static String lengthResizer(String t, int length) {
         StringBuilder target = new StringBuilder(t);
         int targetLength = target.length();
         target.append(" ".repeat(Math.max(0, length - targetLength)));
         return target.toString();
     }
-
+    // feeds all buildings in b, given that each building is feedable and is not already fed
     public static void feedBuildings(Building ...b) {
         for (Building building : b) {
             if (building.isFeedable() && !building.getCondition()) {
@@ -93,6 +92,7 @@ public class Utility {
             }
         }
     }
+    // converts a Collection of Building objects into an ArrayList of their enum type
     public static ArrayList<BuildingEnum> convertBuildingListToEnumList(Collection<Building> buildingCollection) {
         ArrayList<BuildingEnum> buildingEnums = new ArrayList<>();
 
@@ -101,10 +101,12 @@ public class Utility {
         }
         return buildingEnums;
     }
+    // used for prompting the picking of resources in game. blacklistResources refers to resources that the user cannot pick from (used with Banks)
     public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, Board board, String string) throws IOException {
         resetResourceArray();
         ResourceEnum resourceChoice;
         boolean validResource = true;
+        // prompts GUI for user prompt
         BoardUI boardUI = board.getBoardUI();
         do {
             boardUI.promptResourceSelection(true);
@@ -117,6 +119,7 @@ public class Utility {
                 }
             }
             resourceChoice = boardUI.getUserSelectedResource();
+            // verify that given resource is NOT on the blacklist if the blacklist exists
             if (blacklistedResources != null) {
                 for (ResourceEnum blackListedResource : blacklistedResources) {
                     validResource = (blackListedResource != resourceChoice);
@@ -134,14 +137,17 @@ public class Utility {
         boardUI.getErrorTextLabel().setVisible(false);
         return resourceChoice;
     }
-
+    // randomly determines a resource
     public static ResourceEnum randomResource() {
         ResourceEnum result;
         try {
             int random = (int) (Math.random() * resourceArray.size());
             result = resourceArray.get(random);
             resourceArray.remove(random);
+            // you'll eventually need to call resetResourceArray to avoid a softlock in user selection or a crash from OutOfBounds
+            // this call occurs when the user is prompted for resource selection
         }
+        // if something fails, then just return Glass as a failsafe
         catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             result = ResourceEnum.GLASS;
