@@ -1,13 +1,5 @@
 package TownBuilder;
 
-
-import TownBuilder.UI.BoardUI;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
 public enum ResourceEnum {
     GLASS (ColorEnum.TURQUIOSE) {
         public String toString() {
