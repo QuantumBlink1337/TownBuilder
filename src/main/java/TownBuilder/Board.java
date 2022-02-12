@@ -198,6 +198,7 @@ public class Board {
         if (selection) {
             lastBuiltBuilding = building.getType();
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
+            updateBoard();
         }
         // otherwise, reset the tiles as if they were not detected at all
         else {
