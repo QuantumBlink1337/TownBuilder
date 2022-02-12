@@ -328,7 +328,7 @@ public class BoardUI extends JPanel {
         yesOrNoText = new JLabel();
         yesOrNoText.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
         yesOrNoText.setHorizontalAlignment(SwingConstants.CENTER);
-        Font font = panel.getFont().deriveFont(Font.BOLD, 20f);
+        Font font = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(20f));
         yesButton.setFont(font);
         yesButton.setBackground(new Color(35, 138, 35));
         noButton.setFont(font);
