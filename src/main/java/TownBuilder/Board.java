@@ -156,7 +156,7 @@ public class Board {
         return scorer.scoring();
     }
     /*
-        If either of the boards have a slot that is nonempty, then increment by one.
+        If either of the boards have a slot that is nonempty, then increment i by one.
         Returns true if i is greater than or equal to the area of the board.
      */
     public boolean gameOver() throws IOException {
@@ -285,6 +285,7 @@ public class Board {
         return turnResource;
     }
     /*
+        Prompts user for what building they want and places it on the board. Returns the enum of the building chosen.
      */
     public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeBuildingOnBoard) throws IOException {
         boardUI.promptBuildingSelection("What building would you like?");
@@ -300,6 +301,9 @@ public class Board {
         updateBoard();
         return boardUI.getSelectedBuildingForTurn();
     }
+    /*
+        Handles the actions that a Factory building can do.
+     */
     private void factoryOption(Factory building) throws IOException {
         if (currentResourceForTurn == building.getFactorizedResource()) {
             currentResourceForTurn = building.exchangeResource();
@@ -311,6 +315,9 @@ public class Board {
         turnOver = false;
 
     }
+    /*
+        Handles the actions that a Warehouse building can do.
+     */
     public void warehouseOption(ResourceEnum t, Warehouse warehouse, boolean mode) throws IOException {
 
         ResourceEnum turnResource = t;
@@ -347,7 +354,10 @@ public class Board {
             }
         }
     }
-
+    /*
+        Handles the placement of a resource as well as prompting for active building use. Takes a resource to place,
+        and a string to denote what kind of turn it is.
+     */
     public void playerTurn(ResourceEnum resourceEnum, String string) throws IOException {
         boardUI.setResourceSelectionLabel();
         currentResourceForTurn = resourceEnum;
@@ -362,11 +372,17 @@ public class Board {
                     e.printStackTrace();
                 }
             }
+            /*
+                If a tile button was pressed, then we can assume the turn is over as they've asked to place a resource.
+             */
             if (boardUI.isCoordinatesClicked()) {
                 int[] coords = boardUI.getSelectedCoords();
                 gameResourceBoard[coords[0]][coords[1]].setResource(currentResourceForTurn);
                 turnOver = true;
             }
+            /*
+                Otherwise, redirect to the appropriate active building option.
+             */
             else if (boardUI.isActiveBuildingToggled()) {
                 switch (boardUI.getActiveMode()) {
                     case "swap" -> warehouseOption(currentResourceForTurn, (Warehouse) boardUI.getSelectedActiveBuilding(), false);
@@ -379,11 +395,18 @@ public class Board {
         boardUI.getErrorTextLabel().setVisible(false);
         updateBoard();
     }
-
+    /*
+        Overloaded method that is used to update the board with its own resource and building matrix.
+        Optionally, the board can be updated with a separate building and resource matrix. This is used for in multiplayer when
+        one player wants to "peek" at another player's board.
+     */
     public void updateBoard() throws IOException {
         updateBoard(gameResourceBoard, gameBuildingBoard);
     }
-
+    /*
+        Handles updating each of the resource and building matrices with their new placement information, and also
+        calls the GUI update for the displayable matrix.
+     */
     public void updateBoard(Resource[][] gRB, Building[][] gBB) throws IOException {
         TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
         boolean activeBuilding = false;
@@ -393,6 +416,8 @@ public class Board {
                 System.out.println(gRB[row][col].getResource());
                 accessMatrix[row][col].setBuildingEnum(gBB[row][col].getType());
                 accessMatrix[row][col].updateButton();
+                // If there's at least one "Active Building" type on the board, then we need to eventually attempt to update the Active Building panel.
+                // To do: Maybe a method to return whether a building is active in the first place instead of using the building's enum.
                 if (gBB[row][col].getType() == BuildingEnum.WAREHOUSE || gBB[row][col].getType() == BuildingEnum.FACTORY || gBB[row][col].getType() == BuildingEnum.BANK) {
                     activeBuilding = true;
                 }
