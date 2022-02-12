@@ -25,7 +25,9 @@ public class InitializationUI extends JPanel {
     private BuildingEnum buildingSelection;
     private int playerCount;
     private String selection;
-
+    /*
+        Creates and adds the initially needed panels to the object.
+     */
     public InitializationUI() {
         mainMenuPanel = createMainMenuPanel();
         playerSelectionPanel = createPlayerSelectionPanel();
@@ -59,7 +61,9 @@ public class InitializationUI extends JPanel {
     public String getChosenBoardName() {
         return chosenBoardName;
     }
-
+    /*
+        Generates the main building selection panel.
+     */
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout("" +
                 "","[][]"+UI_Utilities.convertIntToPercentString(20, true)+"[]", "[][]"+UI_Utilities.convertIntToPercentString(500, false)+"[]"));
@@ -110,6 +114,9 @@ public class InitializationUI extends JPanel {
 
         return panel;
     }
+    /*
+        Generates the panel to allow a user to input how many players they'd like.
+     */
     private JPanel createPlayerSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel headerLabel = new JLabel("How many players?");
@@ -122,6 +129,7 @@ public class InitializationUI extends JPanel {
         playerSelection.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(60f)));
         playerSelection.addActionListener(e -> {
             //noinspection ConstantConditions
+            // Notifies PlayerManager.
             playerCount = (int) playerSelection.getSelectedItem();
             synchronized (Utility.getNotifier()) {
                 Utility.getNotifier().notify();
