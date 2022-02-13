@@ -40,10 +40,18 @@ public class Board {
     private final BoardUI boardUI;
     private final Object notifier;
 
-    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName) throws IOException {
+    private final boolean buildingCheat;
+    private final boolean resourceCheat;
+    private final boolean monumentCheat;
+
+
+    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName, boolean buildingCheat, boolean resourceCheat, boolean monumentCheat) throws IOException {
         this.playerManager = playerManager;
         this.boardName = boardName;
         isSingleplayer = ISP;
+        this.buildingCheat = buildingCheat;
+        this.resourceCheat = resourceCheat;
+        this.monumentCheat = monumentCheat;
         // these monuments won't work / will crash the game if its singleplayer
         // the board game also doesn't let SP users use these monuments anyway
         if (ISP) {
@@ -64,6 +72,9 @@ public class Board {
         Debug constructor for Board. Used for ScoringBuildingTest
      */
     public Board(ArrayList<Building> b, BuildingEnum mo, PlayerManager playerManager) throws IOException {
+        this.buildingCheat = false;
+        this.resourceCheat = false;
+        this.monumentCheat = false;
         this.playerManager = playerManager;
         boardName = "DEBUG";
         isSingleplayer = true;
