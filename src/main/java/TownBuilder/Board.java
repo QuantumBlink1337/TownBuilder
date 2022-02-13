@@ -52,8 +52,8 @@ public class Board {
         this.playerManager = playerManager;
         this.boardName = boardName;
         isSingleplayer = ISP;
-        this.buildingCheat = ISP && buildingCheat;
-        this.resourceCheat = ISP && resourceCheat;
+        this.buildingCheat = buildingCheat;
+        this.resourceCheat = resourceCheat;
         // these monuments won't work / will crash the game if its singleplayer
         // the board game also doesn't let SP users use these monuments anyway
         if (ISP) {
@@ -299,16 +299,17 @@ public class Board {
      */
     public ResourceEnum resourcePicker(String string) throws IOException {
         ResourceEnum turnResource;
+        if (resourceCheat) {
+            Utility.resetResourceArray();
+            return Utility.resourcePicker(blacklistedResources, this, "Cheat mode enabled. Pick a resource!");
+        }
         if (!isSingleplayer) {
             boardUI.setPrimaryTextLabel(" ");
             turnResource = Utility.resourcePicker(blacklistedResources, this, string);
         }
         else {
-            if (resourceCheat) {
-                Utility.resetResourceArray();
-                return Utility.resourcePicker(blacklistedResources, this, "Cheat mode enabled. Pick a resource!");
-            }
-            else if (spResourceSelectionIncrement == 2) {
+
+            if (spResourceSelectionIncrement == 2) {
                 spResourceSelectionIncrement = 0;
                 Utility.resetResourceArray();
                 return Utility.resourcePicker(blacklistedResources, this, string);
