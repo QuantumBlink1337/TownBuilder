@@ -294,9 +294,9 @@ public class BuildingFactory {
         }
         bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true, board);
         if (buildingEnum.isMonument()) {
+            board.updateBoard();
             board.monumentControl((Monument) bArray[coords[0]][coords[1]]);
         }
-        //board.getBoardUI().resetBoardTiles(true, true);
 
     }
 
