@@ -6,7 +6,6 @@ import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -94,6 +93,6 @@ public class GroveUni implements Monument {
     @Override
     public void onPlacement() throws IOException {
         DebugTools.logging("GROVE UNIVERSITY: Placing building");
-        board.buildingPlacer(board.getDetectableBuildings(), true);
+        board.buildingPlacer(board.getDetectableBuildings(), true, true);
     }
 }

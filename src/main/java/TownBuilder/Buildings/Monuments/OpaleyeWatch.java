@@ -6,7 +6,6 @@ import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,7 +99,7 @@ public class OpaleyeWatch implements Monument{
         ArrayList<Building> uniqueBuildings = new ArrayList<>(board.getScorableBuildings());
 
         for (int i = 0; i < 3; i++) {
-            BuildingEnum type = board.buildingPlacer(uniqueBuildings, false);
+            BuildingEnum type = board.buildingPlacer(uniqueBuildings, false, false);
             chosenBuildings.add(type);
             uniqueBuildings.removeIf(m -> m.getType() == type);
         }

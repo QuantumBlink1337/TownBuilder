@@ -324,7 +324,7 @@ public class Board {
     /*
         Prompts user for what building they want and places it on the board. Returns the enum of the building chosen.
      */
-    public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeAnywhere) throws IOException {
+    public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeAnywhere, boolean placeOnBoard) throws IOException {
         boardUI.promptBuildingSelection("What building would you like?");
         synchronized (Utility.getNotifier()) {
             try {
@@ -334,8 +334,10 @@ public class Board {
                 e.printStackTrace();
             }
         }
-        buildingFactory.placeBuildingOnBoard(boardUI.getSelectedBuildingForTurn(), buildingArrayList, placeAnywhere, this);
-        updateBoard();
+        if (placeOnBoard) {
+            buildingFactory.placeBuildingOnBoard(boardUI.getSelectedBuildingForTurn(), buildingArrayList, placeAnywhere, this);
+            updateBoard();
+        }
         return boardUI.getSelectedBuildingForTurn();
     }
     /*
