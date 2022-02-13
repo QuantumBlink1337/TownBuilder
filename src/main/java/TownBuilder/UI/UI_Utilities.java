@@ -18,7 +18,6 @@ public class UI_Utilities {
     public static String convertIntToPercentString(int value, boolean isWidth) {
         int constant = isWidth ? SCREEN_WIDTH : SCREEN_HEIGHT;
         String string = (((float) convertBaseValueToScaledValue(value, isWidth)  / constant) * 100) + "sp";
-        System.out.println(string);
         return string;
     }
     public static int convertBaseValueToScaledValue(int value, boolean isWidth) {
