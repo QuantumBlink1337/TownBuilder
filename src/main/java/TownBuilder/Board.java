@@ -70,7 +70,7 @@ public class Board {
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
-        Monument monument = BuildingFactory.getMonument(mo,this, -1, -1, scorableBuildings);
+        Monument monument = (Monument) BuildingFactory.getBuilding(mo,scorableBuildings, -1, -1, false,this);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
         scorer = new Scorer(this, scorableBuildings);
@@ -123,7 +123,7 @@ public class Board {
      */
     private void generateMonument() throws IOException {
         int randomIndex = (int) (Math.random() * monumentTypes.size());
-        Monument monument = BuildingFactory.getMonument(monumentTypes.get(randomIndex), this, -1, -1, scorableBuildings);
+        Monument monument = (Monument) BuildingFactory.getBuilding(monumentTypes.get(randomIndex), scorableBuildings, -1, -1, true, this);
         monumentTypes.remove(randomIndex);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);

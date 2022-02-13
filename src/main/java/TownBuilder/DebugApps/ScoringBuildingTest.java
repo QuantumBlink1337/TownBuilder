@@ -2,6 +2,7 @@ package TownBuilder.DebugApps;
 
 import TownBuilder.*;
 import TownBuilder.Buildings.*;
+import TownBuilder.Buildings.Monuments.Monument;
 import com.diogonunes.jcolor.Attribute;
 
 import java.io.IOException;
@@ -104,7 +105,7 @@ public class ScoringBuildingTest {
         rBoard[0][0] = new Resource(ResourceEnum.GLASS, 0, 0);
         rBoard[0][1] = new Resource(ResourceEnum.GLASS, 0, 1);
         rBoard[0][2] = new Resource(ResourceEnum.GLASS, 0, 2);
-        bBoard[0][3] = BuildingFactory.getMonument(BuildingEnum.CATERINA, board, 0, 3, masterBuildings);
+        bBoard[0][3] = (Monument) BuildingFactory.getBuilding(BuildingEnum.CATERINA, masterBuildings, -1, -1, false, board);
 
         rBoard[1][0] = new Resource(ResourceEnum.WHEAT, 1, 0);
         rBoard[1][1] = new Resource(ResourceEnum.WHEAT, 1, 1);

@@ -98,14 +98,11 @@ public class BuildingFactory {
         else if (buildingEnum == BuildingEnum.SHED) {
             return new Shed(row, col);
         }
-        return null;
-    }
-    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col, ArrayList<Building> masterBuildings) throws IOException {
-        if (buildingEnum == BuildingEnum.AGUILD) {
+        else if (buildingEnum == BuildingEnum.AGUILD) {
             return new AGuild(row, col, board);
         }
         else if (buildingEnum == BuildingEnum.ARCHIVE) {
-            return new Archive(row, col, board, masterBuildings);
+            return new Archive(row, col, board, board.getScorableBuildings());
         }
         else if (buildingEnum == BuildingEnum.BARRETT) {
             return new BarrettCastle(row, col);
@@ -142,6 +139,48 @@ public class BuildingFactory {
         }
         return null;
     }
+//    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col, ArrayList<Building> masterBuildings) throws IOException {
+//        if (buildingEnum == BuildingEnum.AGUILD) {
+//            return new AGuild(row, col, board);
+//        }
+//        else if (buildingEnum == BuildingEnum.ARCHIVE) {
+//            return new Archive(row, col, board, masterBuildings);
+//        }
+//        else if (buildingEnum == BuildingEnum.BARRETT) {
+//            return new BarrettCastle(row, col);
+//        }
+//        else if (buildingEnum == BuildingEnum.CATERINA) {
+//            return new Caterina(row, col, board);
+//        }
+//        else if (buildingEnum == BuildingEnum.IRONWEED) {
+//            return new FortIronweed(row, col, board);
+//        }
+//        else if (buildingEnum == BuildingEnum.GROVEUNI) {
+//            return new GroveUni(row, col, board);
+//        }
+//        else if (buildingEnum == BuildingEnum.MANDRAS) {
+//            return new MandrasPalace(row, col, board);
+//        }
+//        else if(buildingEnum == BuildingEnum.SHRINE) {
+//            return new Shrine(row, col, board);
+//        }
+//        else if(buildingEnum == BuildingEnum.OPALEYE) {
+//            return new OpaleyeWatch(row, col, board);
+//        }
+//        else if(buildingEnum == BuildingEnum.SILVAFRM) {
+//            return new SilvaForum(row, col, board);
+//        }
+//        else if(buildingEnum == BuildingEnum.STARLOOM) {
+//            return new Starloom(row, col, board);
+//        }
+//        else if (buildingEnum == BuildingEnum.SKYBATHS) {
+//            return new SkyBaths(row, col ,board);
+//        }
+//        else if (buildingEnum == BuildingEnum.OBELISK) {
+//            return new Obelisk(row, col, board);
+//        }
+//        return null;
+//    }
     public static boolean getCondition(Building building) {
         return building.getCondition();
     }
@@ -245,12 +284,7 @@ public class BuildingFactory {
         int[] coords = new int[]{};
         boolean validInput = false;
         Building building;
-        if (buildingEnum.isMonument()) {
-             building = getMonument(buildingEnum, board, -1, -1, buildingArrayList);
-        }
-        else {
-             building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false, board);
-        }
+        building = getBuilding(buildingEnum,buildingArrayList, -1, -1, false, board);
         Building[][] bArray = board.getGameBuildingBoard();
         Resource[][] rArray = board.getGameResourceBoard();
         board.getBoardUI().setPrimaryTextLabel("Your selected building is " + building.toString() + ".");
@@ -302,12 +336,9 @@ public class BuildingFactory {
         else {
             rArray[coords[0]][coords[1]].setResource(ResourceEnum.TPOST);
         }
+        bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true, board);
         if (buildingEnum.isMonument()) {
-            bArray[coords[0]][coords[1]] = getMonument(buildingEnum, board, coords[0], coords[1], buildingArrayList);
             board.monumentControl((Monument) bArray[coords[0]][coords[1]]);
-        }
-        else {
-            bArray[coords[0]][coords[1]] = getBuilding(buildingEnum,buildingArrayList, coords[0], coords[1], true, board);
         }
         //board.getBoardUI().resetBoardTiles(true, true);
 
