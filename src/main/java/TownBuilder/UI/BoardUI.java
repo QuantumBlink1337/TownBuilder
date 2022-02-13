@@ -37,6 +37,12 @@ public class BoardUI extends JPanel {
     private boolean isYes;
     private final ArrayList<Building> buildings;
     private final Board board;
+
+    public BuildingEnum getMonumentSelection() {
+        return monumentSelection;
+    }
+
+    private BuildingEnum monumentSelection;
     JLabel turnResourceText;
     JLabel secondaryTextLabel = new JLabel();
     JLabel buildingSelectionLabel;
@@ -56,6 +62,12 @@ public class BoardUI extends JPanel {
     final ManualUI manualPanel;
     final ScoreUI scorePanel;
 
+    public JPanel getMonumentSelectionPanel() {
+        return monumentSelectionPanel;
+    }
+
+    final JPanel monumentSelectionPanel;
+
     final JPanel YesOrNoPanel;
     final JPanel buildingSelectingPanel;
     JPanel rightInteractionPanel = new JPanel(new MigLayout());
@@ -68,11 +80,11 @@ public class BoardUI extends JPanel {
     /*
         Generates all necessary panels and adds them sequentially first to their own sub panels, then to the BoardUI object itself.
      */
-    public BoardUI(Board board) {
+    public BoardUI(Board board) throws IOException {
         this.board = board;
         this.playerName = board.getBoardName();
-
         buildings = board.getScorableBuildings();
+        monumentSelectionPanel = createMonumentSelectionPanel(Board.getMonumentTypes());
         manualPanel = new ManualUI(buildings);
         boardHeader = createBoardHeaderPanel();
         boardMatrixPanel = createBoardMatrix();
@@ -85,41 +97,7 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        /*
-            Subpanel for "user prompt" actions. E.g. Yes/No, selecting a resource/building, etc.
-            Appears in the bottom center of the screen.
-         */
-        userPromptPanel.add(resourceSelectionPanel, "dock center");
-        userPromptPanel.add(YesOrNoPanel, "dock center");
-        userPromptPanel.add(buildingSelectingPanel, "dock center");
-        /*
-            Subpanel for the main board access matrix. Displays the title header, the text for which resource, as well as the main interactable matrix itself.
-            Integrates the userPromptPanel into the bottom.
-            Appears in the center of the screen.
-         */
-        gamePanel.add(boardHeader, "wrap, align center, span 1 1");
-        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1350, true)+"!");
-        gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, true)+"!, h " + UI_Utilities.convertIntToPercentString(900, false)+"!");
-        gamePanel.add(userPromptPanel, "align center");
-        /*
-            Subpanel for interactive components appearing on the left of the screen. Currently, hosts the screen peeking panel.
-         */
-        leftInteractionPanel.add(otherBoardsPanel, "Wrap, h " + UI_Utilities.convertIntToPercentString(500, false) + "!");
-        /*
-            Subpanel for interactive components appearing on the right of the screen. Hosts the Manual, Active Buildings UI, and the Scorer.
-         */
-        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(520, false)+"!");
-        rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, false)+"!");
-        rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
-        /*
-            mainPanel combines the three main subpanels and places them in the appropriate area.
-         */
-        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(120, true));
-        mainPanel.add(gamePanel, "dock center, align center");
-        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(120, true));
-        add(mainPanel);
-
-
+        monumentSelectionPanel.setVisible(false);
 
     }
     public void initializeBoard() {
@@ -434,6 +412,64 @@ public class BoardUI extends JPanel {
         panel.add(yesOrNoText, "wrap, align center, span 2 1");
         panel.add(yesButton, "w " +UI_Utilities.convertIntToPercentString(500, true)+ " !, h " + UI_Utilities.convertIntToPercentString(125, false)+"!");
         panel.add(noButton, "w " +UI_Utilities.convertIntToPercentString(500, true)+ " !, h " + UI_Utilities.convertIntToPercentString(125, false)+"!");
+        return panel;
+    }
+    public JPanel createMonumentSelectionPanel(ArrayList<BuildingEnum> monumentTypes) throws IOException {
+        ArrayList<Building> monuments = Utility.convertEnumListToBuildingList(monumentTypes, board);
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel buildingSelectionLabel = new JLabel("Select your monument!");
+        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f)));
+        buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(buildingSelectionLabel, "wrap, dock center");
+        int i = 0;
+        for (Building building : monuments) {
+            i++;
+            String wrapperString = "";
+            if (i > 4) {
+                wrapperString = ", wrap";
+                i = 0;
+            }
+            panel.add(initializeIndividualBuildingView(building, "Choose this building"), "split " + buildings.size() + ", w " +
+                    UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(600, false) + "!" +wrapperString);
+        }
+        return panel;
+
+    }
+    private JPanel initializeIndividualBuildingView(Building building, String string) {
+        JPanel panel = new JPanel(new MigLayout());
+        JButton exitButton = new JButton();
+        JTextArea textArea = new JTextArea(building.getManualEntry());
+        JLabel explanationLabel = new JLabel("Here's what it does:");
+        JLabel matrixLabel = new JLabel("Here's what it looks like:");
+        JLabel buildingLabel = new JLabel(building.toString());
+        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
+        buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
+        matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
+        explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(24f)));
+        textArea.setBorder(BorderFactory.createLineBorder(Color.black));
+        JScrollPane jScrollPane = new JScrollPane(textArea);
+        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        exitButton.setText(string);
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD,UI_Utilities.convertFontSize(25f)));
+        exitButton.addActionListener(e -> {
+            System.out.println("Selection button pressed.");
+            monumentSelection = building.getType();
+            synchronized (Utility.getNotifier()) {
+                Utility.getNotifier().notify();
+            }
+        });
+        panel.add(buildingLabel, "dock center, wrap");
+        panel.add(explanationLabel, "dock center, wrap");
+        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(160, false) + "!");
+        panel.add(matrixLabel, "dock center, wrap");
+        panel.add(UI_Utilities.initializeBuildingMatrix(building), "dock center, wrap");
+        panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
     /*

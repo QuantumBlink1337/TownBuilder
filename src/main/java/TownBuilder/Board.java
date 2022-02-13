@@ -65,7 +65,30 @@ public class Board {
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
-        generateMonument();
+        boardUI = new BoardUI(this);
+        if (monumentCheat) {
+            JPanel panel = boardUI.getMonumentSelectionPanel();
+            panel.setVisible(true);
+            boardUI.add(panel);
+            boardUI.updateUI();
+            synchronized (Utility.getNotifier()) {
+                try {
+                    System.out.println("Notifier started");
+                    Utility.getNotifier().wait();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("Test");
+            generateMonument(boardUI.getMonumentSelection());
+            System.out.println(boardUI.getMonumentSelection());
+            boardUI.remove(panel);
+            boardUI.updateUI();
+        }
+        else {
+            generateMonument();
+        }
         scorer = new Scorer(this, scorableBuildings);
         notifier = new Object();
         boardUI.initializeBoard();
@@ -140,6 +163,11 @@ public class Board {
         int randomIndex = (int) (Math.random() * monumentTypes.size());
         Monument monument = (Monument) BuildingFactory.getBuilding(monumentTypes.get(randomIndex), scorableBuildings, -1, -1, true, this);
         monumentTypes.remove(randomIndex);
+        detectableBuildings.add(monument);
+        scorableBuildings.add(monument);
+    }
+    private void generateMonument(BuildingEnum monumentType) throws IOException {
+        Monument monument = (Monument) BuildingFactory.getBuilding(monumentType, scorableBuildings, -1, -1, true, this);
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
     }
