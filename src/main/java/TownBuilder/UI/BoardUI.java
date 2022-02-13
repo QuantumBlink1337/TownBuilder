@@ -2,6 +2,7 @@ package TownBuilder.UI;
 import TownBuilder.*;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
+import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.Buildings.Monuments.Monument;
 import TownBuilder.DebugApps.DebugTools;
 import net.miginfocom.swing.MigLayout;
@@ -15,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static javax.swing.border.BevelBorder.RAISED;
 
@@ -119,6 +121,42 @@ public class BoardUI extends JPanel {
 
 
 
+    }
+    public void initializeBoard() {
+
+        /*
+            Subpanel for "user prompt" actions. E.g. Yes/No, selecting a resource/building, etc.
+            Appears in the bottom center of the screen.
+         */
+        userPromptPanel.add(resourceSelectionPanel, "dock center");
+        userPromptPanel.add(YesOrNoPanel, "dock center");
+        userPromptPanel.add(buildingSelectingPanel, "dock center");
+        /*
+            Subpanel for the main board access matrix. Displays the title header, the text for which resource, as well as the main interactable matrix itself.
+            Integrates the userPromptPanel into the bottom.
+            Appears in the center of the screen.
+         */
+        gamePanel.add(boardHeader, "wrap, align center, span 1 1");
+        gamePanel.add(resourcePromptTextPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(1350, true)+"!");
+        gamePanel.add(boardMatrixPanel, "wrap, align center, w "+UI_Utilities.convertIntToPercentString(900, true)+"!, h " + UI_Utilities.convertIntToPercentString(900, false)+"!");
+        gamePanel.add(userPromptPanel, "align center");
+        /*
+            Subpanel for interactive components appearing on the left of the screen. Currently, hosts the screen peeking panel.
+         */
+        leftInteractionPanel.add(otherBoardsPanel, "Wrap, h " + UI_Utilities.convertIntToPercentString(500, false) + "!");
+        /*
+            Subpanel for interactive components appearing on the right of the screen. Hosts the Manual, Active Buildings UI, and the Scorer.
+         */
+        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(520, false)+"!");
+        rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, false)+"!");
+        rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
+        /*
+            mainPanel combines the three main subpanels and places them in the appropriate area.
+         */
+        mainPanel.add(leftInteractionPanel, "dock west, gapright "+ UI_Utilities.convertIntToPercentString(120, true));
+        mainPanel.add(gamePanel, "dock center, align center");
+        mainPanel.add(rightInteractionPanel, "dock east, gapleft "+ UI_Utilities.convertIntToPercentString(120, true));
+        add(mainPanel);
     }
     public ActiveBuildingsUI getActiveBuildingPanel() {
         return activeBuildingPanel;

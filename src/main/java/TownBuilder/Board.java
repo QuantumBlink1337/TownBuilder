@@ -7,6 +7,7 @@ import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.BoardUI;
 import TownBuilder.UI.TileButton;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class Board {
     private final ArrayList<Building> scorableBuildings;
     private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED,
             BuildingEnum.GROVEUNI, BuildingEnum.MANDRAS, BuildingEnum.OPALEYE, BuildingEnum.SHRINE, BuildingEnum.SILVAFRM, BuildingEnum.STARLOOM, BuildingEnum.OBELISK, BuildingEnum.SKYBATHS));
+    public static ArrayList<BuildingEnum> getMonumentTypes() {
+        return monumentTypes;
+    }
     private ArrayList<ResourceEnum> blacklistedResources;
     public Scorer getScorer() {
         return scorer;
@@ -63,8 +67,8 @@ public class Board {
         buildingFactory = new BuildingFactory();
         generateMonument();
         scorer = new Scorer(this, scorableBuildings);
-        boardUI = new BoardUI(this);
         notifier = new Object();
+        boardUI.initializeBoard();
         buildArrays();
         updateBoard();
     }
@@ -425,7 +429,6 @@ public class Board {
         for (int row = 0; row < gRB.length; row++) {
             for (int col = 0; col < gBB[row].length; col++) {
                 accessMatrix[row][col].setResourceEnum(gRB[row][col].getResource());
-                System.out.println(gRB[row][col].getResource());
                 accessMatrix[row][col].setBuildingEnum(gBB[row][col].getType());
                 accessMatrix[row][col].updateButton();
                 // If there's at least one "Active Building" type on the board, then we need to eventually attempt to update the Active Building panel.
