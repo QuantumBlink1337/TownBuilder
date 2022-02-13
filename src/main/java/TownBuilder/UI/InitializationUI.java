@@ -21,6 +21,22 @@ public class InitializationUI extends JPanel {
     private final JPanel playerSelectionPanel;
     private final JPanel customSelectionPanel;
     private final ArrayList<JPanel> coloredBuildingViews = new ArrayList<>();
+
+    public boolean isResourceSelectionCheat() {
+        return resourceSelectionCheat;
+    }
+
+    public boolean isBuildingSelectionCheat() {
+        return buildingSelectionCheat;
+    }
+
+    public boolean isMonumentSelectionCheat() {
+        return monumentSelectionCheat;
+    }
+
+    private boolean resourceSelectionCheat = false;
+    private boolean buildingSelectionCheat = false;
+    private boolean monumentSelectionCheat = false;
     private String chosenBoardName;
     private BuildingEnum buildingSelection;
     private int playerCount;
@@ -128,7 +144,6 @@ public class InitializationUI extends JPanel {
         playerSelection.setSelectedIndex(0);
         playerSelection.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(60f)));
         playerSelection.addActionListener(e -> {
-            //noinspection ConstantConditions
             // Notifies PlayerManager.
             playerCount = (int) playerSelection.getSelectedItem();
             synchronized (Utility.getNotifier()) {
@@ -247,5 +262,37 @@ public class InitializationUI extends JPanel {
 
         return panel;
     }
-
+    public JPanel createCheatsPanel() {
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel headerLabel = new JLabel("Cheat/Debug Menu");
+        headerLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(50f)));
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JButton resourceButton = new JButton("Resource Selection");
+        resourceButton.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(20f)));
+        resourceButton.setHorizontalAlignment(SwingConstants.CENTER);
+        resourceButton.addActionListener(e -> resourceSelectionCheat = true);
+        JButton buildingButton = new JButton("Building Selection");
+        buildingButton.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(20f)));
+        buildingButton.setHorizontalAlignment(SwingConstants.CENTER);
+        buildingButton.addActionListener(e -> buildingSelectionCheat = true);
+        JButton monumentSelectionButton = new JButton("Monument Selection");
+        monumentSelectionButton.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(20f)));
+        monumentSelectionButton.setHorizontalAlignment(SwingConstants.CENTER);
+        monumentSelectionButton.addActionListener(e -> monumentSelectionCheat = true);
+        JButton exitButton = new JButton("EXIT");
+        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(20f)));
+        exitButton.setHorizontalAlignment(SwingConstants.CENTER);
+        exitButton.addActionListener(e -> {
+            synchronized (Utility.getNotifier()) {
+                Utility.getNotifier().notify();
+            }
+        });
+        String sizeControl = "w " + UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(100, false) + "!";
+        panel.add(headerLabel, "wrap, , align center");
+        panel.add(resourceButton, "split 3, dock center, align center, " + sizeControl);
+        panel.add(monumentSelectionButton, "dock center, align center," + sizeControl);
+        panel.add(buildingButton, "dock center, align center, wrap, " + sizeControl);
+        panel.add(exitButton, "align center, dock center, " + sizeControl);
+        return panel;
+    }
 }

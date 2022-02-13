@@ -67,6 +67,23 @@ public class PlayerManager {
                     e.printStackTrace();
                 }
             }
+            String boardName = initializationUI.getChosenBoardName();
+            if (boardName.equalsIgnoreCase("_debug")) {
+                initializationUI.remove(panel);
+                initializationUI.updateUI();
+                panel = initializationUI.createCheatsPanel();
+                initializationUI.add(panel);
+                initializationUI.updateUI();
+
+                synchronized (Utility.getNotifier()) {
+                    try {
+                        Utility.getNotifier().wait();
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
             Board temp = new Board(masterBuildings, this, playerCount == 1, initializationUI.getChosenBoardName());
             boards.add(temp);
