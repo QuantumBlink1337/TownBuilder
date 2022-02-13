@@ -66,26 +66,7 @@ public class Board {
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
-        if (monumentCheat) {
-            JPanel panel = iUI.createMonumentSelectionPanel(monumentTypes, this);
-            iUI.add(panel);
-            iUI.updateUI();
-            synchronized (Utility.getNotifier()) {
-                try {
-                    Utility.getNotifier().wait();
-                }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            generateMonument(iUI.getBuildingSelection());
-            iUI.remove(panel);
-            iUI.updateUI();
-
-        }
-        else {
-            generateMonument();
-        }
+        generateMonument(monumentCheat, iUI);
         scorer = new Scorer(this, scorableBuildings);
         notifier = new Object();
         boardUI = new BoardUI(this);
@@ -155,17 +136,32 @@ public class Board {
         this.placeAnywhere = placeAnywhere;
     }
     /*
-        Generates a monument for a user based on the available monument types arraylist.
+        Generates a monument for a user based on the available monument types arraylist, and depending on cheat mode,
+        calls upon InitializationUI to prompt for monument selection.
      */
-    private void generateMonument() throws IOException {
-        int randomIndex = (int) (Math.random() * monumentTypes.size());
-        Monument monument = (Monument) BuildingFactory.getBuilding(monumentTypes.get(randomIndex), scorableBuildings, -1, -1, true, this);
-        monumentTypes.remove(randomIndex);
-        detectableBuildings.add(monument);
-        scorableBuildings.add(monument);
-    }
-    private void generateMonument(BuildingEnum monumentType) throws IOException {
-        Monument monument = (Monument) BuildingFactory.getBuilding(monumentType, scorableBuildings, -1, -1, true, this);
+    private void generateMonument(boolean isCheat, InitializationUI iUI) throws IOException {
+        Monument monument;
+        if (isCheat) {
+            JPanel panel = iUI.createMonumentSelectionPanel(monumentTypes, this);
+            iUI.add(panel);
+            iUI.updateUI();
+            synchronized (Utility.getNotifier()) {
+                try {
+                    Utility.getNotifier().wait();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            monument = (Monument) BuildingFactory.getBuilding(iUI.getBuildingSelection(), scorableBuildings, -1, -1, true, this);
+            iUI.remove(panel);
+            iUI.updateUI();
+        }
+        else {
+            int randomIndex = (int) (Math.random() * monumentTypes.size());
+            monument = (Monument) BuildingFactory.getBuilding(monumentTypes.get(randomIndex), scorableBuildings, -1, -1, true, this);
+            monumentTypes.remove(randomIndex);
+        }
         detectableBuildings.add(monument);
         scorableBuildings.add(monument);
     }
