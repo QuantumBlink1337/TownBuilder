@@ -106,10 +106,10 @@ public class Utility {
     /*
         Takes a Collection of BuildingEnums and returns their Object representation.
      */
-    public static ArrayList<Building> convertEnumListToBuildingList(Collection<BuildingEnum> buildingEnumCollection) throws IOException {
+    public static ArrayList<Building> convertEnumListToBuildingList(Collection<BuildingEnum> buildingEnumCollection, Board board) throws IOException {
         ArrayList<Building> buildings = new ArrayList<>();
         for (BuildingEnum buildingEnum : buildingEnumCollection) {
-            buildings.add(BuildingFactory.getBuilding(buildingEnum, null, -1, -1, false, null));
+            buildings.add(BuildingFactory.getBuilding(buildingEnum, null, -1, -1, false, board));
         }
         return buildings;
     }
