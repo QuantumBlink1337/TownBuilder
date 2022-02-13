@@ -50,7 +50,7 @@ public class Board {
     private final boolean monumentCheat;
 
 
-    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName, boolean buildingCheat, boolean resourceCheat, boolean monumentCheat, InitializationUI iUI) throws IOException {
+    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName, boolean buildingCheat, boolean resourceCheat, boolean monumentCheat) throws IOException {
         this.playerManager = playerManager;
         this.boardName = boardName;
         isSingleplayer = ISP;
@@ -66,7 +66,7 @@ public class Board {
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
-        generateMonument(monumentCheat, iUI);
+        generateMonument(monumentCheat, playerManager.getInitializationUI());
         scorer = new Scorer(this, scorableBuildings);
         notifier = new Object();
         boardUI = new BoardUI(this);
@@ -94,7 +94,6 @@ public class Board {
         boardUI = new BoardUI(this);
         boardUI.setVisible(true);
         notifier = new Object();
-
         buildArrays();
         updateBoard();
     }

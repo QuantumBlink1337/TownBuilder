@@ -14,6 +14,11 @@ public class PlayerManager {
 
 
     private final ArrayList<Board> boards = new ArrayList<>();
+
+    public InitializationUI getInitializationUI() {
+        return initializationUI;
+    }
+
     private final InitializationUI initializationUI;
     private ArrayList<Board> multiplayerModifiableBoards;
     private final ArrayList<Building> masterBuildings;
@@ -85,7 +90,7 @@ public class PlayerManager {
                 }
             }
 
-            Board temp = new Board(masterBuildings, this, playerCount == 1, initializationUI.getChosenBoardName(), initializationUI.isBuildingSelectionCheat(), initializationUI.isResourceSelectionCheat(), initializationUI.isMonumentSelectionCheat(), initializationUI);
+            Board temp = new Board(masterBuildings, this, playerCount == 1, initializationUI.getChosenBoardName(), initializationUI.isBuildingSelectionCheat(), initializationUI.isResourceSelectionCheat(), initializationUI.isMonumentSelectionCheat());
             boards.add(temp);
             initializationUI.remove(panel);
             initializationUI.updateUI();
