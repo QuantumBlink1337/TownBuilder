@@ -139,48 +139,7 @@ public class BuildingFactory {
         }
         return null;
     }
-//    public static Monument getMonument(BuildingEnum buildingEnum, Board board, int row, int col, ArrayList<Building> masterBuildings) throws IOException {
-//        if (buildingEnum == BuildingEnum.AGUILD) {
-//            return new AGuild(row, col, board);
-//        }
-//        else if (buildingEnum == BuildingEnum.ARCHIVE) {
-//            return new Archive(row, col, board, masterBuildings);
-//        }
-//        else if (buildingEnum == BuildingEnum.BARRETT) {
-//            return new BarrettCastle(row, col);
-//        }
-//        else if (buildingEnum == BuildingEnum.CATERINA) {
-//            return new Caterina(row, col, board);
-//        }
-//        else if (buildingEnum == BuildingEnum.IRONWEED) {
-//            return new FortIronweed(row, col, board);
-//        }
-//        else if (buildingEnum == BuildingEnum.GROVEUNI) {
-//            return new GroveUni(row, col, board);
-//        }
-//        else if (buildingEnum == BuildingEnum.MANDRAS) {
-//            return new MandrasPalace(row, col, board);
-//        }
-//        else if(buildingEnum == BuildingEnum.SHRINE) {
-//            return new Shrine(row, col, board);
-//        }
-//        else if(buildingEnum == BuildingEnum.OPALEYE) {
-//            return new OpaleyeWatch(row, col, board);
-//        }
-//        else if(buildingEnum == BuildingEnum.SILVAFRM) {
-//            return new SilvaForum(row, col, board);
-//        }
-//        else if(buildingEnum == BuildingEnum.STARLOOM) {
-//            return new Starloom(row, col, board);
-//        }
-//        else if (buildingEnum == BuildingEnum.SKYBATHS) {
-//            return new SkyBaths(row, col ,board);
-//        }
-//        else if (buildingEnum == BuildingEnum.OBELISK) {
-//            return new Obelisk(row, col, board);
-//        }
-//        return null;
-//    }
+
     public static boolean getCondition(Building building) {
         return building.getCondition();
     }
@@ -196,9 +155,6 @@ public class BuildingFactory {
 
     public BuildingFactory() {
     }
-
-
-
     public void clearValidResourcesWithFlag(BuildingEnum building) throws IOException {
         DebugTools.logging("Clearing valid resources that have flag: " + building);
         for (int i = validResources.size()-1; i > 0; i--) {
