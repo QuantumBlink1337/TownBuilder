@@ -94,6 +94,6 @@ public class GroveUni implements Monument {
     @Override
     public void onPlacement() throws IOException {
         DebugTools.logging("GROVE UNIVERSITY: Placing building");
-        board.buildingPlacer();
+        board.buildingPlacer(board.getDetectableBuildings(), true);
     }
 }

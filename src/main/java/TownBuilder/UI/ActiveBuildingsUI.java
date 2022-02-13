@@ -35,6 +35,9 @@ public class ActiveBuildingsUI extends JPanel {
         add(mainPanel);
 
     }
+    /*
+        Generates the main active buildings panel.
+     */
     private void generateMainActiveBuildingsPanel() {
         mainPanel = new JPanel(new MigLayout());
         mainActiveBuildingPanel = new JPanel(new MigLayout());
@@ -45,7 +48,10 @@ public class ActiveBuildingsUI extends JPanel {
         mainPanel.add(label, "align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+"!");
         mainPanel.add(mainActiveBuildingPanel, "dock center, Wrap");
     }
-
+    /*
+        Updates the active building panels with potential new active buildings. If we found at least one,
+        then generate the appropriate internal view panel.
+     */
     public void updateActiveBuildings() {
         mainActiveBuildingPanel.removeAll();
         ArrayList<TileButton> activeTileButtons = new ArrayList<>();
@@ -90,6 +96,9 @@ public class ActiveBuildingsUI extends JPanel {
                 }
             }
     }
+    /*
+        Generates an internal panel for the Warehouse active building.
+     */
     private JPanel generateIndividualWarehouseView(int[] coords) {
         JPanel panel = new JPanel(new MigLayout("", "[][][]", "[]0[][]"));
         JButton exitButton = new JButton("EXIT");
@@ -149,6 +158,9 @@ public class ActiveBuildingsUI extends JPanel {
         panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
+    /*
+        Generates the internal view for a Factory active building.
+     */
     private JPanel generateIndividualFactoryView(int[] coords) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton("EXIT");
@@ -188,6 +200,9 @@ public class ActiveBuildingsUI extends JPanel {
         panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
+    /*
+        Generates an internal view for the Bank active building.
+     */
     private JPanel generateIndividualBankView(int[] coords) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton("EXIT");

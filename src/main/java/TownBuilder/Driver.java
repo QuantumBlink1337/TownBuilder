@@ -8,20 +8,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Driver {
-
+/*
+    Main executable code for TownBuilder
+ */
 
     public static JFrame gameFrame = new JFrame();
-
-
     public static void main (String[] args) throws IOException, URISyntaxException, InterruptedException {
-        initFrame();
+        initFrame(); // preps gameFrame for GUI
         GameInitializer gameInitializer = new GameInitializer();
-
-        //DebugTools.initFile();
-        gameInitializer.buildingSelection();
+        DebugTools.initFile();
+        gameInitializer.buildingSelection(); // prompts for main menu building selection
         PlayerManager playerManager = new PlayerManager(gameInitializer.getBuildingsForGame(), gameInitializer.getInitializationUI());
         playerManager.determineNumberOfBoards();
-
+        // pretty much everything happens in this loop
         do {
             playerManager.manageTurn();
             initFrame();

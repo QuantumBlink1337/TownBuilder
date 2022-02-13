@@ -94,7 +94,9 @@ public class Theater implements Building
 
     public int scorer(Building[][] bArray) throws IOException {
         int score = 0;
-
+        /*
+            Use the checkBlacklist function to verify that Monument Barrett is not on the board (it is an edge case - it counts as two buildings!)
+         */
         DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol.");
         score += BoardTraverser.findUniqueBuildingsInGivenList(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col), this::checkBlacklist, buildingsOnBoard);
 
