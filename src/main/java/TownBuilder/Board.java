@@ -5,6 +5,7 @@ import TownBuilder.Buildings.*;
 import TownBuilder.Buildings.Monuments.Monument;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.UI.BoardUI;
+import TownBuilder.UI.InitializationUI;
 import TownBuilder.UI.TileButton;
 
 import javax.swing.*;
@@ -49,7 +50,7 @@ public class Board {
     private final boolean monumentCheat;
 
 
-    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName, boolean buildingCheat, boolean resourceCheat, boolean monumentCheat) throws IOException {
+    public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName, boolean buildingCheat, boolean resourceCheat, boolean monumentCheat, InitializationUI iUI) throws IOException {
         this.playerManager = playerManager;
         this.boardName = boardName;
         isSingleplayer = ISP;

@@ -85,7 +85,7 @@ public class PlayerManager {
                 }
             }
 
-            Board temp = new Board(masterBuildings, this, playerCount == 1, initializationUI.getChosenBoardName(), initializationUI.isBuildingSelectionCheat(), initializationUI.isResourceSelectionCheat(), initializationUI.isMonumentSelectionCheat());
+            Board temp = new Board(masterBuildings, this, playerCount == 1, initializationUI.getChosenBoardName(), initializationUI.isBuildingSelectionCheat(), initializationUI.isResourceSelectionCheat(), initializationUI.isMonumentSelectionCheat(), initializationUI);
             boards.add(temp);
             initializationUI.remove(panel);
             initializationUI.updateUI();
