@@ -66,32 +66,29 @@ public class Board {
         detectableBuildings = new ArrayList<>(b);
         scorableBuildings = new ArrayList<>(b);
         buildingFactory = new BuildingFactory();
-        boardUI = new BoardUI(this);
         if (monumentCheat) {
-            JPanel panel = boardUI.getMonumentSelectionPanel();
-            panel.setVisible(true);
-            boardUI.add(panel);
-            boardUI.updateUI();
+            JPanel panel = iUI.createMonumentSelectionPanel(monumentTypes, this);
+            iUI.add(panel);
+            iUI.updateUI();
             synchronized (Utility.getNotifier()) {
                 try {
-                    System.out.println("Notifier started");
                     Utility.getNotifier().wait();
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Test");
-            generateMonument(boardUI.getMonumentSelection());
-            System.out.println(boardUI.getMonumentSelection());
-            boardUI.remove(panel);
-            boardUI.updateUI();
+            generateMonument(iUI.getBuildingSelection());
+            iUI.remove(panel);
+            iUI.updateUI();
+
         }
         else {
             generateMonument();
         }
         scorer = new Scorer(this, scorableBuildings);
         notifier = new Object();
+        boardUI = new BoardUI(this);
         boardUI.initializeBoard();
         buildArrays();
         updateBoard();
