@@ -95,8 +95,8 @@ public class AGuild implements Monument {
 
     @Override
     public void onPlacement() throws IOException {
-        while (MAX_BUILDING_PLACEMENTS > 1) {
-            board.getBoardUI().promptYesNoPrompt("You may replace up to 2 buildings on your board.");
+        while (MAX_BUILDING_PLACEMENTS != 0) {
+            board.getBoardUI().promptYesNoPrompt("Replace a building?");
             synchronized (Utility.getNotifier()) {
                 try {
                     Utility.getNotifier().wait();
@@ -106,7 +106,11 @@ public class AGuild implements Monument {
                 }
             }
             if (board.getBoardUI().getUserYesNoAnswer()) {
-                board.getBuildingFactory().placeBuildingOnBoard(flagOverturnedResources(board.buildingPlacer(board.getDetectableBuildings(),false)), board.getDetectableBuildings(), false, board);
+                BuildingEnum selection= flagOverturnedResources(board.buildingPlacer(board.getDetectableBuildings(),false, false));
+                board.getBoardUI().resetBoardTiles(true, true);
+                board.getBoardUI().unlockBuildingTiles(getType());
+                board.getBuildingFactory().placeBuildingOnBoard(selection, board.getDetectableBuildings(), false, board);
+                board.updateBoard();
             }
             MAX_BUILDING_PLACEMENTS--;
         }

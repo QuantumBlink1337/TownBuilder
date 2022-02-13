@@ -402,7 +402,7 @@ public class Board {
         currentResourceForTurn = resourceEnum;
         boardUI.setSecondaryTextLabel(string);
         if (buildingCheat) {
-            buildingPlacer(scorableBuildings, true);
+            buildingPlacer(scorableBuildings, true, true);
         }
         do {
             boardUI.setSelectedResourceForTurn(currentResourceForTurn);
