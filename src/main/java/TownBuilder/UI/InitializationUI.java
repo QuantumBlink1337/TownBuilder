@@ -1,16 +1,14 @@
 package TownBuilder.UI;
 
+import TownBuilder.*;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
-import TownBuilder.ColorEnum;
-import TownBuilder.GameInitializer;
-import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -248,6 +246,26 @@ public class InitializationUI extends JPanel {
 
         return panel;
     }
+    public JPanel createMonumentSelectionPanel(ArrayList<BuildingEnum> monumentTypes, Board board) throws IOException {
+        ArrayList<Building> monuments = Utility.convertEnumListToBuildingList(monumentTypes, board);
+        JPanel panel = new JPanel(new MigLayout());
+        JLabel buildingSelectionLabel = new JLabel("Select your monument!");
+        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f)));
+        buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(buildingSelectionLabel, "wrap, dock center");
+        int i = 0;
+        for (Building building : monuments) {
+            i++;
+            String wrapperString = "";
+            if (i > 4) {
+                wrapperString = ", wrap";
+                i = 0;
+            }
+            panel.add(initializeIndividualBuildingView(building, "Choose this building"), "split " + monuments.size() + ", w " +
+                    UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(600, false) + "!" +wrapperString);
+        }
+        return panel;
+    }
     public JPanel createCheatsPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel headerLabel = new JLabel("Cheat/Debug Menu");
@@ -272,6 +290,8 @@ public class InitializationUI extends JPanel {
             synchronized (Utility.getNotifier()) {
                 Utility.getNotifier().notify();
             }
+            remove(panel);
+            updateUI();
         });
         String sizeControl = "w " + UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(100, false) + "!";
         panel.add(headerLabel, "wrap, , align center");

@@ -62,11 +62,7 @@ public class BoardUI extends JPanel {
     final ManualUI manualPanel;
     final ScoreUI scorePanel;
 
-    public JPanel getMonumentSelectionPanel() {
-        return monumentSelectionPanel;
-    }
 
-    final JPanel monumentSelectionPanel;
 
     final JPanel YesOrNoPanel;
     final JPanel buildingSelectingPanel;
@@ -84,7 +80,6 @@ public class BoardUI extends JPanel {
         this.board = board;
         this.playerName = board.getBoardName();
         buildings = board.getScorableBuildings();
-        monumentSelectionPanel = createMonumentSelectionPanel(Board.getMonumentTypes());
         manualPanel = new ManualUI(buildings);
         boardHeader = createBoardHeaderPanel();
         boardMatrixPanel = createBoardMatrix();
@@ -97,7 +92,6 @@ public class BoardUI extends JPanel {
         otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
-        monumentSelectionPanel.setVisible(false);
 
     }
     public void initializeBoard() {
@@ -414,27 +408,7 @@ public class BoardUI extends JPanel {
         panel.add(noButton, "w " +UI_Utilities.convertIntToPercentString(500, true)+ " !, h " + UI_Utilities.convertIntToPercentString(125, false)+"!");
         return panel;
     }
-    public JPanel createMonumentSelectionPanel(ArrayList<BuildingEnum> monumentTypes) throws IOException {
-        ArrayList<Building> monuments = Utility.convertEnumListToBuildingList(monumentTypes, board);
-        JPanel panel = new JPanel(new MigLayout());
-        JLabel buildingSelectionLabel = new JLabel("Select your monument!");
-        buildingSelectionLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f)));
-        buildingSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(buildingSelectionLabel, "wrap, dock center");
-        int i = 0;
-        for (Building building : monuments) {
-            i++;
-            String wrapperString = "";
-            if (i > 4) {
-                wrapperString = ", wrap";
-                i = 0;
-            }
-            panel.add(initializeIndividualBuildingView(building, "Choose this building"), "split " + buildings.size() + ", w " +
-                    UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(600, false) + "!" +wrapperString);
-        }
-        return panel;
 
-    }
     private JPanel initializeIndividualBuildingView(Building building, String string) {
         JPanel panel = new JPanel(new MigLayout());
         JButton exitButton = new JButton();
