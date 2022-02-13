@@ -2,7 +2,6 @@ package TownBuilder.UI;
 import TownBuilder.*;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
-import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.Buildings.Monuments.Monument;
 import TownBuilder.DebugApps.DebugTools;
 import net.miginfocom.swing.MigLayout;
@@ -16,7 +15,6 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import static javax.swing.border.BevelBorder.RAISED;
 
@@ -266,6 +264,17 @@ public class BoardUI extends JPanel {
             }
         }
     }
+    public void unlockBuildingTiles(BuildingEnum e) {
+        for (TileButton[] tileButtons : tileAccessMatrix) {
+            for (TileButton tileButton : tileButtons) {
+                if (tileButton.buildingEnum != BuildingEnum.NONE && tileButton.buildingEnum != e) {
+                    tileButton.setEnabled(true);
+                    tileButton.setVisible(true);
+                    tileButton.setBorder(mainPanel.getBorder());
+                }
+            }
+        }
+    }
     /*
         Generates the panel to display the header of the board.
      */
@@ -406,44 +415,6 @@ public class BoardUI extends JPanel {
         panel.add(yesOrNoText, "wrap, align center, span 2 1");
         panel.add(yesButton, "w " +UI_Utilities.convertIntToPercentString(500, true)+ " !, h " + UI_Utilities.convertIntToPercentString(125, false)+"!");
         panel.add(noButton, "w " +UI_Utilities.convertIntToPercentString(500, true)+ " !, h " + UI_Utilities.convertIntToPercentString(125, false)+"!");
-        return panel;
-    }
-
-    private JPanel initializeIndividualBuildingView(Building building, String string) {
-        JPanel panel = new JPanel(new MigLayout());
-        JButton exitButton = new JButton();
-        JTextArea textArea = new JTextArea(building.getManualEntry());
-        JLabel explanationLabel = new JLabel("Here's what it does:");
-        JLabel matrixLabel = new JLabel("Here's what it looks like:");
-        JLabel buildingLabel = new JLabel(building.toString());
-        buildingLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
-        buildingLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        matrixLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
-        matrixLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f)));
-        explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        textArea.setEditable(false);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(24f)));
-        textArea.setBorder(BorderFactory.createLineBorder(Color.black));
-        JScrollPane jScrollPane = new JScrollPane(textArea);
-        jScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        exitButton.setText(string);
-        exitButton.setFont(panel.getFont().deriveFont(Font.BOLD,UI_Utilities.convertFontSize(25f)));
-        exitButton.addActionListener(e -> {
-            System.out.println("Selection button pressed.");
-            monumentSelection = building.getType();
-            synchronized (Utility.getNotifier()) {
-                Utility.getNotifier().notify();
-            }
-        });
-        panel.add(buildingLabel, "dock center, wrap");
-        panel.add(explanationLabel, "dock center, wrap");
-        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(160, false) + "!");
-        panel.add(matrixLabel, "dock center, wrap");
-        panel.add(UI_Utilities.initializeBuildingMatrix(building), "dock center, wrap");
-        panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
     /*
