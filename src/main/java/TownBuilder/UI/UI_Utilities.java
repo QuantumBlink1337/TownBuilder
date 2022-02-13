@@ -1,5 +1,9 @@
 package TownBuilder.UI;
 
+import TownBuilder.Buildings.Building;
+import TownBuilder.ResourceEnum;
+
+import javax.swing.*;
 import java.awt.*;
 
 
@@ -28,4 +32,21 @@ public class UI_Utilities {
     public static float convertFontSize(float value) {
         return (float) (value * (SCREEN_WIDTH/2560.0));
     }
+    public static JPanel initializeBuildingMatrix(Building building) {
+        ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
+        JPanel tilePanel = new JPanel(new GridLayout(buildingPattern.length, buildingPattern[buildingPattern.length-1].length, 2, 0));
+        for (ResourceEnum[] resourceEnums : buildingPattern) {
+            for (ResourceEnum resourceEnum : resourceEnums) {
+                JButton temp = new JButton(resourceEnum.toString());
+                temp.setBackground(resourceEnum.getColor().getOverallColor());
+                if (temp.getText().equals("NONE")) {
+                    temp.setVisible(false);
+                }
+                tilePanel.add(temp);
+            }
+        }
+        return tilePanel;
+    }
+
+
 }

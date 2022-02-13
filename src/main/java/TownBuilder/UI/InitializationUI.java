@@ -213,27 +213,13 @@ public class InitializationUI extends JPanel {
         panel.add(explanationLabel, "dock center, wrap");
         panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(160, false) + "!");
         panel.add(matrixLabel, "dock center, wrap");
-        panel.add(initializeBuildingMatrix(building), "dock center, wrap");
+        panel.add(UI_Utilities.initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
 
 
-    private JPanel initializeBuildingMatrix(Building building) {
-        ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
-        JPanel tilePanel = new JPanel(new GridLayout(buildingPattern.length, buildingPattern[buildingPattern.length-1].length, 2, 0));
-        for (ResourceEnum[] resourceEnums : buildingPattern) {
-            for (ResourceEnum resourceEnum : resourceEnums) {
-                JButton temp = new JButton(resourceEnum.toString());
-                temp.setBackground(resourceEnum.getColor().getOverallColor());
-                if (temp.getText().equals("NONE")) {
-                    temp.setVisible(false);
-                }
-                tilePanel.add(temp);
-            }
-        }
-        return tilePanel;
-    }
+
     public JPanel generatePlayerNameSelectionPanel() {
         JPanel panel = new JPanel(new MigLayout());
         JLabel headerLabel = new JLabel("What's your name?");

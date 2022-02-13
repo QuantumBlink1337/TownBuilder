@@ -135,25 +135,11 @@ public class ManualUI extends JPanel {
         panel.add(explanationLabel, "dock center, wrap");
         panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(125, false) + "!");
         panel.add(matrixLabel, "dock center, wrap");
-        panel.add(initializeBuildingMatrix(building), "dock center, wrap");
+        panel.add(UI_Utilities.initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
         return panel;
     }
-    private JPanel initializeBuildingMatrix(Building building) {
-        ResourceEnum[][] buildingPattern = building.getBuildingPatternsList().get(0);
-        JPanel tilePanel = new JPanel(new GridLayout(buildingPattern.length, buildingPattern[buildingPattern.length-1].length, 2, 0));
-        for (ResourceEnum[] resourceEnums : buildingPattern) {
-            for (ResourceEnum resourceEnum : resourceEnums) {
-                JButton temp = new JButton(resourceEnum.toString());
-                temp.setBackground(resourceEnum.getColor().getOverallColor());
-                if (temp.getText().equals("NONE")) {
-                    temp.setVisible(false);
-                }
-                tilePanel.add(temp);
-            }
-        }
-        return tilePanel;
-    }
+
 
     private void initializeRules() {
         rules.add(new ArrayList<>(Arrays.asList("Objective", "The goal of TownBuilder is to construct as many buildings as possible to earn points. The game ends when you have nowhere else to place a resource or building. Planning is key!")));
