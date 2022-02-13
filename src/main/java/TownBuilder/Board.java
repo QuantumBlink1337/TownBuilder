@@ -47,16 +47,13 @@ public class Board {
 
     private final boolean buildingCheat;
     private final boolean resourceCheat;
-    private final boolean monumentCheat;
-
 
     public Board(ArrayList<Building> b, PlayerManager playerManager, boolean ISP, String boardName, boolean buildingCheat, boolean resourceCheat, boolean monumentCheat) throws IOException {
         this.playerManager = playerManager;
         this.boardName = boardName;
         isSingleplayer = ISP;
-        this.buildingCheat = buildingCheat;
-        this.resourceCheat = resourceCheat;
-        this.monumentCheat = monumentCheat;
+        this.buildingCheat = ISP && buildingCheat;
+        this.resourceCheat = ISP && resourceCheat;
         // these monuments won't work / will crash the game if its singleplayer
         // the board game also doesn't let SP users use these monuments anyway
         if (ISP) {
@@ -80,7 +77,6 @@ public class Board {
     public Board(ArrayList<Building> b, BuildingEnum mo, PlayerManager playerManager) throws IOException {
         this.buildingCheat = false;
         this.resourceCheat = false;
-        this.monumentCheat = false;
         this.playerManager = playerManager;
         boardName = "DEBUG";
         isSingleplayer = true;
@@ -308,7 +304,11 @@ public class Board {
             turnResource = Utility.resourcePicker(blacklistedResources, this, string);
         }
         else {
-            if (spResourceSelectionIncrement == 2) {
+            if (resourceCheat) {
+                Utility.resetResourceArray();
+                return Utility.resourcePicker(blacklistedResources, this, "Cheat mode enabled. Pick a resource!");
+            }
+            else if (spResourceSelectionIncrement == 2) {
                 spResourceSelectionIncrement = 0;
                 Utility.resetResourceArray();
                 return Utility.resourcePicker(blacklistedResources, this, string);
@@ -324,7 +324,7 @@ public class Board {
     /*
         Prompts user for what building they want and places it on the board. Returns the enum of the building chosen.
      */
-    public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeBuildingOnBoard) throws IOException {
+    public BuildingEnum buildingPlacer(ArrayList<Building> buildingArrayList, boolean placeAnywhere) throws IOException {
         boardUI.promptBuildingSelection("What building would you like?");
         synchronized (Utility.getNotifier()) {
             try {
@@ -334,7 +334,7 @@ public class Board {
                 e.printStackTrace();
             }
         }
-        buildingFactory.placeBuildingOnBoard(boardUI.getSelectedBuildingForTurn(), buildingArrayList, placeBuildingOnBoard, this);
+        buildingFactory.placeBuildingOnBoard(boardUI.getSelectedBuildingForTurn(), buildingArrayList, placeAnywhere, this);
         updateBoard();
         return boardUI.getSelectedBuildingForTurn();
     }
@@ -399,6 +399,9 @@ public class Board {
         boardUI.setResourceSelectionLabel();
         currentResourceForTurn = resourceEnum;
         boardUI.setSecondaryTextLabel(string);
+        if (buildingCheat) {
+            buildingPlacer(scorableBuildings, true);
+        }
         do {
             boardUI.setSelectedResourceForTurn(currentResourceForTurn);
             synchronized (notifier) {
