@@ -4,10 +4,12 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.UI.BoardUI;
 
 public class Utility {
@@ -100,6 +102,16 @@ public class Utility {
             buildingEnums.add(building.getType());
         }
         return buildingEnums;
+    }
+    /*
+        Takes a Collection of BuildingEnums and returns their Object representation.
+     */
+    public static ArrayList<Building> convertEnumListToBuildingList(Collection<BuildingEnum> buildingEnumCollection) throws IOException {
+        ArrayList<Building> buildings = new ArrayList<>();
+        for (BuildingEnum buildingEnum : buildingEnumCollection) {
+            buildings.add(BuildingFactory.getBuilding(buildingEnum, null, -1, -1, false, null));
+        }
+        return buildings;
     }
     // used for prompting the picking of resources in game. blacklistResources refers to resources that the user cannot pick from (used with Banks)
     public static ResourceEnum resourcePicker(ArrayList<ResourceEnum> blacklistedResources, Board board, String string) throws IOException {
