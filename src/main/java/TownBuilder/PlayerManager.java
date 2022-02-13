@@ -176,23 +176,9 @@ public class PlayerManager {
             Driver.getGameFrame().add(board.getBoardUI());
             Driver.initFrame();
             if (!board.isGameCompletion()) {
-                /*
-                    Support for the debug version of the game is here. If the Board name is set to a debug string, we pass along variables that force turnExecution to do what the debug task is.
-                 */
-                if (board.getBoardName().equals("debug")) {
-                    DebugTools.logging("[MANAGE_TURN] - Debug Singleplayer turnExecution");
-                    turnExecution(board, null, true, true, false, masterBuildings);
-                }
-                else if (board.getBoardName().equals("debug_building")) {
-                    System.out.println("Building debug");
-                    DebugTools.logging("[MANAGE_TURN] - Debug Building Singleplayer turnExecution");
+                DebugTools.logging("[MANAGE_TURN] -  Singleplayer turnExecution");
+                turnExecution(board, null, true, false, false, masterBuildings);
 
-                    turnExecution(board, null, false, false, true, masterBuildings);
-                }
-                else {
-                    DebugTools.logging("[MANAGE_TURN] -  Singleplayer turnExecution");
-                    turnExecution(board, null, true, false, false, masterBuildings);
-                }
             }
             if (boardComplete(board)) {
                 board.getBoardUI().promptFinalScoreView();
