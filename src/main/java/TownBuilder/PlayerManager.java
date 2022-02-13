@@ -177,7 +177,7 @@ public class PlayerManager {
             Driver.initFrame();
             if (!board.isGameCompletion()) {
                 DebugTools.logging("[MANAGE_TURN] -  Singleplayer turnExecution");
-                turnExecution(board, null, true, false, false, masterBuildings);
+                turnExecution(board, null, true, false);
 
             }
             if (boardComplete(board)) {
@@ -215,7 +215,7 @@ public class PlayerManager {
             Driver.getGameFrame().add(pickResourceBoard.getBoardUI());
             Driver.initFrame();
 
-            resource = turnExecution(pickResourceBoard, true, false, masterBuildings);
+            resource = turnExecution(pickResourceBoard, true);
             multiplayerModifiableBoards.remove(pickResourceBoard); // removes from board
             Thread.sleep(1000); // why is this here?
             Driver.getGameFrame().remove(pickResourceBoard.getBoardUI());
@@ -235,7 +235,7 @@ public class PlayerManager {
                 Driver.getGameFrame().add(temp.getBoardUI());
                 Driver.initFrame();
                 if (!boardComplete(temp))  {
-                    turnExecution(temp, resource, false, true,false, masterBuildings);
+                    turnExecution(temp, resource, false, true);
                     if (boardComplete(temp)) {
                         // if game is complete, remove them permanently from board list
                         multiplayerModifiableBoards.remove(temp);
@@ -253,23 +253,17 @@ public class PlayerManager {
     }
     // fast track turnExecution method for picking a resource
     @SuppressWarnings("SameParameterValue")
-    private static ResourceEnum turnExecution(Board board, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException {
-        return turnExecution(board, null, true, isMultiplayerGame, placeBuilding, buildingsForGame);
+    private static ResourceEnum turnExecution(Board board, boolean isMultiplayerGame) throws IOException {
+        return turnExecution(board, null, true, isMultiplayerGame);
     }
     /*
         This handles the passing of resource to turnActions. If resourcePick is true, they're allowed to pick a resource. Otherwise, the resource will be whatever is passed in.
 
         resource should be set to null if resourcePick is also true.
      */
-    private static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame, boolean placeBuilding, ArrayList<Building> buildingsForGame) throws IOException {
+    private static ResourceEnum turnExecution(Board board, ResourceEnum resource, boolean resourcePick, boolean isMultiplayerGame) throws IOException {
         board.updateBoard();
         board.getBoardUI().getMainPanel().updateUI();
-        if (placeBuilding) {
-            //board.renderBoard();
-            board.setLastBuiltBuilding(board.buildingPlacer(buildingsForGame, true));
-            turnActions(board, Utility.randomResource(), null);
-            return null;
-        }
         if (resourcePick) {
             ResourceEnum r;
             String string = " ";
