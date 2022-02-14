@@ -176,13 +176,14 @@ public class BoardUI extends JPanel {
                 tilePanel.add(temp);
                 temp.addActionListener(e -> {
                     // Nulls existing coordinates and communicates with playerTurn of Board.
-                     selectedCoords = null;
-                     selectedCoords = temp.getCoords();
-                     coordinatesClicked = true;
-                     synchronized (board.getNotifier()) {
-                         board.getNotifier().notify();
-                     }
-
+                    if (temp.isActionListenerActive()) {
+                        selectedCoords = null;
+                        selectedCoords = temp.getCoords();
+                        coordinatesClicked = true;
+                        synchronized (board.getNotifier()) {
+                            board.getNotifier().notify();
+                        }
+                    }
                 });
             }
         }
@@ -241,6 +242,7 @@ public class BoardUI extends JPanel {
             for (TileButton tileButton : foundButtons) {
                 tileButton.setBorder(new BevelBorder(RAISED, Color.black, Color.black));
                 tileButton.setEnabled(true);
+                tileButton.setActionListenerActive(true);
             }
         }
     }
@@ -255,11 +257,12 @@ public class BoardUI extends JPanel {
         for (TileButton[] tileButtons : tileAccessMatrix) {
             for (TileButton tileButton : tileButtons) {
 
+                tileButton.setActionListenerActive(true);
                 tileButton.setEnabled(true);
                 tileButton.setVisible(true);
                 tileButton.setBorder(mainPanel.getBorder());
                 if ((tileButton.getResourceEnum() != ResourceEnum.NONE && doLeaveResourceLocked) ||(tileButton.getBuildingEnum() != BuildingEnum.NONE && doLeaveBuildingLocked)) {
-                    tileButton.setEnabled(false);
+                    tileButton.setActionListenerActive(false);
                 }
             }
         }
@@ -268,6 +271,7 @@ public class BoardUI extends JPanel {
         for (TileButton[] tileButtons : tileAccessMatrix) {
             for (TileButton tileButton : tileButtons) {
                 if (tileButton.buildingEnum != BuildingEnum.NONE && tileButton.buildingEnum != e) {
+                    tileButton.setActionListenerActive(true);
                     tileButton.setEnabled(true);
                     tileButton.setVisible(true);
                     tileButton.setBorder(mainPanel.getBorder());

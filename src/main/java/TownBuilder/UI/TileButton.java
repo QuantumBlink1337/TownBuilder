@@ -14,6 +14,16 @@ public class TileButton extends JButton {
     private final int[] coords = new int[2];
     private String text;
 
+    public boolean isActionListenerActive() {
+        return actionListenerActive;
+    }
+
+    public void setActionListenerActive(boolean enabled) {
+        this.actionListenerActive = enabled;
+    }
+
+    private boolean actionListenerActive;
+
     ResourceEnum resourceEnum;
     BuildingEnum buildingEnum;
 
@@ -26,6 +36,7 @@ public class TileButton extends JButton {
         coords[0] = r;
         coords[1] = c;
         text = "EMPTY!";
+        actionListenerActive = true;
         setText(text);
         setFont(new Font("TimesRoman", Font.BOLD, (int) UI_Utilities.convertFontSize(35f)));
         resourceEnum = ResourceEnum.NONE;
@@ -49,12 +60,12 @@ public class TileButton extends JButton {
         if (resourceEnum != ResourceEnum.NONE && resourceEnum != ResourceEnum.OBSTRUCTED) {
             setText(text = resourceEnum.toString());
             setBackground(resourceEnum.getColor().getOverallColor());
-            setEnabled(false);
+            setActionListenerActive(false);
         }
         else if (buildingEnum != BuildingEnum.NONE) {
             setText(text = buildingEnum.toString());
             setBackground(buildingEnum.getColor().getOverallColor());
-            setEnabled(false);
+            setActionListenerActive(false);
         }
         else {
             setText(text = "EMPTY!");
