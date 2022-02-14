@@ -3,9 +3,12 @@ package TownBuilder.UI;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.ResourceEnum;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 
 public class TileButton extends JButton {
@@ -35,9 +38,7 @@ public class TileButton extends JButton {
     public TileButton(int r, int c) {
         coords[0] = r;
         coords[1] = c;
-        text = "EMPTY!";
         actionListenerActive = true;
-        setText(text);
         setFont(new Font("TimesRoman", Font.BOLD, (int) UI_Utilities.convertFontSize(35f)));
         resourceEnum = ResourceEnum.NONE;
         buildingEnum = BuildingEnum.NONE;
@@ -58,17 +59,14 @@ public class TileButton extends JButton {
 
     public void updateButton() {
         if (resourceEnum != ResourceEnum.NONE && resourceEnum != ResourceEnum.OBSTRUCTED) {
-            setText(text = resourceEnum.toString());
             setBackground(resourceEnum.getColor().getOverallColor());
             setActionListenerActive(false);
         }
         else if (buildingEnum != BuildingEnum.NONE) {
-            setText(text = buildingEnum.toString());
             setBackground(buildingEnum.getColor().getOverallColor());
             setActionListenerActive(false);
         }
         else {
-            setText(text = "EMPTY!");
             setBackground(null);
         }
     }
@@ -82,7 +80,17 @@ public class TileButton extends JButton {
     public int getCol() {
         return coords[1];
     }
-
+    private void updateImage(BuildingEnum buildingEnum) {
+        Image img = null;
+        try {
+            img = ImageIO.read(new File("src/assets/buildings/"+buildingEnum.getColor().toString()+".png"));
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(128, true), UI_Utilities.convertBaseValueToScaledValue(128, false), Image.SCALE_DEFAULT);
+        setIcon(new ImageIcon(img));
+    }
 
 
 
