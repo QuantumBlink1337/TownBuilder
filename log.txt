@@ -1,0 +1,116 @@
+THIS IS NOT THE ACTUAL GAME. THIS IS A TEST OF THE AUTOMATED SCORING SYSTEM.
+Farm feeding protocol triggered.
+Searching for Feedable status - THEATER at row: 0 and column: 0 Condition: false
+Searching for Feedable status - COTTAGE at row: 0 and column: 1 Condition: false
+Found a feedable building at COTTAGE at row: 0 and column: 1 Condition: true
+Fed condition of Farm building after increment: 3
+Searching for Feedable status - COTTAGE at row: 0 and column: 2 Condition: false
+Found a feedable building at COTTAGE at row: 0 and column: 2 Condition: true
+Fed condition of Farm building after increment: 2
+Searching for Feedable status - COTTAGE at row: 0 and column: 3 Condition: false
+Found a feedable building at COTTAGE at row: 0 and column: 3 Condition: true
+Fed condition of Farm building after increment: 1
+Searching for Feedable status - FARM at row: 1 and column: 0 Condition: false
+Searching for Feedable status - WAREHOUSE at row: 1 and column: 1 Condition: false
+Searching for Feedable status - CHAPEL at row: 1 and column: 2 Condition: false
+Searching for Feedable status - COTTAGE at row: 1 and column: 3 Condition: false
+Found a feedable building at COTTAGE at row: 1 and column: 3 Condition: true
+Fed condition of Farm building after increment: 0
+Searching for Feedable status - WELL at row: 2 and column: 0 Condition: false
+Searching for Feedable status - TAVERN at row: 2 and column: 1 Condition: false
+Searching for Feedable status - WELL at row: 2 and column: 2 Condition: false
+Searching for Feedable status - TAVERN at row: 2 and column: 3 Condition: false
+Searching for Feedable status - THEATER at row: 3 and column: 0 Condition: false
+Searching for Feedable status - COTTAGE at row: 3 and column: 1 Condition: false
+Searching for Feedable status - WELL at row: 3 and column: 2 Condition: false
+Searching for Feedable status - THEATER at row: 3 and column: 3 Condition: false
+Scoring check: buildingsForGame size: 8
+[93;1mBeginning Theater scoring protocol.[0m
+Retrieving buildings in same row/column 0 and col: 0
+Retrieving building: THEATER at row: 0 and column: 0 Condition: false
+Retrieving building: FARM at row: 1 and column: 0 Condition: false
+Retrieving building: WELL at row: 2 and column: 0 Condition: false
+Retrieving building: THEATER at row: 3 and column: 0 Condition: false
+Find Uniques: Checking FARM at row: 1 and column: 0 Condition: false
+Building is not empty. Checking it.
+Checking master building: COTTAGE at row: -1 and column: -1 Condition: false
+Checking master building: FARM at row: -1 and column: -1 Condition: false
+Building is unique. Incrementing score.
+Checking master building: WELL at row: -1 and column: -1 Condition: false
+Checking master building: CHAPEL at row: -1 and column: -1 Condition: false
+Checking master building: THEATER at row: -1 and column: 1 Condition: false
+Checking master building: TAVERN at row: -1 and column: -1 Condition: false
+Checking master building: WAREHOUSE at row: -1 and column: -1 Condition: false
+Find Uniques: Checking WELL at row: 2 and column: 0 Condition: false
+Building is not empty. Checking it.
+Checking master building: COTTAGE at row: -1 and column: -1 Condition: false
+Checking master building: FARM at row: -1 and column: -1 Condition: true
+Checking master building: WELL at row: -1 and column: -1 Condition: false
+Building is unique. Incrementing score.
+Checking master building: CHAPEL at row: -1 and column: -1 Condition: false
+Checking master building: THEATER at row: -1 and column: 1 Condition: false
+Checking master building: TAVERN at row: -1 and column: -1 Condition: false
+Checking master building: WAREHOUSE at row: -1 and column: -1 Condition: false
+Find Uniques: Checking THEATER at row: 3 and column: 0 Condition: false
+Building is not empty. Checking it.
+Checking master building: COTTAGE at row: -1 and column: -1 Condition: false
+Checking master building: FARM at row: -1 and column: -1 Condition: true
+Checking master building: WELL at row: -1 and column: -1 Condition: true
+Checking master building: CHAPEL at row: -1 and column: -1 Condition: false
+Checking master building: THEATER at row: -1 and column: 1 Condition: false
+Building is unique. Incrementing score.
+Checking master building: TAVERN at row: -1 and column: -1 Condition: false
+Checking master building: WAREHOUSE at row: -1 and column: -1 Condition: false
+Find Uniques: Checking COTTAGE at row: 0 and column: 1 Condition: true
+Building is not empty. Checking it.
+Checking master building: COTTAGE at row: -1 and column: -1 Condition: false
+Building is unique. Incrementing score.
+Checking master building: FARM at row: -1 and column: -1 Condition: true
+Checking master building: WELL at row: -1 and column: -1 Condition: true
+Checking master building: CHAPEL at row: -1 and column: -1 Condition: false
+Checking master building: THEATER at row: -1 and column: 1 Condition: true
+Checking master building: TAVERN at row: -1 and column: -1 Condition: false
+Checking master building: WAREHOUSE at row: -1 and column: -1 Condition: false
+Find Uniques: Checking COTTAGE at row: 0 and column: 2 Condition: true
+Building is not empty. Checking it.
+Checking master building: COTTAGE at row: -1 and column: -1 Condition: true
+Checking master building: FARM at row: -1 and column: -1 Condition: true
+Checking master building: WELL at row: -1 and column: -1 Condition: true
+Checking master building: CHAPEL at row: -1 and column: -1 Condition: false
+Checking master building: THEATER at row: -1 and column: 1 Condition: true
+Checking master building: TAVERN at row: -1 and column: -1 Condition: false
+Checking master building: WAREHOUSE at row: -1 and column: -1 Condition: false
+Find Uniques: Checking COTTAGE at row: 0 and column: 3 Condition: true
+Building is not empty. Checking it.
+Checking master building: COTTAGE at row: -1 and column: -1 Condition: true
+Checking master building: FARM at row: -1 and column: -1 Condition: true
+Checking master building: WELL at row: -1 and column: -1 Condition: true
+Checking master building: CHAPEL at row: -1 and column: -1 Condition: false
+Checking master building: THEATER at row: -1 and column: 1 Condition: true
+Checking master building: TAVERN at row: -1 and column: -1 Condition: false
+Checking master building: WAREHOUSE at row: -1 and column: -1 Condition: false
+[91;1mBeginning Farm scoring protocol.[0m
+[38;2;255;165;0;1mBeginning Chapel scoring protocol.[0m
+Chapel Scoring: Checking THEATER at row: 0 and column: 0 Condition: false
+Chapel Scoring: Checking COTTAGE at row: 0 and column: 1 Condition: true
+Chapel Scoring: Found COTTAGE at row: 0 and column: 1 Condition: trueadding 1 to score. Score: 1
+Chapel Scoring: Checking COTTAGE at row: 0 and column: 2 Condition: true
+Chapel Scoring: Found COTTAGE at row: 0 and column: 2 Condition: trueadding 1 to score. Score: 2
+Chapel Scoring: Checking COTTAGE at row: 0 and column: 3 Condition: true
+Chapel Scoring: Found COTTAGE at row: 0 and column: 3 Condition: trueadding 1 to score. Score: 3
+Chapel Scoring: Checking FARM at row: 1 and column: 0 Condition: false
+Chapel Scoring: Checking WAREHOUSE at row: 1 and column: 1 Condition: false
+Chapel Scoring: Checking CHAPEL at row: 1 and column: 2 Condition: false
+Chapel Scoring: Checking COTTAGE at row: 1 and column: 3 Condition: true
+Chapel Scoring: Found COTTAGE at row: 1 and column: 3 Condition: trueadding 1 to score. Score: 4
+Chapel Scoring: Checking WELL at row: 2 and column: 0 Condition: false
+Chapel Scoring: Checking TAVERN at row: 2 and column: 1 Condition: false
+Chapel Scoring: Checking WELL at row: 2 and column: 2 Condition: false
+Chapel Scoring: Checking TAVERN at row: 2 and column: 3 Condition: false
+Chapel Scoring: Checking THEATER at row: 3 and column: 0 Condition: false
+Chapel Scoring: Checking COTTAGE at row: 3 and column: 1 Condition: false
+Chapel Scoring: Checking WELL at row: 3 and column: 2 Condition: false
+Chapel Scoring: Checking THEATER at row: 3 and column: 3 Condition: false
+[38;2;115;115;115;1mBeginning Well scoring protocol.[0m
+Retrieving adjacent buildings at row: 2 and col: 0
+Getting Building at

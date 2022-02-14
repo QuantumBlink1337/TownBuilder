@@ -64,6 +64,7 @@ public class TileButton extends JButton {
         }
         else if (buildingEnum != BuildingEnum.NONE) {
             setBackground(buildingEnum.getColor().getOverallColor());
+            updateImage(buildingEnum);
             setActionListenerActive(false);
         }
         else {
