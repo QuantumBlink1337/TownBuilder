@@ -70,14 +70,14 @@ public class OpaleyeWatch implements Monument{
         DebugTools.logging("[MONUMENT_OPALEYE] - Beginning turn interval process.");
         Board[] adjacentBoards = board.getPlayerManager().getAdjacentBoards(board);
         for (Board adjacentBoard : adjacentBoards) {
-            DebugTools.logging("[MONUMENT_OPALEYE] - Board " + adjacentBoard.getBoardName() + " last placed building was: " + adjacentBoard.getLastBuiltBuilding());
             for (BuildingEnum buildingEnum : chosenBuildings) {
-                if (adjacentBoard.getLastBuiltBuilding() == buildingEnum)  {
-                    board.getBoardUI().getErrorTextLabel().setText("Someone next to you built a " + buildingEnum.toString() + " which is on your Opaleye's Watch monument.");
-                    board.getBuildingFactory().placeBuildingOnBoard(adjacentBoard.getLastBuiltBuilding(), board.getDetectableBuildings(), true, board);
-                    chosenBuildings.remove(adjacentBoard.getLastBuiltBuilding());
-                    break;
-                }
+                for (BuildingEnum lastPlacedBuilding : adjacentBoard.getBuildingsBuiltThisTurn())
+                    if (lastPlacedBuilding == buildingEnum)  {
+                        board.getBoardUI().getErrorTextLabel().setText("Someone next to you built a " + buildingEnum.toString() + " which is on your Opaleye's Watch monument.");
+                        board.getBoardUI().getErrorTextLabel().setVisible(true);
+                        board.getBuildingFactory().placeBuildingOnBoard(lastPlacedBuilding, board.getDetectableBuildings(), true, board);
+                        chosenBuildings.remove(lastPlacedBuilding);
+                    }
             }
         }
     }
@@ -95,7 +95,6 @@ public class OpaleyeWatch implements Monument{
 
     @Override
     public void onPlacement() throws IOException {
-        System.out.println("Choose three buildings to track.");
         ArrayList<Building> uniqueBuildings = new ArrayList<>(board.getScorableBuildings());
 
         for (int i = 0; i < 3; i++) {
