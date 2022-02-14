@@ -34,6 +34,19 @@ public class InitializationUI extends JPanel {
 
     private boolean resourceSelectionCheat = false;
     private boolean buildingSelectionCheat = false;
+
+    public void setResourceSelectionCheat(boolean resourceSelectionCheat) {
+        this.resourceSelectionCheat = resourceSelectionCheat;
+    }
+
+    public void setBuildingSelectionCheat(boolean buildingSelectionCheat) {
+        this.buildingSelectionCheat = buildingSelectionCheat;
+    }
+
+    public void setMonumentSelectionCheat(boolean monumentSelectionCheat) {
+        this.monumentSelectionCheat = monumentSelectionCheat;
+    }
+
     private boolean monumentSelectionCheat = false;
     private String chosenBoardName;
     private BuildingEnum buildingSelection;
