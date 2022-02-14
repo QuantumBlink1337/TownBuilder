@@ -17,6 +17,12 @@ import java.util.Arrays;
 public class Board {
     private final ArrayList<Building> detectableBuildings;
     private final ArrayList<Building> scorableBuildings;
+
+    public ArrayList<BuildingEnum> getBuildingsBuiltThisTurn() {
+        return buildingsBuiltThisTurn;
+    }
+
+    private final ArrayList<BuildingEnum> buildingsBuiltThisTurn = new ArrayList<>();
     private static final ArrayList<BuildingEnum> monumentTypes = new ArrayList<>(Arrays.asList(BuildingEnum.AGUILD, BuildingEnum.ARCHIVE, BuildingEnum.BARRETT, BuildingEnum.CATERINA, BuildingEnum.IRONWEED,
             BuildingEnum.GROVEUNI, BuildingEnum.MANDRAS, BuildingEnum.OPALEYE, BuildingEnum.SHRINE, BuildingEnum.SILVAFRM, BuildingEnum.STARLOOM, BuildingEnum.OBELISK, BuildingEnum.SKYBATHS));
     public static ArrayList<BuildingEnum> getMonumentTypes() {
@@ -34,7 +40,6 @@ public class Board {
     private boolean isGameCompletion = false;
     private boolean turnOver = false;
     private boolean placeAnywhere = false;
-    private BuildingEnum lastBuiltBuilding;
     private final boolean isSingleplayer;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
@@ -94,9 +99,7 @@ public class Board {
         updateBoard();
     }
 
-    public BuildingEnum getLastBuiltBuilding() {
-        return lastBuiltBuilding;
-    }
+
     public Object getNotifier() {
         return notifier;
     }
@@ -105,9 +108,6 @@ public class Board {
     }
     public BoardUI getBoardUI() {
         return boardUI;
-    }
-    public void setLastBuiltBuilding(BuildingEnum lastBuiltBuilding) {
-        this.lastBuiltBuilding = lastBuiltBuilding;
     }
     public void setBoardFinishPlace(int place) {
         boardFinishPlace = place;
@@ -228,7 +228,7 @@ public class Board {
         selection = boardUI.getUserYesNoAnswer();
         // if they said yes, then call placeBuildingOnBoard
         if (selection) {
-            lastBuiltBuilding = building.getType();
+            buildingsBuiltThisTurn.add(building.getType());
             buildingFactory.placeBuildingOnBoard(building.getType(), detectableBuildings, building.getType() == BuildingEnum.SHED || placeAnywhere,this);
             updateBoard();
         }
@@ -399,6 +399,7 @@ public class Board {
         and a string to denote what kind of turn it is.
      */
     public void playerTurn(ResourceEnum resourceEnum, String string) throws IOException {
+        buildingsBuiltThisTurn.clear();
         boardUI.setResourceSelectionLabel();
         currentResourceForTurn = resourceEnum;
         boardUI.setSecondaryTextLabel(string);
