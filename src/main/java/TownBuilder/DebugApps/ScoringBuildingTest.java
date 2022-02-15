@@ -3,7 +3,6 @@ package TownBuilder.DebugApps;
 import TownBuilder.*;
 import TownBuilder.Buildings.*;
 import TownBuilder.Buildings.Monuments.Monument;
-import com.diogonunes.jcolor.Attribute;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
