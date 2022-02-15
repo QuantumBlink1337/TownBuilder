@@ -458,7 +458,6 @@ public class Board {
             for (int col = 0; col < gBB[row].length; col++) {
                 accessMatrix[row][col].setResourceEnum(gRB[row][col].getResource());
                 accessMatrix[row][col].setBuildingEnum(gBB[row][col].getType());
-                accessMatrix[row][col].updateButton();
                 // If there's at least one "Active Building" type on the board, then we need to eventually attempt to update the Active Building panel.
                 // To do: Maybe a method to return whether a building is active in the first place instead of using the building's enum.
                 if (gBB[row][col].getType() == BuildingEnum.WAREHOUSE || gBB[row][col].getType() == BuildingEnum.FACTORY || gBB[row][col].getType() == BuildingEnum.BANK) {

@@ -44,10 +44,18 @@ public class TileButton extends JButton {
         buildingEnum = BuildingEnum.NONE;
     }
     public void setResourceEnum(ResourceEnum resource) {
+        if (resource == resourceEnum) {
+            return;
+        }
         resourceEnum = resource;
+        updateButton();
     }
     public void setBuildingEnum(BuildingEnum building) {
+        if (building == buildingEnum) {
+            return;
+        }
         buildingEnum = building;
+        updateButton();
     }
     public ResourceEnum getResourceEnum() {
         return resourceEnum;
