@@ -366,7 +366,7 @@ public class BoardUI extends JPanel {
             if (!(building instanceof Monument)) {
                 TileButton button = new TileButton(-1, -1);
                 button.setBackground(building.getType().getColor().getOverallColor());
-                button.setBuildingEnum(building.getType());
+                button.setText(building.toString());
                 button.addActionListener(e -> {
                     selectedBuildingForTurn = building.getType();
                     panel.setVisible(false);
