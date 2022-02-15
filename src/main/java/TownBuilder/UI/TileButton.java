@@ -13,7 +13,6 @@ public class TileButton extends JButton {
 
 
     private final int[] coords = new int[2];
-    private String text;
 
     public boolean isActionListenerActive() {
         return actionListenerActive;
@@ -96,7 +95,7 @@ public class TileButton extends JButton {
     }
     private void updateImage(BuildingEnum buildingEnum) {
         try {
-            URL iconUrl = this.getClass().getClassLoader().getResource(buildingEnum.getColor().toString()+".png");
+            URL iconUrl = this.getClass().getClassLoader().getResource("buildings/"+buildingEnum.getColor().toString()+".png");
             Toolkit tk = this.getToolkit();
             Image img = tk.getImage(iconUrl);
             img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(128, true), UI_Utilities.convertBaseValueToScaledValue(128, false), Image.SCALE_DEFAULT);
