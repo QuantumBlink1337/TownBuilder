@@ -52,6 +52,7 @@ public class TileButton extends JButton {
         if (building == buildingEnum) {
             return;
         }
+        setText("");
         buildingEnum = building;
         updateButton();
     }
@@ -66,9 +67,15 @@ public class TileButton extends JButton {
     public void updateButton() {
         if (resourceEnum != ResourceEnum.NONE && resourceEnum != ResourceEnum.OBSTRUCTED) {
             setBackground(resourceEnum.getColor().getOverallColor());
+            setText(resourceEnum.toString());
             setActionListenerActive(false);
         }
+        else if (resourceEnum == ResourceEnum.NONE) {
+            setText("");
+            setBackground(null);
+        }
         else if (buildingEnum != BuildingEnum.NONE) {
+            setText("");
             setBackground(buildingEnum.getColor().getOverallColor());
             updateImage(buildingEnum);
             setActionListenerActive(false);
