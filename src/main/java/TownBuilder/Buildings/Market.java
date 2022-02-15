@@ -3,7 +3,6 @@ package TownBuilder.Buildings;
 import TownBuilder.BoardTraverser;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,9 +70,9 @@ public class Market implements Building {
 
     @Override
     public int scorer(Building[][] bArray) throws IOException {
-        ArrayList<Building> rowsandcolumns = (ArrayList<Building>) Arrays.asList(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col));
-        ArrayList<Building> buildingsInRow = (ArrayList<Building>) rowsandcolumns.subList(0, rowsandcolumns.size()/2);
-        ArrayList<Building> buildingsInColumn = (ArrayList<Building>) rowsandcolumns.subList(rowsandcolumns.size()/2, rowsandcolumns.size());
+        ArrayList<Building> rowAndColumn = new ArrayList<>(Arrays.asList(BoardTraverser.getBuildingsInRowAndColumn(bArray, row, col)));
+        ArrayList<Building> buildingsInRow = new ArrayList<>(rowAndColumn.subList(0, rowAndColumn.size()/2)) ;
+        ArrayList<Building> buildingsInColumn = new ArrayList<>(rowAndColumn.subList(rowAndColumn.size()/2, rowAndColumn.size()));
         return (Math.max(BoardTraverser.instancesOfBuilding(buildingsInRow.toArray(new Building[]{}), ColorEnum.YELLOW), BoardTraverser.instancesOfBuilding(buildingsInColumn.toArray(new Building[]{}), ColorEnum.YELLOW)));
     }
 
