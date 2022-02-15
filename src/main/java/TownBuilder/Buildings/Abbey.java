@@ -65,7 +65,7 @@ public class Abbey implements Building {
 
     @Override
     public int scorer(Building[][] bArray) throws IOException {
-        return BoardTraverser.searchForBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), ColorEnum.RED, ColorEnum.YELLOW, ColorEnum.WHITE) ? 0 : 3;
+        return BoardTraverser.searchForBuilding(BoardTraverser.getAdjacentBuildings(bArray, row, col), ColorEnum.GREEN, ColorEnum.YELLOW, ColorEnum.WHITE) ? 0 : 3;
     }
 
     @Override
