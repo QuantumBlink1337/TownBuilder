@@ -3,11 +3,9 @@ package TownBuilder.UI;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.ResourceEnum;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 
@@ -90,15 +88,18 @@ public class TileButton extends JButton {
         return coords[1];
     }
     private void updateImage(BuildingEnum buildingEnum) {
-        Image img = null;
         try {
-            img = ImageIO.read(new File("src/assets/buildings/"+buildingEnum.getColor().toString()+".png"));
+            URL iconUrl = this.getClass().getClassLoader().getResource(buildingEnum.getColor().toString()+".png");
+            Toolkit tk = this.getToolkit();
+            Image img = tk.getImage(iconUrl);
+            img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(128, true), UI_Utilities.convertBaseValueToScaledValue(128, false), Image.SCALE_DEFAULT);
+            setIcon(new ImageIcon(img));
         }
-        catch(IOException e) {
+        catch (Exception e) {
             e.printStackTrace();
+            setText(buildingEnum.toString());
         }
-        img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(128, true), UI_Utilities.convertBaseValueToScaledValue(128, false), Image.SCALE_DEFAULT);
-        setIcon(new ImageIcon(img));
+
     }
 
 
