@@ -93,14 +93,17 @@ public class InitializationUI extends JPanel {
      */
     private JPanel createMainMenuPanel() {
         JPanel panel = new JPanel(new MigLayout("" +
-                "","[][]"+UI_Utilities.convertIntToPercentString(20, true)+"[]", "[][]"+UI_Utilities.convertIntToPercentString(500, false)+"[]"));
+                "","[][]"+UI_Utilities.convertIntToPercentString(20, true)+"[]", "[][]"+UI_Utilities.convertIntToPercentString(100, false)+"[]"+UI_Utilities.convertIntToPercentString(500, false)));
         JLabel titleLabel = new JLabel("TownBuilder");
         Font headerFont = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(60f));
         titleLabel.setFont(headerFont);
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        JLabel promptLabel = new JLabel("What type of game would you like?");
+        JLabel promptLabel = new JLabel("Choose the buildings you'd like for your game.");
         promptLabel.setFont(headerFont);
         promptLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel explanationLabel = new JLabel("You can hover over each button to see a description of the buildings used.");
+        explanationLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(40f)));
+        explanationLabel.setHorizontalAlignment(SwingConstants.CENTER);
         Font buttonFont = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f));
         JButton defaultButton = new JButton("Default");
         defaultButton.setHorizontalAlignment(SwingConstants.CENTER);
@@ -135,6 +138,7 @@ public class InitializationUI extends JPanel {
         String sizeControl = "w " + UI_Utilities.convertIntToPercentString(500, true) + "!, h " + UI_Utilities.convertIntToPercentString(100, false) + "!";
         panel.add(titleLabel, "wrap, , align center");
         panel.add(promptLabel, " align center, wrap");
+        panel.add(explanationLabel, "wrap, align center");
         panel.add(defaultButton, "split 3, dock center, align center, " + sizeControl);
         panel.add(customButton, "dock center, align center," + sizeControl);
         panel.add(randomButton, "dock center, align center, " + sizeControl);
