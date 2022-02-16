@@ -7,8 +7,10 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ManualUI extends JPanel {
     final int RULES_CONSTANT = 3;
@@ -75,7 +77,8 @@ public class ManualUI extends JPanel {
         });
     }
     private void initializeBuildingMenu() {
-        manualBuildingSelectionPanel = new JPanel(new MigLayout("", "[]0[]0[]", "[]3[]3[]"));
+        final String rowConstant = UI_Utilities.convertIntToPercentString(10, false);
+        manualBuildingSelectionPanel = new JPanel(new MigLayout("", "[]0[]0[]", "[]"+rowConstant+"[]"+rowConstant+"[]"));
         Font font = manualBuildingSelectionPanel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f));
         for (Building building : buildingsForGame) {
             JPanel panel = initializeIndividualBuildingView(building);
@@ -87,7 +90,7 @@ public class ManualUI extends JPanel {
                 mainManualPanel.add(panel, "w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
                 mainManualPanel.updateUI();
             });
-            manualBuildingSelectionPanel.add(button, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
+            manualBuildingSelectionPanel.add(button, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(52, false) + "!");
         }
         JButton exitButton = new JButton();
         exitButton.setText("EXIT");
@@ -107,6 +110,13 @@ public class ManualUI extends JPanel {
         JLabel explanationLabel = new JLabel("Here's what it does:");
         JLabel matrixLabel = new JLabel("Here's what it looks like:");
         JLabel buildingLabel = new JLabel(building.toString());
+        JLabel image = new JLabel();
+        URL iconUrl = this.getClass().getClassLoader().getResource("buildings/"+building.getType().getColor().toString()+".png");
+        Toolkit tk = this.getToolkit();
+        Image img = tk.getImage(iconUrl);
+        img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(64, true), UI_Utilities.convertBaseValueToScaledValue(64, false), Image.SCALE_DEFAULT);
+        image.setIcon(new ImageIcon(img));
+        image.setHorizontalAlignment(SwingConstants.CENTER);
         Font font1 = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(25f));
         Font font2 = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f));
         Font font3 = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(24f));
@@ -132,8 +142,9 @@ public class ManualUI extends JPanel {
 
         });
         panel.add(buildingLabel, "dock center, wrap");
+        panel.add(image, "dock center, align center, wrap, h "+ UI_Utilities.convertIntToPercentString(64, false) + "!");
         panel.add(explanationLabel, "dock center, wrap");
-        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(125, false) + "!");
+        panel.add(jScrollPane, "dock center, wrap, h " + UI_Utilities.convertIntToPercentString(140, false) + "!");
         panel.add(matrixLabel, "dock center, wrap");
         panel.add(UI_Utilities.initializeBuildingMatrix(building), "dock center, wrap");
         panel.add(exitButton, "dock center, h " + UI_Utilities.convertIntToPercentString(40, false) + "!");
