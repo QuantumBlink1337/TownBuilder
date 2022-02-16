@@ -60,6 +60,15 @@ public class Bank implements Building{
     }
 
     @Override
+    public boolean getFedStatus() {
+        return false;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+
+    }
+    @Override
     public int getRow() {
         return row;
     }

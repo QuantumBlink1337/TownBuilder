@@ -13,14 +13,10 @@ public class Millstone implements Building{
     private final int row;
     private final int col;
     private boolean condition;
-    private boolean buildingFound = false;
 
     static {
         millstoneArray[0] = new ResourceEnum[]{ResourceEnum.WOOD, ResourceEnum.STONE};
         BuildingFactory.patternBuilder(millstoneArray, millstonePatternArray);
-        // millstoneArray[0] = new ResourceEnum[]{ResourceEnum.STONE, ResourceEnum.WOOD};
-        // BuildingFactory.patternBuilder(millstoneArray, millstonePatternArray, 3);
-
     }
     public Millstone(int r, int c) {
         row = r;
@@ -50,6 +46,16 @@ public class Millstone implements Building{
     }
 
     @Override
+    public boolean getFedStatus() {
+        return false;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+
+    }
+
+    @Override
     public int getRow() {
         return row;
     }
@@ -76,6 +82,6 @@ public class Millstone implements Building{
 
     @Override
     public String getManualEntry() {
-        return "The Millstone grants 2 points if it is adjacent to a RED building or a YELLOW building.\nNote: the maximum amount of points a Millstone can earn is 2.";
+        return "The Millstone grants 2 points if it is adjacent to a Red building or a Yellow building.\nNote: the maximum amount of points a Millstone can earn is 2.";
     }
 }

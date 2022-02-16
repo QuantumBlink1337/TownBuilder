@@ -29,11 +29,6 @@ public class Warehouse implements Building {
         warehouseArray[1] = new ResourceEnum[]{ResourceEnum.BRICK, ResourceEnum.NONE, ResourceEnum.BRICK};
         patternBuilder(warehouseArray, warehousePatternList);
     }
-//    public Warehouse(ResourceEnum a, ResourceEnum b, ResourceEnum c) {
-//        storedResources[0] = a;
-//        storedResources[1] = b;
-//        storedResources[2] = c;
-//    }
     public BuildingEnum getType() {
         return BuildingEnum.WAREHOUSE;
     }
@@ -45,6 +40,16 @@ public class Warehouse implements Building {
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public boolean getFedStatus() {
+        return false;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+
     }
 
     @Override

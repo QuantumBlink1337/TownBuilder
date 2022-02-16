@@ -12,6 +12,7 @@ public class Cottage implements Building {
     private boolean condition;
     private final int row;
     private final int col;
+    private boolean isFed;
     private static final ResourceEnum[][] cottageArray = new ResourceEnum[2][2];
     private static final ArrayList<ResourceEnum[][]> cottagePatternList = new ArrayList<>();
 
@@ -36,6 +37,16 @@ public class Cottage implements Building {
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public boolean getFedStatus() {
+        return isFed;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+        isFed = condition;
     }
 
     @Override
@@ -67,7 +78,7 @@ public class Cottage implements Building {
     }
     public int scorer(Building[][] bArray) throws IOException {
         DebugTools.logging("["+Utility.lengthResizer(this.getType().toString(), 9)+"] - SCORING: Beginning scoring protocol. Condition: " + condition);
-        return condition ? 3 : 0;
+        return isFed ? 3 : 0;
     }
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {

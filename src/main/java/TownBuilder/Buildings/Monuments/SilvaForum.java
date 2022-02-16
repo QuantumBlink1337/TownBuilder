@@ -20,7 +20,6 @@ public class SilvaForum implements Monument{
     private final int row;
     private final int col;
     private final Board board;
-    private int score;
     private boolean condition;
     static {
         pattern[0] = new ResourceEnum[]{ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.WHEAT, ResourceEnum.NONE};
@@ -57,6 +56,16 @@ public class SilvaForum implements Monument{
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public boolean getFedStatus() {
+        return false;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+
     }
 
     @Override

@@ -11,7 +11,6 @@ public class Fountain implements Building{
     private static final ArrayList<ResourceEnum[][]> fountainPatternArray = new ArrayList<>();
     private final int row;
     private final int col;
-    private final String color = "gray";
     private boolean condition;
 
     static {
@@ -46,6 +45,16 @@ public class Fountain implements Building{
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public boolean getFedStatus() {
+        return false;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+
     }
 
     @Override

@@ -44,6 +44,16 @@ public class Greenhouse implements Building {
     }
 
     @Override
+    public boolean getFedStatus() {
+        return false;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+
+    }
+
+    @Override
     public int getRow() {
         return row;
     }
@@ -71,7 +81,7 @@ public class Greenhouse implements Building {
         DebugTools.logging("Beginning Greenhouse Turn Interval");
         for (Building building : contiguousCheck(buildingBoard)) {
             DebugTools.logging("Feeding " + DebugTools.buildingInformation(building));
-            building.setCondition(true);
+            building.setFedStatus(true);
         }
     }
     private ArrayList<Building> contiguousCheck(Building[][] buildingBoard) throws IOException {

@@ -51,6 +51,16 @@ public class Starloom implements Monument{
     }
 
     @Override
+    public boolean getFedStatus() {
+        return false;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+
+    }
+
+    @Override
     public boolean isFeedable() {
         return false;
     }

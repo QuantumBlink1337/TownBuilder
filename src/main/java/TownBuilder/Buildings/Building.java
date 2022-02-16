@@ -13,6 +13,8 @@ public interface Building extends Placeable {
     BuildingEnum getType();
     boolean getCondition();
     void setCondition(boolean condition);
+    boolean getFedStatus();
+    void setFedStatus(boolean condition);
     boolean isFeedable();
 
     int scorer(Building[][] bArray) throws IOException;

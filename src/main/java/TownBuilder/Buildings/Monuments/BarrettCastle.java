@@ -15,6 +15,7 @@ public class BarrettCastle implements Monument {
     private final int row;
     private final int col;
     private boolean condition;
+    private boolean isFed;
 
     static {
         pattern[0] = new ResourceEnum[]{ResourceEnum.WHEAT, ResourceEnum.NONE, ResourceEnum.NONE, ResourceEnum.WOOD};
@@ -48,6 +49,16 @@ public class BarrettCastle implements Monument {
     @Override
     public void setCondition(boolean condition) {
         this.condition = condition;
+    }
+
+    @Override
+    public boolean getFedStatus() {
+        return isFed;
+    }
+
+    @Override
+    public void setFedStatus(boolean condition) {
+        isFed = condition;
     }
 
     @Override
