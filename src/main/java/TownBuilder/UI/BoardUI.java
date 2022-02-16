@@ -132,9 +132,8 @@ public class BoardUI extends JPanel {
         /*
             Subpanel for interactive components appearing on the right of the screen. Hosts the Manual, Active Buildings UI, and the Scorer.
          */
-        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(520, false)+"!");
+        rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(650, false)+"!");
         rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, false)+"!");
-        //rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
         /*
             mainPanel combines the three main subpanels and places them in the appropriate area.
          */
