@@ -45,12 +45,6 @@ public class BoardUI extends JPanel {
     }
 
     private boolean playerRestart = false;
-
-    public BuildingEnum getMonumentSelection() {
-        return monumentSelection;
-    }
-
-    private BuildingEnum monumentSelection;
     JLabel turnResourceText;
     JLabel secondaryTextLabel = new JLabel();
     JLabel buildingSelectionLabel;
@@ -85,7 +79,7 @@ public class BoardUI extends JPanel {
     /*
         Generates all necessary panels and adds them sequentially first to their own sub panels, then to the BoardUI object itself.
      */
-    public BoardUI(Board board) throws IOException {
+    public BoardUI(Board board) {
         this.board = board;
         this.playerName = board.getBoardName();
         buildings = board.getScorableBuildings();
@@ -493,15 +487,17 @@ public class BoardUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         panel.setBorder(new LineBorder(Color.BLACK, 2));
         JButton button = new JButton("Restart Game");
-        button.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(24f)));
+        button.setFont(panel.getFont().deriveFont(Font.BOLD,UI_Utilities.convertFontSize(24f)));
         button.setHorizontalAlignment(SwingConstants.CENTER);
         button.addActionListener(e -> {
             playerRestart = true;
+            selectedCoords = null;
+            coordinatesClicked = false;
             synchronized (board.getNotifier()) {
                 board.getNotifier().notify();
             }
         });
-        panel.add(button);
+        panel.add(button, "w "+UI_Utilities.INTERACTIVE_PANEL_WIDTH);
         return panel;
     }
     public void setSelectedResourceForTurn(ResourceEnum resource) {
