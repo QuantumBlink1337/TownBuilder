@@ -24,7 +24,7 @@ public class ScoreUI extends JPanel {
         setBorder(new LineBorder(Color.BLACK, 2));
     }
     private JPanel createMainScorerPanel() {
-        JPanel panel = new JPanel(new MigLayout());
+        JPanel panel = new JPanel(new MigLayout("", "0[]0"));
         JLabel mainLabel = new JLabel("Scorer");
         mainLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(36f)));
         mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -41,7 +41,7 @@ public class ScoreUI extends JPanel {
             }
             updateUI();
         });
-        panel.add(mainLabel, "align center, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+", wrap");
+        panel.add(mainLabel, "align center, w "+ UI_Utilities.convertIntToPercentString(434, true)+", wrap");
         panel.add(scorerButton, "dock center");
         return panel;
     }
@@ -52,7 +52,7 @@ public class ScoreUI extends JPanel {
         JLabel scoreLabel = new JLabel();
         JButton exitButton = new JButton("EXIT");
         Font labelFont = panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f));
-        scoreLabel.setText("Total Score: " + score + " Penalty: " + board.getScorer().getResourcePenalty());
+        scoreLabel.setText("Total Score: " + score);
         scoreLabel.setFont(labelFont);
         scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(scoreLabel, "align center, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH+", wrap");
@@ -65,6 +65,16 @@ public class ScoreUI extends JPanel {
             label.setHorizontalAlignment(SwingConstants.CENTER);
             panel.add(label, "Wrap, dock center, h " + UI_Utilities.convertIntToPercentString(35, false) + "!");
         }
+        StringBuilder penaltyString = new StringBuilder();
+        int penalty = board.getScorer().getResourcePenalty();
+        if (penalty > 0) {
+            penaltyString.append("-");
+        }
+        penaltyString.append(penalty);
+        JLabel penaltyLabel = new JLabel("Resource Penalty: " + penaltyString);
+        penaltyLabel.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(24f)));
+        penaltyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(penaltyLabel, "Wrap, dock center, h " + UI_Utilities.convertIntToPercentString(35, false) + "!");
         exitButton.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(24f)));
         exitButton.setHorizontalAlignment(SwingConstants.CENTER);
         exitButton.addActionListener(e -> {
