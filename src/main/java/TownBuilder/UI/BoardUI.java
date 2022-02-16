@@ -124,6 +124,8 @@ public class BoardUI extends JPanel {
          */
         leftInteractionPanel.add(otherBoardsPanel, "wrap, h "+UI_Utilities.convertIntToPercentString(350, false));
         leftInteractionPanel.add(restartButtonPanel, "wrap, align center");
+        leftInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
+
         if (!board.isSingleplayer()) {
             restartButtonPanel.setVisible(false);
         }
@@ -132,7 +134,7 @@ public class BoardUI extends JPanel {
          */
         rightInteractionPanel.add(manualPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(520, false)+"!");
         rightInteractionPanel.add(activeBuildingPanel, "Wrap, h "+UI_Utilities.convertIntToPercentString(300, false)+"!");
-        rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
+        //rightInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
         /*
             mainPanel combines the three main subpanels and places them in the appropriate area.
          */
