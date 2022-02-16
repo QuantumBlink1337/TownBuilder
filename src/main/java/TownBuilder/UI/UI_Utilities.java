@@ -42,6 +42,7 @@ public class UI_Utilities {
         for (ResourceEnum[] resourceEnums : buildingPattern) {
             for (ResourceEnum resourceEnum : resourceEnums) {
                 JButton temp = new JButton(resourceEnum.toString());
+                temp.setFont(tilePanel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(20f)));
                 temp.setBackground(resourceEnum.getColor().getOverallColor());
                 if (temp.getText().equals("NONE")) {
                     temp.setVisible(false);
