@@ -128,7 +128,11 @@ public class BoardUI extends JPanel {
         /*
             Subpanel for interactive components appearing on the left of the screen. Currently, hosts the screen peeking panel.
          */
-        leftInteractionPanel.add(otherBoardsPanel, "Wrap, h " + UI_Utilities.convertIntToPercentString(500, false) + "!");
+        leftInteractionPanel.add(otherBoardsPanel, "wrap, h "+UI_Utilities.convertIntToPercentString(350, false));
+        leftInteractionPanel.add(restartButtonPanel, "wrap, align center");
+        if (!board.isSingleplayer()) {
+            restartButtonPanel.setVisible(false);
+        }
         /*
             Subpanel for interactive components appearing on the right of the screen. Hosts the Manual, Active Buildings UI, and the Scorer.
          */
