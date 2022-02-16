@@ -40,6 +40,11 @@ public class Board {
     private boolean isGameCompletion = false;
     private boolean turnOver = false;
     private boolean placeAnywhere = false;
+
+    public boolean isSingleplayer() {
+        return isSingleplayer;
+    }
+
     private final boolean isSingleplayer;
     private final String boardName;
     private final Resource[][] gameResourceBoard = new Resource[4][4];
