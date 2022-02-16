@@ -36,6 +36,16 @@ public class BoardUI extends JPanel {
     private final ArrayList<Building> buildings;
     private final Board board;
 
+    public boolean isPlayerRestart() {
+        return playerRestart;
+    }
+
+    public void setPlayerRestart(boolean playerRestart) {
+        this.playerRestart = playerRestart;
+    }
+
+    private boolean playerRestart = false;
+
     public BuildingEnum getMonumentSelection() {
         return monumentSelection;
     }
@@ -57,6 +67,7 @@ public class BoardUI extends JPanel {
 
 
     final ActiveBuildingsUI activeBuildingPanel;
+    final JPanel restartButtonPanel;
     final ManualUI manualPanel;
     final ScoreUI scorePanel;
 
@@ -83,6 +94,7 @@ public class BoardUI extends JPanel {
         boardMatrixPanel = createBoardMatrix();
         resourceSelectionPanel = createResourceSelectionButtonPanel();
         resourcePromptTextPanel = createResourceTextPanel();
+        restartButtonPanel = createPlayerRestartPanel();
         activeBuildingPanel = new ActiveBuildingsUI(tileAccessMatrix, board, this);
         scorePanel = new ScoreUI(board);
         YesOrNoPanel = createYesNoPrompt();
@@ -468,6 +480,21 @@ public class BoardUI extends JPanel {
                 panel.add(button, "wrap, dock center");
             }
         }
+        return panel;
+    }
+    private JPanel createPlayerRestartPanel() {
+        JPanel panel = new JPanel(new MigLayout());
+        panel.setBorder(new LineBorder(Color.BLACK, 2));
+        JButton button = new JButton("Restart Game");
+        button.setFont(panel.getFont().deriveFont(UI_Utilities.convertFontSize(24f)));
+        button.setHorizontalAlignment(SwingConstants.CENTER);
+        button.addActionListener(e -> {
+            playerRestart = true;
+            synchronized (board.getNotifier()) {
+                board.getNotifier().notify();
+            }
+        });
+        panel.add(button);
         return panel;
     }
     /*

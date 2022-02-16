@@ -429,6 +429,11 @@ public class Board {
                 gameResourceBoard[coords[0]][coords[1]].setResource(currentResourceForTurn);
                 turnOver = true;
             }
+            else if (boardUI.isPlayerRestart()) {
+                resetBoard();
+                boardUI.setPlayerRestart(false);
+                turnOver = true;
+            }
             /*
                 Otherwise, redirect to the appropriate active building option.
              */
@@ -472,6 +477,21 @@ public class Board {
         }
         if (activeBuilding) {
             boardUI.getActiveBuildingPanel().updateActiveBuildings();
+        }
+    }
+    public void resetBoard() throws IOException {
+        boardUI.promptYesNoPrompt("Are you sure you want to reset your board?");
+        synchronized (Utility.getNotifier()) {
+            try {
+                Utility.getNotifier().wait();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        if (boardUI.getUserYesNoAnswer()) {
+            buildArrays();
+            updateBoard();
         }
     }
 
