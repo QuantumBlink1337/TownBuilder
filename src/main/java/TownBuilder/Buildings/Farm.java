@@ -59,11 +59,6 @@ public class Farm implements Building {
         return false;
     }
 
-    public void printManualText() {
-        System.out.println("The Farm feeds up to four buildings on the board.");
-        System.out.println("Here's what it looks like:");
-    }
-
     @Override
     public String getManualEntry() {
         return "The Farm feeds up to four buildings on the board.";

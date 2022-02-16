@@ -1,7 +1,6 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
@@ -71,12 +70,6 @@ public class TradingPost implements Building{
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("The Trading Post earns one point. The Trading Post acts as any resource when\nconstructing a building.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

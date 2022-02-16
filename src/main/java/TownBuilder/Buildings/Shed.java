@@ -1,6 +1,5 @@
 package TownBuilder.Buildings;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
@@ -52,10 +51,6 @@ public class Shed implements Building {
     @Override
     public boolean isFeedable() {
         return false;
-    }
-
-    public void printManualText() {
-        System.out.println("Grants one point. May be placed on any empty square on your board.");
     }
 
     @Override

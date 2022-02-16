@@ -59,11 +59,6 @@ public class Chapel implements Building {
         return false;
     }
 
-    public void printManualText() {
-        System.out.println("The Chapel grants one point for each fed Cottage.");
-        System.out.println("Here's what it looks like:");
-    }
-
     @Override
     public String getManualEntry() {
         return "The Chapel grants one point for each fed Cottage.";

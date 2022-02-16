@@ -5,7 +5,6 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,16 +76,6 @@ public class Starloom implements Monument{
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
         //
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("Grants points based on when you finish your board:");
-        System.out.print("1st: 6 Points | ");
-        System.out.print("2nd: 3 Points | ");
-        System.out.print("3rd: 2 Points | ");
-        System.out.print("4th+: 0 Points\n");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

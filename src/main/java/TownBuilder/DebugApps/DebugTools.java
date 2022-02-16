@@ -11,23 +11,10 @@ import java.io.IOException;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class DebugTools {
-    /*
-        0 = no logging at all
-        1 = notifications of protocols triggering
-        2 = notification of successful conditions of a protocol
-        3 = notifications of everything
-
-        each level of verbosity supersedes the next (e.g. verbosity of 2 also includes 1)
-
-     */
     private static final File log = new File("latest.log");
     private static BufferedWriter bufferedWriter = null;
     private static boolean success;
 
-
-    static {
-        //initFile();
-    }
 
     public static void initFile() {
         try {

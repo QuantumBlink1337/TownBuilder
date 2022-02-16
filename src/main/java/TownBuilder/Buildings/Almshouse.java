@@ -1,7 +1,6 @@
 package TownBuilder.Buildings;
 
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
@@ -82,18 +81,6 @@ public class Almshouse implements Building{
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         condition = false;
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("The Almshouse grants points based on how many Almshouses you have:");
-        System.out.print("1 Almshouse: -1 Points | ");
-        System.out.print("2 Almshouses: 5 Points | ");
-        System.out.print("3 Almshouses: -3 Points | ");
-        System.out.print("4 Almshouses: 15 Points | ");
-        System.out.print("5 Almshouses: -5 Points | ");
-        System.out.print("6 Almshouses: 26 Points");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

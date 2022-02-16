@@ -2,7 +2,6 @@ package TownBuilder.Buildings;
 
 import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,12 +71,6 @@ public class Fountain implements Building{
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("The Fountain grants 2 points for each adjacent Fountain.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

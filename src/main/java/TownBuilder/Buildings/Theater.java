@@ -82,10 +82,6 @@ public class Theater implements Building
     public ArrayList<ResourceEnum[][]> getBuildingPatternsList() {
         return theaterPatternList;
     }
-    public void printManualText() {
-        System.out.println("The Theater grants one point for each unique building in it's row and column.");
-        System.out.println("Here's what it looks like:");
-    }
 
     @Override
     public String getManualEntry() {

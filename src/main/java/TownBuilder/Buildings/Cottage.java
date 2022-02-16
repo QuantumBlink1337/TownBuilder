@@ -57,11 +57,6 @@ public class Cottage implements Building {
         return true;
     }
 
-    public void printManualText() {
-        System.out.println("The Cottage is a building grants three points when it is fed.");
-        System.out.println("Here's what it looks like:");
-    }
-
     @Override
     public String getManualEntry() {
         return "The Cottage grants three points when it is fed.";

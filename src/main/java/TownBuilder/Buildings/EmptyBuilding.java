@@ -67,12 +67,6 @@ public class EmptyBuilding implements Building {
     }
 
     @Override
-    public void printManualText() {
-        System.out.println("Hello! You're attempting to use a redundant method on a worthless building. If somehow you see this message," +
-                "contact me on GitHub. Something went extremely wrong! <3");
-    }
-
-    @Override
     public String getManualEntry() {
         return "Something is wrong if you see this message. Contact me on GitHub if this appears.";
     }

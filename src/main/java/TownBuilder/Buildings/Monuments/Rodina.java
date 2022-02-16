@@ -5,7 +5,6 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,12 +72,6 @@ public class Rodina implements Monument{
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
 
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("3 Points for each unfed cottage.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

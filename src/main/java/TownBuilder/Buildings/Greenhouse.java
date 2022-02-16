@@ -3,7 +3,6 @@ package TownBuilder.Buildings;
 import TownBuilder.BoardTraverser;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -93,11 +92,6 @@ public class Greenhouse implements Building {
         }
         contiguousBuildings.removeIf(building -> !BuildingFactory.determineFeedStatus(building));
         return contiguousBuildings;
-    }
-    @Override
-    public void printManualText() {
-        System.out.println("The Greenhouse feeds a contiguous group of feedable buildings on the board.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

@@ -5,7 +5,6 @@ import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.DebugApps.DebugTools;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,11 +74,6 @@ public class BarrettCastle implements Monument {
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         //
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("Five points if fed. Barrett Castle counts as two Blue buildings\nfor scoring purposes.");
     }
 
     @Override

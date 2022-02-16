@@ -69,12 +69,6 @@ public class Warehouse implements Building {
         return false;
     }
 
-    public void printManualText() {
-        System.out.println("While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.");
-        System.out.println("Note: these resources still count as a negative point!");
-        System.out.println("Here's what it looks like:");
-    }
-
     @Override
     public String getManualEntry() {
         return "While the Warehouse earns no points, it does allow you to store up to three resources inside of it, off the board.\nNote: these resources still count as a negative point!";

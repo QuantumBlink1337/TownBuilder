@@ -5,7 +5,6 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,12 +64,6 @@ public class Obelisk implements Monument {
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
 
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("You may place all future buildings on any empty square on your board.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

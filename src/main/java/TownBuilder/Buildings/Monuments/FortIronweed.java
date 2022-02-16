@@ -5,7 +5,6 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.util.ArrayList;
 
@@ -77,13 +76,6 @@ public class FortIronweed implements Monument {
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("Earns 7 points. You may not choose a resource for the rest of the game,\n unless you are the only player left.");
-        System.out.println("Here's what it looks like:");
-
     }
 
     @Override

@@ -4,7 +4,6 @@ import TownBuilder.Board;
 import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
-import TownBuilder.Resource;
 import TownBuilder.ResourceEnum;
 
 import java.io.IOException;
@@ -77,19 +76,6 @@ public class Shrine implements Monument {
     @Override
     public void onTurnInterval(Building[][] buildingBoard) throws IOException {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("Grants points based on how many buildings were on your board\nwhen you built Shrine of the Elder Tree.");
-        System.out.print("1: 1 Points");
-        System.out.print("2: 2 Points");
-        System.out.print("3: 3 Points");
-        System.out.print("4: 4 Points");
-        System.out.print("5: 5 Points");
-        System.out.print("6: 8 Points\n");
-        System.out.println("Note: If this is the 7th or more building you've built, it still only earns 8 points.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

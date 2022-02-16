@@ -3,7 +3,6 @@ package TownBuilder.Buildings;
 import TownBuilder.BoardTraverser;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,13 +72,6 @@ public class Millstone implements Building{
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("The Millstone grants 2 points if it is adjacent to a RED building or a YELLOW building.");
-        System.out.println("Note: the maximum amount of points a Millstone can earn is 2.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

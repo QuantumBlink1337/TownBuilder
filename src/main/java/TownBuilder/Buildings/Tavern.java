@@ -57,16 +57,6 @@ public class Tavern implements Building {
         return false;
     }
 
-    public void printManualText() {
-        System.out.println("The Tavern grants points based on how many Taverns you have:");
-        System.out.print("1 Tavern: 2 Points | ");
-        System.out.print("2 Taverns: 5 Points | ");
-        System.out.print("3 Taverns: 9 Points | ");
-        System.out.print("4 Taverns: 14 Points | ");
-        System.out.print("5 Taverns: 20 Points\n");
-        System.out.println("Here's what it looks like:");
-    }
-
     @Override
     public String getManualEntry() {
         return "The Tavern grants points based on how many Taverns you have:\n1 Tavern: 2 Points\n2 Taverns: 5 Points\n3 Taverns: 9 Points\n4 Taverns: 14 Points\n5 Taverns: 20 Points";

@@ -5,7 +5,7 @@ import TownBuilder.Buildings.Building;
 import TownBuilder.Buildings.BuildingEnum;
 import TownBuilder.Buildings.BuildingFactory;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
+
 import java.util.ArrayList;
 
 public class Caterina implements Monument {
@@ -72,12 +72,6 @@ public class Caterina implements Monument {
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("The Cathedral of Caterina is worth 2 points. Tiles with resources\non them are worth 0 points instead of -1.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface Building extends Placeable {
 
     int scorer(Building[][] bArray) throws IOException;
     void onTurnInterval(Building[][] buildingBoard) throws IOException;
-    void printManualText();
+
     String getManualEntry();
 
 }

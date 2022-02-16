@@ -81,12 +81,6 @@ public class MandrasPalace implements Monument {
     }
 
     @Override
-    public void printManualText() {
-        System.out.println("2 points for each unique adjacent building.");
-        System.out.println("Here's what it looks like:");
-    }
-
-    @Override
     public String getManualEntry() {
         return "2 points for each unique adjacent building.";
     }

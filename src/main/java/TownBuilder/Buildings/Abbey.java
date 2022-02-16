@@ -3,7 +3,6 @@ package TownBuilder.Buildings;
 import TownBuilder.BoardTraverser;
 import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,12 +70,6 @@ public class Abbey implements Building {
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("The Abbey grants 3 points if it's not adjacent to a Green, Yellow, or White building.");
-        System.out.println("Here's what it looks like:");
     }
 
     @Override

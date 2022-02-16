@@ -2,7 +2,6 @@ package TownBuilder.Buildings;
 
 import TownBuilder.BoardTraverser;
 import TownBuilder.ResourceEnum;
-import TownBuilder.Utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,14 +68,6 @@ public class Cloister implements Building {
     @Override
     public void onTurnInterval(Building[][] buildingBoard) {
         // nothing
-    }
-
-    @Override
-    public void printManualText() {
-        System.out.println("The Cloister earns 1 point for every Orange building in a corner of your board.");
-        System.out.println("Note: a Cloister not in a corner still earns points, but it doesn't contribute to other Cloisters.");
-        System.out.println("Here's what it looks like:");
-
     }
 
     @Override

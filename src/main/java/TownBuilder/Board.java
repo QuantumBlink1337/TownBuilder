@@ -490,6 +490,7 @@ public class Board {
         }
         if (boardUI.getUserYesNoAnswer()) {
             buildArrays();
+            boardUI.resetBoardTiles(false, false);
             updateBoard();
         }
     }
