@@ -1,10 +1,14 @@
 package TownBuilder.UI;
 
 import TownBuilder.Buildings.Building;
+import TownBuilder.ColorEnum;
 import TownBuilder.ResourceEnum;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Objects;
 
 
 public class UI_Utilities {
@@ -13,6 +17,7 @@ public class UI_Utilities {
     static final int SCREEN_HEIGHT = SCREEN_SIZE.height;
     static final int SCREEN_WIDTH = SCREEN_SIZE.width;
     static final String INTERACTIVE_PANEL_WIDTH = convertIntToPercentString(420, true);
+    static final HashMap<ColorEnum, ImageIcon> buildingIcons = new HashMap<>();
 
 
     public static String convertIntToPercentString(int value, boolean isWidth) {
@@ -45,6 +50,26 @@ public class UI_Utilities {
             }
         }
         return tilePanel;
+    }
+    public static ImageIcon getBuildingIcon(ColorEnum colorEnum) {
+        if (buildingIcons.containsKey(colorEnum)) {
+            return buildingIcons.get(colorEnum);
+        }
+        else {
+            try {
+                Object object = new Object();
+                URL iconUrl = object.getClass().getClassLoader().getResource("buildings/"+colorEnum.toString()+".png");
+                Toolkit tk = Toolkit.getDefaultToolkit();
+                Image img = tk.getImage(iconUrl);
+                img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(128, true), UI_Utilities.convertBaseValueToScaledValue(128, false), Image.SCALE_DEFAULT);
+                buildingIcons.put(colorEnum, new ImageIcon(img));
+                return buildingIcons.get(colorEnum);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
 

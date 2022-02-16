@@ -94,17 +94,7 @@ public class TileButton extends JButton {
         return coords[1];
     }
     private void updateImage(BuildingEnum buildingEnum) {
-        try {
-            URL iconUrl = this.getClass().getClassLoader().getResource("buildings/"+buildingEnum.getColor().toString()+".png");
-            Toolkit tk = this.getToolkit();
-            Image img = tk.getImage(iconUrl);
-            img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(128, true), UI_Utilities.convertBaseValueToScaledValue(128, false), Image.SCALE_DEFAULT);
-            setIcon(new ImageIcon(img));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            setText(buildingEnum.toString());
-        }
+        setIcon(UI_Utilities.getBuildingIcon(buildingEnum.getColor()));
 
     }
 
