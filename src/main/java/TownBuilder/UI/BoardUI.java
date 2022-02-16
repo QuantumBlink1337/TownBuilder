@@ -123,8 +123,8 @@ public class BoardUI extends JPanel {
             Subpanel for interactive components appearing on the left of the screen. Currently, hosts the screen peeking panel.
          */
         leftInteractionPanel.add(otherBoardsPanel, "wrap, h "+UI_Utilities.convertIntToPercentString(350, false));
+        leftInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(500, false)+"!, wrap");
         leftInteractionPanel.add(restartButtonPanel, "wrap, align center");
-        leftInteractionPanel.add(scorePanel, "h "+UI_Utilities.convertIntToPercentString(550, false)+"!");
 
         if (!board.isSingleplayer()) {
             restartButtonPanel.setVisible(false);
@@ -443,9 +443,9 @@ public class BoardUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         panel.setBorder(new LineBorder(Color.BLACK, 2));
         JLabel label = new JLabel("Other Players");
-        label.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
+        label.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(36f)));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(label, "align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
+        panel.add(label, "align center, wrap, w "+ UI_Utilities.convertIntToPercentString(430, true) + "!");
         ArrayList<Board> boards = board.getPlayerManager().getBoards();
         for (Board board : boards) {
             if (board != this.board) {
@@ -489,7 +489,7 @@ public class BoardUI extends JPanel {
         JPanel panel = new JPanel(new MigLayout());
         panel.setBorder(new LineBorder(Color.BLACK, 2));
         JButton button = new JButton("Restart Game");
-        button.setFont(panel.getFont().deriveFont(Font.BOLD,UI_Utilities.convertFontSize(24f)));
+        button.setFont(panel.getFont().deriveFont(Font.BOLD,UI_Utilities.convertFontSize(36f)));
         button.setHorizontalAlignment(SwingConstants.CENTER);
         button.addActionListener(e -> {
             playerRestart = true;
@@ -499,7 +499,7 @@ public class BoardUI extends JPanel {
                 board.getNotifier().notify();
             }
         });
-        panel.add(button, "w "+UI_Utilities.INTERACTIVE_PANEL_WIDTH);
+        panel.add(button, "w "+UI_Utilities.convertIntToPercentString(430, true) + "!");
         return panel;
     }
     public void setSelectedResourceForTurn(ResourceEnum resource) {
