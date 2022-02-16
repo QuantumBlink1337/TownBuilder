@@ -77,7 +77,6 @@ public class Board {
         scorer = new Scorer(this, scorableBuildings);
         notifier = new Object();
         boardUI = new BoardUI(this);
-        boardUI.initializeBoard();
         buildArrays();
         updateBoard();
     }

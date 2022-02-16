@@ -99,13 +99,16 @@ public class BoardUI extends JPanel {
         scorePanel = new ScoreUI(board);
         YesOrNoPanel = createYesNoPrompt();
         buildingSelectingPanel = createBuildingSelectionPanel();
-        otherBoardsPanel = createPlayerViewPanel();
         resourcePromptTextPanel.setVisible(false);
         YesOrNoPanel.setVisible(false);
 
     }
     public void initializeBoard() {
-
+        /*
+            This is dependent on other boards being initialized so we can really only initialize this
+            panel when PlayerManager can provide us with a full list.
+         */
+        otherBoardsPanel = createPlayerViewPanel();
         /*
             Subpanel for "user prompt" actions. E.g. Yes/No, selecting a resource/building, etc.
             Appears in the bottom center of the screen.
@@ -442,7 +445,7 @@ public class BoardUI extends JPanel {
         JLabel label = new JLabel("Other Players");
         label.setFont(panel.getFont().deriveFont(Font.BOLD, UI_Utilities.convertFontSize(30f)));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(label, "dock center, align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
+        panel.add(label, "align center, wrap, w "+ UI_Utilities.INTERACTIVE_PANEL_WIDTH + "!");
         ArrayList<Board> boards = board.getPlayerManager().getBoards();
         for (Board board : boards) {
             if (board != this.board) {
@@ -477,7 +480,7 @@ public class BoardUI extends JPanel {
                         mainPanel.updateUI();
                     }
                 });
-                panel.add(button, "wrap, dock center");
+                panel.add(button, "wrap, dock center, align center");
             }
         }
         return panel;
@@ -497,14 +500,6 @@ public class BoardUI extends JPanel {
         panel.add(button);
         return panel;
     }
-    /*
-        Allows the PlayerManager to forcibly remove otherBoardsPanel and generate new ones for each player added.
-     */
-    public void createPlayerView() {
-        leftInteractionPanel.remove(otherBoardsPanel);
-        leftInteractionPanel.add(createPlayerViewPanel(), "wrap, cell 0 0");
-    }
-
     public void setSelectedResourceForTurn(ResourceEnum resource) {
         selectedResourceForTurn = resource;
         turnResourceText.setText("Your resource for this turn is "+ selectedResourceForTurn+ ". Where would you like to place it?");

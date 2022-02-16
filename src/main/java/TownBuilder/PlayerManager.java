@@ -103,7 +103,7 @@ public class PlayerManager {
         Driver.getGameFrame().remove(initializationUI);
         Driver.initFrame(); // reset Frame when removing the initialization panel. it will not appear again in the program
         for (Board board : boards) {
-            board.getBoardUI().createPlayerView();
+            board.getBoardUI().initializeBoard();
         }
     }
     // returns true if there is at least one Board that is still able to place things
