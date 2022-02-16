@@ -111,9 +111,7 @@ public class ManualUI extends JPanel {
         JLabel matrixLabel = new JLabel("Here's what it looks like:");
         JLabel buildingLabel = new JLabel(building.toString());
         JLabel image = new JLabel();
-        URL iconUrl = this.getClass().getClassLoader().getResource("buildings/"+building.getType().getColor().toString()+".png");
-        Toolkit tk = this.getToolkit();
-        Image img = tk.getImage(iconUrl);
+        Image img = UI_Utilities.getBuildingIcon(building.getType().getColor());
         img = Objects.requireNonNull(img).getScaledInstance(UI_Utilities.convertBaseValueToScaledValue(64, true), UI_Utilities.convertBaseValueToScaledValue(64, false), Image.SCALE_DEFAULT);
         image.setIcon(new ImageIcon(img));
         image.setHorizontalAlignment(SwingConstants.CENTER);
