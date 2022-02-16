@@ -456,13 +456,9 @@ public class BoardUI extends JPanel {
                 button.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        try {
-                            thisBoard.updateBoard(board.getGameResourceBoard(), board.getGameBuildingBoard());
-                            resetBoardTiles(true, true);
+                        thisBoard.updateBoard(board.getGameResourceBoard(), board.getGameBuildingBoard());
+                        resetBoardTiles(true, true);
 
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
                         mainPanel.updateUI();
                     }
 

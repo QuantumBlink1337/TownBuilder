@@ -460,7 +460,7 @@ public class Board {
         Handles updating each of the resource and building matrices with their new placement information, and also
         calls the GUI update for the displayable matrix.
      */
-    public void updateBoard(Resource[][] gRB, Building[][] gBB) throws IOException {
+    public void updateBoard(Resource[][] gRB, Building[][] gBB) {
         TileButton[][] accessMatrix = boardUI.getTileAccessMatrix();
         boolean activeBuilding = false;
         for (int row = 0; row < gRB.length; row++) {
