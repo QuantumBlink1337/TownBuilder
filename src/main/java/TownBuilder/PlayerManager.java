@@ -228,8 +228,15 @@ public class PlayerManager {
             // if board is game complete, score them
             if (boardComplete(pickResourceBoard)) {
                 DebugTools.logging("[MULTIPLAYER_TURN] - Scored Board " + pickResourceBoard.getBoardName());
-                int score = pickResourceBoard.scoring();
-                System.out.println(pickResourceBoard.getBoardName() + "'s final score: " + score);
+                pickResourceBoard.getBoardUI().promptFinalScoreView();
+                synchronized (Utility.getNotifier()) {
+                    try {
+                        Utility.getNotifier().wait();
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             // now that we have our resource picked, loop for remaining players
             for (int p = 0; p < multiplayerModifiableBoards.size(); p++) {
@@ -242,6 +249,15 @@ public class PlayerManager {
                     if (boardComplete(temp)) {
                         // if game is complete, remove them permanently from board list
                         multiplayerModifiableBoards.remove(temp);
+                        temp.getBoardUI().promptFinalScoreView();
+                        synchronized (Utility.getNotifier()) {
+                            try {
+                                Utility.getNotifier().wait();
+                            }
+                            catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
                 Driver.getGameFrame().remove(temp.getBoardUI());
